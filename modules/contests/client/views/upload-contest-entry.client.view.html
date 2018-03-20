@@ -1,0 +1,235 @@
+<div class="row project-backgroundimage5 hidden-xs">
+        <div class="container about-investor-title-setting">
+<br>
+            <h3 class="investor-heading p-t-sm" style="font-size:20px;">콘테스트 지원 등록</h3>
+            <h3 class="investor-para">
+               
+            </h3>
+            <br><br>
+          </div>
+      </div>
+
+<section autoscroll="true" ng-controller="ContestsController" ng-init="findOne(); universalData()">
+
+  <!-- top banner with yellow back ground -->
+  <!-- contest top information -->
+  <div class="row bg-primary julab-color" style="background: #83817c; margin-top: 0px">
+    <div class="col-xs-12 col-md-6">
+      <!-- contest title -->
+      <h3 class="p-l-lg m-l-lg p-ml-none m-ml-none h3-mobile-font"><strong class="p-l-lg p-ml-none">{{thisContest.name}}</strong></h3>
+    </div>
+    <div class="col-xs-12 col-md-6 text-right">
+      <!-- contest budget  remaiing Time -->
+      <h3 class="p-r-lg m-r-lg p-mr-none m-mr-none" ng-if="thisContest.remainingDays >= 0">
+        <b class="p-r-lg p-mr-none ">
+          <label class="label label-success" style="background:#5f4119;border: 1px solid #5f4119;">개최마감 {{thisContest.remainingDays}} 일 전</label>
+        </b>
+      </h3>
+
+      <h3 class="p-r-lg m-r-lg p-mr-none m-mr-none" ng-if="thisContest.remainingDays < 0">
+        <b class="p-r-lg p-m-none ">
+          <label class="label label-danger">개최종료</label>
+        </b>
+      </h3>
+      
+      <h3 class="p-r-lg m-r-lg p-mr-none m-mr-none h3-mobile-getsupport">
+        <strong class="p-r-lg p-mr-none">상금액 {{thisContest.currency.symbol_native}}{{thisContest.sliderContestBudg | number:0}}원</strong>
+      </h3>
+     <!--  <h5 class="p-r-lg m-r-lg"><b class="p-r-lg"><button class="btn btn-sm btn-success ">Upload a Entry</button></b></h5> -->
+    </div>
+  </div><br>
+
+<div class="col-xs-12 col-sm-12 col-md-11 col-lg-11 p-ml-none p-mr-none col-md-offset-1">
+		<strong class="h3-mobile-font" style="font-size:23px;color:#5f5b56;"><i class="fa fa-pencil"></i> 콘테스트 지원 등록</strong><br>
+	  </div>
+
+	<div class="col-xs-12 col-sm-12 col-md-11 col-lg-11 p-ml-none p-mr-none col-md-offset-1" style="padding-left: 42px;">
+		<strong class="prjct-list-font"><i class="fa fa-exclamation-triangle" aria-hidden="true" style="color:#820923;"></i> 아래 1번부터 4번까지 필수 항목입니다. 번호 순서대로 작성을 빠짐없이 해야 콘테스트 지원이 됩니다!</strong><br><br>
+	</div>
+
+
+  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 p-ml-none p-mr-none container-fluid"> 
+    <div>
+
+      <!-- form for uploading contest entry -->
+      <form>        
+        <div class="col-md-5 col-xs-12 thumbnail  bordortop_styling p-l-sm p-r-sm col-md-offset-1" style="border-top: 5px solid #bab3a9;">
+          <!-- <div class="row m-t-lg">
+            <div class="col-xs-6 ">
+              <div class=" btn-default thumbnail">
+                <input class="" type="radio">
+                <b>I want to submit an entry right away</b>
+              </div>
+            </div>
+
+            <div class="col-xs-6">
+
+              <div class=" btn-default thumbnail">
+                <input class="" type="radio">
+                <b>I am participating in this contest</b>
+              </div>
+            </div>
+          </div> -->
+          <!-- Contest entry title-->
+          <h4 class="prjct-list-font"><strong><p class="contest_question">
+              <span>1</span>
+			     <b>지원 제목</b>
+		      </p></strong></h4>
+          <input required type="text" class="form-control" ng-model="contest.entryName" name="entryName" placeholder="제목을 입력하십시오">
+
+          <!-- Contest entry title-->
+		  <h4 class="prjct-list-font"><strong><p class="contest_question">
+              <span>2</span>
+			  <b>지원 상세내용</b>
+		  </p></strong></h4>
+          
+          <textarea class="form-control" rows="5" max="1000" type="text" name="entryDescription" ng-model="contest.entryDescription" placeholder="상세내용을 입력하십시오" required> </textarea>
+          <p class="text-muted text-right">최대 1000 자</p>
+          
+		  <h4 class="prjct-list-font"><strong><p class="contest_question">
+              <span>3</span>
+			  <b>지원 금액</b>
+		  </p></strong></h4>
+
+          <strong class="prjct-list-font">지원금액을 입력하십시오.</strong>
+
+          <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+              <div class="input-group-addon">{{thisContest.currency.symbol_native}}</div>
+              <input type="number" class="form-control" ng-model="contest.entrySellPrice">
+              <div class="input-group-addon"><!-- {{thisContest.currency.code}} -->원</div>
+          </div>
+
+          <br>
+          <!-- <h4><strong>Promote my entry</strong></h4> -->
+
+          <!-- <div class="row">
+            <div class="col-xs-4 col-md-3">
+              <input type="checkbox" value='false'  ng-model="contest.entry_pakage_1" ng-change="checktotalEntryAmount(contest.entry_pakage_1,'entry_pakage_1')"> 
+
+              <label class="label-highlight pull-right">Highlight</label>
+            </div>
+            <div class="col-xs-6 col-md-7">
+              <p>Highlight your entry to make it visually stand out from the rest.</p>             
+            </div>
+            <div class="col-xs-2 col-md-2">
+              <strong class="pull-right">$100</strong>
+            </div>
+          </div>
+
+          <hr> -->
+
+          <!-- <div class="row">
+            <div class="col-xs-4 col-md-3">
+              <input type="checkbox" value='false'  ng-model="contest.entry_pakage_2" ng-change="checktotalEntryAmount(contest.entry_pakage_2,'entry_pakage_2')"> 
+              <label class="label-sealed pull-right">Sealed</label>
+            </div>
+            <div class="col-xs-6 col-md-7">
+              <p>Highlight your entry to make it visually stand out from the rest.</p>             
+            </div>
+            <div class="col-xs-2 col-md-2 ">
+              <strong class="pull-right">$100</strong>
+            </div>
+          </div> -->
+          <hr>
+          <!-- <h4 class="pull-right"><strong>합계:  {{thisContest.currency.symbol_native}}{{totalEntryAmount}}</strong></h4> -->
+          <h4 class="pull-right"><strong>합계:  {{thisContest.currency.symbol_native}}{{contest.entrySellPrice || thisContest.sliderContestBudg | number:0}}</strong></h4>
+          <br>
+          <!-- <button class="btn btn-success">Post My Entry</button> -->
+          <!-- <button ng-disabled="!contest.entryName || !contest.entryDescription || !isImageUploaded" class="btn btn-info btn-lg" ng-click="submitEntry()" style="background: #d0a620;border: 1px solid #d0a620">콘테스트 지원 </button>
+          <br>
+          <br>
+		  <div class="m-l-md" style="padding-top:20px"><h6><strong style="color:#820923"><i class="fa fa-exclamation-triangle" aria-hidden="true" style="color:#820923;"></i>  콘테스트에 지원하는 프리랜서는 이메일, 유무선번호 등을 게시하여 직거래를 유도할 경우, 서비스 이용에 제재를 받을 수 있습니다.</strong></h6></div> -->
+
+      
+		  
+		  
+          <br>
+        </div>
+      </form>
+      <span us-spinner="{radius:30, width:8, length: 16}" spinner-key="submitEntyLoader"></span>
+      <!-- Right side, user info -->
+      <div class=" col-xs-12 col-sm-12 col-md-5 col-lg-5 p-ml-none p-mr-none"> 
+        <div class="col-xs-12 profile_container bordortop_styling border-mradus" style="border-top: 5px solid #bab3a9;background:#fff;">
+          <br class="hidden-xs"><br class="hidden-xs">
+          <div class="text-center">
+
+		    <h4><strong><p class="contest_question text-muted prjct-list-font">
+              <span>4</span>
+			  <b>콘테스트 첨부파일 등록</b>
+		  </p></strong></h4>
+
+           
+            <!-- <p class="text-muted">Drag multiple files here <br> or <br></p> -->
+            <!-- <button type="file" class="btn btn-default"><b>Browse your files</b></button> -->
+            <!-- Browse your files<input type="file" nv-file-select uploader="uploader"> -->
+
+            <!-- loader -->
+            <span us-spinner="{radius:30, width:8, length: 16}" spinner-key="entryLoader"></span>
+            <div>
+              <!-- <label  class="btn btn-default browse-file">
+                <input type="file" nv-file-select uploader="uploader"><b>Browse your files</b>
+              </label>  -->
+              <div class="form-group text-center">
+                  <img ng-src="{{imageURL}}" alt="{{user.displayName}}" style="width: 7rem; border: solid #008aff;">
+                  <span class="btn btn-default btn-file">
+                      첨부파일 등록 <input type="file" nv-file-select uploader="uploader" >
+                  </span>
+              </div>
+
+			
+            
+				
+			  
+
+            </div>
+
+
+            
+            <!-- <fieldset>
+                <div class="form-group text-center">
+                    <img ng-src="{{imageURL}}" alt="{{user.displayName}}" style="width: 10rem; border: solid whitesmoke;">
+                </div>
+                <div class="text-center form-group" ng-hide="uploader.queue.length">
+                    <span class="btn btn-default btn-file">
+                        Browse your files <input type="file" nv-file-select uploader="uploader">
+                    </span>
+                </div>
+                <div class="text-center form-group" ng-show="uploader.queue.length">
+                    <button class="btn btn-primary" ng-click="uploadProfilePicture();">Upload</button>
+                    <button class="btn btn-default" ng-click="cancelUpload();">Cancel</button>
+                </div>
+                <div ng-show="success" class="text-center text-success">
+                    <strong>Profile Picture Changed Successfully</strong>
+                </div>
+                <div ng-show="error" class="text-center text-danger">
+                    <strong ng-bind="error"></strong>
+                </div>
+            </fieldset> -->
+
+          </div><br class="hidden-xs">
+
+		  <p style="color:#898989" class="prjct-list-font">
+					 <i class="fa fa-exclamation-triangle" aria-hidden="true" style="color:#820923;"></i> 공개포럼을 통해서 의뢰인과 충분히 상담을 한 후에 첨부파일을 여러번 등록할 수 있습니다.<!-- 공개포럼을 통해서 의뢰인과 충분히 상담을 한 후에 첨부파일을 등록하는것을 권장합니다. -->
+				</p>
+<br><br>
+
+
+		 <p style="color:#898989" class="prjct-list-font">
+					 <i class="fa fa-exclamation-triangle" aria-hidden="true" style="color:#820923;"></i> 지원하시기전에 콘테스트 내용을 주의깊게 읽고 공개포럼에 의견 및 질문을 의뢰인과 주고 받으신후 지원하시면 콘테스트에 선정될 가능성이 높습니다.
+				</p>
+<br><br>
+
+
+
+<button ng-disabled="!contest.entryName || !contest.entryDescription || !isImageUploaded" class="btn btn-info btn-lg" ng-click="submitEntry()" style="background: #688686;border: 1px solid #688686">콘테스트 지원 </button>
+		  <div class="p-t-lg"><h6><strong style="color:#820923"><i class="fa fa-exclamation-triangle" aria-hidden="true" style="color:#820923;"></i>  콘테스트에 지원하는 프리랜서는 이메일, 유무선번호 등을 게시하여 직거래를 유도할 경우, 서비스 이용에 제재를 받을 수 있습니다.</strong></h6></div>
+
+
+
+
+
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

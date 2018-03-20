@@ -1,0 +1,80 @@
+<section class="verify-div" ng-controller="ProfilesController" ng-init="find(); verifyEmail();" >
+  
+ 
+  <span ng-if="authentication.user.verEmail">
+    <div class="form-box col-md-3 col-md-offset-3 col-sm-6 col-sm-offset-2">
+  
+    <div class="text-center" style="padding-top: 1rem;padding-top:20%;">
+      <br>
+      <img src="modules/core/client/img/landing/outsoucing.png" alt="logo" style="width: 60%">
+
+      <h4 ng-if="!authentication.user.verEmail" style="padding-top:10px">아웃소싱 오케이 회원</h4>
+	   <h4 ng-if="!authentication.user.verEmail" style="padding-top:10px">가입을 축하드립니다!</h4>
+      <h4 ng-if="authentication.user.verEmail" style="padding-top:10px">회원님 환영합니다!</h3>
+      <h5 ng-if="!authentication.user.verEmail" style="padding-top:10px">계속 진행하시려면 이메일 확인이 필요합니다.</h4>
+	  <h5 ng-if="!authentication.user.verEmail" style="padding-top:10px">아래 이메일 확인 요청 버튼을 클릭하시길 바랍니다! </h4>
+      
+      <h5 ng-if="authentication.user.verEmail" style="padding-top:10px">회원님이 이메일이 확인되었습니다. 
+        <i class="fa fa-thumbs-up text-info" aria-hidden="true"></i>
+      </h5>
+      
+      <br>
+
+      <div ng-if="sendVerifLink">
+      	<i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i>
+      	<span class="sr-only">Loading...</span>
+      </div>
+
+      <button ng-if="!sendVerifLink && !authentication.user.verEmail" class="btn btn-md btn-warning" ng-click="sendMail()" style="background:#1773c8">이메일확인 요청
+      </button>
+
+      <button ng-if="authentication.user.verEmail" class="btn btn-md btn-success" style="background:#666b6f"><a href="profiles/view" style="text-decoration: none; color: white;">아웃소싱오케이 바로가기</a>
+      </button>
+
+      <br><br>
+     
+    </div>
+  </div>
+  
+  </span>
+
+
+  <span ng-if="!authentication.user.verEmail">
+    <div class="form-box2 col-md-3 col-md-offset-3 col-sm-6 col-sm-offset-2">
+  
+    <div class="text-center" style="padding-top: 1rem;padding-top:18%;">
+      <br>
+      <img src="modules/core/client/img/landing/outsoucing.png" alt="logo" style="width: 60%">
+
+      <h4 ng-if="!authentication.user.verEmail" style="padding-top:10px">아웃소싱 오케이 회원</h4>
+	  <h4 ng-if="!authentication.user.verEmail" style="padding-top:10px">가입을 축하드립니다!</h4>
+      <h4 ng-if="authentication.user.verEmail" style="padding-top:10px">회원님 환영합니다!</h3>	        
+	  <h5 ng-if="!authentication.user.verEmail" style="padding-top:10px">확인 이메일을 발송했습니다.메일을 확인바랍니다!</h4>
+	  <h5 ng-if="!authentication.user.verEmail" style="padding-top:10px">만약 메일 미발송시 다시한번 아래 이메일 확인 요청 버튼을<br>클릭하시길 바랍니다! </h4>
+      
+      <h5 ng-if="authentication.user.verEmail" style="padding-top:10px">회원님의 이메일이 확인되었습니다. 
+        <i class="fa fa-thumbs-up text-info" aria-hidden="true"></i>
+      </h5>
+      
+      <br>
+
+      <div ng-if="sendVerifLink">
+      	<i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i>
+      	<span class="sr-only">Loading...</span>
+      </div>
+
+      <button ng-if="!sendVerifLink && !authentication.user.verEmail" class="btn btn-md btn-warning" ng-click="sendMail()" style="background:#1773c8">이메일확인 요청 <b style="color:#000000">[메일 미발송시 클릭]</b>
+      </button>
+
+      <button ng-if="authentication.user.verEmail" class="btn btn-md btn-success" style="background:#666b6f"><a href="profiles/view" style="text-decoration: none; color: white;">아웃소싱오케이 바로가기</a>
+      </button>
+
+      <br><br>
+     
+    </div>
+  </div>
+  
+  </span>
+
+
+</section>

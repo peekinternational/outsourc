@@ -1,0 +1,454 @@
+<div class="row project-backgroundimage5 hidden-xs">
+        <div class="container about-investor-title-setting">
+<br>
+            <h3 class="investor-heading p-t-sm" style="font-size:20px;">콘테스트 상세내용ㆍ공개포럼ㆍ지원자 현황ㆍ지원등록</h3>
+            <h3 class="investor-para">
+               
+            </h3>
+            <br><br>
+          </div>
+      </div>
+
+<div ng-show="tab==2" class="row project-backgroundimage5 hidden-xs">
+        <div class="container about-investor-title-setting">
+<br>
+            <h3 class="investor-heading p-t-sm" style="font-size:20px;">콘테스트 공개포럼 및 지원</h3>
+            <h3 class="investor-para">
+               
+            </h3>
+            <br><br>
+          </div>
+      </div>
+
+<!-- <section ui-view autoscroll="true" ng-controller="ContestsController" ng-init="findOne();"> -->
+<section autoscroll="true" ng-controller="ContestsController" ng-init="findOne();">
+  <!-- top banner with yellow back ground -->
+  <!-- contest top information -->
+  <!-- <button ng-click="findOne()">Search</button> -->
+  <div class="row" style="background: #83817c; margin-top: 0px"  p-b-lg>
+    <div class="col-xs-12 col-md-8">
+      <!-- contest title -->
+      <h3 class="m-l-lg m-ml-none" style="color:#fff"><strong class="p-l-lg p-ml-none">{{thisContest.name}}</strong></h3>
+    </div>
+    <div class="col-xs-12 col-md-4 text-right p-ml-none">
+      <!-- contest budget  remaiing Time -->
+      <h3 class="p-r-lg m-r-lg p-mr-none m-mr-none h3-mobile-font" ng-if="thisContest.remainingDays >= 0">
+        <b class="p-r-lg p-mr-sm ">
+          <label class="label label-success" style="background:#5f4119;border: 1px solid #5f4119;">개최마감 {{thisContest.remainingDays}} 일전</label>
+        </b>
+      </h3>
+
+      <h3 class="p-r-lg m-r-lg p-mr-none m-mr-none h3-mobile-font" ng-if="thisContest.remainingDays < 0">
+        <b class="p-r-lg p-m-none ">
+          <label class="label label-danger">개최종료</label>
+        </b>
+      </h3>
+      <h4 class="p-r-lg m-r-lg p-mr-none m-mr-none p-t-xs m-b-sm">
+        <!-- Mobile View -->
+        <span class="p-r-lg m-r-lg p-mr-none m-mr-none hidden-sm hidden-md hidden-lg" ng-if="thisContest.contestStatus == 'closed' ">
+          <b class="p-r-lg"><label class="contestClosed"  class="">수상자 선정 완료</label></b>
+        </span>
+        <span ng-show="authentication.user._id != thisContest.user._id"  class="pull-left m-b-xs p-ml-md hidden-sm hidden-md hidden-lg">
+          <a ui-sref="contests.entry({contestId: thisContest._id})"  ng-if="thisContest.contestStatus !== 'closed' ">
+            <button class="btn btn-sm" style="background:#37526a;border: 1px solid #37526a; color: white;">콘테스트 지원</button>
+          </a>
+        </span>
+        <!-- End -->
+        <strong class="p-r-lg p-mr-none h3-mobile-getsupport" style="color:#fff">상금 {{thisContest.currency.symbol_native}}{{thisContest.sliderContestBudg | number:0}}원</strong>
+      </h4>
+      <h5 ng-show="authentication.user._id != thisContest.user._id"  class="p-r-lg m-r-lg hidden-xs">
+        <a ui-sref="contests.entry({contestId: thisContest._id})"  ng-if="thisContest.contestStatus !== 'closed' ">
+          <b class="p-r-lg"><button class="btn btn-lm btn-success" style="background:#37526a;border: 1px solid #37526a;font-size:17px;"><b>콘테스트 지원</b></button></b>
+        </a>
+      </h5>
+      <h4 class="p-r-lg m-r-lg p-mr-none m-mr-none hidden-xs" ng-if="thisContest.contestStatus == 'closed' ">
+        <b class="p-r-lg"><label class="contestClosed"  class="">수상자 선정 완료</label></b>
+      </h4>
+    </div>
+    <div class="hidden-xs" style="padding-top:10px">
+      <div class="col-xs-12 col-md-8 p-ml-none p-mr-none">
+        <ul class="nav nav-pills nav-contest-desktop m-l-lg" style="text-align: left !important; margin-top: -4.3rem;">
+            <!-- <li class="active lab" ><label ng-click="entries = false"> Description </label></li>
+            <li class="active lab" ><label ng-click="entries = true"> Entries </label></li> -->
+            <li class="m-l-lg">
+              <a ng-click="tab=1" ng-init="tab=1" ng-class="{'active':tab==1}" href="#">콘테스트 내용</a>
+            </li>
+            <li>
+              <a ng-click="tab=2; getSimilarAndCompletedContests();" ng-class="{'active':tab==2}" href="#">지원자 리스트 및 공개포럼</a>
+            </li>
+            <li ng-if="thisContest.user._id === authentication.user._id">
+              <a ng-click="entries = false" href="/contests/edit/{{thisContest._id}}">콘테스트 편집</a>
+            </li>
+            <li ng-if="thisContest.contestStatus == 'closed' && ( authentication.user._id == thisContest.user._id || (authentication.user._id === (thisContest.entries|filter:{entryPersonUserId: authentication.user._id, youWinner: 'yes'})[0].entryPersonUserId))"> 
+              <a ui-sref="contests.handover({contestId: thisContest._id})">콘테스트작품 파일업로드</a>
+            </li>
+        </ul> 
+      </div>
+    </div>
+  </div>
+
+  <br><br class="hidden-xs">
+<!-- ####entDesc:{{entries}} -->
+  <!-- Mobile View -->
+  <div class="row hidden-md hidden-lg p-b-lg m-ml-none m-mr-none">
+    <div class="col-xs-12 col-md-8 p-ml-none p-mr-none">
+      <ul class="nav nav-pills nav-contest-tabs" style="border-bottom: 2px solid #bab3a9;">
+          <!-- <li class="active lab" ><label ng-click="entries = false"> Description </label></li>
+          <li class="active lab" ><label ng-click="entries = true"> Entries </label></li> -->
+          <li class="lab">
+            <a ng-click="tab=1" ng-init="tab=1" ng-class="{'active':tab==1}" href="#" >콘테스트 내용</a>
+          </li>
+          <li class="lab">
+            <a ng-click="tab=2; getSimilarAndCompletedContests();" ng-class="{'active':tab==2}" href="#">지원자 리스트</a>
+          </li>
+          <li ng-if="thisContest.user._id === authentication.user._id" class="lab">
+            <a ng-click="entries = false" href="/contests/edit/{{thisContest._id}}">콘테스트 편집</a>
+          </li>
+          <li class="lab" ng-if="thisContest.contestStatus == 'closed' && ( authentication.user._id == thisContest.user._id || (authentication.user._id === (thisContest.entries|filter:{entryPersonUserId: authentication.user._id, youWinner: 'yes'})[0].entryPersonUserId))"> 
+            <a ui-sref="contests.handover({contestId: thisContest._id})">콘테스트작품 파일업로드</a>
+          </li>
+      </ul> 
+    </div>
+  </div>
+  <!-- End -->
+  <div ng-show="tab==1">
+  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 container-fluid m-ml-none m-mr-none p-ml-none p-mr-none">
+
+    <div>
+      <div class="col-xs-12 col-md-7 thumbnail  bordortop_styling p-l-sm p-r-sm col-md-offset-1" style="border-top: 5px solid #bab3a9;">
+        <div class="row">
+          <div class="col-xs-12 col-md-7">
+            <h4><strong>콘테스트 내용</strong></h4>
+          </div>
+          <div class="col-xs-12 col-md-4 btn-tool text-right p-t-sm">
+			<button ng-show="thisContest.additionalPakages.urgent" class="ittu-sa btn btn-xs btn-danger" style="background:#6b081d;border: 1px solid #6b081d;">긴급</button>
+          <button ng-show="thisContest.additionalPakages.sealed" class="ittu-sa btn btn-xs  btn-warning" style="background:#113886;border: 1px solid #113886;">비공개</button>
+          <button ng-show="thisContest.additionalPakages.private" class="ittu-sa btn btn-xs btn-info" style="background:#008000;border: 1px solid #008000;">개인서비스</button>
+          <button ng-show="thisContest.additionalPakages.nda" class="ittu-sa btn btn-xs btn-info" style="background:#efbf50;border: 1px solid #efbf50;">계약(NDA)</button>
+		  <button ng-show="thisContest.additionalPakages.gaurantee" class="ittu-sa btn btn-xs btn-info" style="background:#886513;border: 1px solid #886513;">상금보장</button>
+		  <button ng-show="thisContest.additionalPakages.pakage_1" class="ittu-sa btn btn-xs btn-info" style="background:#1793b1;border: 1px solid #1793b1;">채팅</button>
+
+<!-- 
+            <button ng-show="thisContest.additionalPakages.urgent" class="ittu-sa btn btn-xs btn-danger">긴급</button>
+            <button ng-show="thisContest.additionalPakages.sealed" class="ittu-sa btn btn-xs  btn-warning">비공개</button>
+            <button ng-show="thisContest.additionalPakages.privatee" class="ittu-sa btn btn-xs btn-info">개인서비스</button>
+            <button ng-show="thisContest.additionalPakages.nda" class="ittu-sa btn btn-xs btn-info">계약</button>
+-->
+          </div>
+        </div>
+        <hr>
+        <!-- Contest Descrioption -->
+        <!-- <div style="white-space: pre-line; word-wrap: break-word;" class="prjct-list-font">
+          {{thisContest.description}}
+        </div> -->
+        <div class="prjct-list-font" ng-bind-html="thisContest.description" style="white-space: pre-line; word-wrap: break-word;"> </div>
+        <hr>
+        <!-- list of files attached -->
+        <div ng-show="thisContest.fileName">          
+          <h4><strong>파일첨부</strong></h4>
+          <ul>
+            <i class="glyphicon glyphicon-file"> 
+              <a class="text-info" target="_self" href="{{thisContest.fileLink}}"  download="{{thisContest.fileName}}"><strong>{{thisContest.fileName}}</strong></a>
+            </i>
+          </ul>
+          <hr>
+        </div>
+
+        <button class="btn btn-success" ui-sref="contests.contest-post" style="background:#5f5b56;border: 1px solid #5f5b56;"><h4>유사 콘테스트 무료등록</h4></button>
+        <br><br>
+
+        <!-- loader -->
+        <span us-spinner="{radius:30, width:8, length: 16}" spinner-key="contestLoader"></span>
+      </div>
+      <!-- Right side, user info -->
+      <div class="col-xs-12 col-md-3 p-ml-none p-mr-none hidden-xs"> 
+        <div class="col-xs-12 profile_container bordortop_styling border-mradus" style="border-top: 5px solid #bab3a9;background:#fff;">
+          <div class="row">
+            <div class="col-xs-8">
+              <h4><strong>의뢰인 정보</strong></h4>
+            </div>     
+            <div class="col-xs-4 block">
+              <!-- <h5>Ratings</h5> -->
+            </div>
+          </div>
+          <hr>
+          <div class="row">
+            <div class="col-xs-4 col-md-4 p-ml-none p-l-xs p-r-none">
+              <img class="img-responsive img-circle prof-img" style="height: 10rem; width: 10rem;" src="{{thisContest.userInfo.profileImageURL}}">
+            </div>
+            <div class="col-xs-8 col-md-8 p-ml-none p-l-xs p-r-none">
+			  <h5><strong>{{thisContest.userInfo.username}}</strong></h5>
+              <h5><strong>회원가입일: </strong>{{thisContest.userInfo.created | date}}</h5>
+              <h5><strong>회원현재위치: </strong> {{thisContest.userInfo.country.name}}</h5>
+              <h5>
+                <ul class="list-inline">
+                  <li class="p-l-none p-r-none">
+                    <span class="glyphicon glyphicon-map-marker  imgcricle p-r-sm" ng-class="{verified: thisContest.userInfo.verLocation, nonverified: !thisContest.userInfo.verLocation}"></span>
+                  </li>
+                  <li class="p-l-none p-r-none">
+                    <span class="glyphicon glyphicon-asterisk  imgcricle p-r-sm" ng-class="{verified: thisContest.userInfo.verPayment, nonverified: !thisContest.userInfo.verPayment}"></span>
+                  </li>
+                  <li class="p-l-none p-r-none">
+                    <span class="glyphicon glyphicon-earphone  imgcricle p-r-sm" ng-class="{verified: thisContest.userInfo.verPhone, nonverified: !thisContest.userInfo.verPhone}"></span>
+                  </li>
+                  <li class="p-l-none p-r-none">
+                    <span class="glyphicon glyphicon-envelope imgcricle p-r-sm" ng-class="{verified: thisContest.userInfo.verEmail, nonverified: !thisContest.userInfo.verEmail}"></span>
+                  </li>
+                  <li class="p-l-none p-r-none">
+                    <span class="glyphicon glyphicon-user  imgcricle p-r-sm" ng-class="{verified: thisContest.userInfo.verIdentity, nonverified: !thisContest.userInfo.verIdentity}"></span>
+                  </li>
+                </ul>
+              </h5>
+            </div>
+          </div>
+          <br>
+        </div>
+      </div>
+	</div>
+	  <!-- Right side, user info -->
+      <!-- <div class="col-xs-12 col-md-3 p-ml-none p-mr-none hidden-xs"> 
+        <div class="col-xs-12 profile_container bordortop_styling border-mradus" style="border-top: 5px solid #bab3a9;background:#fff;">
+          <div class="row" style="background-image: url('/modules/contests/client/img/contest_banner.jpg');height:239px;">
+            <div class="col-xs-8">
+              
+            </div>     
+            
+          </div> 
+          
+        </div>
+      </div>
+    </div> -->
+
+
+    <!-- list of skills required for the contest -->
+    <div > 
+      <div class="col-md-7 col-xs-12 thumbnail  bordortop_styling p-l-sm col-md-offset-1" style="border-top: 5px solid #bab3a9;">
+        <h4><strong>관련요구 기술</strong></h4>
+        <hr>
+          <div style="display: -webkit-box;">
+            
+            <ul class="list-inline text-primary" >
+              <li ng-repeat="skill in thisContest.skills"><label class="thumbnail">{{skill.name}}</label></li>
+            </ul>
+          </div>  
+      </div>
+    </div>
+  </div>
+</div>
+<!--  enteries on specific contest-->
+<!-- ####entries:{{entries}} -->
+  <div class="col-xs-12 col-sm-12 col-md-10 col-lg-10 col-md-offset-1 container-fluid m-ml-none m-mr-none p-ml-none p-mr-none p-l-xs p-r-xs"  ng-show="tab==2">
+  <br><br class="hidden-xs">
+    <div>
+      <div class="col-xs-12 thumbnail  bordortop_styling p-b-lg " style="border-top: 5px solid #bab3a9;">
+        <div class="row m-r-none m-l-none">
+          <div class="col-xs-12 col-md-12 p-ml-xs p-mr-none">
+            <h4 class="h4-mobile-font"> <b>{{thisContest.entries.length}} 지원자수</b></h4>
+          <hr>
+          </div>
+          <!-- <div class="col-xs-6 col-md-4 p-t-xs m-t-lg p-mr-none p-ml-none">
+            <div > -->
+                <!-- Single button -->
+                
+                  <!-- <span>View: {{thisContest.entries.length}}</span> &nbsp -->
+                <!-- <div class="btn-group" uib-dropdown is-open="status.isopen">
+                  <button id="single-button" type="button" class="btn btn-default" uib-dropdown-toggle ng-disabled="disabled">
+                    All Entries <span class="caret"></span>
+                  </button>
+                  <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="single-button">
+                    <li role="menuitem"><a href="#">Action</a></li>
+                    <li role="menuitem"><a href="#">Another action</a></li>
+                    <li role="menuitem"><a href="#">Something else here</a></li>
+                    <li class="divider"></li>
+                    <li role="menuitem"><a href="#">Separated link</a></li>
+                  </ul> -->
+                <!-- </div> -->
+                <!-- &nbsp  -->
+                <!-- <span>Sort by:</span> &nbsp -->
+                <!-- <div class="btn-group" uib-dropdown is-open="status.isopen">
+                  <button id="single-button" type="button" class="btn btn-default" uib-dropdown-toggle ng-disabled="disabled">
+                    Default <span class="caret"></span>
+                  </button>
+                  <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="single-button">
+                    <li role="menuitem"><a href="#">Action</a></li>
+                    <li role="menuitem"><a href="#">Another action</a></li>
+                    <li role="menuitem"><a href="#">Something else here</a></li>
+                    <li class="divider"></li>
+                    <li role="menuitem"><a href="#">Separated link</a></li>
+                  </ul>
+                </div> -->
+            <!-- </div> -->
+            <div ng-repeat="entry in thisContest.entries" ng-value="{{$index}}"  ng-show="tab==2">
+                <div class="col-xs-12 col-sm-6 col-md-3 m-t-md">
+                  <div class="custom-thumbnail">
+                    
+                    <div ng-show="(thisContest.additionalPakages.sealed && (entry.entryPersonUserId === authentication.user._id || thisContest.user._id === authentication.user._id)) || !thisContest.additionalPakages.sealed" class="entry-img">
+                      <a href="#" class="entry-link">
+                        <div class="caption">
+                          <div class="caption-content">
+                            <button class="btn btn-md" ng-click="viewEntry('lg',entry,$index, thisContest.entries.length)" class="portfolio-link" data-toggle="modal">
+                              <i class="fa fa-eye" aria-hidden="true"></i> 보기
+                            </button>
+                            <!-- <span class="entryRate"><b><i class="fa fa-usd" aria-hidden="true"></i>{{entry.entrySellPrice}} USD</b></span> -->
+                          </div>
+                        </div>
+                        <div class="img-entry img">
+                          <img class="text-center" src="{{entry.entryFile}}" alt="doodle" style="width: 100%;">
+                          <span class="entryRate"><b> {{thisContest.currency.symbol_native}}</i>{{entry.entrySellPrice |number:0}} {{thisContest.currency.code}}</b></span>
+                        </div>
+                      </a>
+                    </div>
+
+                    <!-- when sealed is enabled show this disabled image to other freelancers instead of their entries -->
+                    <div class="entry-img" ng-hide="(thisContest.additionalPakages.sealed && (entry.entryPersonUserId === authentication.user._id || thisContest.user._id === authentication.user._id)) || !thisContest.additionalPakages.sealed">
+                      <div class="img-entry img">
+                        <img class="text-center" src="./modules/contests/client/img/not-visible.png" alt="doodle" style="width: 100%;">
+                        <span class="sealedEntry">비공개</span>
+                      </div>
+                    </div>
+                    
+                    
+                    <ul class="list-inline" style="padding-top: 6px;">
+                      <hr>
+                      <li>
+                        <h5 class="p-l-md">지원자 # <b>{{$index +1}}</b></h5>
+                      </li>
+
+                      <li class="text-right" ng-if="authentication.user._id == thisContest.user._id && entry.youWinner == 'no' && thisContest.contestStatus !== 'closed'">
+                        <button class="btn btn-sm btn-info" style="height: 34px; width: 105%;" ng-click="makeThisWinner(entry.currentContestId, entry.entryId, $index, entry.entryPersonEmail);"><i class="fa fa-check" aria-hidden="true"></i>수락</button>
+                      </li>
+
+                      <!-- show when accepted -->
+                      <li ng-if="entry.youWinner == 'yes' ">
+                        <label class="entryAcceptLabel">수상자</label>
+                      </li>
+                      <!-- entry:{{entry.entryName}}<br> --> 
+                      <div ng-if="thisContest.userInfo.username == authentication.user.username &&  ((thisContest.contestStatus !== 'closed' && entry.youWinner == 'no') || (thisContest.contestStatus == 'closed' && entry.youWinner == 'yes'))" class="btn btn-default" style="width: 28%; padding-left: inherit;" ng-click="createConversationBasedOnContest(thisContest, false, thisContest._id, thisContest.name, entry);"><i class="fa fa-dot-circle-o verificationcheck" aria-hidden="true" ></i>채팅
+                      </div>
+
+                      <!-- show when employer accepts the entry -->  
+                      <!-- <li class="text-right" ng-if="authentication.user._id == thisContest.user._id && thisContest.contestStatus == 'closed' ">
+                        <button disabled class="btn btn-sm btn-info" style="height: 34px; width: 105%;" ng-click="makeThisWinner(entry.currentContestId, entry.entryId, $index, entry.entryPersonEmail);"><i class="fa fa-check" aria-hidden="true"></i>Award</button>
+                      </li> -->
+
+                      <!-- <li> <button class="btn btn-sm btn-danger" ng-click="viewEntry('lg',entry,$index, thisContest.entries.length)" class="portfolio-link" data-toggle="modal"> View</button> </li> -->
+                      <li ng-if="entry.youWinner == 'no' && authentication.user._id !== thisContest.user._id">
+                        <label class="entryAcceptWait">수락을 기다리고 있습니다</label>
+                      </li>
+                    </ul>
+
+                    <h3 class="p-l-md entryMaker"><a ng-href="#" >{{entry.entryPerson}}</a></h3>  
+                    <br>
+                    <!-- <hr>  -->
+                    <!-- rating -->
+                    <!-- <div class="row m-b-lg p-l-xs p-r-xs">
+                      <div class="col-xs-8 starRating p-l-none star-rankingcolor">
+                        <span class="label" ng-class="{'label-warning': percent<30, 'label-info': percent>=30 && percent<70, 'label-success': percent>=70}">{{percent}}%</span>
+                        <span uib-rating ng-model="rate" max="max" read-only="isReadonly" titles="['one','two','three']" aria-labelledby="default-rating"> </span>
+                      </div>
+                      <div class="col-xs-4">
+                        <strong><i class="fa fa-heart entities-heart" aria-hidden="true"> <sub>5</sub></i></strong>
+                      </div>
+                    </div> -->
+                  </div>
+                </div>  
+            </div> 
+          </div>
+        </div>
+        <hr>
+                     
+        </div>
+        <br>
+        <br class="m-b-lg">
+      </div>
+    </div>
+
+
+
+
+    <!-- Pagination area-->
+    <br><br>
+    <!-- <div class="text-center img-responsive"> 
+      <div class="btn btn-small border-wla">
+        <b>Recently Looking for Contests</b>
+      </div> 
+    </div> -->
+    <br><br>
+
+    <!-- looking for contest - search bar -->
+    <!-- form to filter the contest -->
+
+    <div class="m-r-lg m-ml-none m-mr-none col-md-offset-1"  ng-show="tab==2">
+      <div class="col-xs-12 col-md-7 profile_container bordortop_styling" style="border-top: 5px solid #bab3a9;background:#fff;">
+      <h3 class="h3-mobile-font" style="color:#d0a620">콘테스트 공개 포럼</h3>
+      <p class="prjct-list-font">ㆍ콘테스트 공개포럼은 의뢰인의 정확한 컨셉을 위해서 프리랜서들과 공개적으로 의견을 주고 받을 수 있는 포럼입니다. </p>
+	  <p class="prjct-list-font">ㆍ콘테스트 개최를 취소 또는 14일 이내에 수상자를 선정하지 않을경우 1차합격자에게 총상금액 50%를 1/n 균등하게 지급됩니다. </p>
+	  <p class="prjct-list-font">ㆍ포럼에서 프리랜서들과 충분히 상담하여 결정한 후에 1차 합격자와 채팅을 해야하며 이외에 이용약관 제12조 12항과 제27조 6항 참조 바랍니다.</p>
+	  
+      <hr>
+      <div class="row">
+      <div class="col-xs-3 col-sm-6 col-md-2">
+        <img class="img-responsive contest-img-circle" src="{{authentication.user.profileImageURL}}">
+      </div>
+      <div class="col-xs-9 col-sm-6 col-md-10 p-l-none">
+        <textarea ng-model="commentEntry" class="form-control intro-area "  rows="2"></textarea> 
+        <h5 class="prjct-list-font"><b>수상자외에 2등,3등을 수여할 경우 별도의 상금이 필요합니다. <span class="text-info" style="color:#d0a620"><a ui-sref="about.contact">고객문의</a>에 문의바랍니다.</span></b>
+        </h5>
+        <button class="btn btn-md btn-success pull-right" ng-click="commentOnEntry(commentEntry)" style="background:#37526a;border: 1px solid #37526a;"> 보내기</button> &nbsp
+      </div>
+      </div>
+      <hr>
+      <div ng-repeat="c in thisContest.comments | orderBy : '-created' ">
+        <div class="row" >
+          <div class="col-xs-3 col-sm-6 col-md-2">
+            <img class="img-responsive contest-img-circle" src="{{c.userImg}}">
+          </div>
+          <div class="col-xs-9 col-sm-6 col-md-10 p-ml-none">
+          <br>
+            <span class="text-left text-primary"><strong> {{c.userName}}</strong></span>
+            <span class="pull-right">{{c.created | date:"y'년' MM'월' d'일' h:mma"}} <br> 
+              <!-- <a ui-sref="#">Report</a> -->
+            </span>
+            <br><br>
+            <p class="entryComment">{{c.cText}}</p>
+          </div>
+        </div>
+        <hr>
+      </div>
+
+      <br>
+      <div class="text-center text-primary">
+        <h4> <a href="#" style="color:#d0a620">포럼내용 더보기</a> </h4>
+      </div>
+      </div>
+      <div class="col-xs-12 col-md-4 m-mt-md p-ml-none p-mr-none hidden-xs">
+      <div class="col-md-12 profile_container bordortop_styling border-mradus" style="border-top: 5px solid #bab3a9;background:#fff;">
+        <h3 style="color:#548eb2;">신규 콘테스트 목록</h3>
+        <hr>
+        <div  class="similarContests">
+          <div ng-repeat="contestt in similarcontest">
+            <div class="row p-l-md p-r-sm">
+              <h4 class="text-primary"><strong><a ui-sref="contests.view({contestId: contestt._id})" style="text-decoration: none;color:#548eb2;">{{contestt.name}}</a></strong></h4>
+              <span class="pull-left text-primary" style="color:#83817c;"> 의뢰인 <a href="outsourcer/{{contestt.userInfo.profile_id}}" style="color:#4b0917;"> {{contestt.userInfo.username}}</a> </span>
+              <span class="pull-right verificationcheck p-r-lg" style="color:#83817c;">{{contestt.currency.symbol_native}} {{contestt.sliderContestBudg}}</span>
+            </div>
+            <hr>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-xs-12 col-md-12 profile_container bordortop_styling border-mradus p-ml-none p-mr-none" style="border-top: 5px solid #bab3a9;background:#fff;">
+        <h3 class="p-ml-sm" style="color:#8ba753;">콘테스트 수상자 선정 완료</h3>
+        <hr>
+        <div class="row p-l-md p-r-sm m-ml-none m-mr-none" ng-repeat="contest in completedContest">
+          <h4 class="text-primary"><a href="contests/view/{{contest._id}}" style="text-decoration: none;color:#8ba753;"> <strong>{{contest.name}}</strong> </a></h4>
+          <span class="pull-left text-primary" style="color:#4b0917;"> 의뢰인  <a href="outsourcer/{{contest.userInfo.profile_id}}" style="color:#83817c;">{{contest.userInfo.username}}</a> </span>
+          <span class="pull-right verificationcheck p-r-lg" style="color:#4b0917;"> {{contest.currency.symbol_native}} {{contest.sliderContestBudg}}</span>
+          <hr>
+        </div>
+      </div>
+      </div>
+    </div>
+
+  </div>
+</section>

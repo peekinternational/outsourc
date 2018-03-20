@@ -1,0 +1,181 @@
+<style>
+body {
+	background:#f2f2f2;
+}
+</style>
+
+<div class="row project-backgroundimage5 hidden-xs">
+        <div class="container about-investor-title-setting">
+<br>
+            <h3 class="investor-heading p-t-sm" style="font-size:20px;">프로필 정보 설정</h3>
+            <h3 class="investor-para">
+               
+            </h3>
+            <br><br>
+          </div>
+      </div>
+
+<section class="row" style="background-color: white" ng-controller="EditProfileController" ng-init="universalData();">
+
+    <div class="col-xs-12">
+      <div class="row paddingEveryRow" style="padding-top: 4%;">
+        <h1><b>프로필 정보</b></h1>
+      </div>
+      <hr>
+      <form name="userForm" ng-submit="updateUserProfile(userForm.$valid)" class="signin" novalidate autocomplete="off">
+        <!-- <fieldset> -->
+        <div class="row paddingEveryRow">
+          <h4><b>이름</b></h4><br>
+          <div class="row" style="display: -webkit-box;">
+            <div class="form-group col-xs-6" show-errors>
+              <label for="firstName">성</label>
+              <input type="text" id="firstName" name="firstName" class="form-control inputwidthsetting" ng-model="user.firstName" placeholder="성을 입력 바랍니다." required>
+              <div ng-messages="userForm.firstName.$error" role="alert">
+                <p class="help-block error-text" ng-message="required">성을 입력 바랍니다.</p>
+              </div>
+            </div>
+            <div class="form-group col-xs-6" show-errors>
+              <label for="lastName">이름</label>
+              <input type="text" id="lastName" name="lastName" class="form-control inputwidthsetting" ng-model="user.lastName" placeholder="이름을 입력 바랍니다." required>
+              <div ng-messages="userForm.lastName.$error" role="alert">
+                <p class="help-block error-text" ng-message="required">이름을 입력 바랍니다.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <hr>
+        <!-- address -->
+        <div class="row paddingEveryRow">
+         <h4><b>Address</b></h4><br>
+          <div class="form-group" show-errors>
+            <label for="address">주소</label>
+            <textarea style="height: 4rem;" type="text" id="address" name="address" class="form-control" ng-model="user.address" placeholder="주소를 입력바랍니다." required></textarea>
+            <div ng-messages="userForm.address.$error" role="alert">
+              <p class="help-block error-text" ng-message="required">주소를 입력바랍니다.</p>
+            </div>
+          </div>
+          <div class="form-group" show-errors>
+            <label for="city">시ㆍ도명</label>
+            <input type="text" id="city" name="city" class="form-control" ng-model="user.city" placeholder="시ㆍ도명을 입력바랍니다." required>
+            <div ng-messages="userForm.city.$error" role="alert">
+              <p class="help-block error-text" ng-message="required">시ㆍ도명을 입력바랍니다.</p>
+            </div>
+          </div>
+          <div class="row" style="display: -webkit-box;">
+            <div class="form-group col-xs-6" show-errors>
+              <label for="zipcode">우편번호</label>
+              <input type="text" id="zipcode" name="zipcode" class="form-control inputwidthsetting" ng-model="user.zipcode" placeholder="우편번호를 입력바랍니다." required>
+              <div ng-messages="userForm.zipcode.$error" role="alert">
+                <p class="help-block error-text" ng-message="required">우편번호를 입력바랍니다.</p>
+              </div>
+            </div>
+            <div class="form-group col-xs-6" show-errors>
+              <label for="stateprovince">현재 거주 국가</label>
+              <input type="text" id="stateprovince" name="stateprovince" class="form-control inputwidthsetting" ng-model="user.stateprovince" placeholder="현재 거주 국가를 입력바랍니다." required>
+              <div ng-messages="userForm.stateprovince.$error" role="alert">
+                <p class="help-block error-text" ng-message="required">현재 거주 국가를 입력바랍니다.</p>
+              </div>
+            </div>
+          </div>
+          <div class="form-group" show-errors>
+            <label for="Country">국가선택</label>
+            <!-- <input  type="text" id="country" name="country" class="form-control" ng-model="user.country.name" placeholder="country" required><br> -->
+            <img src="https://countryflags.io/{{user.country.code_lower}}/flat/64.png" title = "{{user.country.name}}" style="width:2rem; height: 2rem;">
+            <!-- <select ng-model="user.country" class="form-control"> 
+              <option ng-repeat="c in countryData" value="{{c}}">{{c.name}}</option>
+            </select> -->
+
+            <select class="form-control" 
+               ng-options="option.name for option in countryData track by option.name"
+               ng-model="user.country">
+            </select>
+           
+            <!-- <p><span> <i class="fa fa-info-circle" style="font-size: 140%;" aria-hidden="true"></i></span> In order to change your country, we require you to <span><a href=""><b>verify your identity</b></a></span>. This is so we can verify your address details. The country will be automatically updated once the process is complete</p> -->
+          </div>
+          <div class="form-group" show-errors>
+            <label for="companyName">회사</label>
+            <input type="text" id="companyName" name="companyName" class="form-control" ng-model="user.companyName" placeholder="회사를 입력바랍니다." required>
+            <div ng-messages="userForm.companyName.$error" role="alert">
+              <p class="help-block error-text" ng-message="required">회사를 입력바랍니다.</p>
+            </div>
+          </div>
+
+         <div class="row" style="display: -webkit-box;">
+            <div class="col-xs-6">
+              <label>시간 존</label><br>
+              <div class="form-group">
+               
+                <select selector
+                      id="timezone" 
+                      model="user.timezone"
+                      options="timez"
+                      label-attr="value"
+                      placeholder="시간 존을 선택바랍니다."
+                      >
+                </select>
+              </div>
+            </div>
+           
+          <div class="input-group col-xs-6">
+              <label>위치검색</label><br>
+              <input type="text" id="location" name="location" class="form-control" style="width: 80%; height:39px"  placeholder="지도버튼를 클릭하시면 위치가 나옵니다." ng-model="user.location">
+                <button type="button" class="btn btn-default btn-sm" style="height: 39px;" ng-click="detectMyLocation()">
+                <span class="glyphicon glyphicon-map-marker"></span>지도</button>
+          </div>
+           <br>
+        </div>
+      </div>
+
+        <hr>
+
+        <!-- address end -->
+        <!-- security --> 
+        <div class="row paddingEveryRow">
+         <h4><b>휴대폰 번호</b></h4><br>
+          <div class="form-group" style="display: -webkit-box;" show-errors >
+            <label for="mobileNumber">휴대폰 번호:</label>
+            <p>{{user.mobileNumber}}</p>
+          </div>
+          <div class="form-group" style="display: -webkit-box;" show-errors>
+            <label for="address">국가:</label>
+            <p><img src="https://countryflags.io/{{user.country.code_lower}}/flat/64.png" title = "{{user.country.name}}" style="width:2rem; height: 2rem;"> {{user.country.name}}</p>
+          </div>
+          <!-- <button type="button" class="btn btn-default" ng-click="editSecurityNumber('md');">Request to Change</button> -->
+        </div>
+        <!-- sec end -->
+
+        <!-- language -->
+        <!-- <div class="row">
+         <h4><b>Language Settings</b></h4><br>
+          <label>I want to browse the website in:</label><br>
+          <select class="selectpicker" style="width: 50%; height: 32px;">
+            <option>English</option>
+            <option>Urdu</option>
+          </select>
+          <br>
+          <label>I want to browse projects in the following languages:</label><br>
+          <select class="selectpicker" style="width: 50%; height: 32px;">
+            <option>English</option>
+            <option>Urdu</option>
+          </select>
+
+        </div> -->
+        <!-- language end -->
+
+         <br><br>
+         <hr>
+          <div class="text-center form-group">
+            <button type="submit" class="btn btn-primary" style="width: 20%;">저장 하기</button>
+          </div>
+          <div ng-show="success" class="text-center text-success">
+            <strong>프로필이 성공적으로 완료 되었습니다</strong>
+          </div>
+          <div ng-show="error" class="text-center text-danger">
+            <strong ng-bind="error"></strong>
+          </div>
+        <!-- </fieldset> -->
+      </form>
+    </div>
+  
+</section>

@@ -1,0 +1,212 @@
+<div class="row project-backgroundimage5 hidden-xs">
+        <div class="container about-investor-title-setting">
+<br>
+            <h3 class="investor-heading p-t-sm" style="font-size:20px;">콘테스트 수장작 원본파일 업로드</h3>
+            <h3 class="investor-para">
+               
+            </h3>
+            <br><br>
+          </div>
+      </div>
+
+<section ng-controller="ContestsController" ng-init="findOne();" class="container-fluid p-l-none p-ml-none p-r-none p-ml-none">
+	
+
+	<!-- Credit Card -->
+	<div class="row m-mt-none" style="background: #333; margin-top: -10px;">
+    <div class="col-xs-6 col-md-8">
+      <!-- contest title -->
+      <h3 class="m-l-lg h3-mobile-getsupport m-ml-none" style="color: #fff"><strong class="p-l-lg">{{thisContest.name}}</strong></h3>
+      <br>
+    </div>
+    <div class="col-xs-6 col-md-4 text-right">
+      <h3 class="p-r-lg m-r-lg h3-mobile-getsupport p-mr-none m-mr-none">
+        <b class="p-r-lg p-mr-none"><label class="contestClosed"  class="">콘테스트 종료</label></b></h3>
+      <h3 class="p-r-lg m-r-lg p-mr-none m-mr-none" style="color: #fff">
+        <strong class="p-r-lg p-mr-none">{{thisContest.currency.symbol_native}}{{thisContest.sliderContestBudg | number:0}}원</strong>
+      </h3>
+    </div>
+  </div>
+  <div class="container-fluid background-handoverEntry p-ml-none" style="padding-top: 25px; margin-left: -15px; margin-right: -15px; padding-left: 4rem;">
+  	<div class="m-b-xs">
+  		<b style="padding-left: 3px;"><a ui-sref="contests.view({contestId: thisContest._id})">콘테스트 내용 보기</a></b>
+  	</div>	
+  	
+  		<div class="row mobile-view-row-handover" style="margin-left: 2px; margin-right: 0px;">
+  		<div class="col-xs-12 col-md-9" style="background: #fff">
+  			<div class="col-xs-6 col-md-6 p-t-sm p-mt-xs p-b-sm p-mb-sm p-ml-xs p-mr-none">
+  				<!-- <h6 class="h6-mobile-font">Transfer Copyright -<span class="text-muted">Signed</span></h6> -->
+          <h6 class="h6-mobile-font"> ~</h6>
+  			</div>
+  			<div class="col-xs-6 col-md-6 text-right p-t-sm p-mt-sm p-b-sm p-mb-sm p-ml-none p-mr-xs">
+  				<!-- <button class="contrct-btn">Download Contract</button> -->
+          <button class="contrct-btn"> ||</button>
+  			</div>
+  		</div>
+  	</div>
+  	
+    <!-- loader -->
+    <span us-spinner="{radius:30, width:8, length: 16}" spinner-key="contestLoader"></span>
+
+    <!-- For employer to download files -->
+  	<div ng-if="authentication.user._id === thisContest.user._id" class="col-xs-12 col-md-9 m-t-md handover-row" style="background: #fff;margin-bottom:30px;">
+      <div class="row m-mt-sm m-ml-none m-mr-none" style="background: #fff">
+        <br>
+  			<center ng-if="thisContest.handOverFileName">
+          <h2 class="text-success">수상작 원본파일 및 설명서 다운로드 받기</h2>
+        </center>
+
+		<div ng-if="!thisContest.handOverFileName" class="col-xs-offset-2 col-xs-8">
+          <center>
+            <h2 class="text-warning">
+              수상작 원본파일을 프리랜서에게 보내달라고(업로드) 요청하십시오. 
+            </h2>            
+          </center>
+        </div>
+
+        <div class="col-xs-offset-2 col-xs-9" style="margin-top:50px">
+          
+		  <p><img src="modules/contests/client/img/contest_icon1.png">수상작에 대한 권리는 계약서에 준하며 권리양도에 서명한 계약서에 따라 수상자로부터 원본파일을 받을때 수상작 권리는 의뢰인에게 자동으로 귀속됩니다. </p>
+
+		  <p style="margin-top:20px"><img src="modules/contests/client/img/contest_icon1.png">의뢰인은 최종수상자를 선정한 시점부터 1주일이내에 최종수령 확인을 해야 합니다. 만약 수상작원본이 정상적으로 전달되었음에도 불구하고 이러한 조치가<br> 취해지지 않은 경우에는, 수상자 선정 후 1주일 시점에 자동으로 수령 확인 처리됩니다.</p>
+
+		  <p style="margin-top:20px"><img src="modules/contests/client/img/contest_icon1.png">수상작을 제외한 의뢰인이 선정하지 않은 모든 디자인 및 아이디어등의 저작권은 해당 지원한 프리랜서에게 있습니다.</p>
+		  <p style="margin-top:20px"><img src="modules/contests/client/img/contest_icon1.png">의뢰인은 본인이 수상자로 선정하지 않은 프리랜서의 디자인 및 아이디어등을 사용할 수 없습니다.</p>	
+		  
+		  <p style="margin-top:20px;margin-bottom:50px;"><img src="modules/contests/client/img/contest_icon1.png">계약서상에 양도 권리가 없는 수상작에 대해서는 수상자가 권리를 가지고 있으며 의뢰인은 수상자 허락을 받고 사용해야됩니다. </p>
+		</div>
+
+        <br><BR><BR>
+
+        <center>
+          <div ng-if="thisContest.handOverFileName" class="col-xs-offset-2 col-xs-8">
+            <i class="glyphicon glyphicon-file"> 
+              <a class="text-info" target="_self" href="{{thisContest.handOverFileLink}}" download="{{thisContest.handOverFileName}}" >
+                <strong>수상작 원본파일 및 설명서 다운로드 받기 {{thisContest.handOverFileName}}</strong>
+              </a>
+            </i>
+			<br><br>
+
+          </div>
+
+		  <div class="col-xs-offset-2 col-xs-8" style="margin-bottom:50px">            
+			<br><br>
+			<p style="color:#2f70a9;font-size:15px;"><img src="modules/projects/client/img/project_icon2.png"><b>의뢰인께서는 여러번 나누어서 원본 파일 다운로드 받을경우 하나씩 다운로드를 받아야 합니다. 그렇지 않을경우 수상자가 보냈던 이전 파일들은 자동 삭제되서 이전파일들을 다운로드 받을 수 없습니다.</b></p>
+
+          </div>
+
+        </center>
+
+        <BR><BR>
+
+        <hr>
+        <br>
+  		</div>
+  	</div>	
+
+    <!-- For freelancer to upload files -->
+    <div ng-if="authentication.user._id === (thisContest.entries | filter:{entryPersonUserId: authentication.user._id, youWinner: 'yes'})[0].entryPersonUserId" class="col-xs-12 col-md-9 m-t-md handover-row" style="background: #fff" margin-top:30px"">
+      <center>
+        <h2 class="text-primary">수상작 원본파일 및 설명서 보내기(업로드)</h2>
+      </center>
+
+      <div class="col-xs-offset-2 col-xs-9" style="margin-top:50px">
+
+        <p><img src="modules/contests/client/img/contest_icon1.png">콘테스트 수상작 원본파일을 수상자를 선정한 의뢰인에게 보낼때 원본파일과 함께 설명서도 첨부파일를 짚(.zip)로 보내셔야 합니다. 그렇지 않을경우 상금 지급이 보류될 수 있습니다. 수상작에 대한 권리는 계약서에 준하며 권리양도에 서명한 계약서에 따라 원본파일을 보낼때 계약서에 의거 권리양도가 자동으로 의뢰인에게 귀속됩니다.(이용약관 제25조 및 제26조(1),(2)항 명시)</p> 
+        
+		<p style="margin-top:20px"><img src="modules/contests/client/img/contest_icon1.png">계약서상에 양도 권리가 없는 수상작에 대해서는 수상자가 권리를 가지고 있습니다. </p>
+
+
+        <h3 class="text-warning"> 
+          수상자에게는 수상작 원본과 설명 파일등 짚(zip)파일로 압축해서 보내야(업로드) 합니다.
+        </h3>
+        <hr>
+        <input  type="file" nv-file-select=""  uploader="uploader" multiple="true"> (2MB 이상은 업로드가 불가능합니다)<br><br><br>
+		<p style="color:#2f70a9;font-size:15px;"><img src="modules/projects/client/img/project_icon2.png"><b>파일을 여러번 보낼경우 의뢰인께 다운로드 확인한 후 다음 파일을 보내야 합니다.보냈던 파일들은 자동 삭제됩니다.</b></p>
+        
+        <div ng-show="uploader.queue.length>0">
+          <div>파일명: {{ item.file.name }}</div>
+          <div>크기: {{ item.file.size/1024/1024|number:2 }} Mb</div>
+          <div ng-show="uploader.isHTML5">
+              진행상황: {{ item.progress +'%'}}
+              <div>
+                  <div  ng-style="{ 'width': item.progress + '%' }"></div>
+              </div>
+          </div>  
+
+          <!-- <button ng-click="item.upload()" ng-disabled="item.isReady || item.isUploading || item.isSuccess">Upload</button> -->
+          <!-- <button ng-click="item.cancel()" ng-disabled="!item.isUploading">Cancel</button> -->
+          <!-- <button ng-click="item.remove()">Remove</button> -->
+          <span ng-show="errMsg" class="text-danger">
+            {{errMsg}}
+          </span>
+          <span ng-show="sucMsg" class="text-success">
+            {{sucMsg}}
+          </span>  
+        </div>
+        <center ng-if="item">
+          <button class="btn btn-lg btn-danger" ng-click="cancelUploadHandOverFile();"> 취소 </button>
+          <button class="btn btn-lg btn-success" ng-click="uploadHandOverFile();"> 파일보내기 </button>
+        </center>
+        <!-- sucess file upload message -->
+        <center>
+          <h2>
+            <span ng-show="sucMsg" >
+              <code class="text-success">원본파일을 성공적으로 보냈습니다.<!-- {{sucMsg}} --></code>
+            </span> 
+          </h2>
+        </center>
+        <br><br>        
+      </div>
+
+    </div>
+
+
+  	<div class="col-xs-12 col-md-3 p-mr-none">
+  	<div style="margin-top: -5.2rem;" class="m-mt-lg">
+  		<div style="background: #fff">
+  			<p class="p-l-sm p-t-sm"><strong>콘테스트 수상작 원본파일 및 설명서 진행순서</strong></p>
+  			<hr>
+  			<div class="p-l-md">
+  				<i class="fa fa-check-circle text-success" aria-hidden="true"></i><span class="text-success p-l-lg">권리양도 계약일 경우 지적재산권 양도 동의서 확인</span>
+  			</div>
+  			<br>
+  			<div class="p-l-md">
+  				<i class="fa fa-check-circle text-success" aria-hidden="true"></i><span class="text-success p-l-lg">수상작 원본파일 및 설명서 확인</span>
+  			</div>	
+  			<br>
+  			<div class="p-l-md p-b-md">
+  				<i class="fa fa-check-circle text-success" aria-hidden="true"></i><span class="text-success p-l-lg">수상자 원본파일 확인</span>
+  			</div>		
+  		</div>
+  		
+  	</div>
+	<br><br>
+	<hr>
+  	<div class="m-t-md" style="background: #fff" ng-repeat="entry in thisContest.entries" >
+  		<div class="trophy-div-contest pull-right" ng-if="entry.youWinner == 'yes'">
+  			<i class="fa fa-trophy text-warning"></i>
+  		</div>
+  		<div class="p-t-sm" ng-if="entry.youWinner == 'yes'">
+  			<img ng-src="{{entry.entryFile}}" class="img-responsie img-width-contst">
+   		</div>
+   		<!-- userInfo -->
+      <div class="row" ng-if="entry.youWinner == 'yes'">
+        <div class="col-xs-3 p-l-none p-ml-none" style="margin-left: 1.5rem; margin-top: 1rem;">
+          <img src="{{entry.entryPersonProfImage}}" style="width:100%">
+        </div>
+
+        <div class="col-xs-5 p-l-none p-ml-none" style="margin-left: 1.5rem; margin-top: 1rem;">
+          <b class="text-info">{{entry.entryPersonUsername}}</b><br>
+          <span style="font-size:10px">지원자수 # {{$index + 1}} of {{thisContest.entries.length}}</span>
+        </div>
+      </div>      
+  	</div>
+	<!-- <hr> -->
+  </div>
+	<!-- chatWindow -->
+	<div  ng-show="authentication.user">
+	  <footer ng-include="'/modules/core/client/views/chatWindow.html'" ></footer>
+	</div>
+	
+</section>

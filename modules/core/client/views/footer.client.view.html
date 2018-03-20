@@ -1,0 +1,211 @@
+<div ng-controller="FooterController">
+    <div class="pinky-template">
+        <footer class="Footer">
+
+            <!-- Statistics -->
+            <div class="Footer-section Footer-section--bordered hidden-xs">
+                <div class="Container-fluid m-ml-lg" style="margin-left:4rem;">
+                    <div class="Grid Grid--verticalCenter">
+                        <div class="col-xs-6 col-sm-6 col-md-3 col-md-offset-1 col-lg-3">
+                            <h3 class="m-t-none m-b-none">{{totalRegUsers | number}}</h3>
+                            <h6 class="m-t-none m-b-none">프리랜서</h6>
+                            <!-- <div class="SiteStat">
+                                <div id="footerRegisteredUsersCount" class="SiteStat-value">---</div>
+                                <div class="SiteStat-name">
+                                    <span class="SiteStat-name-text">Registered Users</span>
+                                </div>
+                            </div> -->
+                        </div>
+                        <div class="col-xs-6 col-sm-6 col-md-3 col-lg-3">
+                            <h3 class="m-t-none m-b-none">{{totalJobsPosted | number}}</h3>
+                            <h6 class="m-t-none m-b-none">프로젝트등록</h6>
+                            <!-- <div class="SiteStat">
+                                <div id="footerTotalJobsPostedCount" class="SiteStat-value">---</div>
+                                <div class="SiteStat-name">
+                                    <span class="SiteStat-name-text">Total Jobs Posted</span>
+                                </div>
+                            </div> -->
+                        </div>
+                        <div class="col-sm-12 col-xs-12 col-md-5 col-lg-5 p-ml-none p-mr-none">
+                            <div class="Footer-appStoreIcons">
+                                <a href="#" class="Footer-appStoreIcon">
+                                    <img class="Footer-appStoreIcon-image" src="modules/core/client/img/landing/apple-app.svg" alt="Apple App Store Badge">
+                                </a>
+                                <a href="#" class="Footer-appStoreIcon">
+                                    <img class="Footer-appStoreIcon-image" src="modules/core/client/img/landing/google-play.svg" alt="Google Play Store Badge">
+                                </a>
+                                <!-- <a href="http://203.99.61.173/demos/callme/public/account/jobseeker" class="Footer-appStoreIcon jobcallme-logo" target="_blank">
+                                    <img class="Footer-appStoreIcon-image" src="modules/core/client/img/landing/logo.png" alt="Job Call Me">
+                                </a> -->
+								<span class="Footer-appStoreIcon jobcallme-logo" target="_blank">
+                                    <img class="Footer-appStoreIcon-image" src="modules/core/client/img/landing/logo.png" alt="Job Call Me">
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+			
+            <div class="hidden-sm hidden-md hidden-lg">
+				<div class="text-center h3-mobile-getsupport">
+                    <button class="btn btn-success btn-lg btn-block mbl-footer" type="submit" ui-sref="projects.project-post" style="background:#bab3a9;border-color: #bab3a9;"><i class="fa fa-desktop p-mr-xs" style="color:#5f5b56"></i>프로젝트 무료등록</button>
+                </div>
+				<div class="text-center h3-mobile-getsupport">
+                    <button class="btn btn-success btn-lg btn-block mbl-footer" type="submit" ui-sref="contests.contest-post" style="background:#5f5b56;border-color: #5f5b56;"><i class="fa fa-trophy p-mr-xs" style="color:#d0a620"></i>콘테스트 무료등록</button>
+                </div>
+				<div class="text-center h3-mobile-getsupport">
+                    <button class="btn btn-success btn-lg btn-block mbl-footer" type="submit" ui-sref="showcases.list" style="background:#688686;border-color: #688686;"><img src="modules/core/client/img/customimages/top_icon52.png"> 쇼케이스 &nbsp;쇼&nbsp;핑&nbsp;몰</button>
+                </div>
+		
+                
+				
+
+
+				<div class="h3-mobile-getsupport text-center">
+							<h3 class="text-center Footer-linksTitle"><img src="modules/core/client/img/landing/loginAfter.png"></h3>
+                            <p class="Footer-copyright m-t-xs" style="color:#fff"><img src="modules/core/client/img/customimages/phone.png">&nbsp;070-7770-0967&nbsp;<a href="http://outsourcingok.com/" style="color:#fff"><img src="modules/core/client/img/customimages/email.png" style="padding-left:10px">&nbsp;&nbsp;admin@outsourcingok.com</a></p>
+							<p class="Footer-copyright m-t-xs" style="color:#fff">운영시간 : 오전10시부터오후5시까지(공휴일제외)</p>						
+                        
+
+                </div>
+				<div class="h3-mobile-getsupport text-center" style="padding-top:10px">
+										
+                            <p class="Footer-copyright m-t-xs">서울시 서초구 논현로27길 39(양재동 천일빌딩2층)</p>				
+                            <p class="Footer-copyright m-t-xs">주식회사 잡콜미&nbsp;|&nbsp;사업자등록번호 : 201-86-41011</p>
+							<p class="Footer-copyright m-t-xs">통신판매업신고번호 : 2014-서울서초-1367&nbsp;|&nbsp;대표이사 김성영</p>
+							<p class="Footer-copyright m-t-xs">직업정보제공사업 신고번호 서울청 제2017-26호</p>
+							<p class="Footer-copyright m-t-xs"><a href="http://www.ftc.go.kr/info/bizinfo/communicationView.jsp?apv_perm_no=2014321012130201367&area1=&area2=&currpage=1&searchKey=04&searchVal=2018641011&stdate=&enddate=" target="_blank"><button class="btn btn-info btn-sm">사업자정보확인</button></a>&nbsp;&nbsp;&nbsp;<img src="modules/core/client/img/landing/logo_mobile.png" alt="Job Call Me">                 <!-- <a href="http://203.99.61.173/demos/callme/public/account/jobseeker" target="_blank"><img src="modules/core/client/img/landing/logo_mobile.png" alt="Job Call Me"></a></p> -->
+                            <p class="Footer-copyright m-t-xs" style="padding-top:5px">&nbsp;&nbsp;Copyright &copy; outsourcingok.com</p>
+
+                </div>
+            </div>
+            <div class="Footer-section p-mall-sm">
+                <div class="Container-fluid m-ml-lg" style="margin-left:4rem;">
+                    <div class="Grid">
+                        <div class="col-sm-6 col-xs-6 col-md-3 col-lg-3 col-md-offset-1 p-ml-none hidden-xs">
+                            <h3 class="Footer-linksTitle">아웃소싱 오케이 정보</h3>
+                            <ul class="Footer-links">
+							    <li>
+                                    <a class="Footer-link" ui-sref="showcases.list">쇼케이스 몰</a>
+                                </li>
+
+                                <li>
+                                    <a class="Footer-link" ui-sref="projects.project-list">프로젝트 목록</a>
+                                </li>
+                                <li>
+                                    <a class="Footer-link" ui-sref="contests.contest-list">콘테스트 목록</a>
+                                </li>
+                                <!-- <li>
+                                    <a class="Footer-link" ui-sref="about.sitemap" >Sitemap</a>
+                                </li> -->
+                                <!-- <li>
+                                    <a class="Footer-link" ui-sref="#">Projects Directory</a>
+                                </li> -->
+                                <li>
+                                    <a class="Footer-link" ui-sref="outsoucers">프리랜서 글로벌 회원검색</a>
+                                </li>
+                               <!--  <li>
+                                    <a class="Footer-link" ui-sref="#">OutsourcingOk Local</a>
+                                </li>
+                                <li>
+                                    <a class="Footer-link" ui-sref="about.services">Services</a>
+                                </li> -->
+                                
+                            </ul>
+                        </div>
+                        <div class="col-sm-6 col-xs-6 col-md-3 col-lg-3 p-ml-none hidden-xs">
+                            <h3 class="Footer-linksTitle">아웃소싱 오케이 정보</h3>
+                            <ul class="Footer-links">
+                                <li>
+                                    <a class="Footer-link" ui-sref="about.overview">회사소개</a>
+                                </li>
+                                <li>
+                                    <a class="Footer-link" ui-sref="about.outsource" >사용방법</a>
+                                </li>
+                                <!-- <li>
+                                    <a class="Footer-link" ui-sref="about.team">Team</a>
+                                </li>
+                                
+                        
+                                <li>
+                                    <a class="Footer-link" ui-sref="about.security">Security </a>
+                                </li>
+                                 -->
+                                <li>
+                                    <a class="Footer-link" ui-sref="about.feesandcharges">비용 및 수수료 정보</a>
+                                </li>
+                                <!-- <li>
+                                    <a class="Footer-link" ui-sref="about.quotes">Quotes</a>
+                                </li> -->
+                            </ul>
+                        </div>
+                        <!-- <div class="col-sm-6 col-xs-6 col-md-2 col-lg-2">
+                            <h3 class="Footer-linksTitle">Press</h3>
+                            <ul class="Footer-links">
+                                <li>
+                                    <a class="Footer-link" ui-sref="about.media">In the News</a>
+                                </li>
+                                <li>
+                                    <a class="Footer-link" ui-sref="about.press">Press Releases</a>
+                                </li>
+                                <li>
+                                    <a class="Footer-link" ui-sref="awards">Awards</a>
+                                </li>
+                                <li>
+                                    <a class="Footer-link" ui-sref="testimonial">Testimonials</a>
+                                </li>
+                                
+                            </ul>
+                        </div> -->
+                        <div class="col-sm-6 col-xs-6 col-md-3 col-lg-3 p-ml-none hidden-xs">
+                            <h3 class="Footer-linksTitle">고객 지원</h3>
+                            <ul class="Footer-links">
+                                <li>
+                                    <a class="Footer-link" ui-sref="support">고객지원</a>
+                                </li>
+                                <!-- <li>
+                                    <a class="Footer-link" ui-sref="support-career">Careers</a>
+                                </li> -->
+                                
+                                <li>
+                                    <a class="Footer-link" ui-sref="about.contact">고객문의</a>
+                                </li>
+
+								<li>
+                                    <a class="Footer-link" ui-sref="about.contact">투자제휴</a>
+                                </li>
+
+                            </ul>
+                        </div>
+                        <div class="col-sm-6 col-xs-6 col-md-2 col-lg-2 p-ml-none hidden-xs">
+                            <h3 class="Footer-linksTitle">운영방침</h3>
+                            <ul class="Footer-links">
+                                <li>
+                                    <a rel="nofollow" class="Footer-link" ui-sref="Privacy-term-condition">개인정보취급방침</a>
+                                </li>
+                                <li>
+                                    <a rel="nofollow" class="Footer-link" ui-sref="term-condition">이용약관</a>
+                                </li>
+                                <!-- <li>
+                                    <a rel="nofollow" class="Footer-link" ui-sref="copyright-policy">저작권보호정책</a>
+                                </li> -->
+                                <li>
+                                    <a rel="nofollow" class="Footer-link" ui-sref="codeofconduct">이용자수칙</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 p-ml-none text-center footer-mange hidden-xs" style="padding-top:20px">                            
+                            <p class="Footer-copyright m-t-xs">고객지원센터 070-7770-0967 | 운영시간 오전10시부터오후5시까지(공휴일제외) | Fax +822 2058-0138 | <a href="http://outsourcingok.com/">admin@outsourcingok.com</a></p>
+                            <p class="Footer-copyright m-t-xs">주식회사 잡콜미 | 대표이사 김성영 | 서울시 서초구 논현로27길 39(양재동 천일빌딩2층)</p>
+                            <p class="Footer-copyright m-t-xs">개인정보관리자 나유신 | 사업자등록번호 201-86-41011 &nbsp;&nbsp;&nbsp;<a href="http://www.ftc.go.kr/info/bizinfo/communicationView.jsp?apv_perm_no=2014321012130201367&area1=&area2=&currpage=1&searchKey=04&searchVal=2018641011&stdate=&enddate=" target="_blank"><button class="btn btn-info btn-sm">사업자정보확인</button></a></p>
+							<p class="Footer-copyright m-t-xs">통신판매업신고번호 2014-서울서초-1367</p>
+							<p class="Footer-copyright m-t-xs">직업정보제공사업 신고번호 서울청 제2017-26호</p>
+                            <p class="Footer-copyright m-t-xs">Copyright &copy; outsourcingok.com</p>
+							                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </div>
+</div>

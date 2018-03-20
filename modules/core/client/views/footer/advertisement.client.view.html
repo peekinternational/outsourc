@@ -1,0 +1,36 @@
+<section ui-view autoscroll="true" ng-controller="HomeController" ng-init="advertisement();">
+	<div class="container-fluid p-ml-none p-mr-none">
+		<div class="row m-l-none m-r-none m-negtv-row p-t-xlg p-mt-none">
+	    <ul ng-repeat="ad in advert" class="p-mr-none p-ml-none" style="list-style-type:none; padding-right: 4%;">
+	        <a ng-href="{{ad.link}}" target="_blank">
+	        	<li class="col-xs-12 col-sm-6 col-md-3  p-t-xlg">
+	            <img src="{{ad.imgeUrl}}" class="img-rounded landingsetting07">
+	        </li>
+	        </a>
+	    </ul>
+		</div>
+
+    <!-- Angular spinner -->
+    <span us-spinner="{radius:30, width:8, length: 16}" spinner-key="adLoader"></span>
+
+		<div class="row landingsetting04 m-ml-none m-mr-none p-t-xlg" style="margin-left:-3rem; margin-right:-3rem; margin-top:4rem;">
+      <br>
+      <div class="col-md-4 col-md-offset-2">
+        <div class="row">
+          <div class="col-md-7  text-right ">
+            <img src="modules/core/client/img/landingimages/mypic.png" style="width:35%;" class="img-circle ">
+          </div>
+          <br>
+          <div class="col-md-5  p-l-none pull-left" style="border-right: 1px solid grey;">
+            <b>Rick Green</b> <br>
+            <i>Shirt Makers of London</i>
+          </div>
+        </div>
+        <br><br>
+      </div>
+      <div class="col-md-4"><center><i>We have used Metal Potato for sometime now and the last upgrade to our website has proved that regular updates are invaluable to online success. Within one hour of mentioning our new website we had numerous hits and 4 confirmed orders</i></center>
+      </div>
+      <div class=" col-md-2"></div>
+    </div>
+	</div>	
+</section>

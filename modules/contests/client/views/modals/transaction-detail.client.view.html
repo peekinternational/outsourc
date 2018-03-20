@@ -1,0 +1,64 @@
+<div class="modal-header bg-primary">
+    <h3 class="modal-title " id="modal-title">입출금 상세 내용</h3>
+</div>
+<div class="modal-body" id="modal-body">
+    <div class="row">
+        <div class="col col-xs-2">
+            <b>거래 유형:</b>
+        </div>
+        <div class="col col-xs-2">
+            <span ng-if="trans.transectionType === 'Credit' || trans.transectionType ==='Deposit' " class="label label-success"> 수입<!-- {{trans.transectionType}} --></span>
+            <span ng-if="trans.transectionType === 'Debit'" class="label label-danger"> 지출<!-- {{trans.transectionType}} --></span>
+        </div>
+        <div class="col col-xs-2">
+            <b>거래번호:</b>
+        </div>
+        <div class="col col-xs-6">
+            {{trans.id}}
+        </div>
+    </div>
+    <hr>
+    <div class="row">
+        <div class="col col-xs-2">
+            <b ng-if="trans.transectionType ==='Debit'">금액:</b>
+            <b ng-if="trans.transectionType ==='Deposit' || trans.transectionType ==='Credit'">금액:</b>
+        </div>
+        <div class="col col-xs-5">
+            <span class="label label-info">
+                {{trans.currency}} {{trans.amount | number:0}} 
+            </span> 
+        </div>
+        <div class="col col-xs-2">
+            <b>날짜:</b>
+        </div>
+        <div class="col col-xs-3">
+            {{trans.transactionDate | date:"yyyy'년' MM'월' dd'일'"}}
+        </div>
+    </div>
+    <div class="row" ng-if="trans.description.tax">
+        <hr>
+        <div class="col col-xs-3">
+            <b>Tax:</b>
+        </div>
+        <div class="col col-xs-6">
+            Tax deducted on transaction:
+            <span class="label label-danger">
+                {{trans.currency}} {{trans.description.tax || '0.0' | number: 2}}
+            </span>
+            
+        </div>
+    </div>
+    <hr>
+    <div class="row">
+        <div class="col col-xs-3">
+            <b>내용:</b>
+        </div>
+        <div class="col col-xs-9" ng-bind-html="trans.description.detail"> </div>
+    </div>
+
+</div>
+<div class="modal-footer bg-success">
+    <button class="btn btn-info" type="button" ng-click="ok()"> 
+        <i class="fa fa-check" aria-hidden="true"></i>확인
+    </button>
+</div>

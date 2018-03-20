@@ -1,0 +1,285 @@
+<div class="row project-backgroundimage5 hidden-xs">
+        <div class="container about-investor-title-setting">
+<br>
+            <h3 class="investor-heading p-t-sm" style="font-size:20px;">콘테스트 편집 및 삭제</h3>
+            <h3 class="investor-para">
+               
+            </h3>
+            <br><br>
+          </div>
+      </div>
+
+<section ng-controller="ContestsController" ng-init="findOne();" class="container">
+
+	<h3 class="text-info text-center">
+		<div>
+			콘테스트 편집 및 삭제 <br> <br>
+			<button class="btn btn-md btn-info" ng-click="editContest();" ng-disabled="upgrade"> 
+				편집 
+				<i class="fa fa-pencil-square-o" aria-hidden="true"></i>	
+			</button>
+			<button class="btn btn-md btn-warning" ng-click="deleteContest();"  ng-disabled="upgrade"> 
+				삭제 
+				<i class="fa fa-trash" aria-hidden="true"></i>
+			</button>
+			<button class="btn btn-md btn-success" ng-click="upgradeContest(); upgrade = true"  ng-disabled="edit"> 
+				업그레이드 
+				<i class="fa fa-line-chart" aria-hidden="true"></i>
+			</button>
+		</div> 
+	</h3>
+	
+	<div class="row" ng-if="!upgrade">
+		<!-- loader -->
+		<div ng-if="isLoading">
+			<center> 
+				<i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i>
+			</center>
+		</div>
+
+		<div ng-if="!isLoading" class="col-md-offset-2 col-xs-12 col-md-8" style="border: 1px #5bc0de solid; border-radius: 1rem;padding: 2rem;">
+			<div class="form-group">
+				<h4>제목:
+				<span ng-show="!editName" ng-click="editName = true" style="word-break: break-word">{{thisContest.name}}</span> 
+				<input type="text" ng-model="thisContest.name" ng-show="editName" class="form-control">
+				</h4>
+			</div>
+			<div class="form-group">
+				<b>내용:</b>
+				<!-- <span ng-show="!editDesc" ng-click="editDesc = true" class="prjct-list-font" style="white-space: pre-line; word-wrap: break-word;">{{thisContest.description}}</span> 
+				<textarea ng-model="thisContest.description"  ng-show="editDesc" class="form-control"></textarea> -->
+
+				<span ng-show="!editDesc" ng-click="editDesc = true" class="prjct-list-font" style="white-space: pre-line; word-wrap: break-word;" ng-bind-html="thisContest.description"></span>
+
+				<div  ng-show="editDesc" text-angular="text-angular" name="description" ng-model="thisContest.description" ta-disabled='disabled' ta-text-editor-class="form-control myform1-height" ta-html-editor-class="form-control myform1-height"></div>
+				
+			</div>
+			<div class="form-group">
+				<b>기간</b>: {{thisContest.dayContest}}일
+			</div>
+			<div class="form-group">
+				<b>지급통화</b>: {{thisContest.currency.code}}
+			</div>
+			<div class="form-group">
+				<b>전문기술:</b> <p style="display:inline;" ng-repeat="skill in thisContest.skills"> <span  class="label label-info m-l-xs m-r-xs" style="word-break: break-word"> {{skill.name}}&nbsp;	</span></p> 
+			</div>
+			
+			<div>
+				<b>지원자 수:</b> {{thisContest.entries.length}}
+			</div>
+
+			<br>
+			<div>
+				<div ng-if="editName || editDesc">
+
+					<button class="btn btn-md btn-danger" ng-click="cancelEdit()">취소</button>
+					<button class="btn btn-md btn-success" ng-disbaled="isLoading" ng-click="updateContest();" >
+						완료  <span ng-if="isLoading"> <i class="fa fa-spinner fa-spin fa-1x fa-fw" ></i>  </span>
+					</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- Upgrade -->
+	<div class="row" ng-if="upgrade">
+		<div class="col-md-offset-2 col-md-8 col-xs-12">
+			
+			<div class=" profile_container bordortop_styling p-l-sm p-r-lg">            
+			  <h3 class="h3-mobile-font"> <strong>콘테스트 업그레이드</strong></h3>
+			  <hr>
+			  <div class="upRow">
+			    <br class="hidden-xs">
+			    <div class="row">
+			      <div class="col-xs-7 col-md-3">
+			        <input ng-disabled="thisContest.additionalPakages.pakage_1" class="bigCheckBox" type="checkbox" value='true' ng-model = "thisContest.additionalPakages.pakage_1" ng-change="calculateUpgradeAmount(thisContest.additionalPakages.pakage_1,'pakage_1')">
+			      	<div class="btn-container">
+			      		<label class="featured label-featured btn btn-block" style="background:#2d6ca7;color:#fff;"> 채팅 </label> 
+			      	</div>
+			        
+			      </div>
+			      <!-- Mobile View -->
+			      <div class="col-md-1 col-xs-5 text-right hidden-sm hidden-md hidden-lg">
+			        <strong>{{thisContest.currency.symbol_native}}{{latestCurrencyRate[thisContest.currency.code]*pakagePrices.pakage_1 | number: 0}}</strong>
+			      </div>
+			      <!-- End -->
+			    <div class="col-xs-12 col-md-8 p-l-none p-ml-md prjct-list-font p-mt-sm">
+			        
+					<h3 class="title">채팅이용은 프로젝트의 높은 성공의 지표입니다. 등록건별 무제한 채팅이용!</h3>
+					  <p>등록건별로 콘테스트가 완성될때까지 언제 어디서나 무제한 채팅이용할 수 있으며 등록이 다를경우 별도 구매 해야합니다. &nbsp;&nbsp;<span ng-click="chat = !chat" style="font-size:10px;padding-left:20px;background:#6b0816;border-radius: 3px;padding:5px;color:#fff;cursor: pointer; cursor: hand;">주의▶</span></p>
+					<span ng-show="chat">
+					  <p><span style="color:#920923">[보안과 안전성을 이유로 반드시 구글크롬을 이용해야 합니다.]</span></p>
+		              <p>아웃소싱오케이 실시간채팅 서비스는 의뢰인과 함께 콘테스트 공개 포럼을 거쳐 채팅으로 상담한&nbsp;&nbsp; 1차합격자 프리랜서(의뢰인이 선택한 프리랜서를 칭함)들로부터 콘테스트 시작부터 완료까지 전체 과정을 실시간회의를 거쳐 수상자를 선정 할 수 있습니다. 채팅 서비스 이용 구매시 1:1 화상채팅은 무료로 이용할 수 있습니다.</p>
+					  <p>무료로 제공하는 1:1 화상 채팅은 프리랜서들과 화상회의가 언제든지 가능하며 안전하게 거래 할 수 있습니다. 대면 미팅을 원할경우 아웃소싱본사 회의실에서 원하는 시간에 맞춰서 대면미팅을 하실 수 있습니다.</p>
+		              <p>여러 프리랜서들과 실시간 채팅으로 더 많은 아이디어를 얻을 수 있는 기회가 되며 분쟁이 발생하기 전에 저장된 문자 채팅의 기록물로 양당사자간에 문제를 사전에 예방 할 수 있으며 분쟁을 쉽게 해결 할 수 있습니다.</p>
+			  
+
+				    <ul class="ul-sidebar2">
+						<li style="color:#898989">
+							 기타 외부 화상채팅[카카오톡, 스카이프등]을 이용시 양 당사자간 분쟁이 발생할 경우 아웃소싱오케이에서는 중재에 도움을 줄 수 없으니 주의 바랍니다.
+						</li>
+				    </ul>
+
+				    <ul class="ul-sidebar2">
+						<li style="color:#898989">
+							 채팅기록 보관은 ctrl+a후 ctrl+c로 회원님PC 저장파일에 ctrl+v로 별도보관바랍니다.
+						</li>
+				    </ul>
+			  		</span>
+			    </div>
+			      <div class="col-md-1 text-right p-l-none hidden-xs">
+			        <strong>{{thisContest.currency.symbol_native}}{{latestCurrencyRate[thisContest.currency.code]*pakagePrices.pakage_1 | number: 0}}</strong>
+			      </div>
+			    </div>
+			    <hr>
+			  </div>
+
+			  <div class="upRow">
+			    <br class="hidden-xs">
+			    <div class="row">
+				    <div class="col-xs-7 col-md-3">
+				        <input ng-disabled="thisContest.additionalPakages.sealed" class="bigCheckBox" type="checkbox" value='true' ng-model = "thisContest.additionalPakages.sealed" ng-change="calculateUpgradeAmount(thisContest.additionalPakages.sealed,'pakage_5')">
+					    <div class="btn-container"> 
+					    	<label class="sealed label-featured btn btn-block" style="background:#8fb7b9;border-color:#8fb7b9;"> 비공개 </label> 
+					    </div>
+				    </div>
+			      <!-- Mobile View -->
+			      <div class="col-xs-5 col-md-1 text-right p-l-none hidden-sm hidden-md hidden-lg">
+			        <strong>{{thisContest.currency.symbol_native}}{{latestCurrencyRate[thisContest.currency.code]*pakagePrices.pakage_5 | number: 0}}</strong>
+			      </div>
+			      <!-- End -->
+			      <div class="col-xs-12 col-md-8 p-l-none p-ml-md prjct-list-font p-mt-sm">
+			        <p>콘테스트 개최를 정확하고 좋은 제안서를 받기위해 비공개로 할 경우 지원한 프리랜서들은 다른 프리랜서들의 지원금액과 내용을 볼 수 없어 최상의 효과를 기대 할 수 있습니다.</p>
+			      </div>
+			      <div class="col-md-1 text-right p-l-none hidden-xs">
+			        <strong>{{thisContest.currency.symbol_native}}{{latestCurrencyRate[thisContest.currency.code]*pakagePrices.pakage_5 | number: 0}}</strong>
+			      </div>
+			    </div>
+			    <hr>
+			  </div>
+
+			  <div class="upRow">
+			    <br class="hidden-xs">
+			    <div class="row">
+			        <div class="col-xs-7 col-md-3">
+			        	<input  ng-disabled="thisContest.additionalPakages.private" class="bigCheckBox" type="checkbox" value='true' ng-model = "thisContest.additionalPakages.private" ng-change="calculateUpgradeAmount(thisContest.additionalPakages.private,'pakage_4')" >
+				    	<div class="btn-container"> 
+				        	<label class="private label-featured btn btn-block" style="background:#85a1b9;color:#fff;"> 개인 서비스 </label> 
+				    	</div>
+			        </div>
+			        <!-- Mobile View -->
+			        <div class="col-xs-5 col-md-1 text-right p-l-none hidden-sm hidden-md hidden-lg">
+			          <strong>{{thisContest.currency.symbol_native}}{{latestCurrencyRate[thisContest.currency.code]*pakagePrices.pakage_4 | number: 0}}</strong>
+			        </div>
+			        <!-- End -->
+			        <div class="col-xs-12 col-md-8 p-l-none p-ml-md prjct-list-font p-mt-sm">
+			         	<p>개인 서비스는 보안성이 필요한 핵심적인 콘테스트에 전문 프리랜서를 찾을 때 효과적입니다.<span ng-click="service = !service" style="font-size:10px;margin-left:13px;padding-left:20px;background:#2f70a9;border-radius: 3px;padding:5px;color:#fff;cursor: pointer; cursor: hand;">안내▶</span></p>
+			   			<p ng-show="service">아웃소싱 오케이는 회원님께서 등록한 콘테스트 내용들을 재 검토하여 프리랜서들에게 부각될 수 있도록 아웃소싱오케이 담당자가 1:1 서비스로 콘테스트 등록 재검토 및 수정해 드립니다. 본 서비스는 계약전에 회원님께서 원하는 여러프리랜서와 대면미팅을 원할경우 아웃소싱 오케이 담당자가 시간,장소등 모든 일정표를 회원님과 함께 계획하여 대면미팅시 직접 참여해서 계약까지 도와드립니다.</p>
+			        </div>
+			        <div class="col-md-1 text-right p-l-none hidden-xs">
+			        	<strong>{{thisContest.currency.symbol_native}}{{latestCurrencyRate[thisContest.currency.code]*pakagePrices.pakage_4 | number: 0}}</strong>
+			      	</div>
+			    </div>
+			    <hr>
+			  </div>
+
+			  <div class="upRow">
+			    <br class="hidden-xs">
+			    <div class="row">
+			        <div class="col-xs-7 col-md-3">
+			        	<!-- <input class="bigCheckBox" type="checkbox" ng-model="upgradeProject.fulltime"> -->
+			        	<input  ng-disabled="thisContest.additionalPakages.urgent" class="bigCheckBox" type="checkbox" value='true' ng-model = "thisContest.additionalPakages.urgent" ng-change="calculateUpgradeAmount(thisContest.additionalPakages.urgent,'pakage_7')">
+			      
+			      		<div class="btn-container"> 
+			        		<label class="fulltime label-featured btn btn-block" style="background:#524a3f;color:#fff;border-color: #524a3f;"> 긴급 </label> 
+			      		</div>
+			    	</div>
+			    	<!-- Mobile View -->
+			      	<div class="col-xs-5 col-md-1 text-right p-l-none hidden-sm hidden-md hidden-lg">
+			        	<strong>{{thisContest.currency.symbol_native}}{{latestCurrencyRate[thisContest.currency.code]*pakagePrices.pakage_7 | number: 0}}</strong>
+			      	</div>
+			      	<!-- End -->
+			      	<div class="col-xs-12 col-md-8 p-l-none p-ml-md prjct-list-font p-mt-sm">
+			        	<p>본 서비스 기능은 프리랜서들에게 회원님의 콘테스트 빠른 응답과 긴급을 요한 콘테스트, 변경, 업데이트, 긴급제작등 콘테스트를 신속하게 시작할 수 있는 서비스입니다. </p>
+			      	</div>
+			      	<div class="col-md-1 text-right p-l-none hidden-xs">
+			        	<strong>{{thisContest.currency.symbol_native}}{{latestCurrencyRate[thisContest.currency.code]*pakagePrices.pakage_7 | number: 0}}</strong>
+			      	</div>
+			    </div>
+			    <hr>
+			  </div>
+
+			  <div class="upRow">
+			    <br class="hidden-xs">
+			    <div class="row">
+			      <div class="col-xs-7 col-md-3">
+			        <input  ng-disabled="thisContest.additionalPakages.gaurantee" class="bigCheckBox" type="checkbox" value='true' ng-model = "thisContest.additionalPakages.gaurantee" ng-change="calculateUpgradeAmount(thisContest.additionalPakages.gaurantee,'gaurantee')">
+			      	<div class="btn-container"> 
+			        	<label class="fulltime label-featured btn btn-block" style="background:#5a4920;color:#fff;border-color: #5a4920;"> 상금보장 </label> 
+			      	</div>
+			    	</div>
+				    <!-- Mobile View -->
+				    <div class="col-xs-5 col-md-1 text-right p-l-none hidden-sm hidden-md hidden-lg">
+				      <strong>{{thisContest.currency.symbol_native}}{{latestCurrencyRate[thisContest.currency.code]*pakagePrices.gaurantee | number: 0}}</strong>
+				    </div>
+				    <!-- End -->
+			     	<div class="col-xs-12 col-md-8 p-l-none p-ml-md prjct-list-font p-mt-sm">
+			        <p>상금보장을 선택하면 프리랜서들에게 의뢰인의 콘테스트가 강조 됩니다. 상금보장 선택시 환불이 불가합니다.<span ng-click="gaurantee = !gaurantee" style="font-size:10px;margin-left:13px;padding-left:20px;background:#6b0816;border-radius: 3px;padding:5px;color:#fff;cursor: pointer; cursor: hand;">주의▶</span></p>
+				  		<span ng-show="gaurantee">
+				  			<ul class="ul-sidebar2">
+									<li style="color:#898989">
+										상금보장을 선택하면 환불이 불가하며 콘테스트 등록시점부터 14일이내 수상작 선정을 희망하지 않는 경우에는 의뢰인께서 회사 화상채팅 인박스를 통해서 상담한 모든 프리랜서들에게 90%를 1/n로 균등하게 지급 됩니다(콘테스트 공개포럼에 참여한 프리랜서는 1/n 제외되며 1차합격자가 없는 경우에는 콘테스트 공개포럼에 참여한 모든 프리랜서들에게 90%를 1/n로 균등하게 지급 됩니다.)
+									</li>
+				  			</ul>
+				  		</span>
+			      </div>
+			      <div class="col-md-1 text-right p-l-none hidden-xs">
+			        <strong>{{thisContest.currency.symbol_native}}{{latestCurrencyRate[thisContest.currency.code]*pakagePrices.gaurantee | number: 0}}</strong>
+			      </div>
+			  	</div>
+			    <hr>
+			  </div>
+
+			  <div class="upRow">
+			    <br class="hidden-xs">
+			    <div class="row">
+			      <div class="col-xs-7 col-md-3">
+			        <input ng-disabled="thisContest.additionalPakages.nda" class="bigCheckBox" type="checkbox" value='true' ng-model = "thisContest.additionalPakages.nda" ng-change="calculateUpgradeAmount(thisContest.additionalPakages.nda,'pakage_6')">
+			      	<div class="btn-container"> 
+			        	<label class="bg-primary label-featured btn btn-block" style="background:#efbf50;color:#fff;border-color: #efbf50;"> 계약(NDA) </label> 
+			      	</div>
+			      </div>
+			      <!-- Mobile View -->
+			      <div class="col-xs-5 col-md-1 text-right hidden-sm hidden-md hidden-lg">
+			        <strong>{{thisContest.currency.symbol_native}}{{latestCurrencyRate[thisContest.currency.code]*pakagePrices.pakage_6 | number: 0}}</strong>
+			      </div>
+			      <!-- End -->
+			      <div class="col-xs-12 col-md-8 p-l-none p-ml-md prjct-list-font p-mt-sm">
+			        <p>의뢰인이 등록한 정보에 대해서 비공개 서약서를 작성하는 서비스입니다.<br><span ng-click="nda = !nda" style="font-size:10px;margin-left:16px;padding-left:20px;background:#6b0816;border-radius: 3px;padding:5px;color:#fff;cursor: pointer; cursor: hand;">주의▶</span></p>
+			  			<span ng-show="nda">
+			  				<p>비공개 계약 서비스를 선택할 경우 하이라이트로 표시되여 콘테스트가 부각될 수 있습니다. 또한 주어진 조건에 따라 콘테스트에 대한 의뢰인과 지원자/프리랜서 및 아웃소싱오케이 제3자간 간의 기밀 ​​합의입니다.</p>
+			  				<ul class="ul-sidebar2">
+									<li style="color:#898989">
+										 계약방법은 등기우편 또는 아웃소싱오케이본사 중 선택해서 계약할 수 있습니다.
+									</li>
+			  				</ul>
+			  			</span>
+			      </div>
+			      <div class="col-md-1 text-right p-l-none hidden-xs">
+			        <strong>{{thisContest.currency.symbol_native}}{{latestCurrencyRate[thisContest.currency.code]*pakagePrices.pakage_6 | number: 0}}</strong>
+			      </div>
+			    </div>
+			    <hr>
+			    <div class="m-l-md"><h4><strong> 합계(부가세별도): {{thisContest.currency.symbol_native}} {{upgradeTotal | number: 0 }}</strong></h4></div>  
+			  </div>
+
+			  <div>
+			  	<button class="btn btn-md btn-danger" ng-click="cancelUpgrade();"> 취소</button>
+			  	<button class="btn btn-md btn-success" ng-disabled="upgradeTotal==0" ng-click="updateContest();"> 업그레이드</button>
+			  </div>
+			  <br><br>
+			</div>
+		</div>
+	</div>
+	<br><br>
+</section>

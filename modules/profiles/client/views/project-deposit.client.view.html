@@ -1,0 +1,263 @@
+<section ng-controller="ProfilesController" ng-init="paypalPaid(); universalData();" class="container-fluid p-ml-none p-mr-none">
+	<div class="hidden-md">
+		<br><br>
+	</div>
+
+	<!-- Credit Card -->
+	<div class="deposit-body p-ml-none p-mr-none">
+		<br>
+		<h2 class="p-l-md p-ml-none font-mobile"><strong >Project Payment</strong></h2>
+
+		<div class="col-md-5 p-ml-none p-mr-none" >
+			<!-- paypal payment -->
+			<!-- style="width:50%;margin:0 auto; margin-top:45%" -->
+			<div class="panel panel-primary">
+			<div class="panel-heading" style="background-color:#2c456c;"><h3>credit card Payment</h3></div>
+			<div class="panel-body bg-success" style="height:40%; text-align:center;" >
+			<p class="bg-info" id="msg"></p>
+			   <form class="form-horizontal" role="form" id="paypalForm" method="post" ng-submit="paynow('deposit')">
+			    <div class="form-group">
+			      <p class="col-md-4 text-left" for="amount">Project payment amount</p>
+			      <div class="col-sm-8">
+			       	<input style="text-align:right" class="form-control" ng-change="calTotalAmount()" ng-model="pay.projectamount" min="0" name="amount" placeholder="Please enter the amount" required="required" type="number">
+			      </div>
+			      <!-- <div class="col-sm-3">
+			       	<select selector 
+	       	            model="dpCur" 
+	       	            options="currencyList" 
+	       	            placeholder="Select currency"
+	       	            require="true">   
+       	          	</select>
+			      </div> -->
+			    </div>
+
+			    <div class="form-group">
+			      <p class=" col-md-4 text-left" for="amount">VAT(+10%)</p>
+			      <div class="col-sm-8 text-right p-r-lg">
+			        ₩{{processVat | number: 0}}
+			      </div>
+			    </div>
+			    <hr>
+			    <div class="form-group">
+			      <p class=" col-md-4 text-left" for="amount"><b>Project Total Payment Amount</b></p>
+			      <div class="col-sm-8 text-right p-r-lg"><b>₩{{totalprejectDepositAmount | number: 0}}</b></div>
+			    </div>
+
+			    <!-- <div class="form-group">
+			      <label class="control-label col-sm-2" for="currency">Currency:</label>
+			      <div class="col-sm-10">
+			        <input type="text" class="form-control" ng-model="pay.currency" name="currency" placeholder="Enter Currency Type" value="USD" required="required">
+			      </div>
+			    </div>
+			    <div class="form-group">
+			      <label class="control-label col-sm-2" for="description">Description:</label>
+			      <div class="col-sm-10">
+			        <textarea class="form-control" ng-model="pay.desc" name="description" placeholder="Enter Description">My First Payment</textarea>
+			      </div>
+			    </div> -->
+			    <div class="form-group">
+			      <div class="col-sm-offset-2 col-sm-10">
+			        <!-- <button id="send" class="btn btn-primary btn-lg" type="submit" ng-disabled="!pay.amount || totalDepositAmount<0 || !dpCur"> -->
+					<button id="send" class="btn btn-primary btn-lg" type="submit" ng-disabled="!pay.projectamount || totalprejectDepositAmount<0">
+			           <span class="glyphicon glyphicon-send" ></span> Buy ₩{{totalprejectDepositAmount | number: 0}}
+			        </button>
+			      </div>
+			    </div>
+			  </form>
+			</div>
+			</div>
+			<!-- paypal payment -->
+			<!-- <div class="thumbnail">
+				<div class="upper-label">
+					<h4><input type="radio" ng-model="creditCard"> <b>Credit Card</b></h4>
+
+				</div>
+				<br>
+				<div >
+					<div class="row deposit">
+						<div class="col-xs-8 p-ml-none">
+							<label><strong>Card Number:</strong></label>
+							<input type="number" class="form-control" ng-model="creditCardNum">
+						</div>
+						<div class="col-xs-4 p-mr-none p-ml-none">
+							<label><strong>Expiry Date:</strong></label>
+							<input type="number" class="form-control" placeholder="MM/YY" ng-model="creditCardNum">
+						</div>
+					</div>
+					<br>
+					<div class="row deposit">
+						<div class="col-xs-8 p-ml-none">
+							<label><strong>Cardholder Name:</strong></label>
+							<input type="number" class="form-control" ng-model="creditCardNum">
+						</div>
+						<div class="col-xs-4 p-mr-none p-ml-none">
+							<label><strong>CCV/CVV:</strong></label>
+							<input type="number" class="form-control" ng-model="creditCardNum">
+						</div>
+					</div>
+					<br>
+					<div class="row deposit">
+						<div class="col-xs-7 col-xs-7 p-ml-none">
+							<b>You agree to authorize the use of your credit card for this deposit and future payments.</b>
+						</div>
+						<div class="col-xs-5 p-mr-none p-ml-none">
+							<img class="cardDeposit" src="/modules/profiles/client/img/Cards/master.png">
+							<img class="cardDeposit" src="/modules/profiles/client/img/Cards/visa.png">
+							<img class="cardDeposit" src="/modules/profiles/client/img/Cards/express.png">
+						</div>
+					</div>	
+				</div>
+			</div> -->
+		</div>
+		<!-- <div class="col-md-5 p-ml-none p-mr-none">
+			<div class="thumbnail">
+				<br><br>
+				<form data-ng-submit="deposit()">
+					<div class="deposit">
+						<input type="text" class="form-control">
+						<hr>
+					</div>
+
+					<div class="row deposit">
+						<div class="col-md-6 text-left">
+							<p>Deposit Amount</p>
+						</div>
+						<div class="col-md-6 text-right">
+							<input ng-model="depositAmount" ng-change="calTotalAmount();" required  type="number" class="form-control">
+						</div>
+					</div>
+					<div class="row deposit">
+						<div class="col-md-6 text-left">
+							<p>Processing Fee</p>
+						</div>
+						<div class="col-md-6 text-right">
+							${{processFee}}
+						</div>
+					</div>
+					<div class="deposit"> <hr> </div>
+
+					<div class="row deposit">
+						<div class="col-md-6 text-left">
+							<p>Total</p>
+						</div>
+						<div class="col-md-6 text-right">
+							<label >${{totalDepositAmount}}</label>
+						</div>
+					</div>
+
+					<br>
+					<center>
+						<button type="submit" class="btn btn-lg btn-info"> Confirm ${{totalDepositAmount}}</button>
+					</center>
+					<br>
+				</form>
+			</div>
+		</div>
+	</div> -->
+
+
+	<!-- PayPal -->
+	<!-- <div class="deposit-body p-ml-none p-mr-none">
+		<div class="col-md-7 p-mr-none p-ml-none">
+			<div class="thumbnail">
+				<div class="upper-label">
+					<h4><input type="radio" ng-click="payPalll=!payPalll" ng-model="payPalll"> <b>Paypal</b></h4>
+				</div>
+				<br>
+				<div ng-show="payPalll">					
+					<div class="row deposit">
+						<div class="col-xs-8 p-ml-none">
+							<label><strong>Card Number:</strong></label>
+							<input type="number" class="form-control" ng-model="creditCardNum">
+						</div>
+						<div class="col-xs-4 p-ml-none p-mr-none">
+							<label><strong>Expiry Date:</strong></label>
+							<input type="number" class="form-control" ng-model="creditCardNum">
+						</div>
+					</div>
+					<br>
+					<div class="row deposit">
+						<div class="col-xs-8 p-ml-none">
+							<label><strong>Cardholder Name:</strong></label>
+							<input type="number" class="form-control" ng-model="creditCardNum">
+						</div>
+						<div class="col-xs-4 p-ml-none p-mr-none">
+							<label><strong>CCV/CVV:</strong></label>
+							<input type="number" class="form-control" ng-model="creditCardNum">
+						</div>
+					</div>
+					<br>
+					<div class="row deposit">
+						<div class="col-xs-7 p-ml-none">
+							<b>You agree to authorize the use of your credit card for this deposit and future payments.</b>
+						</div>
+						<div class="col-xs-5 p-ml-none p-mr-none">
+							<img class="cardDeposit" src="/modules/profiles/client/img/Cards/master.png">
+							<img class="cardDeposit" src="/modules/profiles/client/img/Cards/visa.png">
+							<img class="cardDeposit" src="/modules/profiles/client/img/Cards/express.png">
+						</div>
+					</div>	
+				</div>
+			</div>
+		</div>
+	</div> -->
+
+	<!-- Skrill -->
+	<!-- <div class="deposit-body p-ml-none p-mr-none">
+		<div class="col-md-7 p-mr-none p-ml-none">
+			<div class="thumbnail">
+				<div class="upper-label">
+					<h4><input type="radio" ng-click="skril=!skril" ng-model="skril"> <b>Skrill</b></h4>
+				</div>
+				<br>
+				<div ng-show="skril">					
+					<div class="row deposit">
+						<div class="col-xs-8 p-ml-none">
+							<label><strong>Card Number:</strong></label>
+							<input type="number" class="form-control" ng-model="creditCardNum">
+						</div>
+						<div class="col-xs-4 p-ml-none p-mr-none">
+							<label><strong>Expiry Date:</strong></label>
+							<input type="number" class="form-control" ng-model="creditCardNum">
+						</div>
+					</div>
+					<br>
+					<div class="row deposit">
+						<div class="col-xs-8 p-ml-none">
+							<label><strong>Cardholder Name:</strong></label>
+							<input type="number" class="form-control" ng-model="creditCardNum">
+						</div>
+						<div class="col-xs-4 p-ml-none p-mr-none">
+							<label><strong>CCV/CVV:</strong></label>
+							<input type="number" class="form-control" ng-model="creditCardNum">
+						</div>
+					</div>
+					<br>
+					<div class="row deposit">
+						<div class="col-xs-7 p-ml-none">							<b>You agree to authorize the use of your credit card for this deposit and future payments.</b>
+						</div>
+						<div class="col-xs-5 p-ml-none p-mr-none">
+							<img class="cardDeposit" src="/modules/profiles/client/img/Cards/master.png">
+							<img class="cardDeposit" src="/modules/profiles/client/img/Cards/visa.png">
+							<img class="cardDeposit" src="/modules/profiles/client/img/Cards/express.png">
+						</div>
+					</div>	
+				</div>
+			</div>
+		</div>
+	</div> -->
+	<br><br><br>
+
+	<!-- Angular spinner -->
+    <span us-spinner="{radius:30, width:8, length: 16}" spinner-key="payLoader"></span>
+  <!--  <h2>File Uploader Test</h2>
+     <input type="file" ngf-select ng-model="picFile" name="file" ngf-accept="acceptSelect" required>
+     <button ng-click="uploadPic(picFile)">Submit</button> --!>
+	
+
+	<!-- chatWindow -->
+	<div  ng-show="authentication.user">
+	  <footer ng-include="'/modules/core/client/views/chatWindow.html'" ></footer>
+	</div>
+	
+</section>

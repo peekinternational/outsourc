@@ -1,0 +1,29 @@
+<section class="container" ng-controller="BroadcastAppController" >
+	<div class="page-header">
+		<h1>Broadcaster</h1>
+	</div>
+
+	<div class="col-xs-12 col-md-12">
+		  <p>Simple Angular broadcaster via WebRTC</p>
+
+		  <div id="ctrl" >
+
+		    <broadcaster
+		      has-stream="hasStream"
+		      mirror="true"
+		      room-name="roomName"
+		      muted="true"
+		      source-id="sourceId"
+		      min-width="minWidth"
+		      is-broadcasting="isBroadcasting"><
+		    </broadcaster>
+
+		  	<button ng-click="prepare()" ng-disabled="hasStream">Prepare to broadcast</button>
+		  	<div ng-show="hasStream">
+		    	<input type="text" ng-model="roomName" placeholder="Enter a new room name" />
+		    	<button ng-click="start()" ng-disabled="!roomName || broadcasting">Start room</button>
+		  </div>
+
+		  </div>
+    </div>
+</section>

@@ -1,0 +1,288 @@
+/*Show Case*/
+.banner_section{
+    background: url("/modules/showcases/client/img/bg/bg.jpeg");
+    background-repeat: no-repeat;
+    background-size:cover;
+}
+.banner_section .title{
+    color: #fff;
+    font-size: 38px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-align: center;
+}
+.banner_section .subTitle{
+    color: #fff;
+    letter-spacing: 2px;
+    text-align: center;
+}
+.main_content {
+    margin-bottom: 8rem;
+}
+.main_content h3{
+    font-weight: bold;
+}
+.main_content hr{
+    border-top: 1px solid #c7bfbf;
+}
+.sub_content span{
+    font-size: 12px;
+}
+.img-selector{
+    text-align: center;
+    background: white;
+    padding: 6rem 0;
+    border: 1px dotted #b9b0b0;
+}
+.img-selector i {
+    font-size: 5rem
+}
+.img-selector b {
+    font-size: 2rem
+}
+.descrptn textarea{
+    height: auto;
+}
+
+.inner-addons{
+    position: relative;
+}
+.inner-addons input{
+    height: 56px;
+    padding-left: 45px;
+}
+.inner-addons .fa{
+    position: absolute;
+    padding: 20px;
+    font-size: 16px;
+    color: #a2a1a1;
+}
+.inner-addons .btn{
+    position: absolute;
+    right: 5px;
+    bottom: 5px;
+    border-radius: 0;
+}
+.select-box-showcase select{
+    height: 55px;
+    padding: 10px;
+    background: #fff;
+}
+/*tabs*/
+.nav-showcase-tabs{
+    margin-top: 40px;
+    border-bottom: 1px solid #b9b5b5;
+}
+.nav-showcase-tabs > li > a.active{
+    border-radius: 0;
+    color: #00A4F0 !important;
+}
+.nav-showcase-tabs >li >a:hover{
+  color: #00A4F0 !important;
+  background: transparent;
+}
+.nav-showcase-tabs > li > a.active{
+    border-radius: 0;
+    color: #00A4F0 !important;
+    background: transparent;
+}
+.nav-showcase-tabs >li{
+  text-decoration: none;
+  color: white !important;
+}
+.nav-showcase-tabs >li >a{
+  color: black !important;
+}
+.nav-showcase-tabs >li > button{
+    padding: 3px 9px;
+    background: linear-gradient(to bottom,#fff 0,#F0F0F0 100%);
+    text-shadow: 0 -1px transparent;
+    border: 1px solid #BEC0C2;
+    color: #4D525B;
+    font-weight: 700;
+}
+.nav-showcase-tabs >li > button:hover{
+    background: #F0F0F0;
+    color: #4D525B;
+}
+.nav-showcase-tabs >li > button a{
+  color: black !important;
+  text-decoration: none;
+}
+.nav-showcase-tabs >li > button a:hover{
+  text-decoration: none;
+}
+/*tabs Content*/
+.tab-content{
+    margin-top: 50px;
+}
+.showcase-card{
+    margin-bottom: 20px;
+}
+.showcase-card .card{
+    background: white;
+}
+.showcase-card .card .caption{
+    padding: 10px 15px;
+}
+.showcase-card .card .caption p{
+    margin-bottom: 0;
+}
+.showcase-card .card hr{
+    margin: 5px 15px;
+}
+.showcase-card .card .card-footer{
+    padding: 4px 15px;
+}
+.showcase-card .card .card-footer ul li i{
+    padding-right: 5px;
+}
+.showcase-overlay {
+    background: rgba(150, 146, 146, 0.37);
+    position: absolute;
+    width: 90%;
+    height: 70%;
+    opacity: 0;
+    transition: all ease .5s;
+    -webkit-transition: all ease .5s;
+    -moz-transition: all ease .5s;
+}
+.showcase-overlay .showcase-content {
+    position: absolute;
+    width: 100%;
+    height: 20px;
+    font-size: 20px;
+    text-align: center;
+    top: 50%;
+    margin-top: -12px;
+    color: #fff;
+}
+ .showcase-overlay:hover {
+    cursor: zoom-in; 
+    cursor: -webkit-zoom-in; 
+    cursor: -moz-zoom-in;
+    opacity: 1;
+}
+ .showcase-overlay .showcase-content i {
+    margin-top: -12px;
+}
+.content-myShow{
+    padding: 10rem;
+}
+
+.like-icons{
+    border: 1px solid lightgrey;
+    text-align: center;
+    height: 45px;
+    width: 16%;
+    border-radius: 4px;
+    display: inline-block;
+}
+.like-icons i{
+    padding-top: 15px;
+}
+
+.showcse-btn{
+    background:#d0a620;
+    border: 1px solid #d0a620; 
+    color: white;
+}
+.showImg-section{
+    background: rgba(211, 211, 211, 0.43);
+    height: 66vh;
+    border-radius: 4px;
+    overflow-y: scroll;
+}
+.showuser-section{
+    height: calc(66vh - 1px);
+    overflow-y: scroll;
+    overflow-x: hidden;
+    box-shadow: 0px 0px 6px 0px;
+    padding-right: 5px;
+    text-align: left;
+}
+.showcase-slider{
+    /*margin-top: 100px;*/
+    margin: 50px 0px 50px 0px;
+}
+.showcase-slider .carousel-control .glyphicon-chevron-left, .carousel-control .glyphicon-chevron-left, .carousel-control .icon-prev, .carousel-control .icon-next{
+    color: white;
+    margin-top: -20px;
+    font-size: 1.5rem;
+    font-weight: 100;
+    margin-left: 15px;
+    margin-right: 0;
+    padding-top: 8px;
+    background: red;
+    border-top-right-radius: 15px;
+    border-bottom-right-radius: 15px
+}
+.showcase-slider .carousel-control .glyphicon-chevron-right, .carousel-control .glyphicon-chevron-right, .carousel-control .icon-prev, .carousel-control .icon-next{
+    color: white;
+    margin-top: -20px;
+    font-size: 1.5rem;
+    font-weight: 100;
+    margin-left: 0;
+    margin-right: 10px;
+    padding-top: 8px;
+    background: red;
+    border-top-left-radius: 15px;
+    border-bottom-left-radius: 15px
+}
+
+.showcase-overlay .my-showcase {
+    position: absolute;
+    width: 100%;
+    height: 20px;
+    font-size: 20px;
+    text-align: right;
+    top: 5%;
+    right: 7px;
+    margin-top: -12px;
+    color: #fff;
+}
+.showcase-overlay-my{
+    background: transparent;
+}
+.showcase-overlay-my:hover {
+    cursor: pointer !important; 
+    cursor: pointer !important; 
+    cursor: pointer !important;
+    opacity: 1;
+}
+.showcase-overlay .my-showcase .fa-trash{
+    color: red;
+    padding-left: 7px;
+}
+.showcase-overlay .my-showcase .fa-pencil{
+    color: #353434;
+}
+
+.m-negtve-row{
+    margin-left: -15px;
+    margin-right: -15px;
+}
+
+
+@media only screen and (max-width: 768px){
+
+   .banner_section{
+        padding: 10px 0 25px 0 !important;
+    }
+    .banner_section .title {
+        font-size: 25px !important;
+    }
+    .nav-showcase-tabs >li >a{
+      padding: 3px;
+    }
+    .nav-showcase-tabs > li > a.active{
+        border-radius: 0;
+        border-bottom: 3px solid #00A4F0 !important;
+        background: transparent;
+    }
+    .content-myShow{
+        padding: 4rem 0 !important;
+    }
+}
+
+

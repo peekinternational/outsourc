@@ -1,0 +1,99 @@
+<section ng-controller="ProfilesController" ng-init="universalData();">
+    <div class="modal-header">
+        <h3 class="modal-title" id="modal-title">{{title}} Portfolio</h3>
+    </div>
+    <form name="profileForm" ng-submit="profiles(perofileForm.$valid)" class="" novalidate autocomplete="off">
+    <div class="modal-body" id="modal-body">
+
+        <!-- Start of Modal body -->
+        <div class="container-fluid">
+            <div class="col-xs-12">
+                    <div class="row">
+                        
+                            <div class="col-sm-12">
+                             <h4>포트폴리오 작성</h4>
+                             <!-- <div>
+                                <h6>Content Type:</h6>
+                                <div class="btn-group">
+                                    <input type="radio"
+                                    <label class="btn btn-primary" ng-model="radioModel" btn-radio="'Middle'">Middle</label>
+                                    <label class="btn btn-primary" ng-model="radioModel" btn-radio="'Right'">Right</label>
+                                </div>
+                             </div> -->
+                                <div class="form-group">
+                                    <label>제목:</label>
+                                    <input type="text" class="form-control" ng-model="portfolio.title" maxlength="60" required>
+                                    <p class="pull-right text-muted"><i>60 자</i></p>
+                                </div>
+                                <div class="form-group">
+                                    <label>설명:</label>
+                                    <textarea class="form-control" ng-model="portfolio.description" rows="8" cols="82" maxlength="1000" required></textarea>
+                                    <span class="pull-right text-muted"><i>1000 자</i></span>
+                                </div>
+                                <br>
+                                <h6>업로드 파일 <span class="text-muted"><i>(업로드 가능파일: JPG, PNG, GIF. 최대파일크기: 2MB)</i></span></h6>
+                                
+                                 <div class="form-group text-center" ng-show = "portfolio.image" uploader.queue> 
+                                    <a href=""><i class="fa fa-trash-o del-icon" ng-click="cancelUpload()"></i></a>
+                                    <img ng-src="{{portfolio.image}}"  class="img-thumbnail user-portfolio-picture">
+
+                                </div>
+                                <p ng-show = "sizeError" class="text-danger text-center" >Image should not be greater than 5mb</p>
+                                <div class="form-group">
+                                    <label class="btn btn-block btn-default" for="upload-file-selector">
+                                        <input id="upload-file-selector" type="file" nv-file-select uploader="uploader">
+                                        <i class="fa fa-plus"></i>
+                                        <b> 파일 업로드</b>
+                                    </label>
+                                </div>
+                                <hr>
+
+                                
+                              <div class="col-md-12">
+                                <div class="skillsTop row">
+                                  <div class="col-xs-12">
+                                    <h6>전문기술 <i class="text-muted">(목록에서 선택 또는 직접 입력하십시오)</i></h6>
+                                    
+                                  </div>
+                                </div>
+                                <hr>
+                                <div  class="row">
+                                  <div ng-repeat="skill in portfolio.skills" style="display: inline-block">
+                                    <span class="label label-success m-l-sm" >{{skill}}</span>
+                                  </div>
+
+                                </div>
+                                <br>
+                                <div > 
+                                  <select selector model="portfolio.skills" multi="true" options="skills" label-attr="name" value-attr="name" placeholder="전문기술 추가" create="createFunction(input)"></select>
+                                 <!--  <div class="btn-group">
+                                    <button class="btn btn-success skillbutn" ng-click="certificationSave()">
+                                      <i class="glyphicon glyphicon-close white"></i> Done
+                                    </button>
+                                  </div> -->
+                                 <!--  <p>
+                                    Current value: <code ng-bind="certificaitons|json"></code>
+                                  </p> -->
+                                </div>
+                              </div>
+                                
+                            </div>
+                        
+                        <br>
+                        <br>
+                        <br>
+                    </div>
+                </div>
+        </div>  
+        <!-- End of Modal body -->
+
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-primary" ng-disabled="profileForm.$invalid || portfolio.skills.length==0" type="button" ng-click="ok()">저장</button>
+
+        <button class="btn btn-primary" type="button" ng-click="cancel()">취소</button>
+    </div>
+
+</form>
+
+</section>

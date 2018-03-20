@@ -1,0 +1,774 @@
+ <!-- mobile-header -->
+ <div  auto-scroll="true"  ng-if="!authentication.user" class="mobile-view-header">
+   <nav class="navbar  navbar-fixed-top" role="navigation">
+      <div>
+         <button type="button" class="navbar-toggle" ng-click="isNavCollapsed = !isNavCollapsed">
+         <span class="sr-only">Toggle navigation</span>
+         <span class="icon-bar"></span>
+         <span class="icon-bar"></span>
+         <span class="icon-bar"></span>
+         </button>
+         <div class="hidden-sm hidden-xs"></div>
+         <a ui-sref="home" class=" col-md-offset-1 navbar-brand logo-mobile">
+            <img class="img-responsive landing-logo" ng-src="modules/core/client/img/landing/outsoucing.png">
+         </a>
+      </div>
+      <div class="collapse navbar-collapse navbar-home" uib-collapse="isNavCollapsed" style="background: white; border-bottom: 1px solid #ddd;">
+         <ul class="nav navbar-nav navbar-right" ng-hide="authentication.user">
+            <li ui-sref-active="active login-link" style="padding-top: 4px;">
+               <a ui-sref="authentication.signin" class="login"><i class="fa fa-lock lock" aria-hidden="true"></i>로그인</a>
+            </li>
+            <li ui-sref-active="active">
+               <a ui-sref="authentication.signup" class="signup"><i class="fa fa-key lock" aria-hidden="true"></i>회원가입</a>
+            </li>
+            <li ui-sref-active="active" class="post-project">
+               <a ui-sref="projects.project-post" class="post-prjcts">프로젝트등록</a>
+            </li>
+         </ul>
+      </div>
+     
+   </nav>
+</div>
+<!-- Mobile View -->
+<div  auto-scroll="true"  ng-if="!authentication.user" class="hidden-lg hidden-sm hidden-md">
+   <nav class="navbar  navbar-fixed-top mobile-view" role="navigation">
+      <div class="mobile-ul-div">
+         <ul>
+         <li>
+            <a ui-sref="home" class="navbar-brand p-mt-none p-l-none">
+               <img class="img-responsive" ng-src="modules/core/client/img/landing/outsoucing.png">
+            </a>
+         </li>
+         <li>
+            <a ui-sref="authentication.signin"><i class="fa fa-lock lock" aria-hidden="true"></i>로그인</a>
+         </li>
+         </ul>
+      </div>
+   </nav>
+</div>
+<!-- End -->
+
+<div style="border: solid 1px #00d88a;">
+</div>
+
+<div auto-scroll="true" ng-controller="HeaderController" ng-show="authentication.user" ng-init="getAmount(); getMessages();">
+   <nav class="navbar navbar-inverse navbar-fixed-top menu-nav-mobile" role="navigation">
+      <div class="navbar-header mobile-header">
+         <button type="button" class="navbar-toggle" ng-click="isNavCollapsed = !isNavCollapsed">
+         <span class="sr-only">Toggle navigation</span>
+         <span class="icon-bar"></span>
+         <span class="icon-bar"></span>
+         <span class="icon-bar"></span>
+         </button>
+         <div class="hidden-sm hidden-xs"></div>
+         <a ui-sref="projects.project-dash" class=" col-md-offset-1 navbar-brand hidden-xs logo-mobile"><img class="img-responsive landing-logo" ng-src="modules/core/client/img/landing/loginAfter.png"></a>
+         <!-- Mobile View -->
+         <ul class="hidden-sm hidden-md hidden-lg" style="display: flex; padding-top: 3px; list-style: none; margin-bottom: 0;">
+            <li>
+               <a class="dropdown-toggle user-header-dropdown-toggle" dropdown-toggle role="button" ng-mouseover="msgAlert=false" ng-click="newMsgAlert()" ui-sref="chat.inbox">
+                  <i class="fa fa-commenting commt-iconss" aria-hidden="true"></i> 
+                  <!-- red alert -->
+                  <i ng-show="msgAlert" class="fa fa-circle text-danger badgeStyles"></i>
+               </a>
+            </li>
+            
+               <!-- <a class="dropdown-toggle user-header-dropdown-toggle" dropdown-toggle role="button"  ng-mouseover="notifAlert=false" ng-click="notificationAlert()">
+                  <i class="fa fa-bell commt-iconss" aria-hidden="true"> </i>  -->
+                  <!-- red Alert -->
+                  <!-- <i ng-show="notifAlert" class="fa fa-circle text-danger badgeStyles-bell"></i>
+               </a> -->
+            <div class="dropdown-notifctn p-ml-mobile">
+               <ul class="dropbtn-notifctn">
+                  <a  class="dropdown-toggle user-header-dropdown-toggle" dropdown-toggle role="button"  ng-mouseover="notifAlert=false" ng-click="notificationAlert()">
+                     <i class="fa fa-bell commt-iconss" aria-hidden="true" style="margin-top: 0.4rem;"> </i> 
+                     <!-- red Alert -->
+                     <i ng-show="notifAlert" class="fa fa-circle text-danger badgeStyles-bell"></i>
+                  </a>
+               </ul>
+               <div class="dropdown-content-notifctn p-t-sm p-l-xs" style="position: fixed; margin-left: -2rem;">
+                  <li class="heading">
+                     <b class="ullu">알림</b> <span><i class="fa fa-cog pull-right p-r-lg p-t-xs" aria-hidden="true"></i></span><br>
+                  </li>
+                  <hr class="m-b-xs m-t-sm">
+
+                  <li ui-sref-active="active" ng-if="notification.length == 0 || !notification">
+                    <center><i class="fa fa-exclamation-circle text-warning" aria-hidden="true"></i> 현재 지원자가 없습니다 </center>
+                  </li>
+
+                  <div ng-repeat="noti in notification | orderBy: 'created_at' :true | limitTo: 5">
+                     <li ui-sref-active="active" >
+                       <div class="col-xs-2 p-l-xs p-r-none">
+                         <!-- <i style="font-size: 3.5rem; color: #e5b721" class="fa fa-bell-o" aria-hidden="true"></i> -->
+                   <img src="modules/core/client/img/customimages/top_icon51.png">
+                       </div>
+                       <div class="pad-left">
+                         <p class="m-t-cht m-b-none">  <a href="projects/view/{{noti.link}}"> {{noti.description}}</a></p>
+                       </div>
+                     </li>
+                     <hr class="m-b-xs m-t-xs">
+                  </div>
+               </div>
+            </div>
+            
+            <!-- <li class="p-ml-mobile">
+               <a class="dropdown-toggle user-header-dropdown-toggle" dropdown-toggle role="button" ng-mouseover="showredAlert=false" ng-click="projFeedAlert()">
+                  <i class="fa fa-rss commt-iconss" aria-hidden="true"></i> -->
+                  <!-- Red alert -->
+                  <!-- <i ng-show="showredAlert" ng-if="projectFeed.length != 0 || projectFeed" class="fa fa-circle text-danger badgeStyle"></i>
+               </a>
+            </li> -->
+            <div class="dropdown-notifctn p-ml-mobile"> 
+               <ul class="dropbtn-notifctn">
+                  <a class="dropdown-toggle user-header-dropdown-toggle" dropdown-toggle role="button" ng-mouseover="showredAlert=false" ng-click="projFeedAlert()">
+                     <i class="fa fa-rss commt-iconss" aria-hidden="true" style="margin-top: 0.4rem;"></i>
+                     <!-- Red alert -->
+                     <i ng-show="showredAlert" ng-if="projectFeed.length != 0 || projectFeed" class="fa fa-circle text-danger badgeStyle"></i>
+                  </a>
+               </ul>
+              <div class="dropdown-content-notifctn p-t-sm p-l-xs" style="position: fixed; margin-left: -9rem;">
+                  <li class="heading">
+                     <b>프로젝트 소식</b> <span><i class="fa fa-cog pull-right p-r-lg p-t-xs" aria-hidden="true"></i></span><br>
+                  </li>
+                  <hr class="m-b-xs m-t-sm">
+                  <li ui-sref-active="active" ng-if="projectFeed.length == 0 || !projectFeed">
+                    <center><i class="fa fa-exclamation-circle text-warning" aria-hidden="true"></i> 최근 등록된 프로젝트가 없습니다</center>
+                  </li>
+                  <div ng-repeat="proj in projectFeed | orderBy: '-createdAt'">
+                     <li ui-sref-active="active" >
+                       <div class="col-xs-2 p-l-xs p-r-none">
+                         <i style="font-size: 3rem; color: rgba(30, 97, 171, 0.97)" class="fa fa-desktop" aria-hidden="true"></i>
+                       </div>
+                       <div class="pad-left">
+                         <p class="m-t-cht m-b-none">  <a href="projects/view/{{proj.link}}"> {{proj.project}}</a></p>
+                       </div>
+                     </li>
+                     <hr class="m-b-xs m-t-xs">
+                  </div>
+               </div>
+            </div>
+            <li class="p-ml-mobile">
+               <a class="dropdown-toggle user-header-dropdown-toggle" dropdown-toggle role="button" ng-mouseover="showredAlert=false" ui-sref="projects.my-project">
+                  <i class="fa fa-folder-o  commt-iconss" aria-hidden="true"></i>
+                  <!-- Red alert -->
+                  <!-- <i ng-show="showredAlert" ng-if="projectFeed.length != 0 || projectFeed" class="fa fa-circle text-danger badgeStyle"></i> -->
+               </a>
+            </li>
+         </ul>
+         <!-- End  -->
+      </div>
+      <div class="collapse navbar-collapse navbar-home mobile-view-menu" uib-collapse="isNavCollapsed">
+         <ul class="hidden-sm hidden-md hidden-lg p-ml-sm">
+            <li>
+               <a href="profile/view/" class="panel-anchr" id="single-button" uib-dropdown-toggle ng-disabled="disabled">
+                 <img  ng-disabled="disabled" ng-src="{{authentication.user.profileImageURL}}" alt="{{authentication.user.displayName}}" class="header-profile-image-mobile" /><span class="panel-anchr" ng-bind="authentication.user.username | limitTo : 10">
+               </a>
+            </li>
+         <li class="p-mt-lg text-center" >
+                 <a ui-sref="projects.financial-dashboard"><i class="fa fa-briefcase p-mr-xs"></i>₩{{userAccountBalance.accountBalance.KRW |limitTo:12 | number: 0 }}</a>
+            </li>
+            <li class="p-mt-lg">
+               <button class="btn btn-lg btn-warning btn-block p-mt-xs p-mb-xs" ui-sref="chat.inbox"><i class="fa fa-comments-o" aria-hidden="true"></i> MY 채팅 &nbsp;&nbsp;인박스</button>
+            </li>       
+            <li class="p-mt-lg">
+               <a target="_parent" ng-click="reloadData()" ui-sref="projects.project-dash"><i class="fa fa-tachometer p-mr-xs" aria-hidden="true"></i>MY 대시보드</a>
+            </li>
+            <li class="p-mt-lg">
+               <a ui-sref="projects.my-project"><i class="fa fa-folder-o p-mr-xs" aria-hidden="true"></i>MY 프로젝트</a>
+            </li>
+            <li class="p-mt-lg">
+               <a ui-sref="projects.project-list"><i class="fa fa-desktop p-mr-xs"></i>프로젝트 검색</a>
+            </li>
+            <li class="p-mt-lg">
+               <a ui-sref="contests.contest-list"><i class="fa fa-trophy p-mr-xs"></i>콘테스트 검색</a>
+            </li>
+            <li class="p-mt-lg">
+               <a ui-sref="outsoucers"><i class="fa fa-user-o p-mr-xs" aria-hidden="true"></i>프리랜서 검색</a>
+            </li>
+         <!-- 
+            <li class="p-mt-lg">
+               <a ui-sref="chat.inbox"><i class="fa fa-envelope-o p-mr-xs" aria-hidden="true"></i>채팅 &nbsp;&nbsp;인박스</a>
+            </li>
+         -->
+            <li class="p-mt-lg">
+               <a ui-sref="credit-deposit"><i class="fa fa-credit-card p-mr-xs" aria-hidden="true"></i>결제</a>
+            </li>
+            <li class="p-mt-lg">
+               <a ng-click="logOut();" href="/api/auth/signout" target="_self"><i class="fa fa-sign-out fa-cog p-r-xs" aria-hidden="true">&nbsp;</i>로그아웃</a> 
+            </li>
+         </ul>
+         <ul class="nav navbar-nav m-ml-none hidden-xs" style="margin-left: -14rem;" ng-show="authentication.user" uib-dropdown dropdown-append-to-body>
+            <!-- Hire button -->
+
+            <div class="dropdown-hire">
+               <ul class="dropbtn-hire p-r-xs">
+                  <a class="dropdown-toggle user-header-dropdown-toggle" dropdown-toggle role="button">
+                  <span class="white">의뢰인 전용</span>
+                  <span class="caret"></span>
+                  </a>
+               </ul>
+               <div class="dropdown-content-hire p-t-lg p-l-xs">
+               
+                  <li class="heading text-center" style="margin-top:10px;">
+                     <b style="color:#8ba753;font-size:15px;"><!-- <i class="fa fa-user" aria-hidden="true" style="font-size:23px;color:#d0a520;"></i> --><img src="modules/core/client/img/customimages/client.png"> 의뢰인 전용 카테고리</b> <br>
+                  </li>				  
+                  <br>				
+                  <li ui-sref-active="active">
+                     <a ui-sref="projects.project-post"><!-- <i class="fa fa-desktop" aria-hidden="true" style="color:#2566ae"></i> --><img src="modules/core/client/img/customimages/top_icon33.png" class="col-md-offset-1"> 프로젝트 무료등록</a>
+                  </li>
+                  <hr class="m-t-xs m-b-sm" style="border-top: 1px solid #363636;">
+                  <li ui-sref-active="active">
+                     <a ui-sref="contests.contest-post"><!-- <i class="fa fa-trophy" aria-hidden="true" style="color:#d0a520"></i> --><img src="modules/core/client/img/customimages/top_icon31.png" class="col-md-offset-1"> 콘테스트 무료등록</a>
+                  </li>
+                  <hr class="m-t-xs m-b-sm" style="border-top: 1px solid #363636;">            
+                  
+                  <!-- <li ui-sref-active="active" >
+                     <a ui-sref="#">Browse Services</a>
+                     </li> -->
+                 <!--  <li ui-sref-active="active">
+                     <a ui-sref="#">Post a Local Job</a>
+                  </li>
+                  <hr class="m-t-xs m-b-sm">
+                  <li ui-sref-active="active">
+                     <a ui-sref="#">Get a Recruiter</a>
+                  </li>
+                  <hr> -->
+                  <li class="divider" class="col-md-offset-1"></li>
+                  <li ui-sref-active="active" style="margin-bottom:10px">
+                     <a ui-sref="showcases.list"><img src="modules/core/client/img/customimages/top_icon52.png" class="col-md-offset-1"> 쇼케이스 몰</a>
+                  </li>
+                  <hr class="m-t-xs m-b-sm" style="border-top: 1px solid #363636;">
+				  <!-- 
+				  <li ui-sref-active="active">
+                     <a ui-sref="projects.project-list"><!-- <i class="fa fa-search" aria-hidden="true"></i> --><!--  <img src="modules/core/client/img/customimages/top_icon36.png" class="col-md-offset-1"> 프로젝트 검색</a>
+                  </li>
+                  <hr class="m-t-xs m-b-sm" style="border-top: 1px solid #363636;">
+
+				  <li ui-sref-active="active">
+                     <a ui-sref="contests.contest-list"><!-- <i class="fa fa-search" aria-hidden="true"></i> --><!-- <img src="modules/core/client/img/customimages/top_icon36.png" class="col-md-offset-1"> 콘테스트 검색</a>
+                  </li>
+                  <hr class="m-t-xs m-b-sm" style="border-top: 1px solid #363636;">
+				   -->
+                  <li class="divider" class="col-md-offset-1"></li>
+                  <li ui-sref-active="active" style="margin-bottom:10px">
+                     <a ui-sref="outsoucers"><!-- <i class="fa fa-globe" aria-hidden="true"></i> --><img src="modules/core/client/img/customimages/top_icon37.png" class="col-md-offset-1"> 글로벌 프리랜서 회원검색</a>
+                  </li>
+                  <!-- <li ui-sref-active="active">
+                     <a ui-sref="#">Community</a>
+                     </li> -->
+                     <br>
+               </div>
+            </div>
+            <div class="dropdown-hire">
+               <ul class="dropbtn-hire p-r-xs">
+                  <a class="dropdown-toggle user-header-dropdown-toggle" dropdown-toggle role="button">
+                  <span class="white">프리랜서 전용</span>
+                  <span class="caret"></span>
+                  </a>
+               </ul>
+               <div class="dropdown-content-hire p-t-lg p-l-xs">
+                  <li class="heading text-center" style="margin-top:10px">
+                     <b style="color:#8ba753;font-size:15px;"><!-- <i class="fa fa-users" aria-hidden="true" style="font-size:23px;color:#2566ae;"></i> --><img src="modules/core/client/img/customimages/top_icon29.png"> 프리랜서 전용 카테고리</b> <br>
+                  </li>
+                  <br>
+                  <!-- <li ui-sref-active="active" >
+                     <a ui-sref="#">Project with My Skills</a>
+                  </li> -->
+                  <!-- <hr class="m-t-xs m-b-sm"> -->
+                  <li ui-sref-active="active">
+                     <a ui-sref="projects.project-list"><!-- <i class="fa fa-search-plus" aria-hidden="true"></i> --><img src="modules/core/client/img/customimages/top_icon38.png" class="col-md-offset-1"> 프로젝트 검색</a>
+                  </li>
+                  <hr class="m-t-xs m-b-sm" style="border-top: 1px solid #363636;">
+                  <li ui-sref-active="active">
+                     <a ui-sref="contests.contest-list"><!-- <i class="fa fa-search" aria-hidden="true"></i> --><img src="modules/core/client/img/customimages/top_icon36.png" class="col-md-offset-1"> 콘테스트 검색</a>
+                  </li>
+                  <!-- <hr class="m-t-xs m-b-sm"> -->
+                  <!-- <li ui-sref-active="active">
+                     <a ui-sref="#">Browse Services</a>
+                     </li> -->
+                  <!-- <li ui-sref-active="active">
+                     <a ui-sref="#">Browse Local Jobs</a>
+                  </li> -->
+                  <hr class="m-t-xs m-b-sm" style="border-top: 1px solid #363636;">
+
+				  <li class="divider" class="col-md-offset-1"></li>
+                  <li ui-sref-active="active" style="margin-bottom:10px">
+                     <a ui-sref="showcases.list"><img src="modules/core/client/img/customimages/top_icon52.png" class="col-md-offset-1"> 쇼케이스 몰</a>
+                  </li>
+                  <hr class="m-t-xs m-b-sm" style="border-top: 1px solid #363636;">
+
+                  <li ui-sref-active="active" style="margin-bottom:10px">
+                     <a ui-sref="projects.browse-category"><!-- <i class="fa fa-list" aria-hidden="true"></i> --><img src="modules/core/client/img/customimages/top_icon39.png" class="col-md-offset-1"> 분야별 프로젝트 검색</a>
+                  </li>
+                  <!-- <hr class="m-t-xs m-b-sm"> -->
+                  <!-- <li ui-sref-active="active">
+                     <a ui-sref="#">Bookmarks</a>
+                  </li> -->
+                  <!-- <li ui-sref-active="active">
+                     <a ui-sref="#">Get Certified</a>
+                     </li> -->
+                     <br>
+               </div>
+            </div>
+            <div class="dropdown-hire">
+               <ul class="dropbtn-hire p-r-xs">
+                  <a class="dropdown-toggle user-header-dropdown-toggle" dropdown-toggle role="button">
+                  <span class="white">MY 프로젝트</span>
+                  <span class="caret"></span>
+                  </a>
+               </ul>
+               <div class="dropdown-content-hire p-t-lg p-l-xs">
+                  <li class="heading text-center" style="margin-top:10px" class="col-md-offset-1">
+                     <b style="color:#8ba753;font-size:15px;"><!-- <i class="fa fa-user-circle" aria-hidden="true" style="font-size:23px;color:#35abc8;"></i> --><img src="modules/core/client/img/customimages/top_icon17.png"> MY 프로젝트 전용 카테고리</b> <br>
+                  </li>
+                  <br>
+                  <li ui-sref-active="active">
+                     <a ui-sref="projects.my-project"><!-- <i class="fa fa-search" aria-hidden="true"></i> --><img src="modules/core/client/img/customimages/top_icon40.png" class="col-md-offset-1"> MY 프로젝트ㆍ콘테스트 진행현황</a>
+                  </li>
+                  <hr class="m-t-xs m-b-sm" style="border-top: 1px solid #363636;">
+                  <li ui-sref-active="active">
+                     <a ui-sref="projects.project-dash"><!-- <i class="fa fa-bell-o" aria-hidden="true"></i> --><img src="modules/core/client/img/customimages/top_icon41.png" class="col-md-offset-1"> MY 대시보드</a>
+                  </li>
+                  <hr class="m-t-xs m-b-sm" style="border-top: 1px solid #363636;">
+                  <li ui-sref-active="active" style="margin-bottom:10px">
+                     <a ui-sref="chat.inbox"><!-- <i class="fa fa-video-camera" aria-hidden="true"></i> --><img src="modules/core/client/img/customimages/top_icon42.png" class="col-md-offset-1"> MY 화상채팅 인박스</a>
+                  </li>
+				  <!-- 
+                  <hr class="m-t-xs m-b-xs" style="border-top: 1px solid #363636;">
+				  <li class="divider" class="col-md-offset-1"></li>
+                  <li ui-sref-active="active" style="margin-bottom:10px">
+                     <a ui-sref="showcases.list"><img src="modules/core/client/img/customimages/top_icon52.png" class="col-md-offset-1"> 쇼케이스 몰</a>
+                  </li>
+				  -->
+                  <!-- <li ui-sref-active="active">
+                     <a ui-sref="projects.feedback">MY 프로젝트 작업 평가</a>
+                  </li> -->
+                  <!-- <hr class="m-t-xs m-b-sm"> -->
+                  <!-- <li ui-sref-active="active">
+                     <a ui-sref="#">JobCallme</a>
+                  </li> -->
+                  <!-- <li class="divider"></li> -->
+                  <!-- <li ui-sref-active="active">
+                     <a ui-sref="#">Showcase</a>
+                     </li> -->
+                 <!--  <hr class="m-t-xs m-b-sm">
+                  <li ui-sref-active="active">
+                     <a ui-sref="outsoucers">Browse a Directory</a>
+                  </li> -->
+                  <!-- <hr class="m-t-xs m-b-sm"> -->
+                  <!-- <li ui-sref-active="active">
+                     <a ui-sref="#">Community</a>
+                  </li> -->
+                  <br>
+               </div>
+            </div>
+            <div class="dropdown-hire">
+               <ul class="dropbtn-hire p-l-sm p-r-xs">
+                  <a class="dropdown-toggle user-header-dropdown-toggle" dropdown-toggle role="button">
+                  <span class="white">고객지원</span>
+                  <span class="caret"></span>
+                  </a>
+               </ul>
+               <div class="dropdown-content-hire p-t-lg p-l-xs">
+                  <li class="heading text-center" style="margin-top:10px">
+                     <b style="color:#8ba753;font-size:15px;"><img src="modules/core/client/img/customimages/top_icon21.png"> 고객지원 전용 카테고리</b> <br>
+                  </li>
+                  <br>
+                  <li ui-sref-active="active">
+                     <a ui-sref="support"><!-- <i class="fa fa-user" aria-hidden="true"></i> --><img src="modules/core/client/img/customimages/top_icon43.png" class="col-md-offset-1"> 고객 지원</a>
+                  </li>
+                  <hr class="m-t-sm m-b-sm" style="border-top: 1px solid #363636;">
+                  <li ui-sref-active="active">
+                     <a ui-sref="about.outsource"><!-- <i class="fa fa-book" aria-hidden="true"></i> --><img src="modules/core/client/img/customimages/top_icon44.png" class="col-md-offset-1"> 사용 방법</a>
+                  </li>
+                  <!-- <hr class="m-t-xs m-b-sm"> -->
+                  <!-- <li ui-sref-active="active" >
+                     <a ui-sref="#">Frequently Asked Questions</a>
+                  </li> -->
+                  <hr class="m-t-xs m-b-sm" style="border-top: 1px solid #363636;">
+                  <li ui-sref-active="active" style="margin-bottom:10px">
+                     <a ui-sref="about.feesandcharges"><!-- <i class="fa fa-percent" aria-hidden="true"></i> --><img src="modules/core/client/img/customimages/top_icon45.png" class="col-md-offset-1"> 이용 및 수수료</a>
+                  </li>
+                  <!-- <hr class="m-t-xs m-b-sm"> -->
+                  <!-- <li ui-sref-active="active">
+                     <a ui-sref="#">Disputes</a>
+                  </li> -->
+                  <br>
+               </div>
+            </div>
+         </ul>
+         <!-- <ul class="nav navbar-nav navbar-right" ng-hide="authentication.user">
+            <li ui-sref-active="active">
+               <a ui-sref="authentication.signin" class="login"><i class="fa fa-lock lock" aria-hidden="true"></i>Login</a>
+            </li>
+            <li ui-sref-active="active">
+               <a ui-sref="authentication.signup" class="signup"><i class="fa fa-key lock" aria-hidden="true"></i>Sign Up</a>
+            </li>
+            <li ui-sref-active="active" class="post-project">
+               <a ui-sref="authentication.signup" class="post-prjcts">Post Project</a>
+            </li>
+         </ul> -->
+         <div class="col-xs-12 col-md-2 p-r-none m-ml-none hidden-xs large-screen text-center">
+           <form class="navbar-form p-l-none" role="search">
+            <div class="input-group serch-bar-width">
+               <input ng-focus="focus=true" ng-blur="focus=false" type="text" class="form-control serchBar-header" placeholder="아웃소싱 오케이 글로벌 프리랜서 회원 검색" ng-model="search.outSourcer">
+               <div class="input-group-btn">
+                   <button class="btn btn-default srch-btn" type="submit"><i class="glyphicon glyphicon-search" style="color: white;"></i></button>
+               </div>
+               <div ng-if="focus" class="showSearch">
+                  <div class="row m-ml-none  m-r-none m-l-none" ng-repeat="user in foundUser">
+                     <div class="col-md-2 p-l-none">
+                        <img ng-src="{{user.userInfo.profileImageURL}}" class="img-rounded">
+                     </div>
+                     <div class="col-md-10 text-left p-l-none">
+                        <span>
+                           <!-- <a style="text-decoration: none;" ui-sref="profile.outsourcer({profileId: user._id})"> -->
+                           <a style="text-decoration: none;" href="" ng-mousedown="goToState('profile.outsourcer', {profileId: user._id})">
+                              <strong>{{user.userInfo.username}}</strong>
+                           </a>
+                        </span>
+                        <br>
+                        <span ng-repeat="(key, value) in user.skills"> 
+                           <span class="label label-success" style="margin-right: .1rem">
+                              {{value.name}}
+                           </span>
+                        </span> <br>
+                        <span>{{user.indInfo | limitTo: 50}}</span>
+                     </div>
+                  </div>
+                  <div class="row m-l-none">
+                     <div class="p-t-sm text-left p-l-lg" style="height: 4rem;"><span class="circle-serch"><i class="fa fa-search p-l-xs"></i></span><a href="outsoucers" class="p-l-xs" style="color: #0087e0;"><b>현재 검색된 지원자들 입니다</b></a></div>
+                  </div>
+               </div>
+            </div>
+           </form>
+         </div>
+         <ul class="nav navbar-nav navbar-right m-mr-none m-ml-xs hidden-xs" ng-show="authentication.user" style="margin-right: 3.5rem;" uib-dropdown dropdown-append-to-body>
+            <div class="dropdown-hire">
+               <ul class="dropbtn-hire p-l-none">
+                  <a class="dropdown-toggle user-header-dropdown-toggle" dropdown-toggle role="button">
+                  <span class="white"> ₩{{userAccountBalance.accountBalance.KRW | limitTo:12 | number: 0 }}</span>
+                  <!-- <b>USD ${{amount.accountBalance.USD}} <sup>00</sup></b> -->
+                  <span class="caret"></span>
+                  </a>
+               </ul>
+               <div class="dropdown-content-hire p-t-lg p-l-xs">
+                  <li class="heading text-center" >
+                     <b style="color:#8ba753;"><img src="modules/core/client/img/customimages/top_icon1.png">&nbsp;&nbsp;에스크로 자금현황&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</b> <br>
+                  </li> 
+                  <br>
+                  <li> 
+                     <div class="text-left" ng-repeat="(key,value) in userAccountBalance.accountBalance" style="color:#d7d7d7">
+                        <span ng-if="key === 'KRW'"><!-- {{key}} -->&nbsp;&nbsp;<img src="modules/core/client/img/customimages/top_icon35.png"> &nbsp  &nbsp₩{{value |number: 0}}</span>
+                        <span ng-if="key === 'USD'"><!-- {{key}} -->&nbsp;&nbsp;<img src="modules/core/client/img/customimages/top_icon34.png"> &nbsp  &nbsp{{value |currency:'$'}}</span>
+                        <span ng-if="key === 'CYN'">{{key}} &nbsp  &nbsp{{value |currency:'¥'}}</span>
+                        <span ng-if="key === 'PKR'">{{key}} &nbsp  &nbsp{{value |currency:'Rs.'}}</span>
+                     </div>
+                  </li>
+                  <br>
+                  <li class="heading text-center" >
+                     <b style="color:#8ba753;"><img src="modules/core/client/img/customimages/top_icon2.png">에스크로 자금관리</b> <br>
+                  </li>
+                  <br>
+                  <li ui-sref-active="active">
+                     <a ui-sref="credit-deposit"><img src="modules/core/client/img/customimages/top_icon46.png"> 서비스 이용료 결재</a>
+                  </li>
+                  <hr class="m-t-sm m-b-sm" style="border-top: 1px solid #363636;">
+                  <li ui-sref-active="active" ng-controller="ProfilesController">
+                     <a ng-click="withdrawamount()" href=""><img src="modules/core/client/img/customimages/top_icon47.png"> 회원잔액 이체</a>
+                  </li>
+                  <hr class="m-t-sm m-b-sm" style="border-top: 1px solid #363636;">
+                  <li ui-sref-active="active" >
+                     <a ui-sref="projects.financial-dashboard"><img src="modules/core/client/img/customimages/top_icon48.png"> 회원자금 현황</a>
+                  </li>
+                  <hr class="m-t-xs m-b-sm" style="border-top: 1px solid #363636;">
+                  <li ui-sref-active="active" ng-controller="ProfilesController">
+                     <a ui-sref="contests.transcation"><img src="modules/core/client/img/customimages/top_icon49.png"> 자금 내역</a>
+                  </li>
+         
+                  <hr class="m-t-xs m-b-sm" style="border-top: 1px solid #363636;">
+                  <li ui-sref-active="active" >
+                     <a ui-sref="contests.verify-payment"><!-- <i class="fa fa-paypal" aria-hidden="true"></i> --><img src="modules/core/client/img/customimages/top_icon50.png"> 페이팔계좌 인증</a>
+                  </li>
+      
+                  <br>
+               </div>
+            </div>
+            <div class="dropdown-notifctn">
+               <ul class="dropbtn-notifctn">
+                  <a class="dropdown-toggle user-header-dropdown-toggle" dropdown-toggle role="button" ng-mouseover="msgAlert=false" ng-click="newMsgAlert()">
+                     <i class="fa fa-commenting commt-icon" aria-hidden="true"></i> 
+                     <!-- red alert -->
+                     <i ng-show="msgAlert" class="fa fa-circle text-danger badgeStyles"></i>
+                  </a>
+               </ul>
+               <!-- message notif at header -->
+               <div class="dropdown-content-notifctn p-t-sm p-l-xs">
+                  <li class="heading text-center">
+                     <b style="color:#ef3c24"><img src="modules/core/client/img/customimages/top_icon7.png"> 메세지 알림</b> <br>
+                  </li>
+                  <hr class="m-b-xs m-t-sm">
+                  <li ui-sref-active="active" ng-if="messageLoading">
+                     <center>
+                      <i class="fa fa-circle-o-notch fa-spin fa-3x fa-fw"></i>
+                      <span class="sr-only">Loading...</span>
+                     </center>
+                  </li>
+                  <li ui-sref-active="active" ng-if="conversations.length == 0 || !conversations">
+                    <!-- <div class="col-xs-3 p-l-xs p-r-none">
+                      <img ng-src="modules/chat/client/img/user.jpeg" class="img-circle img-responsive">
+                    </div>
+                    <div class="pad-left">
+                      <p class="m-t-feed m-b-xs pad-left">Johny</p>
+                      <p class="m-t-feed m-b-none pad-left">Hey budy?</p>
+                    </div> -->
+                    <center><i class="fa fa-exclamation-circle text-warning" aria-hidden="true"></i> 메세지가 없습니다</center>
+                  </li>
+                  <li ui-sref-active="active" ng-repeat="conversation in conversations | orderBy: 'lastMessageAt' : true | limitTo: 5">
+                    <!-- <a style="padding: 0px; margin: 0px;" href="#" ng-click="openChatWindowFromHeader(conversation, conversation.cid, conversation.userTwo);"> -->
+                     <a style="padding: 0px; margin: 0px;" href="chat/inbox/{{conversation.id}}" ng-click="conversation.hasUnreadMessages = false"> 
+                       <div class="col-xs-2 p-r-none p-l-none" style="width:17%;">
+                         <img ng-src="{{conversation.profileImageURL}}" class="img-circle img-responsive" style="width:4rem; height:4rem;">
+                       </div>
+                       <div class="pad-left">
+                         <p class="m-t-none m-b-none" style="font-size: 11px;" ng-class='{ unread: conversation.hasUnreadMessages}'>
+                           {{conversation.username}}
+                           <i ng-if="conversation.hasUnreadMessages" style="color: #d9534f" class="fa fa-envelope" aria-hidden="true"></i> 
+                         </p>
+                         <p class="m-t-none m-b-none" style="font-size: 11px;" ng-class='{ unread: conversation.hasUnreadMessages}'>
+                          {{conversation.projectTitle}}</p>
+                       </div>
+                    </a>
+                    <!-- conversation:{{conversation}} -->
+                    <hr class="m-t-sm m-b-sm">
+                  </li>
+                  
+               </div>
+            </div>
+            <div class="dropdown-notifctn">
+               <ul class="dropbtn-notifctn">
+                  <a  class="dropdown-toggle user-header-dropdown-toggle" dropdown-toggle role="button"  ng-mouseover="notifAlert=false" ng-click="notificationAlert()">
+                     <i class="fa fa-bell commt-icon" aria-hidden="true"> </i> 
+                     <!-- red Alert -->
+                     <i ng-show="notifAlert" class="fa fa-circle text-danger badgeStyles-bell"></i>
+                  </a>
+               </ul>
+               <div class="dropdown-content-notifctn p-t-sm p-l-xs">
+                  <li class="heading text-center">
+                     <b class="ullu" style="color:#9a7708"><img src="modules/core/client/img/customimages/top_icon8.png">프로젝트 진행상황 알림</b> <span><i class="fa fa-cog pull-right p-r-lg p-t-xs" aria-hidden="true"></i></span><br>
+                  </li>
+                  <hr class="m-b-xs m-t-sm">
+
+                  <li ui-sref-active="active" ng-if="notification.length == 0 || !notification">
+                    <center><i class="fa fa-exclamation-circle text-warning" aria-hidden="true"></i> 현재 지원자가 없습니다 </center>
+                  </li>
+
+                  <div ng-repeat="noti in notification | orderBy: 'created_at' :true | limitTo: 5">
+                     <li ui-sref-active="active" >
+                       <div class="col-xs-2 p-l-xs p-r-none">
+                         <!-- <i style="font-size: 3.5rem; color: #e5b721" class="fa fa-bell-o" aria-hidden="true"></i> -->
+                   <img src="modules/core/client/img/customimages/top_icon51.png">
+                       </div>
+                       <div class="pad-left">
+                         <p class="m-t-cht m-b-none">  
+                            <a ng-if="noti.project" href="projects/view/{{noti.link}}"> {{noti.description| limitTo : 100}}...</a>
+                            <a ng-if="noti.contest" href="contests/view/{{noti.link}}"> {{noti.description| limitTo : 100}}...</a>
+                         </p>
+                       </div>
+                     </li>
+                     <hr class="m-b-xs m-t-xs">
+                  </div>
+               </div>
+            </div>
+
+            <div class="dropdown-notifctn">
+               <ul class="dropbtn-notifctn">
+                  <a class="dropdown-toggle user-header-dropdown-toggle" dropdown-toggle role="button" ng-mouseover="showredAlert=false" ng-click="projFeedAlert()">
+                     <i class="fa fa-rss commt-icon" aria-hidden="true"></i>
+                     <!-- Red alert -->
+                     <i ng-show="showredAlert" ng-if="projectFeed.length != 0 || projectFeed" class="fa fa-circle text-danger badgeStyle"></i>
+                  </a>
+               </ul>
+              <div class="dropdown-content-notifctn p-t-sm p-l-xs">
+                  <li class="heading text-center">
+                     <b style="color:#2f70a9"><img src="modules/core/client/img/customimages/top_icon9.png"> 신규 프로젝트 알림</b> <span><i class="fa fa-cog pull-right p-r-lg p-t-xs" aria-hidden="true"></i></span><br>
+                  </li>
+                  <hr class="m-b-xs m-t-sm">
+                  <li ui-sref-active="active" ng-if="projectFeed.length == 0 || !projectFeed">
+                    <!-- <div class="col-xs-3 p-l-xs p-r-none">
+                      <img ng-src="modules/chat/client/img/user.jpeg" class="img-circle img-responsive">
+                    </div>
+                    <div class="pad-left">
+                      <p class="m-t-feed m-b-xs pad-left">Johny</p>
+                      <p class="m-t-feed m-b-none pad-left">Hey budy?</p>
+                    </div> -->
+                    <center><i class="fa fa-exclamation-circle text-warning" aria-hidden="true"></i> 신규 프로젝트가 없습니다</center>
+                  </li>
+                  <!-- <hr class="m-t-sm m-b-sm"> -->
+                  <div ng-repeat="proj in projectFeed | orderBy: '-createdAt'">
+                     <li ui-sref-active="active" >
+                       <div class="col-xs-2 p-l-xs p-r-none">
+                         <i style="font-size: 3rem; color: rgba(30, 97, 171, 0.97)" class="fa fa-desktop" aria-hidden="true"></i>
+                       </div>
+                       <div class="pad-left">
+                         <p class="m-t-cht m-b-none">  <a href="projects/view/{{proj.link}}"> {{proj.project}}</a></p>
+                       </div>
+                     </li>
+                     <hr class="m-b-xs m-t-xs">
+                  </div>
+
+               </div>
+            </div>
+            <div class="dropdown-notifctn" ng-if="dontShow">
+               <ul class="dropbtn-notifctn">
+                  <a class="dropdown-toggle user-header-dropdown-toggle" dropdown-toggle role="button">
+                  <i class="fa fa-th commt-icon" aria-hidden="true"></i>
+                  </a>
+               </ul>
+               <div class="dropdown-content-notifctn p-l-xs">
+                  <li ui-sref-active="active" ui-sref="projects.project-post" style="cursor: pointer; cursor: hand;">
+                    <div class="col-xs-3 p-l-xs m-l-md p-r-none circle-div img-circle">
+                 <!-- <i style="color: rgba(30, 97, 171, 0.97)" class="fa fa-desktop circle-icon"></i> -->  
+                 <img src="modules/core/client/img/customimages/top_icon32.png" class="circle-icon">
+                    </div>
+                    <div class="pad-left-menu">
+                      <p class="m-t-cht m-b-xs pad-left-menu p-t-md" style="color:#2566ae">&nbsp;&nbsp;&nbsp;<b>프로젝트 무료등록</b></p>
+                    </div>
+                  </li>
+                  <br>
+                  <!-- <li ui-sref-active="active">
+                     <div class="col-xs-3 p-l-xs m-l-md p-r-none circle-div img-circle">
+                      <i class="fa fa-map-marker circle-icons"></i>
+                    </div>
+                    <div class="pad-left-menu">
+                      <p class="m-t-cht m-b-xs pad-left-menu p-t-md">Project</p>
+                    </div>
+                  </li>
+                  <br> -->
+                  <li ui-sref-active="active" ui-sref="contests.contest-post" style="cursor: pointer; cursor: hand;">
+                     <div class="col-xs-2 p-l-xs m-l-md p-r-none circle-div img-circle">
+                      <!-- <i class="fa fa-trophy circle-icon" style="color: rgba(208, 165, 32, 0.97)"></i> -->
+                 <img src="modules/core/client/img/customimages/top_icon30.png" class="circle-icon">
+                    </div>
+                    <div class="pad-left-menu">
+                      <p class="m-t-cht m-b-xs pad-left-menu p-t-md" style="color:#d0a520">&nbsp;&nbsp;&nbsp;<b>콘테스트 무료등록</b></p>
+                    </div>
+                  </li>
+                  <hr class="m-t-lg m-b-sm">
+                  <!-- <li ui-sref-active="active" ng-controller="ProfilesController"> -->
+                  <!-- <li ui-sref-active="active" ng-controller="ProfilesController">
+                      <div class="col-xs-3 p-l-xs m-l-md p-r-none  img-circle">
+                       <i class="fa fa-money circle-icon"></i>
+                     </div>
+                     <div class="pad-left-menu p-t-sm">
+                        <a class="m-t-cht m-b-xs  p-t-lg" ng-click="withdrawamount()" href="" >Withdraw Money</a>
+                     </div>
+                  </li> -->
+                  <br>
+               </div>
+            </div>
+            
+         <!-- for user log out and profile dropdown -->
+            <li>
+               <div class="p-t-sm" uib-dropdown is-open="status.isopen">
+                 <a style="text-decoration: none; color: white;" href="" class="panel-anchr" id="single-button" uib-dropdown-toggle ng-disabled="disabled"><span class="caret pull-right" style="margin-top:12px;"></span>
+                   <img  ng-disabled="disabled" ng-src="{{authentication.user.profileImageURL}}" alt="{{authentication.user.displayName}}" class="header-profile-image" /><span class="panel-anchr" ng-bind="authentication.user.username | limitTo : 10">
+                   <span class="caret"></span>
+                 </a>
+                 <!-- <button ng-click="logOut();">xxlogOut</button> -->
+                  <ul class="dropdown-menu panel-menu" uib-dropdown-menu role="menu" aria-labelledby="single-button">
+                    <div class="bordortop_styling border-mradus toggel-top" style="width:85%; margin-top:-14px; overflow: auto; height:62rem;">
+                       <i class="fa fa-times-circle-o cross-butn p-t-xs text-right p-l-sm" aria-hidden="true" ng-click="collapsed=!collapsed"></i>
+                       <div class="img-wrapper text-center">
+                          <img class="profile-img-circle" ng-src="{{authentication.user.profileImageURL}}" alt="{{authentication.user.displayName}}">
+                          <div class="img-overlay">
+                             <button class="btn btn-sm btn-default" ng-hide="!editProfile " ng-click="profileImage()"> <i class="glyphicon glyphicon-camera"></i></button>
+                          </div>
+                       </div>
+                       <h3 class="text-center user-dpname"><!-- {{authentication.user.lastName}}{{authentication.user.firstName}} -->{{authentication.user.displayName}}</h3>
+                       <h2 class="text-center"><i class="fa fa-trophy fa-trophyee img-circle p-l-xs p-t-xs" aria-hidden="true"></i></h2>
+                       <ul class="list-group"  >
+                          <li class="list-group-item toggel-top-list">
+                             <i class="fa fa-user p-r-xs" aria-hidden="true">&nbsp;</i>
+                             <a ui-sref="profile.view">프로필</a>
+                          </li>
+                          <!-- <li class="list-group-item toggel-top-list">
+                             <i class="fa fa-id-card-o fa-cog p-r-xs" aria-hidden="true"></i>
+                             <a ui-sref="#">Membership</a>
+                          </li> -->
+                          <li class="list-group-item toggel-top-list">
+                             <i class="fa fa-cog fa-cog p-r-xs" aria-hidden="true">&nbsp;</i>
+                             <a ui-sref="settings.profile">설정</a>
+                          </li>
+                          <li class="list-group-item toggel-top-list">
+                             <i class="fa fa-question-circle fa-cog p-r-xs" aria-hidden="true">&nbsp;</i> 
+                             <a ui-sref="support">고객지원</a>
+                          </li>
+                          <!-- <li class="list-group-item toggel-top-list">
+                             <i class="fa fa-users fa-cog p-r-xs" aria-hidden="true">&nbsp;</i>
+                             <a ui-sref="#">Invite Friends</a>
+                          </li> -->
+                          
+                          <li class="list-group-item toggel-top-list">
+                             <i class="fa fa-sign-out fa-cog p-r-xs" aria-hidden="true">&nbsp;</i>
+                             <a ng-click="logOut();" href="/api/auth/signout" target="_self">로그 아웃</a> 
+                          </li>
+                       </ul>
+                    </div>
+                  </ul>
+               </div>
+            </li>
+  
+            <!-- <div class="dropdown-hire">
+               <ul class="dropbtn-hire">
+                  <a class="dropdown-toggle user-header-dropdown-toggle" dropdown-toggle role="button">
+                  <a class="p-t-sm" ng-model="collapsed" ng-click="collapsed=!collapsed" >
+                  <img ng-src="{{authentication.user.profileImageURL}}" alt="{{authentication.user.displayName}}" class="header-profile-image" />
+                  <span ng-bind="authentication.user.displayName"></span>
+                  </a>
+                  <b class="caret"></b>
+                  </a>
+               </ul>
+               <div class="dropdown-content-hire"style="margin-left: -146px;  width: 71%;" >
+                  <div class="bordortop_styling border-mradus toggel-top" >
+                     <i ng-show="collapsed" class="fa fa-times-circle-o cross-butn p-t-sm text-right p-l-md" aria-hidden="true" ng-click="collapsed=!collapsed"></i>
+                     <div class="img-wrapper text-center">
+                        <img class="profile-img-circle" ng-src="{{authentication.user.profileImageURL}}" alt="{{authentication.user.displayName}}">
+                        <div class="img-overlay">
+                           <button class="btn btn-sm btn-default" ng-hide="!editProfile " ng-click="profileImage()"> <i class="glyphicon glyphicon-camera"></i></button>
+                        </div>
+                     </div>
+                     <h1 class="text-center user-dpname">{{authentication.user.displayName}}</h1>
+                     <h2 class="text-center"><i class="fa fa-trophy fa-trophyee img-circle p-l-xs p-t-xs" aria-hidden="true"></i></h2>
+                     <ul class="list-group" >
+                        <li class="list-group-item toggel-top-list">
+                           <i class="fa fa-user fa-cog p-r-xs" aria-hidden="true">&nbsp;</i>
+                           <a ui-sref="profile.view">Profile</a>
+                        </li>
+                        <li class="list-group-item toggel-top-list">
+                           <i class="fa fa-id-card-o fa-cog p-r-xs" aria-hidden="true"></i>
+                           <a ui-sref="#">Membership</a>
+                        </li>
+                        <li class="list-group-item toggel-top-list">
+                           <i class="fa fa-cog fa-cog p-r-xs" aria-hidden="true">&nbsp;</i>
+                           <a ui-sref="settings.profile">Setting</a>
+                        </li>
+                        <li class="list-group-item toggel-top-list">
+                           <i class="fa fa-question-circle fa-cog p-r-xs" aria-hidden="true">&nbsp;</i> 
+                           <a ui-sref="#">Get Support</a>
+                        </li>
+                        <li class="list-group-item toggel-top-list">
+                           <i class="fa fa-users fa-cog p-r-xs" aria-hidden="true">&nbsp;</i>
+                           <a ui-sref="#">Invite Friends</a>
+                        </li>
+                        <li class="list-group-item toggel-top-list">
+                           <i class="fa fa-sign-out fa-cog p-r-xs" aria-hidden="true">&nbsp;</i>
+                           <a href="/api/auth/signout" target="_self">Logout</a> 
+                        </li>
+                     </ul>
+                  </div>
+               </div>
+            </div> -->
+         </ul>
+      </div>
+   </nav>
+</div>

@@ -1,0 +1,660 @@
+<section  class="container-fluid" ng-controller="ContestsController" ng-init = "universalData()">
+ <!--  <div ng-include="vm.search"></div> -->
+ <br><br>
+  <div class="row">
+    <form name="contestForm" novalidate>
+
+	<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 p-ml-none p-mr-none col-md-offset-1" style="padding-left: 3.5rem;">
+		<strong style="font-size:23px;color:#c3980d;"><img src="modules/contests/client/img/contest_icon2.png"> 콘테스트 개최 무료등록 시작</strong><br><br>
+	  </div>
+
+	<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 p-ml-none p-mr-none col-md-offset-1" style="padding-left: 3.5rem;">
+		<strong style="padding-left: 42px;"><i class="fa fa-exclamation-triangle" aria-hidden="true" style="color:#820923;"></i> 아래 <span class="contest_question" style="padding-bottom:12px;">
+              <span>1</span></span> 번부터 <span class="contest_question" style="padding-bottom:12px;">
+              <span>5</span></span> 번까지 필수 등록항목입니다. 번호 순서대로 빠짐없이 등록 작성해야 콘테스트 무료 등록을 할 수 있습니다.!</strong><br><br>
+	</div>
+    
+      <div class="col-xs-12 col-sm-7 col-md-7 col-lg-7 p-ml-none p-mr-none col-md-offset-1" style="padding-left: 3.5rem;">
+     
+        <div ng-show="error" class="text-danger">
+          <div class="alert alert-danger" ng-bind="error"></div>
+        </div>
+        <div class="box lg" style="border-top: 5px solid #d0a620;">
+          <div class="form-group p-t-sm col-md-offset-1" style="margin-top:30px">
+            <p class="contest_question" style="padding-bottom:12px;">
+              <span>1</span>
+              콘테스트 유형을 선택 하십시오.
+            </p>
+            
+            <select selector class="prjct-name" change="subCatSelect()"
+                  model="contest.workRequire"
+                  options="typeOfWork"
+                  label-attr="name"
+                  placeholder="1차 카테고리 선택 후 2차 세부 카테고리를 선택 [필수사항임]">
+            </select>
+			<br><br>
+          </div>
+
+
+          <!-- sub menu of work -->
+          <div ng-show="contest.workRequire" class="form-group p-t-sm col-md-offset-1">
+            <select selector class="prjct-name"
+                  model="contest.subcat"
+                  options="optSub"
+                  label-attr="name"
+                  placeholder="2차 세부 카테고리 선택">
+            </select>
+			<br><br>
+          </div> 
+
+
+		 
+
+
+          <!-- sub menu of work -->
+          <!-- if design is chosen in sub category, show this -->
+          <!-- <div ng-show="contest.workRequire.name =='Design' && contest.subcat.name && contest.subcat.name!='Design Flash' " class="form-group p-t-sm upcell-contests">
+            <div class="row">
+              <div class="col-xs-8">
+                <strong>We recommend you post a Stationary Design Contest instead.</strong><br><br>
+
+                With a contest, hundreds of freelancers submit work for you to review before you award a winner. <strong>Money back guarantee!</strong>
+              </div>
+              <div class="col-xs-4">
+                <a ui-sref="contests.contest-post"><button class="btn btn-md btn-success btn-cont">Swtich to Contest</button></a>
+              </div>
+            </div>
+          </div> -->
+
+          <br>
+          <div class="form-group col-md-offset-1">
+            <p class="contest_question" style="padding-bottom:12px">
+              <span>2</span>
+              콘테스트 제목을 입력 하십시오.
+            </p>
+
+            <p class="sub-heading"><b>콘테스트 제목</b> <span  popover-title="콘테스트 제목" uib-popover="콘테스트 개최에 프리랜서들을 많이 지원하기위해서는 콘테스트 제목이 중요합니다. 가능한 정확한 단어로 간단 명료하게 작성해 주시길 바랍니다." popover-trigger="'mouseenter'"><i class="fa fa-question-circle-o" aria-hidden="true" style="font-size:20px;"></i></span></p>
+            <input type="text" class="form-control prjct-name" ng-model="contest.name" name="contest_name" required></input>
+<br><br>
+          </div> 
+
+		  <br>
+
+          <div class="form-group col-md-offset-1"> 
+            <p class="contest_question">
+              <span>3</span>
+			  콘테스트에 내용을 작성하십시오
+		  </p>
+            <p class="sub-heading" style="margin-top:30px">
+              <b>콘테스트 개최에 요구되는 전문기술</b>
+              <span  popover-title="콘테스트 개최에 요구되는 전문기술" uib-popover="콘테스트 개최에 요구되는 전문기술을 선택할 경우 콘테스트 목록에서 요구사항을 표시해 줍니다." popover-trigger="'mouseenter'"><i class="fa fa-question-circle-o" aria-hidden="true" style="font-size:20px;"></i></span>
+            </p>
+
+            <select selector class="prjct-name"
+                  model="contest.skills"
+                  options="skills"
+                  multi="true"
+                  label-attr="name"
+                  placeholder="콘테스트에 요구되는 전문기술 선택 바랍니다. [영문 검색 필수]">
+            </select>
+			<br><br>
+            <p class="sub-heading top-space" style="margin-top:40px">
+              <b>콘테스트 내용</b>
+              <span  popover-title="콘테스트 내용" uib-popover="콘테스트 개최에 관한 내용을 자세히 작성해야 합니다. 프리랜서들은 콘테스트 내용을 확인하고 지원 할 수 있습니다. 콘테스트 내용은 최소 300자 이상 작성 바랍니다. 콘테스트 작성이 어려울 경우 아웃소싱오케이 고객문의(support@outsourcingok.com)에 등록하면 담당자가 도와 드립니다." popover-trigger="'mouseenter'"><i class="fa fa-question-circle-o" aria-hidden="true" style="font-size:20px;"></i></span>
+            </p>
+			<textarea  class="form-control porjct-desp" rows="6" name="description" ng-model="contest.description" placeholder="콘테스트 내용 작성요령을 참조해서 자세히 작성해야만 프리랜서들로부터 많은 관심과 신청을 받을 수 있습니다...
+[최소300자 이상 작성하기 바랍니다!]" required></textarea>
+            
+          </div>
+
+          <div class="form-group col-md-offset-1">
+            
+            <div class="row">
+              <div class="col-sm-6">
+                <input  type="file" nv-file-select=""  uploader="uploader"> 
+                
+                <div ng-show="uploader.queue.length>0">
+                  <div>파일이름: {{ item.file.name }}</div>
+                  <div>파일크기: {{ item.file.size/1024/1024|number:2 }} Mb</div>
+                  <!-- <div ng-show="uploader.isHTML5">
+                      진행상황: {{ item.progress +'%'}}
+                      <div>
+                          <div  ng-style="{ 'width': item.progress + '%' }"></div>
+                      </div>
+                  </div>  --> 
+
+                  <!-- progress bar -->
+                  <uib-progressbar class="progress-striped active" max="100" value="item.progress" type="success"><i>{{item.progress}} / 100</i></uib-progressbar>
+                  
+                  <button ng-click="item.upload()" ng-disabled="item.isReady || item.isUploading || item.isSuccess">파일 업로드하기</button>
+                  <!-- <button ng-click="item.cancel()" ng-disabled="!item.isUploading">Cancel</button> -->
+                  <!-- <button ng-click="item.remove()">Remove</button> -->
+                  <span ng-show="errMsg" class="text-danger">
+                    {{errMsg}}
+                  </span>
+                  <span ng-show="sucMsg" class="text-success">
+                    {{sucMsg}}
+                  </span>  
+				  <br>
+				  <p style="padding-top:10px"><i class="fa fa-exclamation-triangle" aria-hidden="true" style="color:#820923;"></i>파일이 성공적으로 업로드 되었어도 첨부한 파일이 2MB 이상일 경우 등록이 불가능합니다.</p>
+                </div>
+              </div>
+              <div class="col-sm-6">
+                <!-- <p>Drag and drop any images or documents that might be helpful in explaining your project brief here</p> -->
+              <p><i class="fa fa-exclamation-triangle" aria-hidden="true" style="color:#820923;"></i> 첨부파일 2MB 이하 [파일선택후 업로드확인]</p>
+                
+              </div>
+            </div>
+
+          <!-- Angular spinner -->
+          <span us-spinner="{radius:30, width:8, length: 16}" spinner-key="fileUpload"></span>
+
+          </div>
+
+
+          <div class="form-group col-md-offset-1" style="margin-top:50px">
+
+            <p class="contest_question" style="padding-bottom:12px">
+              <span>4</span>
+             콘테스트 지출 예산<p style="font-size:13px;padding-left:20px;"><i class="fa fa-exclamation-triangle" aria-hidden="true" style="color:#820923;"></i> <!-- 맨앞숫자가 0부터시작해도 상관없습니다. --> 상금시작 단위는 1,000원[천원] 부터 시작됩니다.  <span style="color:#820923;">[콘테스트 상금 1억원 이상인 경우 아웃소싱 오케이에 별도 문의]</span></p>
+            </p>
+
+            <div class="row row m-l-xs m-r-xs thumbnail p-t-md p-b-lg porjct-desp">
+              
+              <div class="col-xs-12 col-sm-6 col-md-6 p-ml-none p-mr-none">
+                <rzslider rz-slider-model="contest.sliderContestBudg"
+                          rz-slider-options="sliderContestBudg.options">
+                </rzslider> 
+              </div>
+
+              <div class="col-xs-12 col-sm-3 col-sm-3 p-t-md p-ml-none p-mr-none">
+                 <div class="input-group p-t-xs p-b-sm">
+                     <span class="input-group-addon text-muted">원
+                     </span>
+                     <input ng-model="contest.sliderContestBudg" type="number" min="0" max="100000000" class="form-control" ng-change="totalSum()"> 
+                 </div>
+              </div>
+              <div class="col-xs-12 col-sm-3 col-md-3 p-t-md p-b-sm p-ml-none p-mr-none">                
+                 <select selector model="contest.currency" options="currency" label-attr="code"  placeholder="Select Category" disable="true">   
+                  </select>
+
+              </div>      
+            </div>
+            <br>            
+          </div>
+
+
+          <div class="form-group col-md-offset-1">
+            <p class="contest_question" style="padding-bottom:12px">
+              <span>5</span>
+              콘테스트 기간
+            </p>
+
+			<p style="font-size:13px;padding-left:20px;padding-top:5px;"><i class="fa fa-exclamation-triangle" aria-hidden="true" style="color:#820923;"></i> 콘테스트 개최 마감이후부터 7 일내에 수상자가 선정되지않으면 지원자들에게 1/n로 지급됩니다.</p>
+
+            <div class="input-group prjct-name">
+                    <span class="input-group-addon text-muted">일(Days)  
+                    </span>
+                    <input type="number" ng-model="contest.dayContest" class="form-control prjct-name" min="1" max="180" placeholder="콘테스트는 기간은 최대 180일이며 등록 마감 이후부터 7일 이내에 수상자 한명을 선정해야 됩니다">
+                </div>
+		<br>
+          </div>
+
+          <br>
+          <div class="form-group col-md-offset-1" style="margin-top:25px">
+
+          <p class="contest_question">
+            <span>6</span>
+           아웃소싱오케이 서비스 [선택사항]
+          </p>
+		 <p style="padding-top:5px;padding-left:10px;"><i class="fa fa-exclamation-triangle" aria-hidden="true" style="color:#820923;"></i>  안내:아웃소싱 오케이 서비스 이용시 등록 건별로 이용료[부가세 별도]가 부과되며 취소 및 환불을 할 수 없습니다.</p>
+
+          <hr/>
+
+          <div class="row">
+            <div class="col-sm-3">
+              
+              <input class="top" type="checkbox" value='false' ng-model = "pakage_1" ng-change="checktotalAmount(pakage_1,'pakage_1')">
+
+              <div class="btn-container">
+                <label class="btn btn-info btn-block" style="background:#1793b1;color:#fff;">채팅</label>
+                 
+              </div>
+
+
+            </div>
+            <div class="col-sm-7">
+              <h3 class="title">채팅이용은 프로젝트의 높은 성공의 지표입니다. 등록건별 무제한 채팅이용!</h3>
+			  <p>등록건별로 콘테스트가 완성될때까지 언제 어디서나 무제한 채팅이용할 수 있으며 등록이 다를경우 별도 구매 해야합니다. &nbsp;&nbsp;<span ng-click="chat = !chat" style="font-size:10px;padding-left:20px;background:#6b0816;border-radius: 3px;padding:5px;color:#fff;cursor: pointer; cursor: hand;">주의▶</span></p>
+			  <span ng-show="chat">
+			  <p><span style="color:#920923">[보안과 안전성을 이유로 반드시 구글크롬을 이용해야 합니다.]</span></p>
+              <p>아웃소싱오케이 실시간채팅 서비스는 의뢰인과 함께 콘테스트 공개 포럼을 거쳐 채팅으로 상담한&nbsp;&nbsp; 1차합격자 프리랜서(의뢰인이 선택한 프리랜서를 칭함)들로부터 콘테스트 시작부터 완료까지 전체 과정을 실시간회의를 거쳐 수상자를 선정 할 수 있습니다. 채팅 서비스 이용 구매시 1:1 화상채팅은 무료로 이용할 수 있습니다.</p>
+			  <p>무료로 제공하는 1:1 화상 채팅은 프리랜서들과 화상회의가 언제든지 가능하며 안전하게 거래 할 수 있습니다. 대면 미팅을 원할경우 아웃소싱본사 회의실에서 원하는 시간에 맞춰서 대면미팅을 하실 수 있습니다.</p>
+              <p>여러 프리랜서들과 실시간 채팅으로 더 많은 아이디어를 얻을 수 있는 기회가 되며 분쟁이 발생하기 전에 저장된 문자 채팅의 기록물로 양당사자간에 문제를 사전에 예방 할 수 있으며 분쟁을 쉽게 해결 할 수 있습니다.</p>
+			  
+
+			  <ul class="ul-sidebar2">
+            
+				<li style="color:#898989">
+					 기타 외부 화상채팅[카카오톡, 스카이프등]을 이용시 양 당사자간 분쟁이 발생할 경우 아웃소싱오케이에서는 중재에 도움을 줄 수 없으니 주의 바랍니다.
+				</li>
+			  </ul>
+
+			  <ul class="ul-sidebar2">
+            
+				<li style="color:#898989">
+					 채팅기록 보관은 ctrl+a후 ctrl+c로 회원님PC 저장파일에 ctrl+v로 별도보관바랍니다.
+				</li>
+			  </ul>
+			  </span>
+			  
+            </div>
+            <div class="col-sm-2">
+               <span>{{contest.currency.symbol_native}} {{ latestCurrencyRate[contest.currency.code]*pakagePrices.pakage_1 | number:0}}원</span>
+
+            </div>
+
+          </div>
+
+          <hr/>
+
+          <div class="row">
+            <div class="col-sm-3">
+              
+              <input class="top" type="checkbox" value='false' ng-model = "pakage_2" ng-change="checktotalAmount(pakage_2,'pakage_2')" ng-disabled="pakage_1">
+
+              <div class="btn-container">
+                <label class="btn btn-info btn-block" style="background:#1793b1;color:#fff;">화상(비디오)</label>
+              </div>
+
+
+            </div>
+            <div class="col-sm-7">
+              <h3 class="title">1차 콘테스트 합격자 선택 후 사용할 경우 높은 성공률!</h3>
+              <p style="color:#898989">본 화상서비스는 채팅서비스를 구매해야만 별도의 화면으로 이동하여 1:1 실시간 화상채팅을 이용이 가능합니다.&nbsp;&nbsp;<span ng-click="videochat = !videochat" style="font-size:10px;margin-left:13px;padding-left:20px;background:#2f70a9;border-radius: 3px;padding:5px;color:#fff;cursor: pointer; cursor: hand;">안내▶</span></p>
+			  <span ng-show="videochat">
+			  <p>화상(비디오)은 저장을 할 수 없는 기능이오니 여기에 관련하여 문제가 발생될 경우 아웃소싱오케이에서는 일체의 책임을 지지 않으며 안전성을 위해서 구글크롬 사용으로만 최적화되어 있습니다. 만약 IE(인터넷 익스플로러) 사용시에 아웃소싱 오케이는 일체 책임지지 않습니다.</p>
+
+			  <ul class="ul-sidebar2">
+            
+				<li>
+					 데스크탑으로 최적화되어있어 모바일 화상 이용 경우 불편할 수도 있습니다.
+				</li>
+			  </ul>
+			  </span>
+
+			 
+            </div>
+            <div class="col-sm-2">
+               <span style="color:#820923">{{contest.currency.symbol_native}}  {{ latestCurrencyRate[contest.currency.code]*pakagePrices.pakage_2 | number:0}}원 <br>[채팅구매시 무료]</span>
+
+            </div>
+
+          </div>
+
+          <hr/>
+<!-- 
+          <div class="row">
+            <div class="col-sm-3">
+              
+              <input class="top" type="checkbox" value='false' ng-model = "pakage_3" ng-change="checktotalAmount(pakage_3,'pakage_3')" ng-disabled="pakage_1">
+
+              <div class="btn-container">
+                <label class="btn btn-warning btn-block">채팅</label>
+              </div>
+
+
+            </div>
+            <div class="col-sm-7">
+              <p>Opportunity for you to chat with a recruiter to discuss about the project using chat rooms.</p>
+            </div>
+            <div class="col-sm-2">
+              <span>{{contest.currency.symbol_native}} {{ latestCurrencyRate[contest.currency.code]*pakagePrices.pakage_3 | number:1}}</span>
+
+            </div>
+
+          </div>
+
+          <hr/>
+ -->
+          <div class="row">
+            <div class="col-sm-3">
+              
+              <input class="top" type="checkbox" value='false' ng-model = "pakage_4" ng-change="checktotalAmount(pakage_4,'pakage_4')" >
+
+              <div class="btn-container">
+                <label class="btn btn-info btn-block" style="background:#008000;color:#fff;">개인 서비스</label>
+              </div>
+
+
+            </div>
+            <div class="col-sm-7">
+               <p>개인 서비스는 보안성이 필요한 핵심적인 콘테스트에 전문 프리랜서를 찾을 때 효과적입니다.<span ng-click="service = !service" style="font-size:10px;margin-left:13px;padding-left:20px;background:#2f70a9;border-radius: 3px;padding:5px;color:#fff;cursor: pointer; cursor: hand;">안내▶</span></p>
+			   <p ng-show="service">아웃소싱 오케이는 회원님께서 등록한 콘테스트 내용들을 재 검토하여 프리랜서들에게 부각될 수 있도록 아웃소싱오케이 담당자가 1:1 서비스로 콘테스트 등록 재검토 및 수정해 드립니다. 본 서비스는 계약전에 회원님께서 원하는 여러프리랜서와 대면미팅을 원할경우 아웃소싱 오케이 담당자가 시간,장소등 모든 일정표를 회원님과 함께 계획하여 대면미팅시 직접 참여해서 계약까지 도와드립니다.</p>
+            </div>
+            <div class="col-sm-2">
+              
+              <span>{{contest.currency.symbol_native}} {{ latestCurrencyRate[contest.currency.code]*pakagePrices.pakage_4 | number:0}}원</span>
+
+            </div>
+
+          </div>
+
+          <hr/>
+
+          <div class="row">
+            <div class="col-sm-3">
+              
+              <input class="top" type="checkbox" value='false' ng-model = "pakage_5" ng-change="checktotalAmount(pakage_5,'pakage_5')">
+
+              <div class="btn-container">
+                <label class="btn btn-success btn-block" style="background:#113886;border-color: #113886;">비공개</label>
+              </div>
+
+
+            </div>
+            <div class="col-sm-7">
+               <p>콘테스트 개최를 정확하고 좋은 제안서를 받기위해 비공개로 할 경우 지원한 프리랜서들은 다른 프리랜서들의 지원금액과 내용을 볼 수 없어 최상의 효과를 기대 할 수 있습니다.</p>
+			  <!-- 
+			  <ul class="ul-sidebar2">
+            
+				<li style="color:#898989">
+					 계약방법은 등기우편 또는 아웃소싱오케이본사 중 선택해서 계약할 수 있습니다.
+				</li>
+			  </ul>
+			   -->
+			  
+            </div>
+            <div class="col-sm-2">
+              
+              <span>{{contest.currency.symbol_native}} {{ latestCurrencyRate[contest.currency.code]*pakagePrices.pakage_5 | number:0}}원</span>
+
+            </div>
+
+          </div>
+
+          <hr/>
+
+          <div class="row">
+            <div class="col-sm-3">
+              
+              <input class="top" type="checkbox" value='false' ng-model = "pakage_6" ng-change="checktotalAmount(pakage_6,'pakage_6')">
+
+              <div class="btn-container">
+                <label class="btn btn-success btn-block" style="background:#efbf50;color:#fff;border-color: #efbf50;">비공개 계약(NDA)</label>
+              </div>
+
+
+            </div>
+            <div class="col-sm-7">
+              <p>의뢰인이 등록한 정보에 대해서 비공개 서약서를 작성하는 서비스입니다.<span ng-click="nda = !nda" style="font-size:10px;margin-left:13px;padding-left:20px;background:#6b0816;border-radius: 3px;padding:5px;color:#fff;cursor: pointer; cursor: hand;">주의▶</span></p>
+			  <span ng-show="nda">
+			  <p>비공개 계약 서비스를 선택할 경우 하이라이트로 표시되여 콘테스트가 부각될 수 있습니다. 또한 주어진 조건에 따라 콘테스트에 대한 의뢰인과 지원자/프리랜서 및 아웃소싱오케이 제3자간 간의 기밀 합의입니다.</p>
+
+			  <!-- <ul class="ul-sidebar2">
+            
+				<li style="color:#898989">
+					 계약방법은 등기우편 또는 아웃소싱오케이본사 중 선택해서 계약할 수 있습니다.
+				</li>
+			  </ul> -->
+			  </span>
+			  
+
+            </div>
+            <div class="col-sm-2">
+              
+              <span style="color:#920923">{{contest.currency.symbol_native}} {{ latestCurrencyRate[contest.currency.code]*pakagePrices.pakage_6 | number:0}}원 <!-- {{ latestCurrencyRate[contest.currency.code]*pakagePrices.gaurantee | number:0}} --></span>
+
+            </div>
+
+          </div>
+
+          <hr/>
+
+          <div class="row">
+            <div class="col-sm-3">
+              
+              <input class="top" type="checkbox" value='false' ng-model = "pakage_7" ng-change="checktotalAmount(pakage_7,'pakage_7')">
+
+              <div class="btn-container">
+                <label class="btn btn-danger btn-block" style="background:#6b081d;color:#fff;">긴급</label>
+              </div>
+
+
+            </div>
+            <div class="col-sm-7">
+              <p>본 서비스 기능은 프리랜서들에게 회원님의 콘테스트 빠른 응답과 긴급을 요한 콘테스트, 변경, 업데이트, 긴급제작등 콘테스트를 신속하게 시작할 수 있는 서비스입니다. </p>
+            </div>
+            <div class="col-sm-2">
+              
+              <span>{{contest.currency.symbol_native}} {{ latestCurrencyRate[contest.currency.code]*pakagePrices.pakage_7 | number:0}}원</span>
+
+            </div>
+
+          </div>
+
+		    <hr/>
+
+          <!-- Gaurantee -->
+          <div class="row">
+            <div class="col-sm-3">
+              
+              <input class="top" type="checkbox" value='false' ng-model="gaurantee" ng-change="checktotalAmount(gaurantee,'gaurantee')">
+
+              <div class="btn-container">
+                <label class="btn btn-primary btn-block" style="background:#886513;color:#fff;border-color: #886513;">상금보장</label>
+              </div>
+
+
+            </div>
+            <div class="col-sm-7">
+
+              <p>상금보장을 선택하면 프리랜서들에게 의뢰인의 콘테스트가 강조 됩니다. 상금보장 선택시 환불이 불가합니다.<span ng-click="gaurantee = !gaurantee" style="font-size:10px;margin-left:13px;padding-left:20px;background:#6b0816;border-radius: 3px;padding:5px;color:#fff;cursor: pointer; cursor: hand;">주의▶</span></p>
+			  
+			  <span ng-show="gaurantee">
+			  <ul class="ul-sidebar2">
+            
+				<li style="color:#898989">
+					상금보장을 선택하면 환불이 불가하며 콘테스트 개최 마감시점부터 7일이내 수상작 선정을 희망하지 않는 경우에는 의뢰인께서 회사 화상채팅 인박스를 통해서 상담한 모든 프리랜서들에게 90%를 1/n로 균등하게 지급 됩니다(콘테스트 공개포럼에 참여한 프리랜서는 1/n 제외되며 1차합격자가 없는 경우에는 콘테스트 공개포럼에 참여한 모든 프리랜서들에게 90%를 1/n로 균등하게 지급 됩니다.)
+				</li>
+			  </ul>
+			  </span>
+
+
+			  
+            </div>
+            <div class="col-sm-2">
+              
+              <span style="color:#920923">{{contest.currency.symbol_native}} {{ latestCurrencyRate[contest.currency.code]*pakagePrices.gaurantee | number:0}}원 [무료]<!-- {{ latestCurrencyRate[contest.currency.code]*pakagePrices.gaurantee | number:0}} --></span>
+
+            </div>
+
+          </div>
+          <div class="m-l-md"><h4><strong> 합계(부가세별도): {{contest.currency.symbol_native}} {{totalAmount | number:0}}</strong></h4></div>
+
+		  <div class="m-l-md" style="padding-top:20px"><h6><strong style="color:#820923"><i class="fa fa-exclamation-triangle" aria-hidden="true" style="color:#820923;"></i>  콘테스트에 지원하는 프리랜서는 이메일, 유무선번호 등을 게시하여 직거래를 유도할 경우, 서비스 이용에 제재를 받을 수 있습니다.</strong></h6></div>
+
+
+          </div>
+
+        </div>
+         <!--  <input class="btn btn-info btn-lg" ui-sref="contests.contest-manage" ng-click = "create_contest()" ng-disabled="contestForm.$invalid" value="Post Contest Now"> -->
+
+         <!-- <button class="btn btn-info btn-lg" ng-click="create()" ng-disabled="contestForm.$invalid">무료 콘테스트등록</button> -->
+
+         <div style="display: -webkit-box;">
+           <button class="btn btn-info btn-lg" ng-click = "create()" ng-disabled="contestForm.$invalid || isLoading" style="background:#d0a620;border: 1px solid #d0a620;">
+             무료 콘테스트등록
+           </button>
+
+           <div ng-if="isLoading">
+             <i class="fa fa-spinner fa-spin fa-3x fa-fw"></i>
+           </div>
+         </div>
+
+      </form>
+
+      <br><br>
+    </div>
+
+
+    <!-- SIDEBAR -->
+    <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3 p-mr-none p-ml-none hidden-xs" style="padding-right: 4rem;">
+          
+        <div class="box" style="border-top: 5px solid #d0a620;">
+          
+          <h1 class="sidebar-title" style="color:#c3980d">콘테스트 개최를 원하는대로 무료 등록 할 수 있습니다.</h1>
+
+          <h2 class="sidebar-title-sub text-center"><img src="modules/projects/client/img/project_icon3.png">무료 콘테스트 간편 등록!</h2>
+
+          <hr/>
+
+          <ul class="ul-sidebar3">
+            
+            <li>명확하고 간결한 제목으로 작성.</li>
+
+            <li>콘테스트에 대한 상세설명 작성.</li>
+
+            <li>콘테스트에 요구되는 전문기술과 이미지/파일첨부.</li>
+
+            <li>콘테스트 개최 등록은 간단 명료하게 작성.</li>
+
+			<li>정확한 컨셉설정과 1차합격자 선별을 위한 무료 공개포럼 이용 .</li>
+
+			<li>콘테스트 내용은 <b style="color:#9f7d11">콘테스트 진행방식</b> > <b style="color:#9f7d11">콘테스트의 현재상황</b> > <b style="color:#9f7d11">상세한 업무내용</b> > <b style="color:#9f7d11">참고자료/유의사항</b> 순서대로 샘플을 참조해서 작성</li>
+
+          </ul>
+
+        </div>
+
+
+        <div class="box" style="border-top: 5px solid #d0a620;">
+          
+          <h1 class="sidebar-title" style="color:#c3980d">중개업체를 통한 비공개 대면미팅은 과거의 일 입니다.</h1>
+		  <h1 class="sidebar-title" style="color:#000"><img src="modules/contests/client/img/contest_icon1.png">실시간 1:1 화상 채팅으로 지원자와 동시 인터뷰!</h1>
+
+          <hr/>
+
+          <ul class="ul-sidebar3">
+            
+			<li>대면미팅전에 실시간 화상채팅으로 사전에 확인할 수 있어 상당한 신뢰와 시간 절약이 가능합니다.</li>
+            <li>고정금액 또는 시간제로 선택해서 프리랜서를 찾을 수 있습니다.</li>
+
+            <li>여러명과 실시간 채팅이용으로 최상의 결과를 얻을 수 있습니다.</li>
+
+            <li>선택된 프리랜서와 의뢰인은 1:1로 장소 구애 없이 실시간 화상인터뷰로 시간과 경비를 절감 할 수있습니다.</li>      
+			
+           	<li>채팅 이용시 등록당(건별) 프로젝트 시작부터 종료시점까지 화상채팅 이용료 5천원(부가세별도)이 부과 되며 언제든 무제한 이용 할 수 있습니다. 채팅구매시 화상이용은 종료기간까지 무료입니다.</li>
+
+			<li>보안과 안전성을 이유로 화상채팅은 반드시 구글크롬을 이용하시길 바랍니다. IE(인터넷 익스플로러)이용시 발생되는 문제점은 아웃소싱오케이에서는 일체 책임이 없습니다.</li>
+
+          </ul>
+
+          <div class="text-center">
+          <button class="btn btn-info" ui-sref="projects.project-post" style="background:#35abc8">프로젝트 무료 등록</button>
+          </div>
+          
+
+        </div>
+
+
+		<div class="box" style="border-top:5px solid #4c0a18">
+          
+             <h1 class="sidebar-title" style="color:#4c0a18">콘테스트 내용 작성요령</h1>
+		  
+
+          <h2 class="sidebar-title-sub text-center"><!-- <img src="modules/projects/client/img/project_icon5.png"> -->콘테스트 내용 샘플&nbsp;&nbsp;<span ng-click="showSkills = !showSkills" style="font-size:10px;padding-left:20px;background:#35abc8;border-radius: 3px;padding:5px;color:#fff;cursor: pointer; cursor: hand;">샘플보기</span></h2>
+
+          <hr/>
+		
+			<div ng-show="showSkills">
+
+
+
+<b style="color:#087c99">[콘테스트 진행 방식]</b><br> 
+예시)화상채팅,대면미팅 등<br><br>
+-시작시점에서 개최종료까지 아웃소싱오케이 공개포럼과<br>&nbsp;&nbsp;화상채팅 방식으로 진행합니다.<br>
+
+<br><br>
+
+
+
+
+
+<b style="color:#087c99">[서비스 개요]</b><br>
+예시)슬로건, 제품컨셉, 특장점, 핵심타겟 등<br><br>
+-슬로건 : 24시간 데일리 스킨케어<br>
+-제품 컨셉 : 간편한 스킨케어 제품으로 언제 어디서나<br>&nbsp;&nbsp;편리하게 사용<br>
+-특장점 : 24시간 매일 케어, 다양한 컬러별 케어, 간편 케어<br>
+-핵심타겟 : 19~30세 남·여
+<br><br>
+
+
+
+<b style="color:#087c99">[디자인 요구사항]</b><br>
+예시)디자인 용도, 디자인 요구사항 등<br><br>
+-용기 라벨 디자인<br>
+-패키지 디자인<br>
+<br><br>
+
+
+<b style="color:#087c99">[상세 설명]</b><br>
+예시)제품기능, 디자인 내용 , 필요한 조건 등<br><br>
+
+-미네랄스틱[수분용]<br>
+&nbsp;&nbsp;촉촉하게 수분감넘치는 피부로 가꿔주는 미네랄 스틱<br>
+
+-모이스처스틱[보습용]<br>
+&nbsp;&nbsp;각질없이 매끄럽고 부드러운 피부를 위한 모이스처 스틱<br>
+
+-오일스틱[오일]<br>
+&nbsp;&nbsp;매끈한 피부결로 가꾸어주는 부드러운 마무리감의 오일 스틱<br>
+
+-클렌징스틱[스크럽]<br>
+&nbsp;&nbsp;스크럽 알갱이가 블랙헤드 및 노폐물을 녹여주는 클렌징 스틱<br>
+
+-클렌징스틱[모공수렴]<br>
+&nbsp;&nbsp;모공을 촘촘하고 산뜻한 피부로 가꿔주는 클렌징 스틱<br>
+
+<br><br>
+
+-용기 라벨 디자인<br>
+&nbsp;&nbsp;심플하고 정면에서 보았을때 제품명이 눈에 확 띄게 표현<br>
+&nbsp;&nbsp;용기 색상 - 하늘색<br>
+&nbsp;&nbsp;용기 용량 - A:-50g[미네랄,모이스처,오일],B:-60g[클렌징]<br>
+&nbsp;&nbsp;용기 크기 - 첨부파일 확인[용기라벨크기.ai]<br>
+&nbsp;&nbsp;라벨 크기 - 첨부파일 확인[용기라벨크기.ai]<br>
+&nbsp;&nbsp;앞면 - 영문 제품명, 슬로건, 제품을 잘 보여줄 수 있는 아이콘<br>&nbsp;&nbsp;색상 등<br>
+&nbsp;&nbsp;뒷면 - 로고, 영문 제품명<br>
+<br><br>
+
+-패키지디자인<br>
+&nbsp;&nbsp;창의적인 패키지, 사각패키지, 원형패키지, 투명패키지 등<br>&nbsp;&nbsp;자유로운 패키지디자인<br>
+&nbsp;&nbsp;일러스트 패키지, 색상시리즈 등 첨부파일 확인(샘플.jpg)<br>
+&nbsp;&nbsp;앞면 - 제품 로고, 제품명, 용량 필수<br>
+&nbsp;&nbsp;뒷면 - 뒷면.xls<br>
+&nbsp;&nbsp;사이트 - https://www.amazon.com/Nykaa-MATTE<br>
+<br><br>
+
+＊첨부한 PANTONE COLOR #211C는 제품별 포인트 컬러입니다.
+＊좋은 아이디어가 있으면 컬러 변경도 가능합니다.<br><br>
+
+
+
+<b style="color:#087c99">[참고자료 / 유의사항]</b><br>
+예시)참고사이트, 기타 유의사항 등<br><br>
+-화장품 전문 디자인너를 찾고있습니다.<br>
+-참고사이트 https://www.amazon.com/Nykaa-MATTE
+<br><br>
+
+
+
+
+			</div>
+
+
+
+    </div>
+  </div>
+
+</section>

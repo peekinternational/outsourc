@@ -1,0 +1,68 @@
+<section ng-controller="HomeController" ng-init="getSupport();" class="container-fluid p-ml-none p-mr-none">
+	<div class="row">
+		<div class="row background-page">
+			<div class="col-md-6 page-padngs">
+				<h5 class="m-b-none"><a ui-sref="support" style="color: white; text-decoration:none">고객지원 홈</a></h5> 
+				<!-- <select class="select-css" ng-model="selectedItem" ng-change="changeSupportPage()"> -->
+				<select class="select-css"  onchange="location = this.value">
+					<option value="support-general" value="General">일반사항</option>
+					<option value="support-project" value="Project" selected>프로젝트</option>
+					<option value="support-contest" value="Contest">콘테스트</option>
+					<option value="support-payment" value="Payment">결제</option>
+					<option value="support-membership" value="Membership">회원</option>
+					<option value="support-profile" value="Profile">프로필</option>
+				</select>
+			</div>
+			<div class="col-md-4 page-padng">
+				<div class="input-group add-on">
+					<input class="form-control serch-box" placeholder="질문사항을 검색하십시오" name="srch-term" id="srch-term" type="text">
+					<div class="input-group-btn">
+						<button class="btn btn-warning btn-lg" type="submit">도움말 검색</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row" style="background: #F0F0F0;">
+			<div class="col-md-7 col-xs-12 detail-qustn-div" ng-repeat=" gen in supProject">
+				<!-- question and answer -->
+				<span  ng-bind-html="gen.answer"></span>
+			</div>
+			<div class="col-md-7 col-xs-12 detail-qustn-div" ng-if="supProject.length === 0">
+				<center>
+					<!--<center>
+					<h1>We are sorry!</h1>
+					<h2>No Content Found.</h2>
+				</center>  -->
+				</center>
+			</div>
+			<div class="col-md-3 col-xs-12 link-questn-div">
+				<h3 class="m-t-none m-b-sm"><b>관련 질문</b></h3>
+				<hr class="m-t-none m-b-sm">
+				<ul class="p-l-none list-unstyled" ng-repeat="f in faq | limitTo: 10">
+					<li>
+						<div ng-switch="f.category">
+							<div ng-switch-when="General">
+								<a href="support-general" class="link-setng"> {{f.question}}</a>
+							</div>
+							<div ng-switch-when="Project">
+								<a href="support-project" class="link-setng"> {{f.question}}</a>
+							</div>
+							<div ng-switch-when="Contest">
+								<a href="support-contest" class="link-setng"> {{f.question}}</a>
+							</div>
+							<div ng-switch-when="Payment">
+								<a href="support-payment" class="link-setng"> {{f.question}}</a>
+							</div>
+							<div ng-switch-when="Profile">
+								<a href="support-profile" class="link-setng"> {{f.question}}</a>
+							</div>
+							<div ng-switch-when="Membership">
+								<a href="support-membership" class="link-setng"> {{f.question}}</a>
+							</div>
+						</div>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+</section>

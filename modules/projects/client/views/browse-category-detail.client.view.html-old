@@ -1,0 +1,43 @@
+<section class="container-fulid" ng-controller="BrowseCatCtrl">	
+	<div class="col-xs-12 col-sm-12 col-md-10 col-lg-10 col-md-offset-1 p-ml-none p-mr-none m-mt-none" style="margin-top:60px">
+		<h3 class="h3-mobile-font"><strong>분야별 프로젝트 검색</strong></h3>
+		<div class=" profile_container bordortop_styling p-l-sm p-r-sm p-b-lg mrgn-botm">
+			
+			<center>
+			    <!-- show loader -->
+			    <div ng-if="isLoading">
+			    	<br><br><br>
+			        <img class="img-responsive" src="/modules/core/client/img/landing/outsoucing.png"> <br>
+			      <i class="fa fa-spinner fa-spin fa-4x fa-fw"></i> 
+			    </div>
+			</center>
+			
+			<div>
+			<!-- <div ng-repeat="sc in subCategories"> -->
+				<!-- <a href="#" style="text-decoration: none">
+					<h3 ng-click="showSkills = !showSkills" class="text-primary mobile-view-prjct" style="font-size:15px">
+						<strong  ng-click="getSkills(sc.skills)" >{{sc.name}}</strong>
+					</h3>
+				</a> -->
+				<div class="row m-t-lg">
+				<!-- <div class="row m-t-lg" ng-show="showSkills"> -->
+		        	<div class="col-xs-6 col-sm-6 col-md-4 p-t-sm p-mr-none p-ml-sm" ng-repeat="skill in skills track by $index">
+			        	<a ui-sref="projects.browse-category-detail" class="catgry-span">
+			        		<a ui-sref="projects.project-list({skills: skill.name})">
+			        			<span class="catgry-span">
+			        			<i class="fa fa-caret-right p-r-sm ctrgy-icon" aria-hidden="true"></i>{{skill.name}} <span class="badge">{{skill.count}}</span>
+			        		</span>
+			        		</a>
+			        	</a>
+		        	</div>
+	      		</div>  
+	      		<hr>
+			</div>
+
+		</div>
+	</div>
+	<!-- chatWindow -->
+	<div  ng-show="authentication.user">
+	  <footer ng-include="'/modules/core/client/views/chatWindow.html'" ></footer>
+	</div>
+</section>			

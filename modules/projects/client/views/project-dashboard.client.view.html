@@ -1,0 +1,659 @@
+<div class="row project-backgroundimage5 hidden-xs">
+        <div class="container about-investor-title-setting">
+<br>
+            <h3 class="investor-heading p-t-sm" style="font-size:20px;">MY 대시보드</h3>
+            <h3 class="investor-para">
+               
+            </h3>
+            <br><br>
+          </div>
+      </div>
+
+<section ng-controller="ProfilesController" ng-init="universalData();">
+  <div ng-if="view_processing">
+  <!-- <div id="page-overlay" ng-if="view_processing"> -->
+    <br><br><br><br><br><br>
+      <center>
+        <section class="logo">
+            <img src="/modules/core/client/img/landing/outsoucing.png">
+        </section>
+        <br>
+        <section class="spinner">
+            <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+            <span class="sr-only">Loading...</span>
+        </section>
+      </center>
+  </div>
+  
+<br><br class="hidden-xs">
+  <!-- <div class="page-header">
+    <h1>Projectsesese</h1>
+  </div>
+  <div class="list-group">
+    <a ng-repeat="project in vm.projects"
+       ui-sref="projects.view({ projectId: project._id })"
+       class="list-group-item">
+      <small class="list-group-item-text">
+        Posted on
+        <span ng-bind="project.created | date:'mediumDate'"></span>
+        by
+        <span ng-if="project.user" ng-bind="project.user.displayName"></span>
+        <span ng-if="!project.user">Deleted User</span>
+      </small>
+      <h4 class="list-group-item-heading" ng-bind="project.name"></h4>
+    </a>
+  </div>
+  <div class="alert alert-warning text-center" ng-if="vm.projects.$resolved && !vm.projects.length">
+    No Projects yet, why don't you <a ui-sref="projects.create">create one</a>?
+  </div> -->
+  
+  <!-- <span us-spinner="{radius:30, width:8, length: 16}" spinner-key="spinnerDashboard"></span> -->
+  <div class="container-fluid p-ml-none p-mr-none" style="padding-right: 3rem; padding-left: 2rem;">
+       <div class="col-xs-12 col-md-6 p-ml-none p-mr-none col-md-offset-1 text-center" style="color:#820923;font-size:13px;padding-bottom:20px;" ng-if="authentication.user.userRole=='work'"></a></div>
+	   <div class="col-xs-12 col-md-4 p-ml-none p-mr-none text-center" style="color:#820923;font-size:13px;padding-bottom:20px;" ng-if="authentication.user.userRole=='work'">프로필 소개를 작성하지 않으시면 프리랜서 리스트에 나오지 않습니다. <a ui-sref="profile.view">[프로필 작성하기]</a></div>
+	  <div>
+        <!-- For Only Mobile View -->
+          <div class="col-xs-12 col-md-3 p-mr-none p-ml-none hidden-sm hidden-md hidden-lg col-md-offset-1">
+              <div class="col-md-12 profile_container bordortop_styling border-mradus" style="background:#fff;">
+                  <div class="skillsTop row">
+                      <div class="col-xs-12 p-all-none">
+                      <br>
+                          <div class="col-xs-4 p-r-none"> 
+                              <div class="img-wrapper"> 
+                                <img ui-sref="profile.view" class="project-img-circle" src="{{authentication.user.profileImageURL}}" alt="">
+                                
+                              </div>
+                          </div>
+                          <div class="col-xs-8 p-r-none">
+                            <div class="text-center">
+                              <p><strong>MY 대시보드<!-- 회원님의 정보 현황 --></strong></p>
+                               <p><strong><h4><!-- {{authentication.user.lastName}}{{authentication.user.firstName}} -->{{authentication.user.displayName}}</h4></strong></p>
+                               <p class="text-primary"><i class="fa fa-trophy fa-trophyee img-circle p-l-xs p-t-xs"></i></p>
+                             
+                             <!-- <br><br>
+                             <button type="button" class="btn btn-info btn-lg">Advertisement</button> -->
+                            <br><br>
+                            </div>
+                          </div>
+                           
+                        <div class="account-setup p-l-sm p-r-sm">
+                          <h4><strong>확인된 회원님의 현재 정보</strong></h4>
+                          <br>
+                          <div class="progress m-b-sm">
+                            <uib-progressbar  type="{{type}}" max="maxBar" value="profileProgressStatus"><span style="color:white; white-space:nowrap;">{{profileProgressStatus}}%</span></uib-progressbar>
+                          </div>
+                          
+                        </div>
+                      </div>
+                  </div>
+                  
+              </div>
+          </div>
+          <br>
+          <!-- <div class="col-xs-12 col-md-4 p-ml-none p-mr-none hidden-sm hidden-md hidden-lg">
+            <div class="col-md-12 bordortop_styling border-mradus">
+              <div class="col-xs-7 col-md-8">
+                <h1> <strong class="text-info"> {{authentication.user.remainingBids}}</strong><sub><b>/300</b></sub></h1>
+                <h5><strong>Bids Left</strong></h5>
+              </div>
+              <div class="col-xs-4 col-md-4 p-l-none">
+              <br><br>
+                <button class="btn btn-info"> Get more Bids </button>
+              </div>
+            </div>    
+          </div> -->
+          <!-- End Mobile View -->
+          <div class="col-xs-12 col-md-6 p-ml-none p-mr-none col-md-offset-1">
+          <div class=" profile_container bordortop_styling hidden-xs" style="background:#fff;background-image: url('/modules/projects/client/img/dashboard_bg.png');">
+              <br><br>
+         
+              <h3 class="text-center" style="color:#fff;font-size:24px;">어떤 분야의 전문 프리랜서를 찾고 계시나요?</h3>
+              <h5 class="text-center text-muted" style="color:#18c0ff">회원님께서 믿을 수 없을 많큼 모든 분야의 전문 프리랜서를 지금 만날 수 있습니다.</h5>
+              <div class="text-center" style="padding-top:20px"> 
+                <div class="btn btn-small custom"><a ui-sref="projects.project-post" class="removehref">웹사이트ㆍ정보ㆍ소프트웨어</a></div> 
+                <div class="btn btn-small custom"><a ui-sref="projects.project-post" class="removehref">휴대전화ㆍ컴퓨팅</a></div> 
+				<div class="btn btn-small custom"><a ui-sref="contests.contest-post" class="removehref">디자인ㆍ미디어ㆍ건축</a></div> 
+              </div> 
+              <br>
+              <div class="text-center"> 
+                <div class="btn btn-small custom"><a ui-sref="projects.project-post" class="removehref">작문ㆍ콘텐츠</a></div> 
+                <div class="btn btn-small custom"><a ui-sref="projects.project-post" class="removehref">공학ㆍ과학</a></div> 
+				<div class="btn btn-small custom"><a ui-sref="projects.project-post" class="removehref">비즈니스ㆍ회계ㆍ인사ㆍ법률</a></div> 
+              </div>
+			  <br>
+              <div class="text-center"> 
+                <div class="btn btn-small custom"><a ui-sref="projects.project-post" class="removehref">데이터 입력ㆍ관리</a></div> 
+                <div class="btn btn-small custom"><a ui-sref="projects.project-post" class="removehref">제품소싱ㆍ제조</a></div> 
+				<div class="btn btn-small custom"><a ui-sref="projects.project-post" class="removehref">번역ㆍ언어</a></div> 
+              </div>
+              <br>
+              <br> 
+			  <h5 class="text-center text-muted" style="color:#18c0ff">오프라인 상담은 과거의 일 입니다. 온라인 실시간 화상채팅으로 시간과 비용을 절감 할 수있습니다.</h5>
+              </div>
+              <br class="hidden-xs">
+              <br>  
+              <br>
+              <div class=" profile_container bordortop_styling p-l-sm p-r-sm" style="background:#fff;">
+              <h3 class="font-mobile">프로젝트 진행 소식</h3> 
+              <hr> 
+              <div class="row m-b-sm m-l-none m-r-none" ng-repeat="news in authentication.user.newsFeed |orderBy:'-date'|limitTo:newsLimit" style="border-bottom: 1px solid rgba(211, 211, 211, 0.46);">
+                  <div class="col-xs-2 col-md-2 p-ml-xs">
+                      <!-- <img ng-src="./modules/projects/client/img/default.png"> -->
+                      <!-- <img ng-src="modules/profiles/client/img/pic1.png"> {{news.bidderImage}} -->
+                      <img ng-if=" news.bidderId !== authentication.user._id && !news.contest " style="height: 50px; width: 50px; border-radius: 24px;" ng-src="{{news.bidderImage}}">
+
+                      <img ng-if=" news.bidderId === authentication.user._id " style="height: 50px; width: 50px; border-radius: 24px;" ng-src="{{authentication.user.profileImageURL}}">
+
+                      <img ng-if=" news.contest && news.postContest" style="height: 50px; width: 50px; border-radius: 24px;" ng-src="{{authentication.user.profileImageURL}}">
+
+                      <img ng-if="news.contest && news.entryUpload" style="height: 50px; width: 50px; border-radius: 24px;" ng-src="{{authentication.user.profileImageURL}}">
+
+                  </div>
+                  <div class="col-xs-10 col-md-6">
+
+                      <!-- show when bidded -->
+                      <div ng-show="news.activity =='Bidded' && news.bidderId == authentication.user._id" >
+                        <p class="prjct-list-font">회원님께서는 <a ui-sref="projects.view({projectId: news.projectId})"><b>{{news.projectName}}</b></a> 프로젝트를 업로드 하였습니다.</p>
+
+                        <p class="prjct-list-font">원하시는 프로젝트 지원을 위해서 합리적인 비용ㆍ제안서ㆍ기간을 산정하여 지원하시면 의뢰인과 계약 할 수 있는 가능성이 많습니다.</p>
+                      </div>
+
+                      <div ng-show="news.activity =='Bidded' && news.bidderId !== authentication.user._id " >
+                        <p class="prjct-list-font"><b><a ui-sref="profile.outsourcer({profileId: news.bidderId}) ">{{news.bidderName}}</a></b> has {{news.activity}} on <a ui-sref="projects.view({projectId: news.projectId})"><b>{{news.projectName}}</b></a></p>
+
+                        <p class="prjct-list-font">프리랜서와 아웃소싱오케이 실시간 화상 채팅으로 회의를 진행하면 프로젝트 완성도가 높으며 기록물 자동저장으로 인하여 분쟁을 미연에 방지 할 수 있습니다.</p>
+                      </div>
+
+                      <!-- show when awarded -->
+                      <div ng-show="news.activity == 'Awarded' && news.bidderId == authentication.user._id ">
+                        <p class="prjct-list-font">회원님께서는 <a ui-sref="projects.view({projectId: news.projectId})"><b>{{news.projectName}}</b></a> 프로젝트에 선정되었습니다. 승인여부를 알려주십시오.</p>
+
+                        <p class="prjct-list-font">프로젝트를 수락하고 의뢰인과 협의 후 계약조건에 따라 의뢰인께 요청한 예치금액이 확인되면 아웃소싱오케이 에스크로 안전결제 시스템을 통해서 계약조건에 따라 의뢰인이 승인하면 결제가 이루어지며 아웃소싱오케이에서 24시간안에 회원님께 대금이 지급됩니다 </p>
+                      </div>
+
+                      <!-- <div ng-show="news.activity == 'Awarded' && news.bidderId == authentication.user._id ">
+                        <p>You have  {{news.activity}}  project <a ui-sref="projects.view({projectId: news.projectId})">{{news.projectName}}</a> to  <b><a ui-sref="#">{{news.bidderName}}</a></b> </p>
+                        <hr>
+                      </div>  -->
+
+                      <!-- show when accept -->
+                      <div ng-show="news.activity == 'Accepted' && news.bidderId == authentication.user._id ">
+                        <p class="prjct-list-font">회원님께서는  <a ui-sref="projects.view({projectId: news.projectId})"><b>{{news.projectName}}</b></a> 프로젝트를 승인하였습니다</p>
+
+                        <p class="prjct-list-font">작업이 완료되어 의뢰인의 승인후 프로젝트 대금을 요청하시면 의뢰인이 예치한 금액이 결제되어 아웃소싱오케이에서 24시간안에 회원님께 대금이 지급됩니다.</p>
+                      </div>
+
+                      <div ng-show="news.activity == 'Accepted' && news.bidderId !== authentication.user._id ">
+                        <p class="prjct-list-font"> <b><a ui-sref="profile.outsourcer({profileId: news.bidderId}) ">{{news.bidderName}}</a></b> 프리랜서께서 <a ui-sref="projects.view({projectId: news.projectId})"><b>{{news.projectName}}</b></a> 프로젝트를 승인하였습니다</p>
+
+                        <p class="prjct-list-font">프로젝트 예치금이 있어야만 의뢰인의 예치금 결제가 자동 생성되어 서로 안심하고 작업 진행이 이루어집니다. 프리랜서로부터 대금 지불요청을 받고 예치금 지급을 승인하시면 지급이 이루어지며 아웃소싱오케이에서 24시간안에 프리랜서에게 대금이 지급됩니다.</p>
+                      </div>
+
+                      <!-- show when reject -->
+                      <div ng-show="news.activity == 'Rejected' && news.bidderId == authentication.user._id ">
+                        <p class="prjct-list-font">회원님께서는  <a ui-sref="projects.view({projectId: news.projectId})"><b>{{news.projectName}}</b></a> 의뢰인의 프로젝트를 거절하였습니다</p>
+                      </div>
+
+                      <div ng-show="news.activity == 'Rejected' && news.bidderId !== authentication.user._id ">
+                        <p class="prjct-list-font"> <b><a ui-sref="profile.outsourcer({profileId: news.bidderId}) ">{{news.bidderName}} 프리랜서</a></b> 께서 프로젝트를 거절하였습니다. <a ui-sref="projects.view({projectId: news.projectId})"> </a>
+                      </div>
+
+                      <!-- For contests post (employer)-->
+                      <div ng-show="news.contest && news.postContest">
+                        <p class="prjct-list-font">회원님께서는 <b><a ui-sref="contests.view({contestId: news.contest_id})"><b>{{news.contest_name}}</b></a></b> 콘테스트를 개최하였습니다.
+                      </div>
+
+                      <!-- For entry upload on contests (freelancer) -->
+                      <div ng-show="news.contest && news.entryUpload">
+                        <p class="prjct-list-font">회원님께서는 <b><a ui-sref="contests.view({contestId: news.contest_id})"><b>{{news.contest_name}}</b></a></b> 콘테스트에 지원 및 파일을 업로드 하였습니다.
+                      </div>
+                  </div>
+                  <div class="col-xs-12 col-md-4 p-ml-none p-mr-xs">
+                      <div class="text-right">
+                      <p>{{news.date | date:"y'년' MM'월' d'일' h:mma"}}</p>
+                      <!-- <p>Flag</p> -->
+                      <!-- <h3 class="current-color"><strong>$85.0 GSD</strong></h3> -->
+                      </div>
+                  </div>
+              </div>
+              <!-- <hr> -->
+              <center>
+                <button ng-hide="newsLimit == authentication.user.newsFeed.length || !authentication.user.newsFeed.length" class="btn btn-info" ng-click="loadMoreNewsFeed()" style="background:#37526a;border-color: #37526a;">진행소식 더보기</button>
+                <label ng-hide="newsLimit !== authentication.user.newsFeed.length" class="text-muted"><h4><b>현재 회원님의 진행 소식이 없습니다.</b></h4></label>
+                <label ng-show="!authentication.user.newsFeed.length" class="text-muted"><h4><b>현재 회원님의 진행 소식이 없습니다.</b></h4></label>
+              </center>
+              <br>
+              <!-- <div class="col-xs-12 text-center">
+                  <button class="btn btn-success skillbutn m-t-none">
+                   View More
+                  </button>
+              </div> -->
+          </div>
+          <br><br>
+          </div>
+          <br class ="hidden-md hidden-lg">
+          <br class ="hidden-md hidden-lg">
+          <br class ="hidden-md hidden-lg">
+          <div class="col-xs-12 col-md-4 p-mr-none p-ml-none hidden-xs">
+              <div class="col-md-12 profile_container bordortop_styling border-mradus" style="background:#fff;">
+                  <div class="skillsTop row">
+                      <div class="col-xs-12 p-all-none">
+                      <br>
+                          <div class="col-xs-4 p-r-none"> 
+                              <div class="img-wrapper"> 
+                                <img ui-sref="profile.view" class="project-img-circle" src="{{authentication.user.profileImageURL}}" alt="">
+                                
+                              </div>
+                          </div>
+                          <div class="col-xs-8 p-r-none">
+                            <div class="text-center">
+                              <p><strong>MY 대시보드<!-- 회원님의 정보 현황 --></strong></p>
+                               <p><strong><h4><!-- {{authentication.user.lastName}}{{authentication.user.firstName}} -->{{authentication.user.displayName}}</h4></strong></p>
+                               <p class="text-primary"><i class="fa fa-trophy fa-trophyee img-circle p-l-xs p-t-xs"></i></p>
+                             <div class="text-center btn-group"> 
+                               <div class="btn btn-success m-r-sm" ng-disabled="false" popover-title="MY 진행상황" uib-popover="MY 프로젝트 및 콘테스트에 대한 진행현황을 모두 보실 수 있습니다." popover-trigger="'mouseenter'" style="background:#688686;border: 1px solid #688686;"> 
+                                <a ui-sref="projects.my-project" style="text-decoration: none;  color: white;">MY 진행상황</a>
+                              </div>
+                               <div class="btn btn-warning" style="background:#688686;border: 1px solid #688686;"><a ui-sref="profile.view" style="text-decoration: none;  color: white;">프로필 보기</a></div> 
+                             </div> 
+                             <!-- <br><br>
+                             <button type="button" class="btn btn-info btn-lg">Advertisement</button> -->
+                            <br><br>
+                            </div>
+                          </div>
+                           
+                        <div class="account-setup p-l-sm p-r-sm">
+                          <h4><strong>확인된 회원님의 현재 정보</strong></h4>
+                          <br>
+                          <div class="progress m-b-sm">
+                            <uib-progressbar  type="{{type}}" max="maxBar" value="profileProgressStatus"><span style="color:white; white-space:nowrap;">{{profileProgressStatus}}%</span></uib-progressbar>
+                          </div>
+                          <div class="p-b-sm">
+                            <span class="text-success">
+                              <a href="profile/view/" class="text-success"  ng-if="!authentication.user.verEmail">+ 이메일 주소 확인 20%</a>
+                              <a href="profile/view/" class="text-success" ng-if="authentication.user.verEmail && !authentication.user.verLocation">+ 현재 근무지역 확인 15%</a> 
+                              <a href="profile/view/" class="text-success" ng-if="authentication.user.verLocation && !authentication.user.verPhone">+ 본인 휴대폰 번호 확인 10%</a>
+                              <a href="profile/view/" class="text-success" ng-if="authentication.user.verPhone && !authentication.user.verPayment">+ 계좌정보 확인 25%</a>
+                            </span><br>
+                          </div>
+                            <!-- <div class="skillsTop row">
+                              <div class="col-xs-12">
+                                  <div class="btn-group btn-block">
+                                    <button class="btn btn-default btn-block" ng-show="!skills" ng-click="skills=true"> Add Your Skill here </button>
+                                  </div>
+                             
+                              </div>
+                            </div>
+                            <div ng-show="!skills" class="row">
+                              <div ng-repeat="skill in profile.skills" style="display: inline-block">
+                                <span class="label label-success m-l-sm" >{{skill}}</span>
+                              </div>
+
+                            </div>
+                            <br>
+                            <div ng-show="skills">
+                              <select selector model="portfolio.skills" multi="true" options="skills" label-attr="name" value-attr="name" placeholder="Add skills" ></select>
+                              <div class="btn-group">
+                                <button class="btn btn-success skillbutn" ng-click="skillsSave()">
+                                  <i class="glyphicon glyphicon-close white"></i> Done
+                                </button>
+                              </div>
+                             <!--  <p>
+                                Current value: <code ng-bind="topSkills|json"></code>
+                              </p> -->
+                            <!-- </div> --> 
+                        </div>
+                      </div>
+                  </div>
+                  
+              </div>
+          </div>
+
+		  <br>
+          <div class="col-xs-12 col-md-4 p-ml-none p-mr-none hidden-xs">
+              <div class="col-md-12 profile_container bordortop_styling border-mradus" style="background:#fff;">             
+                
+				<div class="col-xs-12 col-md-12 p-l-none" style="padding-top:10px">             
+				  <p><a href="https://www.google.co.kr/chrome/browser/desktop/index.html" target="_blank"><img src="modules/users/client/img/chrome2.png" style="padding-top:5px">&nbsp;&nbsp;다운로드</a></p>
+				  <p><img src="modules/core/client/img/customimages/main_icon10.png" alt="">&nbsp;아웃소싱 오케이는 구글크롬데스크탑으로 최적화됐습니다</p>
+				  <p>
+					<img src="modules/core/client/img/customimages/main_icon9.png" alt="">회원님간에 원할한 소통을 위해서 구글 크롬 브라우저를 이용한 실시간 화상 채팅으로 운영됩니다. 현재 IE(인터넷 익스프로러)에서 화상채팅을 이용할 경우 화상 이용은 불가능하며 채팅은 사용 할 수 있으나 다소 불편을 감수 해야 합니다. 회원님의 소중한 재산을 보호하기위해서 구글 크롬 사용을 적극 권장 합니다, 회원님께서 IE(인터넷 익스플로러)에서 구글 크롬을 다운로드 하신경우 바탕화면에 크롬아이콘을 클릭하고 사용하셔야 실시간 화상 채팅이 가능 합니다.</p>		
+                </div>
+
+              </div>                  
+          </div>
+
+          <br>
+          <div class="col-xs-12 col-md-4 p-ml-none p-mr-none hidden-xs">
+              <div class="col-md-12 profile_container bordortop_styling border-mradus" style="background:#fff;">
+                <div class="col-xs-7 col-md-8">
+                  <h1> 
+                    <strong class="text-info"> {{authentication.user.remainingBids}}</strong>
+                    <!-- <sub><b>/300</b></sub> -->
+                  </h1>
+                  <h5><strong>지원가능횟수</strong></h5>
+                </div>
+                <div class="col-xs-4 col-md-4 p-l-none">
+                <br><br>
+                  <button class="btn btn-info" ui-sref="projects.get-bids"  popover-title="지원 횟수 추가요청" uib-popover="지원횟수가 300번을 넘을경우 추가지원을 할 수 있습니다." popover-trigger="'mouseenter'" style="background:#37526a;border-color: #37526a;">지원 횟수 추가요청 </button>
+                </div>
+				<div class="col-xs-12 col-md-12 p-l-none">
+                <br><br>	
+				  <p>지원 횟수가 300번이 넘을경우<span style="color:#35abcb;font-weight: bold;"> 추가비용2,000원(부가세별도)</span>을 구매하시면 50회를 추가적으로 지원 할 수 있습니다.</p>
+                </div>
+                </div>
+                  
+          </div>
+           <!-- <div class="col-md-4">
+              <div class="col-md-12 profile_container bordortop_styling border-mradus">
+                <uib-accordion close-others="oneAtATime">
+                    <br><br>
+                    <div uib-accordion-group class="panel-default" is-open="status.open">
+                      <uib-accordion-heading>
+                      <strong>Job Near By Location</strong>
+                         <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status.open, 'glyphicon-chevron-right': !status.open}"></i>
+                      </uib-accordion-heading>
+                           <hr class="hrcolor">
+                          <h4 class="p-t-sm"> <strong>Job near by your location</strong></h4>
+                          <h6 class="text-primary"><b>Help with my Compute/Laptop/Devices</b></h6>
+                          <span class="glyphicon glyphicon-map-marker verificationcheck  p-l-none"></span> <b> (45 km Away)</b>
+                          <button class="btn btn-info  pull-right">
+                           View More
+                          </button>
+                    </div>
+                  </uib-accordion>
+                  
+                  <br><br>
+              </div>
+          </div> -->
+         <!--  <div class="col-md-4">
+              <div class="col-md-12 profile_container bordortop_styling border-mradus">
+                <uib-accordion close-others="oneAtATime">
+                    <br><br>
+                    <div uib-accordion-group class="panel-default" is-open="status.open">
+                      <uib-accordion-heading>
+                      <strong>My Funds</strong>
+                         <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status.open, 'glyphicon-chevron-right': !status.open}"></i>
+                      </uib-accordion-heading>
+                         <hr class="hrcolor">
+                        <div class="row">
+                          <form>
+                            <div class="col-sm-4 form-group">
+                            <select ng-model="selectedCurrency" class="form-control">
+                            <option ng-repeat="currency in currencies" value="{{currency.new_currency}}" >{{currency.new_currency}}</option>
+                            </select>(primary)
+                            </div>
+                            <div class="col-sm-8 form-group">
+                                <input type="text" placeholder="Budget Amount" class="form-control" ng-model="budgetAmount" onkeypress="return (event.charCode == 8 || event.charCode == 0) ? null : event.charCode >= 48 && event.charCode <= 57">
+                            </div>
+                            </form>
+                        </div>
+                        <button class="btn btn-info">
+                         Deposit Project Budget
+
+                        </button>
+                    </div>
+                  </uib-accordion>
+                  <br><br>
+              </div>
+          </div> -->
+
+          <!-- <div class="col-md-4">
+              <div class="col-md-12 profile_container bordortop_styling border-mradus">
+                <div class="col-xs-8">
+                 <div>
+                       Year : <select ng-model="SelectedYear" ng-options="label for label in Years" ng-change="UpdateNumberOfDays()"></select>
+                     </div>
+                     <div>
+                       Month: <select ng-model="SelectedMonth" ng-options="label for label in Months" ng-change="UpdateNumberOfDays()"></select>
+                     </div>
+                     <div>
+                       Day: <select ng-model="SelectedDay" ng-options="label for label in Days | limitTo:NumberOfDays"></select>
+                     </div>
+                     <input rsmdatedropdowns ng-model="model" ng-disabled="test()">
+                 
+                </div>
+                <div class="col-xs-4 p-l-none">
+                <br><br>
+                  <button class="btn btn-info"> Get more Bids </button>
+                </div>
+                </div>
+                  
+          </div> -->
+
+           <!--  <div class="col-md-4">
+              <div class="col-md-12 profile_container bordortop_styling border-mradus">
+              <uib-accordion close-others="oneAtATime">
+                  <br><br>
+                  <div uib-accordion-group class="panel-default" is-open="status.open">
+                    <uib-accordion-heading>
+                    <strong>Payment Amount Schedule</strong>
+                       <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status.open, 'glyphicon-chevron-right': !status.open}"></i>
+                    </uib-accordion-heading>
+                    <div class="col-xs-8 bannerdesing">
+                      <h5> <strong >Design A Banner</strong></h5>
+                    </div>
+                    <div class="col-xs-4 p-l-none">
+                      <button class="btn btn-small sykim-btn"> <b class="btn-success h-btn">H</b> <b class="text-success">SYKIM</b> </button>
+                    </div>
+                    <br><br><br>
+                      <div class="row">
+                        <form name="currencyForm" class="form-inline">
+                        <div class="form-group col-xs-5 p-r-none ">
+                                <label class="label-currency">Total
+                                  <select ng-model="selectedCurrency" class="form-control p-r-none">
+                                   <option ng-repeat="currency in currencies" value="{{currency.new_currency}}" >{{currency.new_currency}}</option>
+                                  </select>
+                                </label>
+                              </div>
+                          <div class="form-group col-xs-7 p-l-none">
+                                <input type="text" placeholder="Budget Amount" class="form-control p-r-none" ng-model="budgetAmount" onkeypress="return (event.charCode == 8 || event.charCode == 0) ? null : event.charCode >= 48 && event.charCode <= 57">
+                              </div>
+                              <br><br><br>
+                              <div class="text-center">
+                                <div class="btn-group">
+                                 <span class="btn btn-danger">300.00</span>
+                                 <span type="button" class="btn btn-danger">300.00</span>
+                                 <span type="button" class="btn btn-danger">300.00</span>
+                                </div>
+                              </div>
+                               <br>
+                               <div class="btn-group btn-block p-l-lg p-r-lg">
+                                <button type="button" class="btn btn-success btn-block">Send payment Amount Schedule to Hire </button>
+                                </div>
+                                <br><br>
+                                <div class="col-xs-6">
+                                  <div class="text-center"> 
+                              <div class="btn btn-small cnf-reset">
+                              <b>Confirm</b>
+                              </div> 
+                            </div> 
+                                </div>
+                                <div class="col-xs-6">
+                                  <div class="text-center"> 
+                              <div class="btn btn-small reset-cnf">
+                              <b>Reset</b>
+                              </div> 
+                            </div>
+                                </div>
+                                <br><br>
+                          </form>
+                         </div>
+                           <hr class="btn-hr">
+                           <div class="col-xs-8 bannerdesing">
+                          <h5> <strong >Bulid a Website</strong></h5>
+                        </div>
+                        <div class="col-xs-4 p-l-none">
+                          <button class="btn btn-small sykim-btn"> <b class="btn-success h-btn">H</b> <b class="text-success">SYKIM</b> </button>
+                        </div>
+                        <br><br><br>
+                        <div class="row">
+                          <form name="currencyForm" class="form-inline">
+                          <div class="form-group col-xs-5 p-r-none ">
+                                  <label class="label-currency ">Total
+                                    <select ng-model="selectedCurrency" class="form-control">
+                                     <option ng-repeat="currency in currencies" value="{{currency.new_currency}}" >{{currency.new_currency}}</option>
+                                    </select>
+                                  </label>
+                                </div>
+                            <div class="form-group col-xs-7 p-l-none">
+                                  <input type="text" placeholder="Budget Amount" class="form-control p-r-none" ng-model="budgetAmount" onkeypress="return (event.charCode == 8 || event.charCode == 0) ? null : event.charCode >= 48 && event.charCode <= 57">
+                                </div>
+                                <br><br><br>
+                                <div class="text-center">
+                                  <div class="btn-group">
+                                   <span class="btn btn-danger">300.00</span>
+                                   <span type="button" class="btn btn-danger">300.00</span>
+                                   <span type="button" class="btn btn-danger">300.00</span>
+                                  </div>
+                                </div>
+                                 <br>
+                                 <div class="btn-group btn-block p-l-lg p-r-lg">
+                                  <button type="button" class="btn btn-success btn-block">Send payment Amount Schedule to Hire </button>
+                                  </div>
+                                  <br><br>
+                                  <div class="col-xs-6">
+                                    <div class="text-center"> 
+                                <div class="btn btn-small cnf-reset">
+                                <b>Confirm</b>
+                                </div> 
+                              </div> 
+                                  </div>
+                                  <div class="col-xs-6">
+                                    <div class="text-center"> 
+                                <div class="btn btn-small reset-cnf">
+                                <b>Reset</b>
+                                </div> 
+                              </div>
+                                  </div>
+                                  <br><br>
+                            </form>
+                           </div>  
+                           <hr class="btn-hr">
+                        <div class="col-xs-8 bannerdesing">
+                       <h5> <strong >Get Trafic to My Website</strong></h5>
+                     </div>
+                     <div class="col-xs-4 p-l-none">
+                       <button class="btn btn-small sykim-btn"> <b class="btn-success h-btn">H</b> <b class="text-success">SYKIM</b> </button>
+                     </div>
+                     <br><br><br>
+                       <div class="row">
+                         <form name="currencyForm" class="form-inline">
+                         <div class="form-group col-xs-5 p-r-none">
+                                 <label class="label-currency">Total
+                                   <select ng-model="selectedCurrency" class="form-control">
+                                    <option ng-repeat="currency in currencies" value="{{currency.new_currency}}" >{{currency.new_currency}}</option>
+                                   </select>
+                                 </label>
+                               </div>
+                           <div class="form-group col-xs-7 p-l-none">
+                                 <input type="text" placeholder="Budget Amount" class="form-control p-r-none" ng-model="budgetAmount" onkeypress="return (event.charCode == 8 || event.charCode == 0) ? null : event.charCode >= 48 && event.charCode <= 57">
+                               </div>
+                               <br><br><br>
+                               <div class="text-center">
+                                 <div class="btn-group">
+                                  <span class="btn btn-danger">255.00</span>
+                                  <span type="button" class="btn btn-danger">255.00</span>
+                                  <span type="button" class="btn btn-danger">255.00</span>
+                                 </div>
+                               </div>
+                                <br>
+                                <div class="btn-group btn-block p-l-lg p-r-lg">
+                                 <button type="button" class="btn btn-success btn-block">Confirm on 2 November 2017 </button>
+                                 </div>
+                                 <br><br>
+                                 <div class="col-xs-6">
+                                  <div class="text-center"> 
+                              <div class="btn btn-small reset-cnf">
+                              <b>Request Amend</b>
+                              </div> 
+                            </div>
+                                 </div>
+                                 <br><br>
+                           </form>
+                          </div>
+                          <hr class="btn-hr">
+                             <div class="col-xs-8 bannerdesing">
+                            <h5> <strong >Seo PlateForm</strong></h5>
+                          </div>
+                          <div class="col-xs-4 p-l-none">
+                            <button class="btn btn-small sykim-btn"> <b class="btn-success h-btn">H</b> <b class="text-success">SYKIM</b> </button>
+                          </div>
+                          <br><br><br>
+                     <div class="row">
+                       <form name="currencyForm" class="form-inline">
+                       <div class="form-group col-xs-5 p-r-none">
+                               <label class="label-currency">Total
+                                 <select ng-model="selectedCurrency" class="form-control">
+                                  <option ng-repeat="currency in currencies" value="{{currency.new_currency}}" >{{currency.new_currency}}</option>
+                                 </select>
+                               </label>
+                             </div>
+                         <div class="form-group col-xs-7 p-l-none">
+                               <input type="text" placeholder="Budget Amount" class="form-control p-r-none" ng-model="budgetAmount" onkeypress="return (event.charCode == 8 || event.charCode == 0) ? null : event.charCode >= 48 && event.charCode <= 57">
+                             </div>
+                             <br><br><br>
+                             <div class="text-center">
+                               <div class="btn-group">
+                                <span class="btn btn-danger">255.00</span>
+                                <span type="button" class="btn btn-danger">255.00</span>
+                                <span type="button" class="btn btn-danger">255.00</span>
+                               </div>
+                             </div>
+                              <br>
+                              <div class="btn-group btn-block p-l-lg p-r-lg">
+                               <button type="button" class="btn btn-success btn-block">Confirm on 2 November 2017 </button>
+                               </div>
+                               <br><br>
+                               <div class="col-xs-6">
+                                <div class="text-center"> 
+                            <div class="btn btn-small reset-cnf">
+                            <b>Request Amend</b>
+                            </div> 
+                          </div>
+                               </div>
+                               <br><br>
+                         </form>
+                        </div>
+                  </div>
+                </uib-accordion> 
+                </div>
+                <div class="col-md-12 profile_container bordortop_styling border-mradus">
+                  <uib-accordion close-others="oneAtATime">
+                      <br><br>
+                      <div uib-accordion-group class="panel-default" is-open="status.open">
+                        <uib-accordion-heading>
+                        <strong>Project Status</strong>
+                           <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status.open, 'glyphicon-chevron-right': !status.open}"></i>
+                        </uib-accordion-heading>
+                        <hr class="hrcolor">
+                     <div class="col-xs-8 bannerdesing">
+                       <h5> <strong >Design a Banner</strong></h5>
+                     </div>
+                     <div class="col-xs-4 p-l-none">
+                       <button class="btn btn-small sykim-btn"> <b class="btn-success h-btn">H</b> <b class="text-success">SYKIM</b> </button>
+                     </div>
+                     <br><br>
+                     <div class="btn-group">
+                        <span class="btn btn-danger">255.00</span>
+                        <span type="button" class="btn btn-danger">255.00</span>
+                        <span type="button" class="btn btn-danger">255.00</span>
+                    </div>
+                      </div>
+                    </uib-accordion>
+                     
+                </div>
+            </div> -->
+                
+          </div>
+         
+      </div>
+  </div>
+
+  <!-- chatWindow -->
+  <div  ng-show="authentication.user">
+    <!-- <footer ng-include="'/modules/core/client/views/new-chat.client.view.html'" ></footer> -->
+    <footer ng-include="'/modules/core/client/views/chatWindow.html'" ></footer>
+  </div>
+  
+</section>

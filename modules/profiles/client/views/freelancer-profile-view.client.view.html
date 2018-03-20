@@ -1,0 +1,1283 @@
+<section  ng-controller="ProfilesController" ng-init="findOne();universalData();transferAmount();">
+	<!-- Cover Pic Section -->
+	<div class="margn20">
+	  <div class="row" ng-controller="CoverPictureController">
+	    <div class="col-xs-12 p-l-none p-r-none">
+	        
+        <div ng-show="profile.userInfo._id == authentication.user._id">
+          <span class="fileselector"  >
+            <label class="btn upload-btn" for="upload-file-selector" ng-hide="uploader.queue.length">
+              <input id="upload-file-selector" type="file" nv-file-select uploader="uploader">
+              <i class="glyphicon glyphicon-camera"></i>
+              <b> 전면 사진 업로드</b>
+            </label>
+
+          </span>
+        </div>
+        <!-- {{profile.roles.individual}} -->
+        
+        <div class="coverImageBox">
+          <img class="img-responsive" ng-src="{{cover}}" alt="profile cover Image URL"> 
+        </div>
+        <div class="col-xs-4"></div>  
+        <div class="col-xs-4 text-center m-b-md" ng-show="uploader.queue.length">
+          <button class="btn btn-primary m-r-sm" ng-click="uploadProfilePicture();">업로드</button>
+          <button class="btn btn-default" ng-click="cancelUpload();">취소</button>
+        </div>
+       <div class="col-xs-4"></div>
+	    </div>  
+	  </div>
+	  <!-- For Mobile view Only -->
+	  <div class="comptetionCont p-ml-none hidden-sm hidden-md hidden-lg">
+	    <div class="row m-l-none m-r-none text-center">
+	      <div class="col-xs-3 col-md-2 p-mr-none">
+	        <h3 class="bold-font">{{jobsCompleted || '0'}}%</h3>
+	        <p>완성률</p>
+	      </div>
+	      <div class="col-xs-2 col-md-2 p-ml-none p-mr-sm">
+	        <h3 class="bold-font">{{onBudget || '0'}}%</h3>
+	        <p>예산</p>
+	      </div>
+	      <div class="col-xs-2 col-md-2 p-ml-none p-mr-sm">
+	        <h3 class="bold-font">{{onTime || '0'}}%</h3>
+	        <p>시간</p>
+	      </div>
+	      <div class="col-xs-2 col-md-2 p-ml-none p-mr-sm">
+	        <h3 class="bold-font">{{repeatRate || '0'}}%</h3>
+	        <p>계약</p>
+	      </div>
+	      <div class="col-xs-2 col-md-2 text-center last-div p-ml-none p-mr-sm">
+          <div class="h3 bold-font m-b-none"> 
+            <strong >{{ profile.perHourRate || '00' }}</strong>
+          </div>
+	        <!-- </span> -->
+
+	        <h3 class="bold-font m-t-none"> 
+	          <sub>￦/시간</sub>
+	          <span ng-click="HourRate.$show()" ng-hide="HourRate.$visible || !editProfile " class="glyphicon glyphicon-pencil img-circle-btn image-circle-text m-l-sm pull-right editablepincle" ng-hide="!editProfile" style="margin-top: -30px; margin-right: -23px;"></span>
+	        </h3>
+
+	     </div>
+	    </div>
+	  </div>
+	  <!-- End Mobiel View -->
+	  <div class="comptetionCont p-ml-none hidden-xs">
+	    <div class="row m-l-none m-r-none text-center">
+	      <div class="col-xs-6 col-md-2">
+	        <h3 class="bold-font">{{jobsCompleted || '0'}}%</h3>
+	        <p>결과물 완성률</p>
+	      </div>
+	      <div class="col-xs-6 col-md-2">
+	        <h3 class="bold-font">{{onBudget || '0'}}%</h3>
+	        <p>예산 완성률</p>
+	      </div>
+	      <div class="col-xs-2 col-md-2 p-ml-none p-mr-sm">
+	        <h3 class="bold-font">{{onTime || '0'}}%</h3>
+	        <p>작업기간 준수률</p>
+	      </div>
+	      <div class="col-xs-2 col-md-2 p-ml-none p-mr-sm">
+	        <h3 class="bold-font">{{repeatRate || '0'}}%</h3>
+	        <p>재 계약률</p>
+	      </div>
+	      <div class="col-md-2 text-center last-div">
+
+	        <span editable-text="profile.perHourRate" e-form="HourRate" onbeforesave="updateProfile($data,'perHourRate')">
+	          <div class="h3 bold-font m-b-none"> 
+	            <strong >{{ profile.perHourRate || '00' }}</strong>
+	          </div>
+	        </span>
+
+	        <h3 class="bold-font m-t-none"> 
+	          <sub>채용/시간당</sub>
+	          <span ng-click="HourRate.$show()" ng-hide="HourRate.$visible || !editProfile " class="glyphicon glyphicon-pencil img-circle-btn image-circle-text m-l-sm pull-right editablepincle" ng-hide="!editProfile" style="margin-top: -30px; margin-right: -23px;"></span>
+	        </h3>
+
+	     </div>
+	    </div>
+	  </div>  
+	</div>
+	<!-- End Cover Pic Section -->
+	<!-- Content Section -->
+	<div class="col-xs-12 col-sm-12 col-md-10 col-lg-10 col-md-offset-1">
+		<!-- Spinner -->
+		<span us-spinner="{radius:30, width:8, length: 16}" spinner-key="profLoader"></span> 
+		<!-- End -->
+		<div class="col-xs-12 col-md-8">
+			<!-- User Intro Section -->
+			<section class="col-xs-12 col-md-12 profile_container bordortop_styling m-b-lg" style="background:#fff;">
+				<!-- Profile Panel -->
+				<div class="col-xs-12 col-md-4 text-center thumbnail m-t-sm"><br>
+					<div class="img-wrapper">
+					  <img class="profile-img-circle" ng-src="{{imageURL}}" alt="{{profile.user.displayName}}">
+					  <div class="img-overlay">
+					    <button class="btn btn-sm btn-default" ng-hide="!editProfile " ng-click="profileImage()"> <i class="glyphicon glyphicon-camera"></i></button>
+					  </div>
+					</div><br>
+
+				  <div class="text-center">
+				    <p>@{{profile.userInfo.username}}</p>
+
+				    <!-- Freelancer Rating View -->
+				    <div ng-show="viewAsEmployer">
+				      <div class="col-xs-8 starRating p-l-none star-rankingcolor">
+				        <span class="label" ng-class="{'label-warning': percent<30, 'label-info': percent>=30 && percent<70, 'label-success': percent>=70}" style="background:#8ba753;border: 1px solid #8ba753;">{{finalUserRattingBaseOnProjectAwarded | number: 1}}
+				        </span>
+				        <span uib-rating ng-model="finalUserRattingBaseOnProjectAwarded" max="max" read-only="isReadonly" titles="['one','two','three']" aria-labelledby="default-rating"> 
+				        </span>
+				      </div>
+				      <div class="col-xs-4 text-right p-r-xs">
+				      <small class="text-muted text-right">{{noOfReviewBaseOnProjectAwarded}} 리뷰 </small>
+				      </div>
+				    </div>
+				    <!-- End Freelancer Rating View -->
+
+				    <!-- Employer Rating View -->
+				    <div ng-show="viewAsFreelancer">
+				      <div class="col-xs-8 starRating p-l-none star-rankingcolor">
+				        <span class="label" ng-class="{'label-warning': percent<30, 'label-info': percent>=30 && percent<70, 'label-success': percent>=70}" style="background:#8ba753;border: 1px solid #8ba753;">{{finalUserRattingBaseOnMyProject | number: 0}}
+				        </span>
+				        <span uib-rating ng-model="finalUserRattingBaseOnMyProject" max="max" read-only="isReadonly" titles="['one','two','three']" aria-labelledby="default-rating"> 
+				        </span>
+				      </div>
+				      <div class="col-xs-4 text-right p-r-xs">
+				      <small class="text-muted text-right">{{noOfReviewBaseOnMyProject}} 리뷰 </small>
+				      </div>
+				    </div>
+				    <!-- End Employer Rating View -->
+
+				    <br><br>
+				    <p ng-if="profile.userInfo.country">
+				      <img src="https://countryflags.io/{{profile.userInfo.country.code_lower}}/flat/64.png" title = "{{profile.userInfo.country.name}}" style="width:2rem; height: 2rem;"> 
+				      {{profile.userInfo.country.city}} - {{profile.userInfo.country.name}}
+				    </p>
+				    <p>{{profile.userInfo.created | date}}</p>
+				    <!-- <p>Recommendation</p> -->
+				    <ul class="list-inline">
+				      <li>
+				        <span class="glyphicon glyphicon-map-marker  imgcricle p-r-sm" ng-class="{verified: profile.userInfo.verLocation, nonverified: !profile.userInfo.verLocation}"></span>
+				      </li>
+				      <li>
+				        <span class="glyphicon glyphicon-asterisk  imgcricle p-r-sm" ng-class="{verified: profile.userInfo.verPayment, nonverified: !profile.userInfo.verPayment}"></span>
+				      </li>
+				      <li>
+				        <span class="glyphicon glyphicon-earphone  imgcricle p-r-sm" ng-class="{verified: profile.userInfo.verPhone, nonverified: !profile.userInfo.verPhone}"></span>
+				      </li>
+				      <li>
+				        <span class="glyphicon glyphicon-envelope imgcricle p-r-sm" ng-class="{verified: profile.userInfo.verEmail, nonverified: !profile.userInfo.verEmail}"></span>
+				      </li>
+				    </ul>
+				  </div>
+				</div>
+				<!-- About Me Content -->
+				<div class="col-xs-12 col-md-8">
+					<div>
+					  <!-- {{profile.userInfo.roles}} -->
+					  <!-- Angular spinner -->
+					<span us-spinner="{radius:30, width:8, length: 16}" spinner-key="profLoader"></span>
+					  <br ng-show="FirstName.$visible "> 
+					  <div>
+					    <span editable-text="profile.userInfo.company" e-form="FirstName" onbeforesave="updateUserInfo($data,'companyName')">
+					    </span>
+					    <h3><strong >{{ profile.userInfo.companyName || '타이틀 제목' }}</strong>
+					      <span ng-click="FirstName.$show()" ng-hide="FirstName.$visible || !editProfile " class="glyphicon glyphicon-pencil icon-pencil  img-comp-pincle image-circle-text m-l-sm"></span>
+					    </h3>
+					  </div>
+					  
+					  <!-- <div class="h5" ng-hide="countryEdit"> -->
+					  <div class="h5">
+
+					    <img src="https://countryflags.io/{{profile.userInfo.country.code_lower}}/flat/64.png" title = "{{profile.userInfo.country.code}}" style="width:2rem; height: 2rem;"> 
+
+					    {{profile.userInfo.country.name}}
+					    <span class="glyphicon glyphicon-pencil img-circle-btn image-circle-text m-l-sm" ng-click="countryEdit = !countryEdit" ng-show=" editProfile">
+					    </span>
+					  </div>
+					  <div ng-hide="!countryEdit">
+					    <br>
+					    <script type="text/ng-template" id="selector/demo/country">
+					    <i class="flag" ng-class="option.code.toLowerCase()"></i>&nbsp;
+					    {{option.name}}
+					    </script>
+
+					    <select selector
+					    model="profile.userInfo.country.code"
+					    value-attr="code"
+					    debounce="200"
+					    remote="remote"
+					    remote-param="{{remoteParam}}"
+					    remote-validation="remoteValidation(value)"
+					    view-item-template="'selector/demo/country'"
+					    dropdown-item-template="'selector/demo/country'"
+					    placeholder="Choose a Country..."
+					    change="getCountryName()"></select>
+
+					    <br>
+					    <div class="text-right">
+					      <button type="button" class="btn btn-default btn-sm" ng-click="updateUserInfo(profile.userInfo.country.code,'country')"> 저장</button>
+					      <button type="button" class="btn btn-default btn-sm" ng-click="countryEdit = !countryEdit"> 취소</button>
+					    </div>
+					  </div>
+
+					   <h5 class="m-all-none">
+					    <span editable-text="profile.shortProfessionalHeadline" e-form="DesignationBtn" onbeforesave="updateProfile($data,'shortProfessionalHeadline')">
+					      <strong>{{ profile.shortProfessionalHeadline || '헤드라인' }}</strong>
+					    </span> 
+					    <span class="glyphicon glyphicon-pencil img-circle-btn image-circle-text m-l-sm" ng-click="DesignationBtn.$show()"  ng-hide="DesignationBtn.$visible || !editProfile "></span> 
+					  </h5>
+ 
+					</div>
+          <!-- //////////////  when Company is logged in/////////////// -->
+          <div ng-show="profile.userInfo.roles == 'company' " class=" m-l-xs row profile_detail hidden-xs">
+            <div class="col-xs-12">
+              <span class="glyphicon glyphicon-pencil img-circle-btn image-circle-text m-l-sm pull-right" ng-click="comapnyInfo('lg',profile)" ng-hide="!editProfile"></span>
+
+              <!-- Registration Number -->
+              <div class="row returnslables div-background" ng-show="profile.companyInformation.companyReg">
+                <div class="col-xs-5 namelables ">
+                  <span>사업자 등록번호</span>
+                </div>
+                <div class="col-xs-7">
+                  <span><strong>{{profile.companyInformation.companyReg}}</strong></span> 
+                </div>
+              </div>
+
+              <!-- show Representative name -->
+              <div class="row returnslables div-background" ng-show="profile.companyInformation.representativeName">
+                <div class="col-xs-5 namelables ">
+                  <span>담당자 성함</span>
+                </div>
+                <div class="col-xs-7">
+                  <span><strong>{{profile.companyInformation.representativeName}}</strong></span> 
+                </div>
+              </div>
+
+              <!-- show company phone Num -->
+              <div class="row returnslables div-background" ng-show="profile.companyInformation.phoneNumber">
+                <div class="col-xs-5 namelables">
+                  <span>휴대폰 번호</span>
+                </div>
+                <div class="col-xs-7">
+                  <span><strong>{{profile.companyInformation.phoneNumber}}</strong></span>
+                </div>
+              </div>
+
+              <!-- Fax Num -->
+              <div class="row returnslables div-background" ng-show="profile.companyInformation.fax">
+                <div class="col-xs-5 namelables">
+                  <span>팩스 번호</span>
+                </div>
+                <div class="col-xs-7">
+                  <span>{{profile.companyInformation.fax}}</span>
+                </div>
+              </div>
+
+              <!-- Phone Number -->
+              <div class="row returnslables div-background" ng-show="profile.companyInformation.phoneNumber">
+                <div class="col-xs-5 namelables">
+                  <span>전화 번호</span>
+                </div>
+                <div class="col-xs-7">
+                  <span><strong>{{profile.companyInformation.phoneNumber}}</strong></span>
+                </div>
+              </div>
+
+              <!-- Eastablish year -->
+              <div class="row returnslables div-background" ng-show="profile.companyInformation.dfe">
+                <div class="col-xs-5 namelables">
+                  <span>설립 년월일</span>
+                </div>
+                <div class="col-xs-7">
+                  <span><strong>{{profile.companyInformation.dfe | date:"y'년' MM'월' d'일'"}}</strong></span>
+                </div>
+              </div>
+
+              <!-- Listing -->
+              <div class="row returnslables div-background" ng-show="profile.companyInformation.listing">
+                <div class="col-xs-5 namelables">
+                  <span>상장 유무</span>
+                </div>
+                <div class="col-xs-7">
+                  <span><strong>{{profile.companyInformation.listing}}</strong></span>
+                </div>
+              </div>
+
+              <!-- Sectors -->
+              <div class="row returnslables div-background" ng-show="profile.companyInformation.sector">
+                <div class="col-xs-5 namelables">
+                  <span>사업의 종류</span>
+                </div>
+                <div class="col-xs-7">
+                  <span><strong>{{profile.companyInformation.sector}}</strong></span>
+                </div>
+              </div>
+
+              <!-- Business Content -->
+              <div class="row returnslables div-background" ng-show="profile.companyInformation.mainBussiness">
+                <div class="col-xs-5 namelables">
+                  <span>주요 사업</span>
+                </div>
+                <div class="col-xs-7">
+                  <span><strong>{{profile.companyInformation.mainBussiness}}</strong></span>
+                </div>
+              </div>
+
+              <!-- Affliation -->
+              <div class="row returnslables div-background" ng-show="profile.companyInformation.affliation">
+                <div class="col-xs-5 namelables">
+                  <span>Affiliation</span>
+                </div>
+                <div class="col-xs-7">
+                  <span><strong></strong></span>
+                </div>
+              </div>
+
+              <!-- Number of Employees -->
+              <div class="row returnslables div-background" ng-show="profile.companyInformation.employees">
+                <div class="col-xs-5 namelables">
+                  <span>사원 수</span>
+                </div>
+                <div class="col-xs-7">
+                  <span><strong>{{profile.companyInformation.employees}}</strong></span>
+                </div>
+              </div>
+
+              <!-- Capital -->
+              <div class="row returnslables div-background" ng-show="profile.companyInformation.capital">
+                <div class="col-xs-5 namelables">
+                  <span>자본금</span>
+                </div>
+                <div class="col-xs-7">
+                  <span><strong>{{profile.companyInformation.capital}}</strong></span>
+                </div>
+              </div>
+
+              <!-- Take -->
+              <div class="row returnslables div-background" ng-show="profile.companyInformation.take">
+                <div class="col-xs-5 namelables">
+                  <span>매출액</span>
+                </div>
+                <div class="col-xs-7">
+                  <span><strong>{{profile.companyInformation.take}}</strong></span>
+                </div>
+              </div>
+
+              <!-- Nationality -->
+              <div class="row returnslables div-background" ng-show="profile.companyInformation.nationality">
+                <div class="col-xs-5 namelables">
+                  <span>본사 위치</span>
+                </div>
+                <div class="col-xs-7">
+                  <span><strong>{{profile.companyInformation.nationality}}</strong></span>
+                </div>
+              </div>
+
+              <!-- Talent -->
+              <div class="row returnslables div-background" ng-show="profile.companyInformation.talent">
+                <div class="col-xs-5 namelables">
+                  <span>회사 인재상</span>
+                </div>
+                <div class="col-xs-7">
+                  <span><strong>{{profile.companyInformation.talent}}</strong></span>
+                </div>
+              </div>
+
+              <!--  Company Talent-->
+              <div class="row returnslables div-background" ng-show="profile.companyInformation.compTalent">
+                <div class="col-xs-5 namelables">
+                  <span>혜택</span>
+                </div>
+                <div class="col-xs-7">
+                  <span><strong>{{profile.companyInformation.compTalent}}
+                  </strong></span>
+                </div>
+              </div>
+
+              <!-- Group Discription -->
+              <div class="row returnslables div-background" ng-show="profile.companyInformation.description">
+                <div class="col-xs-5 namelables">
+                  <span>회사 소개</span>
+                </div>
+                <div class="col-xs-7">
+                  <span><strong>{{profile.companyInformation.description}}</strong></span>
+                </div>
+              </div>
+
+              <!-- OverView and Mission -->
+              <div class="row returnslables div-background" ng-show="profile.companyInformation.overviewMisson">
+                <div class="col-xs-5 namelables">
+                  <span>회사 개요 및 사명</span>
+                </div>
+                <div class="col-xs-7">
+                  <span><strong>{{profile.companyInformation.overviewMisson}}</strong></span>
+                </div>
+              </div>
+
+              <!-- History -->
+              <div class="row returnslables div-background" ng-show="profile.companyInformation.historyPerformance">
+                <div class="col-xs-5 namelables">
+                  <span>연혁 및 실적</span>
+                </div>
+                <div class="col-xs-7">
+                  <span><strong>{{profile.companyInformation.historyPerformance}}</strong></span>
+                </div>
+              </div>
+
+            </div>
+          </div>
+          <!-- //////////////// end when Company is logged in  //////////////////// -->
+
+		  <!-- //////////////  when Individual is logged in/////////////// -->
+		  <div ng-show="profile.userInfo.roles == 'individual'">
+		    <div class="p-t-lg">
+		      <h4><strong>자기 소개</strong>
+		        <span  class="glyphicon glyphicon-pencil img-circle-btn image-circle-text m-l-sm" ng-hide="!editProfile" ng-click="textareaInd = !textareaInd">
+		        </span>
+		      </h4>  
+		      <p ng-show="!textareaInd" style="white-space: pre-wrap; word-wrap: break-word;">{{profile.indInfo }}</p>
+		     	<div ng-hide="!textareaInd">
+		      	<textarea class="form-control intro-area"  rows="7" ng-model="profile.indInfo"></textarea>
+		     		<br>
+			     	<div class="pull-right m-r-md">
+		     			<div class="btn-group">
+		        		<button type="button" class="btn btn-primary intro-save-btn" ng-click="updateProfile(profile.indInfo,'indInfo')">저장</button>
+		        	</div>
+		        	<div class="btn-group">
+		          	<button type="button" class="btn btn-default" ng-click="textareaInd = !textareaInd">취소</button>
+		        	</div>
+			     	</div>
+			     	<br><br>   
+		     	</div> 
+		     	<br>
+		  	</div>
+			</div>
+		  <!-- ////////////////  when Individual is logged in  //////////////////// -->
+
+		  	<!-- WHen Role is Company -->
+		  	<div ng-show="profile.userInfo.roles == 'company' " class="col-xs-12">
+		    	<h4><strong>회사 소개</strong>
+    				<span ng-show="editProfile" class="glyphicon glyphicon-pencil img-circle-btn image-circle-text m-l-sm" ng-hide="!editProfile" ng-click="textareaCompany = !textareaCompany"></span>
+  				</h4>
+		    	<p ng-show="!textareaCompany" style="white-space: pre-wrap; word-wrap: break-word;">{{profile.companyIntro}}</p>
+		    	<div ng-hide="!textareaCompany">
+		      		<textarea class="form-control intro-area"  rows="7" ng-model="profile.companyIntro"></textarea>
+		    		<br>
+			    	<div class="pull-right m-r-md">
+			    		<div class="btn-group">
+			        		<button type="button" class="btn btn-primary intro-save-btn" ng-click="updateProfile(profile.companyIntro,'companyIntro')">저장</button>
+			       		</div>
+			      		<div class="btn-group">
+			        		<button type="button" class="btn btn-default" ng-click="textareaCompany = !textareaCompany">취소</button>
+			      		</div>
+			    	</div><br>   
+		    	</div><br>
+		  	</div>
+		  	<!-- End -->
+			</div>
+			<!-- End About Section -->
+			</section>
+			<!-- End Intro Section -->
+			<!-- Review Section -->
+			<section class="col-xs-12 col-md-12 profile_container bordortop_styling m-t-lg m-b-lg" style="background:#fff;">
+				<!-- As a Freelancer-->
+				<div ng-if="viewAsEmployer">
+				  <h3 class="font-mobile">경력소개 및 리뷰 ({{noOfReviewBaseOnProjectAwarded}})</h3>
+				  <div  ng-repeat="project in awardedProjects">
+				    <div class="row">
+				      <div class="col-xs-2" ng-if="project.rateYesNo === 'include' ">
+				        <!-- <img ng-src="modules/profiles/client/img/pic1.png"> -->
+				        <div style="width: 7rem; height: 7rem">
+				          <img src="{{project.raterImage || 'modules/users/client/img/profile/default.png'}}" class="img-circle mobile-view-rating" style="width: 7rem; height: 7rem;">
+				        </div>
+				      </div>
+				      <div class="col-xs-6 p-mr-none" ng-if="project.rateYesNo === 'include' ">
+
+				        <a ui-sref="projects.view({projectId: project.projectId})" style="text-decoration:none">
+				          <h3 class="m-t-none">{{project.feedback.proj_name || 'Project_Name'}}</h3>
+				        </a>
+				        <p style="word-wrap: break-word;">{{project.feedback.comment}}</p>
+				        <div class="star-rankingcolor">
+				          <span class="label" ng-class="{'label-warning': percent<30, 'label-info': percent>=30 && percent<70, 'label-success': percent>=70}">{{project.feedback.avgRating}}
+				          </span>
+				          <span uib-rating ng-model="project.feedback.avgRating" max="max" read-only="isReadonly" on-hover="hoveringOver(value)" on-leave="overStar = null" titles="['one','two','three']" aria-labelledby="default-rating"></span>
+				        </div>
+				      </div>
+				      <div class="col-xs-4" ng-if="project.rateYesNo === 'include' ">
+				        <div class="text-right">
+				          <!-- <p>01 Jan 2017</p> -->
+				          <!-- <p>{{flUserInfo.country.name}}</p> -->
+				          <span>
+				            <img src="https://countryflags.io/{{project.country.code_lower}}/flat/64.png" title = "{{prof.userInfo.country.name}}" style="width:2rem; height: 2rem;"> 
+				            {{project.country.name}}
+				          </span>
+				          <h3 class="current-color"><strong>{{project.country.symbol_native}}{{project.bidPrice | number:0}}원<!-- {{project.bidPrice | currency}} --></strong></h3>
+				        </div>
+				      </div>
+				    </div>
+				  </div>
+				  <hr>
+				</div>
+				<!-- end As a Freelancer-->
+				<!-- As a Employer-->
+				<div ng-if="viewAsFreelancer">
+				  <h3 class="font-mobile">경력소개 및 리뷰 ({{noOfReviewBaseOnMyProject}})</h3>
+				  <div  ng-repeat="project in myProjects">
+				    <div class="row">
+				      <div class="col-xs-2" ng-if="project.rateYesNo === 'include' ">
+				        <!-- <img ng-src="modules/profiles/client/img/pic1.png"> -->
+				        <div style="width: 7rem; height: 7rem">
+				          <img src="{{project.raterImage || 'modules/users/client/img/profile/default.png'}}" class="img-circle mobile-view-rating" style="width: 7rem; height: 7rem;">
+				        </div>
+				      </div>
+				      <div class="col-xs-6 p-mr-none" ng-if="project.rateYesNo === 'include' ">
+				        <a ui-sref="projects.view({projectId: project.projectId})" style="text-decoration:none">
+				          <h3 class="m-t-none">{{project.feedback.proj_name || 'Project_Name'}}</h3>
+				        </a>
+				        <p style="word-wrap: break-word;">{{project.feedback.comment}}</p>
+				        <div class="star-rankingcolor">
+				          <span class="label" ng-class="{'label-warning': percent<30, 'label-info': percent>=30 && percent<70, 'label-success': percent>=70}">{{project.feedback.avgRating}}
+				          </span>
+				          <span uib-rating ng-model="project.feedback.avgRating" max="max" read-only="isReadonly" on-hover="hoveringOver(value)" on-leave="overStar = null" titles="['one','two','three']" aria-labelledby="default-rating"></span>
+				        </div>
+				      </div>
+				      <div class="col-xs-4" ng-if="project.rateYesNo === 'include' ">
+				        <div class="text-right">
+				          <span>
+				            <img src="https://countryflags.io/{{project.userInfo.country.code_lower}}/flat/64.png" title = "{{project.userInfo.country.name}}" style="width:2rem; height: 2rem;"> 
+				            {{project.userInfo.country.name}}
+				          </span>
+				          <h3 class="current-color"><strong>{{project.country.symbol_native}}{{project.bidPrice | number:0}}원<!-- {{project.bidPrice | currency}} --></strong></h3>
+				        </div>
+				      </div>
+				    </div>
+				  </div>
+				  <hr>
+				</div>
+				<!-- end As a Employer-->
+			</section>
+			<!-- End Reveiw Section -->
+
+			<!-- Portfolio Section -->
+			<br ng-show = "profile.portfolio.length > 0 || editProfile">
+			<br ng-show = "profile.portfolio.length > 0 || editProfile">
+			<section class="col-xs-12 col-sm-12 col-md-12 bordortop_styling m-b-lg m-t-lg m-mt-none m-mb-none p-ml-none p-mr-none m-ml-none m-mr-none hidden-xs"  ng-show = "profile.portfolio.length > 0 || editProfile" style="background:#fff;">
+
+			  <div ng-hide="!editProfile">
+			    <br>
+			    <button class="btn btn-primary intro-save-btn  btn-lg btn-huge" ng-click="addPortfolio('lg',profile)"  ><i class="fa fa-pencil"></i>포트폴리오 추가</button>
+			    <br><br>
+			  </div>
+			  <br>
+			  <div class="col-sm-3 col-xs-6 col-md-3 col-lg-3 porfoli-div" ng-repeat="portfolio in profile.portfolio">
+			    <!-- show portfolio | view or editable (editPortfolio  viewPortfolio ) -->  
+			    <div ng-show="profile.userInfo._id == authentication.user._id" class="portfolio-item">
+			    <a href="#" ng-click="editPortfolio('lg',profile,$index)" class="portfolio-link" data-toggle="modal">
+			      <div class="caption">
+			        <div class="caption-content">
+			          <i class="fa fa-search-plus fa-3x"></i>
+			        </div>
+			      </div>
+			      <div class="img-portfolio img-portfolio img">
+			        <img src="{{portfolio.image[0]}}" class="img-responsive" alt="portfolio image">
+			      </div>
+			    </a>
+			   </div>
+
+			    <div ng-show="profile.userInfo._id != authentication.user._id" class="portfolio-item">
+			    <a href="#" ng-click="viewPortfolio('lg',profile,$index)" class="portfolio-link" data-toggle="modal">
+			      <div class="caption">
+			        <div class="caption-content">
+			          <i class="fa fa-search-plus fa-3x"></i>
+			        </div>
+			      </div>
+			      <div class="img-portfolio" style="height: 167px;">
+			        <img src="{{portfolio.image}}" class="img-responsive" alt="portfolio image">
+			      </div>
+			    </a>
+			   </div>
+			  </div>
+			</section>
+			<!-- End Prtfolio -->
+			<!-- Expernce -->
+			<section class="col-xs-12 col-md-12 profile_container bordortop_styling m-t-lg m-b-lg m-mt-none m-mb-none hidden-xs" ng-if="profile.experience.length" style="background:#fff;">
+				<!-- Experiernce section -->
+				<div>
+				  <div>
+				    <h3><strong>경력</strong>
+
+				      <span class="pull-right" ng-hide="experienceStatus || editExperinceForm" ng-click="experienceStatus = !experienceStatus">
+				        <a  ng-show="profile.userInfo._id === authentication.user._id"   href="" class="btn btn-circle btn-success">
+				          <i class="glyphicon glyphicon-plus white"></i>
+				        </a>
+				      </span>
+				    </h3>
+				    <hr ng-hide="!profile.experience"> 
+
+				    <!-- start: Editing table for Experinece -->
+				    <div ng-hide="!editExperinceForm">
+				    <small>Editing table </small>
+				      <div class="col-xs-12">
+				          <form name="editExpForm">
+				            <div class="form-group">
+				              <label for="title">경력명</label>
+				              <input type="text" class="form-control" id="title" ng-model="editExperience.title" placeholder="경력명" required>
+				            </div>
+				            <div class="form-group">
+				              <label for="cmp">회사명</label>
+				              <input type="text" class="form-control" id="cmp" ng-model="editExperience.company" placeholder="회사명" required>
+				            </div>
+				            <div class="input-group">
+				              <label for="Time period">근무 또는 작업 시작 날짜</label>
+				              <input type="text" class="form-control" uib-datepicker-popup ng-model="editExperience.start" is-open="experienceStart.opened" datepicker-options="calendarControl.experienceStart" close-text="Close" required />
+				              <span class="input-group-btn year-btn">
+				                <button type="button" class="btn btn-default" ng-click="experienceStart()"><i class="glyphicon glyphicon-calendar"></i></button>
+				              </span>
+				            </div>
+				            <div class="checkbox">
+				              <label><input type="checkbox" ng-model="editExperience.currentlyWorking"> 현재 근무 또는 개발중</label>
+				            </div>
+				            <br>
+				            <div class="input-group" ng-hide="editExperience.currentlyWorking">
+				              <label for="timeperiod">퇴사 또는 개발 완료 날짜</label>
+				              <input type="text" class="form-control" uib-datepicker-popup ng-model="editExperience.end" is-open="experienceEnd.opened" datepicker-options="editExperienceEndDate" close-text="Close" />
+				              <span class="input-group-btn year-btn">
+				                <button type="button" class="btn btn-default" ng-click="experienceEnd()"><i class="glyphicon glyphicon-calendar"></i></button>
+				              </span>
+				            </div>
+				            <br>
+				            <div class="form-group">
+				              <label for="pwd">업무 또는 개발내용</label>
+				              <textarea class="form-control" ng-model="editExperience.summary" placeholder="업무 또는 개발 내용" rows="10" style="white-space: pre-line; word-wrap: break-word;"></textarea>
+				            </div>
+				            <div class="pull-right">
+				              <button  class="btn btn-success m-r-sm" ng-disabled="editExpForm.$invalid || editExpForm.$pending" ng-click="editExperince('','save')">저장</button>
+				              <button class="btn btn-default" ng-click="editExperince('','cancel')">취소</button>
+				            </div>
+				          </form>
+				          <!-- {{editExperience }} -->
+				          <br><br>
+				        </div> 
+				    </div>
+
+				    <!-- End: Editing table for Experinece -->
+				    <!-- start: insertion table  -->
+
+				    <div ng-hide="!experienceStatus" >
+			        <div class="col-xs-12 p-ml-none p-mr-none">
+			          <form name="experienceForm">
+			            <div class="form-group">
+			              <label for="title">경력명</label>
+			              <input type="text" class="form-control" id="title" ng-model="experience.title" placeholder="경력명" required>
+			            </div>
+			            <div class="form-group">
+			              <label for="cmp">회사명</label>
+			              <input type="text" class="form-control" id="cmp" ng-model="experience.company" placeholder="회사명" required>
+			            </div>
+			            <div class="input-group">
+			              <label for="Time period">근무 또는 작업 시작 날짜</label>
+			              <input type="text" class="form-control" uib-datepicker-popup ng-model="experience.start" is-open="experienceStart.opened" datepicker-options="calendarControl.experienceStart" close-text="Close" required />
+			              <span class="input-group-btn year-btn">
+			                <button type="button" class="btn btn-default" ng-click="experienceStart()"><i class="glyphicon glyphicon-calendar"></i></button>
+			              </span>
+			            </div>
+			            <div class="checkbox">
+			              <label><input type="checkbox" ng-model="experience.currentlyWorking"> 현재 근무 또는 개발 중</label>
+			            </div>
+			            <br>
+			            <div class="input-group" ng-hide="experience.currentlyWorking">
+			              <label for="timeperiod">퇴사 또는 개발 완료 날짜</label>
+			              <input type="text" class="form-control" uib-datepicker-popup ng-model="experience.end" is-open="experienceEnd.opened" datepicker-options="experienceEndDate" close-text="Close" />
+			              <span class="input-group-btn year-btn">
+			                <button type="button" class="btn btn-default" ng-click="experienceEnd()"><i class="glyphicon glyphicon-calendar"></i></button>
+			              </span>
+			            </div>
+			            <br>
+			            <div class="form-group">
+			              <label for="pwd">업무 또는 개발내용</label>
+			              <textarea class="form-control" ng-model="experience.summary" placeholder="업무 또는 개발 내용" rows="10" style="white-space: pre-line; word-wrap: break-word;"></textarea>
+			            </div>
+
+			            <div class="pull-right">
+			              <button  class="btn btn-success m-r-sm" ng-disabled="experienceForm.$invalid || experienceForm.$pending" ng-click="experienceSave('save')">저장</button>
+			              <button class="btn btn-default" ng-click="experienceSave('cancel')">취소</button>
+			            </div>
+			          </form>
+			          <!-- {{experience }} -->
+			          <br><br>
+			        </div> 
+			        <br> 
+				    </div>
+			      <div  ng-repeat = "experience in profile.experience">
+			        <div class="col-xs-10" >
+			          	<h4><strong>{{experience.title}}</strong></h4>
+			          	<h6>{{experience.company}}</h6>
+			          	<h5 class="text-muted">
+			              {{experience.start | date:"y'년' MM'월' d'일'"}} - <span ng-if="experience.currentlyWorking "> 최근 작업</span>{{experience.end | date:"y'년' MM'월' d'일'"}}
+			            </h5>
+			        </div>
+			        <div class="col-xs-2 text-center" ng-hide="experienceStatus || editExperinceForm">
+			          <div class="col-xs-5">
+			            <div class="h4">
+			              <span ng-show="profile.userInfo._id == authentication.user._id" class="glyphicon glyphicon-pencil" ng-click="editExperince($index,'')"></span>
+			            </div>
+			          </div>
+			          <div class="col-xs-5">
+			            <div class="h4">
+			              <span ng-show="profile.userInfo._id == authentication.user._id" class="glyphicon glyphicon-remove-circle" ng-click="deleteExperince($index)"></span>
+			            </div>
+			          </div>
+			        </div>
+			        <div class="col-xs-12">
+			          <h6  class="text-justify" style="white-space: pre-line; word-wrap: break-word;">
+			            {{experience.summary}}
+			          </h6>
+			          <br><hr>
+			        </div>
+			      </div>
+				  </div>
+				</div>
+				<!-- End -->
+			</section>
+			<!-- End Experience -->   
+			<!-- Education Section --> 
+			<section class="col-xs-12 col-md-12 profile_container bordortop_styling m-t-lg m-b-lg m-mt-none m-mb-none hidden-xs" ng-if="profile.education.length" style="background:#fff;">
+			<div>
+				  <div>
+				    <h3><strong>교육</strong>
+				      <span ng-show="profile.userInfo._id === authentication.user._id" class="pull-right" ng-hide="educationStatus || editEducationForm" ng-click="educationStatus=!educationStatus" >
+				        <a ng-show="profile.userInfo._id === authentication.user._id" href="" class="btn btn-circle btn-success">
+				          <i class="glyphicon glyphicon-plus white"></i>
+				        </a>
+				      </span>
+				      </h3>
+				    <hr ng-hide="!profile.education"> 
+
+				    <!-- start: Editing table for Education -->
+				    <div ng-hide="!editEducationForm">
+				    <small>Editing table </small>
+				      <div class="col-xs-12 p-ml-none p-mr-none">
+				          <form name="editEduForm">
+				            <div class="form-group">
+				              <label for="eDUCATION">국가</label>
+				              <select selector model="editEducation.country" label-attr="name" options="countryData" ng-model="editEducation.country" value-attr="name" required></select>
+				            </div>
+				            <div class="form-group">
+				              <label for="degree">전공</label>
+				              <input type="text" class="form-control" id="degree" ng-model="editEducation.degree" required>
+				            </div>
+				            <div class="input-group">
+				              <label for="Publisher">입학년도</label>
+				              <input type="text" class="form-control" uib-datepicker-popup = "yyyy" ng-model="editEducation.startYear" is-open="StartYearDate.opened" datepicker-options="calendarControl.educationStart"  close-text="Close" required />
+				              <span class="input-group-btn year-btn">
+				                <button type="button" class="btn btn-default" ng-click="StartYearDate()"><i class="glyphicon glyphicon-calendar"></i></button>
+				              </span>
+				            </div>
+				            <br>
+				            <div class="input-group">
+				              <label for="Publisher">졸업년도</label>
+				              <input type="text" class="form-control" uib-datepicker-popup = "yyyy" ng-model="editEducation.endYear" is-open="EndYearDate.opened" datepicker-options="editEducationEndDate" close-text="Close" required />
+				              <span class="input-group-btn year-btn">
+				                <button type="button" class="btn btn-default" ng-click="EndYearDate()"><i class="glyphicon glyphicon-calendar"></i></button>
+				              </span>
+				            </div>
+				            <br>  
+				            <div class="pull-right">
+				              <button  class="btn btn-success m-r-sm" ng-disabled="editEduForm.$invalid || editEduForm.$pending" ng-click="editEducations('','save')">저장</button>
+				              <button class="btn btn-default" ng-click="editEducations('','cancel')">취소</button>
+				            </div>
+				          </form>
+				          <!-- {{editExperience }} -->
+				          <br><br>
+				        </div> 
+				    </div>
+
+				    <!-- End: Editing table for Experinece -->
+
+				    <!-- Start Add Table of Education -->
+				   
+				    <div ng-hide="!educationStatus">
+				        <div class="col-xs-12 p-ml-none p-mr-none">
+				          <form name="educationForm" >
+				            <div class="form-group">
+				              <label for="eDUCATION">국가</label>
+				              <select selector model="education.country" label-attr="name" options="countryData" ng-model="education.country" value-attr="name" placeholder="국가를 선택하세요" required></select>
+				            </div>
+				            <div class="form-group">
+				              <label for="eDUCATION">대학교/전문대</label>
+				              <select selector
+				              model="education.university"
+				              options="universitiesData"
+				              label-attr="name"
+				              ng-model="education.university"
+				              value-attr="name" 
+				              placeholder="Choose a University.."
+				              required></select>
+				            </div>
+				            <div class="form-group">
+				              <label for="degree">전공</label>
+				              <input type="text" class="form-control" id="degree" ng-model="education.degree" required>
+				            </div>
+				            <div class="input-group">
+				              <label for="Publisher">입학년도</label>
+				              <input type="text" class="form-control" uib-datepicker-popup = "yyyy" ng-model="education.startYear" is-open="StartYearDate.opened" datepicker-options="calendarControl.educationStart"  close-text="Close" required />
+				              <span class="input-group-btn year-btn">
+				                <button type="button" class="btn btn-default" ng-click="StartYearDate()"><i class="glyphicon glyphicon-calendar"></i></button>
+				              </span>
+				            </div>
+				            <br>
+				            <div class="input-group">
+				              <label for="Publisher">졸업년도</label>
+				              <input type="text" class="form-control" uib-datepicker-popup = "yyyy" ng-model="education.endYear" is-open="EndYearDate.opened" datepicker-options="educationEndDate" close-text="Close" required />
+				              <span class="input-group-btn year-btn">
+				                <button type="button" class="btn btn-default" ng-click="EndYearDate()"><i class="glyphicon glyphicon-calendar"></i></button>
+				              </span>
+				            </div>
+				            <br>
+				            <div class="pull-right">
+				              <button class="btn btn-success m-r-sm" ng-disabled="educationForm.$invalid || educationForm.$pending" ng-click="educationSave('save')">저장</button>
+				              <button class="btn btn-default" ng-click="educationSave('cancel')">취소</button>
+				            </div>
+				          </form>
+				          <!-- {{education }} -->
+				          <br><br>
+				        </div> 
+				        <br>
+				      </div>
+				      <div ng-repeat = "education in profile.education">
+				        <div class="col-xs-10">
+				          <h4><strong>{{education.degree}}</strong></h4>
+				          <h5>{{education.university}}</h5>
+				          <h5 class="text-muted">{{education.startYear | date:"y'년' MM'월' d'일'"}} | {{education.endYear | date:"y'년' MM'월' d'일'"}}</h5>
+				          <h5>{{education.country}}</h5>
+				        </div>
+				        <div class="col-xs-2 text-center" ng-hide="educationStatus || editEducationForm" >
+				          <div class="col-xs-5">
+				            <div class="h4">
+				              <span ng-show="profile.userInfo._id == authentication.user._id" class="glyphicon glyphicon-pencil" ng-click="editEducations($index,'')"></span>
+				            </div>
+				          </div>
+				          <div class="col-xs-5">
+				            <div class="h4">
+				              <span ng-show="profile.userInfo._id == authentication.user._id" class="glyphicon glyphicon-remove-circle" ng-click="deleteEducations($index)"></span>
+				            </div>
+				          </div>
+				        </div>
+				        <div class="col-xs-12">
+				          <hr>
+				        </div>
+				      </div>
+				  </div>
+				</div>
+			</section>
+			<!-- End Education -->
+			<!-- Certyification Section --> 
+			<section class="col-xs-12 col-md-12 profile_container bordortop_styling m-t-lg m-b-lg m-mt-none m-mb-none hidden-xs" ng-if="profile.certificates.length" style="background:#fff;">
+				<div>
+				  <h3>
+				    <strong>자격증</strong>
+				    <span ng-show="profile.userInfo._id == authentication.user._id" class="pull-right" ng-hide="certificateStatus || editCertificateForm" ng-click="certificateStatus=!certificateStatus" >
+				      <a ng-show="profile.userInfo._id === authentication.user._id" href="" class="btn btn-circle btn-success">
+				        <i class="glyphicon glyphicon-plus white"></i>
+				      </a>
+				    </span>
+				  </h3>
+				   <hr ng-hide="!profile.certificate"> 
+				  <!-- Start edit Certification table -->
+				  <div ng-hide="!editCertificateForm">
+				  <small>Editing table </small>
+				    <div class="col-xs-12 p-ml-none p-mr-none">
+				        <form name="editCertForm">
+				          <div class="form-group">
+				            <label for="Professional">자격증명,학위증명 또는 수상내역</label>
+				            <input type="text" class="form-control"  ng-model="editCertificate.award" placeholder="자격증명,학위증명 또는 수상내역" required>
+				          </div>
+				          <div class="form-group">
+				            <label for="Organization">발급기관(예시 : 산업인력공단,00대학교 졸업학위)</label>
+				            <input type="text" class="form-control" placeholder="발급기관" ng-model="editCertificate.organization" ng-maxlength="100" required>
+				          </div>
+				          <div class="form-group">
+				            <label for="pwd">자격증 상세설명</label>
+				            <textarea class="form-control" ng-model="editCertificate.Describe" placeholder="자격증 상세설명" rows="10" style="white-space: pre-line; word-wrap: break-word;"></textarea>
+				          </div>
+				          <div class="input-group">
+				            <label for="Publisher">발급년도</label>
+				            <input type="text" class="form-control" uib-datepicker-popup ng-model="editCertificate.date" is-open="popup2.opened" datepicker-options="calendarControl.certificateYear" required close-text="Close" />
+				            <span class="input-group-btn year-btn">
+				              <button type="button" class="btn btn-default" ng-click="open2()"><i class="glyphicon glyphicon-calendar"></i></button>
+				            </span>
+				          </div>
+				          <br>   
+				          <div class="pull-right">
+				            <button  class="btn btn-success m-r-sm" ng-disabled="editCertForm.$invalid || editCertForm.$pending" ng-click="editCertificates('','save')">저장</button>
+				            <button class="btn btn-default" ng-click="editCertificates('','cancel')">취소</button>
+				          </div>
+				        </form>
+				        <!-- {{editCertificate }} -->
+				        <br><br>
+				      </div> 
+				  </div>
+				  <!-- End Edit Certification table -->
+
+				  <!-- Adding Certification -->
+				  <div ng-hide="!certificateStatus">
+				      <div class="col-xs-12 p-ml-none p-mr-none">
+				        <form name= "certificationForm">
+				          <div class="form-group">
+				            <label for="Professional">자격증명,학위증명 또는 수상내역</label>
+				            <input type="text" class="form-control"  ng-model="certificate.award" placeholder="자격증명,학위증명 또는 수상내역" ng-maxlength="100" required>
+				          </div>
+				          <div class="form-group">
+				            <label for="Organization">발급기관(예시 : 산업인력공단,00대학교 졸업학위)</label>
+				            <input type="text" class="form-control" placeholder="발급기관" ng-model="certificate.organization" ng-maxlength="100" required>
+				          </div>
+				          <div class="form-group">
+				            <label for="pwd">자격증 상세설명</label>
+				            <textarea class="form-control" ng-model="certificate.Describe" placeholder="자격증 상세설명" rows="10" style="white-space: pre-line; word-wrap: break-word;"></textarea>
+				          </div>
+				          <div class="input-group">
+				            <label for="Publisher">발급년도</label>
+				            <input type="text" class="form-control" uib-datepicker-popup = "yyyy" ng-model="certificate.date" is-open="popup2.opened" datepicker-options="calendarControl.certificateYear" required close-text="Close" />
+				            <span class="input-group-btn year-btn">
+				              <button type="button" class="btn btn-default" ng-click="open2()"><i class="glyphicon glyphicon-calendar"></i></button>
+				            </span>
+				          </div>
+				          <br>
+				          <div class="pull-right">
+				            <button class="btn btn-success m-r-sm" ng-disabled="certificationForm.$invalid || certificationForm.$pending" ng-click="certificateSave('save')">저장</button>
+				            <button class="btn btn-default" ng-click="certificateSave('cancel')">취소</button>
+				          </div>
+				        </form>
+				        <br><br>
+				      </div> 
+				      <br>
+				    </div>
+				    <div ng-repeat = "certificate in profile.certificates">
+				      <div class="col-xs-10">
+				        <h4><strong>{{certificate.award}}</strong></h4>
+				        <h5>{{certificate.organization}}</h5>
+				        <h5 class="text-muted">{{certificate.date | date:"y'년' MM'월' d'일'"}}</h5>
+				      </div>
+				      <div class="col-xs-2 text-center" ng-hide="certificateStatus || editCertificateForm">
+				        <div class="col-xs-5">
+				          <div class="h4">
+				            <span ng-show="profile.userInfo._id == authentication.user._id" class="glyphicon glyphicon-pencil" ng-click="editCertificates($index,'')"></span>
+				          </div>
+				        </div>
+				        <div class="col-xs-5">
+				          <div class="h4">
+				            <span ng-show="profile.userInfo._id == authentication.user._id" class="glyphicon glyphicon-remove-circle" ng-click="deleteCertificates($index)"></span>
+				          </div>
+				        </div>
+				      </div>
+				      <div class="col-xs-12">
+				        <br>
+				        <p class="text-justify">
+				          {{certificate.describe}}
+				        </p> 
+				        <hr>
+				      </div>
+				    </div>
+				</div>
+			</section>
+			<!-- End Certification -->
+			<!-- Publication Section -->
+			<section class="col-xs-12 col-md-12 profile_container bordortop_styling m-t-lg m-b-lg m-mt-none m-mb-none hidden-xs" ng-if="profile.publications.length" style="background:#fff;">   
+			<!--   -->
+				<!-- Publications -->
+				  <div>
+				    <h3>
+				      <strong>기사 홍보</strong>
+				      <span ng-show="profile.userInfo._id == authentication.user._id" class="pull-right" ng-hide="publicationStatus || editPublicationForm" ng-click="publicationStatus=!publicationStatus" >
+				        <a ng-show="profile.userInfo._id === authentication.user._id" href="" class="btn btn-circle btn-success">
+				          <i class="glyphicon glyphicon-plus white"></i>
+				        </a>
+				      </span>
+				    </h3>
+				    <hr ng-hide="!profile.publications"> 
+
+				    <!-- Edit Publication Form -->
+				    <div ng-hide="!editPublicationForm">
+				     <small>Editing Table</small>
+				        <div class="col-xs-12 p-ml-none p-mr-none">
+				          <form name= "editPublForm">
+				            <div class="form-group">
+				              <label for="pwd">기사 홍보 제목</label>
+				              <input type="text" class="form-control"  ng-model="editPublication.title" placeholder="기사 홍보 제목" ng-maxlength="100" required>
+				            </div>
+				            <div class="form-group">
+				              <label for="pwd">기사 홍보 발행처</label>
+				              <input type="text" class="form-control" placeholder="기사 홍보 발행처" ng-model="editPublication.publisher" required>
+				            </div>
+				            <div class="form-group">
+				              <label for="pwd">기사 홍보 내용</label>
+				              <textarea class="form-control" ng-model="editPublication.summary" placeholder="기사 홍보 내용" rows="8" style="white-space: pre-line; word-wrap: break-word;"></textarea>
+				            </div>
+				            <div class="pull-right">
+				              <button ng-disabled="editPublForm.$invalid || editPublForm.$pending" class="btn btn-success m-r-sm" ng-click="editPublications('','save')">저장</button>
+				              <button class="btn btn-default" ng-click="editPublications('','cancel')">취소</button>
+				            </div>
+				          </form>
+				          <!-- {{publication}} -->
+				          <br><br>
+				        </div> 
+				        <br>
+				      </div>
+				     
+				    <!-- End Publication Form -->
+				    <!-- Add Publication Form -->
+				    <div ng-hide="!publicationStatus">
+				        <div class="col-xs-12 p-ml-none p-mr-none">
+				          <form name= "publicationForm">
+				            <div class="form-group">
+				              <label for="pwd">기사 홍보 제목</label>
+				              <input type="text" class="form-control"  ng-model="publication.title" placeholder="기사 홍보 제목" ng-maxlength="100" required>
+				            </div>
+				            <div class="form-group">
+				              <label for="pwd">기사 발행처</label>
+				              <input type="text" class="form-control" placeholder="기사 발행처" ng-model="publication.publisher" ng-maxlength="100" required>
+				            </div>
+				            <div class="form-group">
+				              <label for="pwd">기사 홍보 내용</label>
+				              <textarea class="form-control" ng-model="publication.summary" placeholder="기사 홍보 내용" rows="8" style="white-space: pre-line; word-wrap: break-word;"></textarea>
+				            </div>
+				            <div class="pull-right">
+				              <button ng-disabled="publicationForm.$invalid || publicationForm.$pending" class="btn btn-success m-r-sm" ng-click="publictionSave('save')">저장</button>
+				              <button class="btn btn-default" ng-click="publictionSave('cancel')">취소</button>
+				            </div>
+				          </form>
+				          <!-- {{publication}} -->
+				          <br><br>
+				        </div> 
+				        <br>
+				      </div>
+				    <!-- End Publication  -->
+				    <div class="col-xs-12 p-ml-none p-mr-none">
+				      <div ng-repeat = "publication in profile.publications">
+				        <div class="col-xs-10">
+				          <h4><strong>{{publication.title}}</strong></h4>
+				          <h5>{{publication.publisher}}</h5>
+				        </div>
+				        <div class="col-xs-2 text-center" ng-hide="publicationStatus || editPublicationForm">
+				          <div class="col-xs-5">
+				            <div class="h4">
+				              <span ng-show="profile.userInfo._id == authentication.user._id" class="glyphicon glyphicon-pencil" ng-click="editPublications($index,'')"></span>
+				            </div>
+				          </div>
+				          <div class="col-xs-5">
+				            <div class="h4">
+				              <span ng-show="profile.userInfo._id == authentication.user._id" class="glyphicon glyphicon-remove-circle" ng-click="deletePublications($index)"></span>
+				            </div>
+				          </div>
+				        </div>
+				        <div class="col-xs-12">
+				          <br>
+				          <p class="text-justify" style="white-space: pre-line; word-wrap: break-word;">
+				            {{publication.summary}}
+				          </p>
+				          <hr>
+				        </div>
+				      </div>
+				    </div>
+				  </div>
+			</section>
+			<!-- End Publications -->
+
+		</div>
+		<!-- Content Section End -->
+
+		<!-- Side Bar Section -->
+		<div class="col-xs-12 col-md-4">
+			
+				<!--View as Employer or Freelancer -->
+				<div ng-show="viewAsFreelancer" class="col-xs-12 m-t-md" style="background:#fff;">
+				  <button class="btn btn-block btn-md btn-info " ng-click="viewAsFreelancer = !viewAsFreelancer; viewAsEmployer = 'true'  " style="background:#5b636a;border: 1px solid #5b636a;">
+				    프리랜서 뷰어
+				  </button>
+				</div>
+
+				<div ng-show="viewAsEmployer" class="col-xs-12 m-t-md" style="background:#fff;">
+				  <button class="btn btn-block btn-md btn-warning" ng-click="viewAsEmployer = !viewAsEmployer; viewAsFreelancer = 'true' " style="background:#5b636a;border: 1px solid #5b636a;">
+				    의뢰인 뷰어
+				  </button>
+				</div>
+				<!--End View as Employer or Freelancer -->
+			
+			<!-- ////////////////////////////////// -->
+			<div class="compprofile_info" ng-show="viewAsEmployer" style="background:#fff;">
+			  <uib-tabset active="activePill" vertical="true" type="pills" >
+			    <!-- <uib-tab index="0" heading="SEND A PRIVATE MESSAGE"> -->
+			    <uib-tab index="0" heading="">
+			      <div class="row">
+			        <div class="col-xs-12">
+			          <div>
+			            <div class="col-xs-12 hireTab">
+			              <br>
+			              <h5 class="p-l-md p-r-md"><strong> {{profile.userInfo.username}}님께 지금 프로젝트를 제안하실 수 있습니다</strong>
+			              </h5>
+			              <!-- <br> -->
+			              <hr>
+			              <form name="tabForm" ng-submit="profiles(tabForm.$valid)" class="p-l-md p-r-md" novalidate autocomplete="off">
+			                <h5>
+			                  <!-- <strong>예산금액 (최소금액 : 10,000원)</strong> -->
+			                  <strong> 예산금액 : <span ng-if="profile.perHourRate"><!-- ({{profile.perHourRate | currency }} or {{records.currency.KRW.symbol_native}} {{profile.perHourRate*latestCurrencyRate.KRW || '0.0'}}) -->미화 또는 원화 선택</span>
+
+			                    <span ng-if="!profile.perHourRate"> <i> (프리랜서에게 고정금액을 제시하면 협의 가능합니다.)</i></span>
+			                  </strong>
+			                </h5>
+			                <br>
+			                <div class="row">
+			                  <div class="col-sm-6 form-group">
+			                  <input type="radio" checked  value="Fixed price">
+			                  <span>고정금액</span>
+			                  </div>
+
+			                </div>
+			                <div class="row">
+			                  <div class="col-sm-4 form-group">
+			                  <select ng-model="hire.selectedCurrency" ng-init="hire.selectedCurrency = 'KRW'" class="form-control">
+			                  <option ng-repeat="currency in currencies" value="{{currency.new_currency}}">{{currency.new_currency}}</option>
+			                  </select>
+			                  <!-- <span>You selected: {{selectedCurrency}}</span> -->
+			                  </div> 
+			                  <div class="col-sm-8 form-group">
+			                  <input type="number" class="form-control" ng-model="hire.fixedPrice"  placeholder="제시 금액을 입력하십시오" required>
+			                  </div>
+			                </div>
+			                <div class="form-group">
+			                  <input required type="text" class="form-control" placeholder="프로젝트 제목" ng-model="hire.projectTitle">
+			                </div>
+			                <div class="form-group">
+			                  <textarea required placeholder="안녕하세요. 회원님의 프로필을 보고 우리의 프로젝트에 참여하기를 제안드립니다." rows="3" class="form-control" ng-model="hire.projectDesc">
+			                  </textarea>  
+			                </div>
+			                <br>
+			                <div class="col-xs-12 text-center">
+			                  <button  ng-disabled="!hire.projectTitle || !hire.fixedPrice" ng-click="hireMe('md',profile, hire)" type="button" class="btn btn-success btn-lg btn-block">프리랜서 채용 {{profile.userInfo.username}}</button>
+			                  <br>
+			                </div>
+
+			              </form>
+			            </div>
+			          </div>
+			        </div>
+			      </div>
+			    </uib-tab>
+			  </uib-tabset>
+			</div> 
+			<!-- /////////////////////////////////////// -->
+			<!-- Verification Section -->
+			<div class="col-xs-12 col-md-12 profile_container bordortop_styling border-mradus hidden-xs m-t-lg" style="background:#fff;">
+			  <h3>신원인증확인</h3>
+
+			  <!-- for verified put class verificationcheck -->
+			  <hr>
+			  <div class="row verificationcolum">
+			    <div class="col-xs-8">
+			      <span class="glyphicon glyphicon-map-marker" ng-class="{verified: profile.userInfo.verLocation, nonverified: !profile.userInfo.verLocation}"></span>
+			      <span ng-class="{verificationcheck: profile.userInfo.verLocation}"> 현위치 인증 </span>   
+			    </div>
+			    <div class="col-xs-4 text-center">
+			      <span class="glyphicon glyphicon-ok" ng-show="profile.userInfo.verLocation || profile.userInfo._id != authentication.user._id" ng-class="{verificationcheck: profile.userInfo.verLocation, nonverified: !profile.userInfo.verLocation}"></span>
+			      <button ng-show="!profile.userInfo.verLocation && profile.userInfo._id == authentication.user._id" class="btn btn-primary m-t-xs pull-right" style="background:#548eb2;border: 1px solid #548eb2;">인증요망</button>
+			    </div>
+			  </div>
+			  <div class="row verificationcolum">
+			    <div class="col-xs-8">
+			      <span class="glyphicon glyphicon-asterisk" ng-class="{verified: profile.userInfo.verPayment, nonverified: !profile.userInfo.verPayment}"></span>
+			      <span ng-class="{verificationcheck: profile.userInfo.verPayment}"> 계좌정보 인증</span>
+			    </div>
+			    <div class="col-xs-4 text-center">
+			      <span class="glyphicon glyphicon-ok" ng-show="profile.userInfo.verPayment || profile.userInfo._id != authentication.user._id" ng-class="{verificationcheck: profile.userInfo.verPayment, nonverified: !profile.userInfo.verPayment}"></span>
+			      <button ng-show="!profile.userInfo.verPayment && profile.userInfo._id == authentication.user._id" class="btn btn-primary m-t-xs pull-right" style="background:#548eb2;border: 1px solid #548eb2;">인증요망</button>
+			    </div>
+			  </div>
+			  <div class="row verificationcolum">
+			    <div class="col-xs-8">
+			      <span class="glyphicon glyphicon-earphone" ng-class="{verified: profile.userInfo.verPhone, nonverified: !profile.userInfo.verPhone}"></span>
+			      <span ng-class="{verificationcheck: profile.userInfo.verPhone}"> 핸드폰 인증</span>
+			    </div>
+			    <div class="col-xs-4 text-center">
+			      <span class="glyphicon glyphicon-ok" ng-show="profile.userInfo.verPhone || profile.userInfo._id != authentication.user._id" ng-class="{verificationcheck: profile.userInfo.verPhone, nonverified: !profile.userInfo.verPhone}"></span>
+			    </div>
+			  </div>
+			  <div class="row verificationcolum">
+			    <div class="col-xs-8">
+			      <span class="glyphicon glyphicon-envelope" ng-class="{verified: profile.userInfo.verEmail, nonverified: !profile.userInfo.verEmail}"></span>
+			      <span ng-class="{verificationcheck: profile.userInfo.verEmail}"> 이메일 인증</span>
+			    </div>
+			    <div class="col-xs-4 text-center">
+			      <span class="glyphicon glyphicon-ok" ng-show="profile.userInfo.verEmail || profile.userInfo._id != authentication.user._id" ng-class="{verificationcheck: profile.userInfo.verEmail, nonverified: !profile.userInfo.verEmail}"></span>
+			      <button ng-show="!profile.userInfo.verEmail && profile.userInfo._id == authentication.user._id" class="btn btn-primary m-t-xs pull-right" ng-click="sendMail()" style="background:#548eb2;border: 1px solid #548eb2;">인증요망</button>
+			    </div>
+			  </div>
+			</div>
+			<!-- End  verificationSection -->
+			<br>
+			<!-- Add Skills -->
+			<div class="col-md-12 profile_container bordortop_styling border-mradus" style="background:#fff;">
+			  <div class="skillsTop row">
+			    <div class="col-xs-12">
+			      <h3 class="m-b-none pull-left">전문 기술 </h3>
+			      <div class="pull-right">
+			        <div class="btn-group" >
+			          <button ng-show="profile.userInfo._id == authentication.user._id" class="btn btn-success skillbutn" ng-show="!skill" ng-click="skill=true" style="background:#5c554b;border: 1px solid #5c554b;">
+			            <i class="glyphicon glyphicon-plus white"></i> 추가 
+			          </button>
+			        </div> 
+			      </div>
+			    </div>
+			  </div>
+			  <!-- {{myTopSkills}} --> 
+			  <div  class="row">
+			    <div ng-repeat="skil in bhindi" style="display: inline-block">
+			      <h4><span class="label label-success m-l-sm" style="background:#8ba753;border: 1px solid #8ba753;">{{skil.name}}</span></h4>
+			    </div>
+
+			  </div>
+			  <br>
+			  <div ng-show="skill">
+			    <select selector model="profile.skills" multi="true" options="skills" label-attr="name" value-attr="name" placeholder="전문기술 추가" ></select>
+			    <div class="btn-group">
+			      <button  class="btn btn-success skillbutn" ng-click="skillsSave(); skill=false;">
+			        <i class="glyphicon glyphicon-close white"></i> 완료
+			      </button>
+			    </div>
+			  </div>
+			</div>
+			<!-- End -->
+			<br>
+			<!-- Add Certification -->
+			<div class="col-md-12 profile_container bordortop_styling border-mradus hidden-xs" style="background:#fff;">
+			  <div class="skillsTop row">
+			    <div class="col-xs-12">
+			      <h3 class="m-b-none pull-left">자격증 </h3>
+			      <div class="pull-right">
+			        <div class="btn-group">
+			          <button  ng-show="profile.userInfo._id == authentication.user._id" class="btn btn-success skillbutn" ng-show="!certification" ng-click="certification=true" style="background:#5c554b;border: 1px solid #5c554b;">
+			            <i class="glyphicon glyphicon-plus white"></i> 추가 
+			          </button>
+			        </div>
+			      </div>
+			    </div>
+			  </div>
+			  <div ng-show="!certification" class="row">
+			    <div ng-repeat="certification in certifications" style="display: inline-block">
+			      <h4><span class="label label-success m-l-sm" >{{certification.label}}</span></h4>
+			    </div>
+
+			  </div>
+			  <br>
+			  <div ng-show="certification">
+			    <select selector model="profile.certifications" multi="true" options="certificateIt" value-attr="value" placeholder="자격증 추가" create="createFunction(input)"></select>
+			    <div class="btn-group">
+			      <button class="btn btn-success skillbutn" ng-click="certificationSave()">
+			        <i class="glyphicon glyphicon-close white"></i> 완료
+			      </button>
+			    </div>
+			  </div>
+			</div>
+			<!-- End Certification -->
+		</div>
+		<!-- End Side bar -->
+
+	</div>		
+</section>

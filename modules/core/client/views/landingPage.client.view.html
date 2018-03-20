@@ -1,0 +1,491 @@
+<section ng-controller="HomeController" class="landindContent" ng-init="getAllProfiles(); advertisement();">
+  <br><br>
+  <!-- part 1 -->
+  <div>
+    <div class="landing-bck-img" style="margin-left:-14px; margin-right:-14px;">	
+    <br>
+        <h1 class="text-center h1-mobil-privacy" style="color:#fff;font-size:70px;"><strong style="padding-top:0px"><span class="h1-mobil-landing">&nbsp;Need Help? </span><h5 style="color:#fff;font-size:30px;padding-top:0px;"><span class="h3-mobile-profile">&nbsp;&nbsp;프리랜서가 지금 해결해 드립니다.</span></h5></strong></h1>
+        <div class="col-xs-12 hidden-xs" style="text-align: -webkit-center; text-align: -moz-center" ng-hide="true">
+           <form class="part1landing">
+            <div class="col-xs-7 input-group input-group-md" style="padding-top:30px">
+              <input type="text" class="form-control" placeholder="프리랜서 글로벌 회원 검색/로그인을 하셔야 이용이 가능 합니다" style="height: 46px;">
+              <div class="input-group-btn">
+                <button class="btn btn-default" style="background:#35abc8; height: 46px;color:#fff;" type="submit">검색</button>
+              </div>
+			  
+            </div>	<br class="hidden-xs"><br class="hidden-xs"><br class="hidden-xs"><br class="hidden-xs">		
+            </form>
+        </div>
+        
+        <br class="hidden-xs"><br><br><br class="hidden-xs"><br class="hidden-xs"><br class="hidden-xs"><br class="hidden-xs"><br class="hidden-xs"><br class="hidden-xs"><br class="hidden-xs">
+
+      </div>
+  </div>
+
+  <!-- For Mobile View Only -->
+          <div class="hidden-sm hidden-md hidden-lg p-mt-md" style="text-align: -webkit-center;" ng-if="!authentication.user">
+            <div class="input-group col-xs-7 p-mb-sm">
+              <button class="btn btn-success btn-lg btn-block mbl-login" type="submit" ui-sref="authentication.signup">회원가입</button>
+            </div>
+            <div class="input-group col-xs-7">
+              <button class="btn btn-success btn-lg btn-block mbl-login" type="submit" ui-sref="authentication.signin">로그인</button>
+            </div>
+          </div>
+        <!-- End Mobile View -->
+
+
+   
+      <!-- <br class="hidden-xs"><br class="hidden-xs"> -->
+    
+      <!-- part 2 -->
+          <div class="row">
+              <ul  ng-repeat="ad in advert | limitTo: 8" class="p-mr-none p-ml-none" style="list-style-type:none; padding-right: 2rem; padding-left:3rem;">
+                  <a ng-href="{{ad.link}}" target="_blank">
+                    <li class="col-xs-12 col-sm-6 col-md-3 p-t-xlg">
+                      <img src="{{ad.imgeUrl}}" class="img-rounded landingsetting07">
+                  </li>
+                  </a>
+              </ul>
+
+          </div>
+          <!-- Angular spinner -->
+          <span us-spinner="{radius:30, width:8, length: 16}" spinner-key="adLoader"></span>
+          <!-- <br class="hidden-xs"> -->
+          <button ng-hide="!advert.length" type="button" class="btn btn-success view-all-btn hidden-xs" ui-sref="advertisement" 
+style="margin:auto; display:block; width: 20%" >사용자 리뷰</button>
+          <!-- part 3 -->
+          <div class="hidden-xs" style="margin-top:50px;background-image: url('/modules/core/client/img/customimages/main_bg2.jpg');">
+           <h4 class="landingsetting03" style="padding-top:35px"><b style="color:#fff;">의뢰인과 프리랜서가 함께하는 공간 아웃소싱오케이와 시작하십시오!</b><br><b style="font-size:13px;color:#fff;padding-top:10px;"><span style="margin-top:100px;">전자동화 멀티 플랫폼을 사용하여 실시간 모니터링ㆍ정보공유ㆍ자금현황등 모든 진행상황을 프리랜서와 함께 모니터링을 할수 있습니다.</span></b></h4> 
+          </div>
+          <!-- <br clear="hidden-xs"><br class="hidden-xs"> -->
+        <!-- part 4 -->
+
+		<!-- 
+         <div class="row p-mr-none p-ml-none hidden-xs" style="padding-left:3rem; padding-right:2rem;">
+            <div class="col-xs-12 col-xs-12 col-md-8">
+
+            <br><br>
+              <h3 class="h1-mobil-landing"><strong>규모에 상관없이 모든 종류의 프로젝트 무료등록이 가능합니다!</strong></h3>
+
+               작업 규모와 상관없이 모든 종류의 프로젝트를 무료등록 할 수 있고, 의뢰인의 프로젝트가 무료등록되는 순간 <br>우수한 프리랜서들을 바로 만날 수 있습니다:
+               <br><br>
+                 <ul>
+                   <li>규모도 상관없이 언제든지 프로젝트 무료등록 가능</li>
+                   <li>원하는대로 고정 금액 또는 시간제 선택 가능</li>
+                   <li>특별한 전문 기술 요구와 작업기간 선택 가능</li>
+                 </ul>
+                 <br>
+                 규모ㆍ비용ㆍ기간에 상관없이 모든 종류의 프로젝트를 무료등록하는 순간부터 프리랜서들로 부터 <br>놀라운 영감을 받을 수 있습니다.
+                <br><br>
+              <button class="btn btn-success" style="background-color: #00cb76" ui-sref="projects.project-post">프로젝트 무료등록</button>
+              <br><br>
+             
+            </div>
+		 -->
+            <!-- Right side, user info -->
+		<!-- 
+            <div class="col-xs-12 col-xs-12 col-md-2"> 
+              <img class="img-responsive img-circle" src="modules/core/client/img/customimages/about.outsource.image01.png">
+                <br>
+            </div>
+        </div>
+	   -->
+
+        <!-- part 5 post project like this-->
+
+
+
+
+		<!--Latest Projects-->
+        <section class="latest-projects col-xs-12 col-sm-12 col-md-10 p-l-none p-r-none col-md-offset-1" style="padding-top:50px">
+          <div class="">
+            <h4 class="col-md-12"><!-- <img src="/modules/core/client/img/landing/logo_a.png"> --><span style="float:left">최근 등록된 프로젝트</span></h4>
+
+            <!--Latest Projects item-->
+              <div class="col-md-3" ng-repeat="project in allProjects | limitTo : 4">
+                <a ui-sref="projects.view({projectId: project._id})">
+                  <div class="lp-item">
+                    <!--<div class="lp-item-info2">
+                      <h4><img src="/modules/core/client/img/customimages/main_project.jpg"></h4>
+                    </div>-->
+					
+					<div ng-if="$index == 0" class="lp-item-info2" style="background-image: url('/modules/core/client/img/customimages/main_project1.jpg');">
+                        <div class="lp-head">
+						  <h4>{{project.name | limitTo : 20}} ..</h4>
+						</div>
+                    </div>
+
+					<div ng-if="$index == 1" class="lp-item-info2" style="background-image: url('/modules/core/client/img/customimages/main_project2.jpg');">
+                        <div class="lp-head">
+						  <h4>{{project.name | limitTo : 20}} ..</h4>
+						</div>
+                    </div>
+
+					<div ng-if="$index == 2" class="lp-item-info2" style="background-image: url('/modules/core/client/img/customimages/main_project3.jpg');">
+                        <div class="lp-head">
+						  <h4>{{project.name | limitTo : 20}} ..</h4>
+						</div>
+                    </div>
+
+					<div ng-if="$index == 3" class="lp-item-info2" style="background-image: url('/modules/core/client/img/customimages/main_project4.jpg');">
+                        <div class="lp-head">
+						  <h4>{{project.name | limitTo : 20}} ..</h4>
+						</div>
+                    </div>
+					
+					<!-- <div class="lp-head">
+                      <h4>{{project.name | limitTo : 20}} ..</h4>
+                    </div>
+					<div class="lp-head">
+                      <h4>{{project.name | limitTo : 20}} ..</h4>
+                    </div> -->
+                    <div class="lp-item-info">
+
+                      <p class="hidden-xs">
+                         {{project.description | htmlToPlainText | limitTo : 180}} .....
+                      </p>
+					  <p class="hidden-lg">
+                        {{project.description | htmlToPlainText | limitTo : 180}} .....
+                      </p>
+                    </div>
+                    <div class="lp-item-footer">
+                      <span class="pull-left" style="color:#d0a620">{{project.currency.symbol_native}} {{project.minRange|number:0}}원 - {{project.currency.symbol_native}} {{project.maxRange|number:0}}원</span>
+                      <span class="pull-right" style="color:#d0a620">{{project.bids.length}}명 지원</span>
+                      <div class="clearfix"></div>
+                    </div>
+                  </div>
+                </a>
+              </div>
+        </section>
+
+
+
+		<!--Latest Projects-->
+        <section class="latest-projects col-xs-12 col-sm-12 col-md-10 p-l-none p-r-none col-md-offset-1" style="padding-top:20px">
+          <div class="">
+            <h4 class="col-md-12"><!-- <img src="/modules/core/client/img/landing/logo_b.png"> --><span style="float:left">최근 등록된 콘테스트</span></h4>
+
+            <!--Latest Projects item-->
+              <div class="col-md-3" ng-repeat="contest in allContests | limitTo : 4">
+                <a ui-sref="contests.view({contestId: contest._id})">
+                  <div class="lp-item">
+				    
+					<div ng-if="$index == 0" class="lp-item-info2" style="background-image: url('/modules/core/client/img/customimages/main_contest1.jpg');">
+                        <div class="lp-head2">
+						  <h4>{{contest.name | limitTo : 20}} ..</h4>
+						</div>
+                    </div>
+
+					<div ng-if="$index == 1" class="lp-item-info2" style="background-image: url('/modules/core/client/img/customimages/main_contest2.jpg');">
+                        <div class="lp-head2">
+						  <h4>{{contest.name | limitTo : 20}} ..</h4>
+						</div>
+                    </div>
+
+					<div ng-if="$index == 2" class="lp-item-info2" style="background-image: url('/modules/core/client/img/customimages/main_contest3.jpg');">
+                        <div class="lp-head2">
+						  <h4>{{contest.name | limitTo : 20}} ..</h4>
+						</div>
+                    </div>
+
+					<div ng-if="$index == 3" class="lp-item-info2" style="background-image: url('/modules/core/client/img/customimages/main_contest4.jpg');">
+                        <div class="lp-head2">
+						  <h4>{{contest.name | limitTo : 20}} ..</h4>
+						</div>
+                    </div>
+
+                    <!-- <div class="lp-head2">
+                      <h4>{{contest.name | limitTo : 20}} ..</h4>
+                    </div> -->
+                    <div class="lp-item-info">
+
+                      <p class="hidden-xs">
+                        {{contest.description | htmlToPlainText | limitTo : 180}} .....
+                      </p>
+					  <p class="hidden-lg">
+                        {{contest.description | htmlToPlainText | limitTo : 180}} .....
+                      </p>
+					  <!-- <p>
+                        {{contest.description | limitTo : 130}} ..
+                      </p> -->
+                    </div>
+                    <div class="lp-item-footer">
+                      <span class="pull-left" style="color:#d0a620">{{contest.currency.symbol_native}} {{contest.sliderContestBudg|number:0}}원 </span>
+                      <span class="pull-right" style="color:#d0a620">{{contest.entries.length}}명 지원</span>
+                      <div class="clearfix"></div>
+                    </div>
+                  </div>
+                </a>
+              </div>
+        </section>
+
+
+
+			<div class="hidden-sm hidden-md hidden-lg">				
+				<div class="text-center h3-mobile-getsupport">
+                    <button class="btn btn-success btn-lg btn-block mbl-footer" type="submit" ui-sref="projects.project-post" style="background:#bab3a9;border-color: #bab3a9;"><i class="fa fa-desktop p-mr-xs" style="color:#5f5b56"></i>프로젝트 무료등록</button>
+                </div>
+				<div class="text-center h3-mobile-getsupport">
+                    <button class="btn btn-success btn-lg btn-block mbl-footer" type="submit" ui-sref="contests.contest-post" style="background:#5f5b56;border-color: #5f5b56;"><i class="fa fa-trophy p-mr-xs" style="color:#d0a620"></i>콘테스트 무료등록</button>
+                </div>
+				<div class="text-center h3-mobile-getsupport">
+                    <button class="btn btn-success btn-lg btn-block mbl-footer" type="submit" ui-sref="showcases.list" style="background:#688686;border-color: #688686;"><img src="modules/core/client/img/customimages/top_icon52.png"> 쇼케이스 &nbsp;쇼&nbsp;핑&nbsp;몰</button>
+                </div>
+				<div class="text-center h3-mobile-getsupport">
+                    <button class="btn btn-success btn-lg btn-block mbl-footer" type="submit" ui-sref="projects.browse-category" style="background:#548eb2;border-color: #548eb2;font-size:13.5px;"><img src="modules/core/client/img/customimages/top_icon38.png"> 분야별 프로젝트지원</button>
+                </div>
+			</div>
+		 
+
+          
+
+          <br class="hidden-xs"><br class="hidden-xs">
+
+	
+<div class="hidden-xs col-xs-12 col-sm-12" style="margin-top:30px;background-image: url('/modules/core/client/img/customimages/main_bg3.jpg');height:110px;">
+           <h4 class="landingsetting03" style="padding-top:30px"><b style="color:#fff;">프로젝트ㆍ콘테스트에서 수행중인 작업 또는 수행할 작업을 실시간으로 확인 할 수 있습니다!</b><br><b style="font-size:13px;color:#fff;padding-top:10px;"><span>아웃소싱오케이는 회원님의 신뢰와 안전을 최우선적으로 두고있으며 회원님의 에스크로 자금에 대한 모든거래는 최첨단 SSL암호화로 실시간 안전하게 보호됩니다.</span></b></h4> 
+          </div>
+
+
+
+        
+
+        
+        <!-- Only For Mobile View -->
+         <div class="row p-mr-none p-ml-none hidden-sm hidden-md hiiden-lg" style="padding-left:3rem; padding-right:2rem;">
+           <div class="col-xs-12 col-xs-12" style="background:#f2f2f2;">
+			<div class="col-xs-12 col-xs-12 col-md-5 col-md-offset-1" style="color:#000">
+
+         
+              <h3 class="font-mobile" style="color:#5f5b56;padding-top:50px;"><strong>안전한 프로젝트ㆍ콘테스트 관리</strong></h3>
+			   
+			   <p style="font-size:14px"><img src="modules/core/client/img/customimages/main_icon3.png"> 아웃소싱 오케이는 회원님의 &nbsp;신뢰와 안전이 최우선 입니다. </p>
+			   <p style="font-size:14px"><img src="modules/core/client/img/customimages/main_icon3.png"> 실시간 자금 관리 현황은 에스크로가 안전하게 보호 합니다. </p>
+               <p style="font-size:14px"><img src="modules/core/client/img/customimages/main_icon3.png"> 프리랜서는 모든 아이디어를 바로 해결해 드릴 수 있습니다. </p>
+			   <p style="font-size:14px"><img src="modules/core/client/img/customimages/main_icon3.png"> 모든분야의 프로젝트를 누구나 쉽게 등록을 할 수 있습니다. </p>
+			   <p style="font-size:14px"><img src="modules/core/client/img/customimages/main_icon3.png"> 많은 전문 프리랜서로부터 영감과 도움을 받을 수 있습니다.</p>
+			   <p style="font-size:14px"><img src="modules/core/client/img/customimages/main_icon3.png"> 콘테스트 개최는 비즈니스를 한단계 업 그레이드가 됩니다.</p>
+			   <p style="font-size:14px"><img src="modules/core/client/img/customimages/main_icon3.png"> 프로젝트ㆍ콘테스트 등록 후 프리랜서가 바로 해결 합니다.</p>
+			   <p style="font-size:14px"><img src="modules/core/client/img/customimages/main_icon3.png"> 프로젝트 등록 방법을 모르면 <a href="/about/contact"><span style="color:#5f5b56">고객지원팀</span></a>이 도와 드립니다.</p>
+			   <p style="font-size:14px"><img src="modules/core/client/img/customimages/main_icon3.png"> 쇼케이스몰은 빠른시간내에 구매와 상담을 할 수 있습니다.</p>
+			   <p style="font-size:14px"><img src="modules/core/client/img/customimages/main_icon3.png"> 이 모든것이 전자동 멀티 플랫폼과 1:1 화상으로 운영됩니다.</p>
+               <br>
+                 <ul>
+				   <li>고정 금액 또는 시간제 선택 가능</li>
+                   <li>특별기술ㆍ비용 및 일정 요구 사항 가능</li>
+                   <li>규모 및 금액에 상관없이 모든 프로젝트 무료등록 가능</li>
+                   
+                 </ul>
+                 <br>
+                 프로젝트와 콘테스트의 세부 사항을 등록하시면 프리랜서·의뢰인이 기대했던것 보다 신속·정확하게 합리적인 금액과 완성도 있는 결과를 받아보실 수 있습니다. <br><br>
+				 프로젝트는 규모와 상관없이 고정금액 또는 시간제로 등록가능하며 콘테스트는 일부금액으로 등록하여 지출가능한 예산범위와 에스크로를 지정하실 수 있습니다.
+                <br><br>
+              <button class="btn btn-success" ui-sref="projects.project-post" style="background: #5f5b56;border: 1px solid #5f5b56">프로젝트 무료등록</button>
+              <br><br>
+             
+            </div>
+			
+
+            <!-- Right side, user info -->			
+            <div class="col-xs-12 col-xs-12 col-md-4 col-md-offset-2" style="padding:70px 0 50px 0px"> 
+              <a  ui-sref="authentication.signup"><img class="img-responsive img-circle" src="modules/core/client/img/customimages/about.outsource.image01-1.png"></a>
+                <br>
+            </div>
+        </div>
+		</div>
+        <!-- End Mobile view -->
+        <br class="hidden-xs"><br class="hidden-xs">
+        <!-- part 6 -->
+		<div class="row landingsetting04 m-mt-negtv">
+          <h4 class="col-xs-12 col-sm-12 col-md-10 p-l-none p-r-none col-md-offset-1"><!-- <img src="/modules/core/client/img/landing/logo_b.png"> --><span style="float:left;margin: 20px 0px 20px 10px;"><b>유형별 프로젝트 선택</b></span></h4>
+		  <!-- <h4 class="landingsetting05 m-mall-none" style="float:left"><b>유형별 프로젝트 선택</b></h4> -->
+          <hr>
+          <!-- first row -->
+          <!-- <div class="p-l-md">
+            
+            <h4><i class="fa fa-desktop"></i><b class="p-l-sm">Website IT and Software</b></h4>
+          </div> -->
+
+          <ul class="col-xs-12 col-sm-12 col-md-10 p-l-none p-r-none col-md-offset-1" style="list-style-type:none; margin-bottom: 40px;">
+              <li class="col-xs-12 col-sm-6 col-md-3 p-ml-none p-mr-none">
+                 <div class="mobileimagesetting">
+                   <h3><b>웹사이트 개발</b></h3>
+                   <br>
+                   <a ui-sref="projects.project-post" class="mobileimagesetting2link">유사 프로젝트 등록하기</a>
+                 </div>
+                 <div>
+                   <img src="modules/core/client/img/landingimages/website-developmnt.jpg" class="img-rounded landingsetting06">
+                 </div>
+                  
+              </li>
+               <li class="col-xs-12 col-sm-6 col-md-3 p-mt-sm p-ml-none p-mr-none">
+                  <div class="mobileimagesetting">
+                    <h3><b>웹 디자이너</b></h3>
+                    <br>
+                    <a ui-sref="contests.contest-post" class="mobileimagesetting2link">유사 콘테스트 등록하기</a>
+                  </div>
+                  <img src="modules/core/client/img/landingimages/website-design.jpg" class="img-rounded landingsetting06">
+              </li>
+              <li class="col-xs-12 col-sm-6 col-md-3 p-mt-sm p-ml-none p-mr-none">
+                  <div class="mobileimagesetting">
+                    <h3><b>제품소싱ㆍ제조</b></h3>
+                    <br>
+                    <a ui-sref="projects.project-post" class="mobileimagesetting2link">유사 프로젝트 등록하기</a>
+                  </div>
+                  <img src="modules/core/client/img/landingimages/seo-marketing.jpg" class="img-rounded landingsetting06">
+              </li>
+               <li class="col-xs-12 col-sm-6 col-md-3 p-mt-sm p-ml-none p-mr-none">
+               <div class="mobileimagesetting">
+                 <h3><b>모바일 앱</b></h3>
+                 <br>
+                 <a ui-sref="projects.project-post" class="mobileimagesetting2link">유사 프로젝트 등록하기</a>
+               </div>
+                  <img src="modules/core/client/img/landingimages/part3image1.png" class="img-rounded landingsetting06">
+              </li>
+          </ul><br>
+         <!-- 2nd row -->
+         <!-- <div class="p-l-md">
+           <h4><i class="fa fa-mobile" style="font-size: 2.5rem;"></i><b class="p-l-sm">Mobile</b></h4>
+         </div> -->
+
+          <ul class="col-xs-12 col-sm-12 col-md-10 p-l-none p-r-none col-md-offset-1" style="list-style-type:none; margin-bottom: 40px;">
+              <li class="col-xs-12 col-sm-6 col-md-3 p-ml-none p-mr-none">
+                 <div class="mobileimagesetting">
+                   <h3><b>문서ㆍ기사작성</b></h3>
+                   <br>
+                   <a ui-sref="contests.contest-post" class="mobileimagesetting2link">유사 콘테스트 등록하기</a>
+                 </div>
+                 <div>
+                   <img src="modules/core/client/img/landingimages/article-writing.jpg" class="img-rounded landingsetting06">
+                 </div>
+                  
+              </li>
+               <li class="col-xs-12 col-sm-6 col-md-3 p-mt-sm p-ml-none p-mr-none">
+                  <div class="mobileimagesetting">
+                    <h3><b>SEO(검색엔진 최적화)마케팅</b></h3>
+                    <br>
+                    <a ui-sref="projects.project-post" class="mobileimagesetting2link">유사 프로젝트 등록하기</a>
+                  </div>
+                  <img src="modules/core/client/img/landingimages/business-card.jpg" class="img-rounded landingsetting06">
+              </li>
+              <li class="col-xs-12 col-sm-6 col-md-3 p-mt-sm p-ml-none p-mr-none">
+                  <div class="mobileimagesetting">
+                    <h3><b>인공지능</b></h3>
+                    <br>
+                    <a ui-sref="projects.project-post" class="mobileimagesetting2link">유사한 프로젝트 등록하기</a>
+                  </div>
+                  <img src="modules/core/client/img/landingimages/logo-design.jpg" class="img-rounded landingsetting06">
+              </li>
+               <li class="col-xs-12 col-sm-6 col-md-3 p-mt-sm p-ml-none p-mr-none">
+               <div class="mobileimagesetting">
+                 <h3><b>통역ㆍ번역</b></h3>
+                 <br>
+                 <a ui-sref="projects.project-post" class="mobileimagesetting2link">유사 프로젝트 등록하기</a>
+               </div>
+                  <img src="modules/core/client/img/landingimages/data-entry.jpg" class="img-rounded landingsetting06">
+              </li>
+          </ul><br>
+
+
+
+		  <div class="hidden-sm hidden-md hidden-lg">
+				
+				<div class="text-center h3-mobile-getsupport">
+                    <button class="btn btn-success btn-lg btn-block mbl-footer" type="submit" ui-sref="projects.browse-category" style="background:#5f5b56;border-color: #5f5b56;"><img src="modules/core/client/img/customimages/top_icon38.png"> 분야별 프로젝트 검색</button>
+                </div>
+			</div>
+
+
+        </div>
+		<!-- 
+         <div class="row m-l-none m-r-none hidden-xs">
+            <h3 style="text-align: center;"><strong>모든 유형의 프로젝트를 지금 시작할 수 있습니다...</strong></h3>
+            <br><br>
+            <div class="row part7landing">
+              <ul class="col-xs-12 col-sm-12 col-md-12 p-ml-none p-mr-none" style="list-style-type:none">
+                  <li class="col-xs-12 col-sm-6 col-md-4 p-ml-none p-mr-none">
+                      <a ui-sref="projects.similarProjects-post({mainCat: 'Websites IT and Software', subCat: 'Build a Website'})"><img src="modules/core/client/img/landingimages/VectorSmartObject_1.png" class="img-rounded landingsetting08">
+                      <br><br>
+                      <p>웹 사이트 개발</p></a>
+                  </li>
+                   <li class="col-xs-12 col-sm-6 col-md-4 p-mt-sm p-ml-none p-mr-none p-ml-none p-mr-none">
+                      <a ui-sref="projects.similarProjects-post({mainCat: 'Sales and Marketing', subCat: 'Social Media Marketing'})"> <img src="modules/core/client/img/landingimages/VectorSmartObject_4.png" class="img-rounded landingsetting08"><br><br>
+                      <p>소셜 미디어 마케팅</p>
+                      </a>
+                  </li>
+                  <li class="col-xs-12 col-sm-6 col-md-4 p-mt-sm p-ml-none p-mr-none p-ml-none p-mr-none">
+                      <a ui-sref="projects.similarProjects-post({mainCat: 'Design', subCat: 'Design a Banner'})">
+                      <img src="modules/core/client/img/landingimages/VectorSmartObject_1_2.png" class="img-rounded landingsetting08"><br><br>
+                      <p>그래픽 디자이너</p>
+                      </a>
+                  </li>
+              </ul>
+              <ul class="col-xs-12 col-sm-12 col-md-12" style="list-style-type:none">
+                  <li class="col-xs-12 col-sm-6 col-md-4 p-mt-sm p-ml-none p-mr-none p-ml-none p-mr-none">
+                      <a ui-sref="projects.similarProjects-post({mainCat: 'Mobile', subCat: 'Creat a Mobile Website'})">
+                        <img src="modules/core/client/img/landingimages/VectorSmartObject_3.png" class="img-rounded landingsetting08"><br><br>
+                      <p>모바일 앱 개발</p>
+                      </a>
+                  </li>
+                  <li class="col-xs-12 col-sm-6 col-md-4 p-mt-sm p-ml-none p-mr-none p-ml-none p-mr-none">
+                      <a ui-sref="projects.similarProjects-post({mainCat: 'Design', subCat: 'Design a Banner'})">
+                      <img src="modules/core/client/img/landingimages/VectorSmartObject_1_3.png" class="img-rounded landingsetting08"><br><br>
+                      <p>웹 디자이너</p>
+                      </a>
+                  </li>
+                  <li class="col-xs-12 col-sm-6 col-md-4 p-mt-sm p-ml-none p-mr-none p-ml-none p-mr-none">
+                      <a ui-sref="projects.similarProjects-post({mainCat: 'Business Accounting and Legal'})">
+                      <img src="modules/core/client/img/landingimages/VectorSmartObject_2.png" class="img-rounded landingsetting08"><br><br>
+                      <p>e-커머스</p>
+                  </li>
+              </ul>
+            </div>
+        </div>
+		-->
+        <br class="hidden-xs"><br class="hidden-xs">
+        <div class="row">
+          <ul class="col-xs-12 col-sm-12 col-md-12 p-mr-none p-ml-none"  style="list-style-type:none; padding-right: 2rem; padding-left:3rem;">
+              <a ng-href="{{ad.link}}" target="_blank" ng-repeat="ad in advert | limitTo: 4" >
+                <li class="col-xs-12 col-sm-6 col-md-3 p-t-xlg">
+                  <img src="{{ad.imgeUrl}}" class="img-rounded landingsetting06">
+              </li>
+              </a>
+          </ul>
+        </div>
+
+        <!--Latest Projects-->
+        
+
+          <button type="button" class="btn btn-success view-all-btn hidden-xs" ui-sref="projects.browse-category" style="margin:auto; display:block; width: 20%;background: #5f5b56;border: 1px solid #5f5b56;"><!-- <img src="modules/core/client/img/customimages/main_icon11.png"> --> 분야별 프로젝트 검색</button>
+
+          <br class="hidden-xs"><br class="hidden-xs">
+          
+		  <!-- 
+          <div class="row landingsetting04 hidden-xs">
+            <br>
+            <div class="col-md-4 col-md-offset-2">
+              <div class="row">
+                <div class="col-xs-7 col-md-5" style="border-right: 1px solid grey;">
+                  <b>데보라 김</b> <br>
+                  <i>쇼핑몰 운영-미국</i>
+                </div>
+                <div class="col-md-7">
+                  <img src="modules/core/client/img/landingimages/mypic.png" style="width:35%;" class="img-circle img-responsive mobile-width-pix">
+                </div>
+                <br>
+                
+              </div>
+              <br><br>
+            </div>
+            <div class="col-md-4"><center><i>우리는 기존 쇼핑몰을 운영하면서 간편한 결재 시스템을 업데이트를 하기 위해서 결재 시스템에 관련한 프로젝트를 무료등록하였고, 등록하자마자 선택한 지원/프리랜서와 화상채팅으로 1시간만에 결재 시스템 업데이트가 완료되어 놀라웠습니다.</i></center>
+            </div>
+            <div class=" col-md-2"></div>
+          </div>
+		  -->
+
+      <!-- chatWindow -->
+     <div  ng-show="authentication.user">
+       <footer ng-include="'/modules/core/client/views/chatWindow.html'" ></footer>
+     </div>
+
+</section>

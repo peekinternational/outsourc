@@ -1,0 +1,33 @@
+<div  >
+    <!-- START: Profile HEADER -->
+    <div class="hidden-xs" style="padding-top: 3px;">
+        <div class="profileheader">
+            <ul class="col-md-offset-1 list-inline user_list" style="margin-left:4.5rem;">
+                <li><a ui-sref="projects.my-project" class="hedr-menu profile-menu">My 프로젝트 & 콘테스트 진행현황</a></li>
+                <li><a ui-sref="projects.project-dash" class="hedr-menu profile-menu">MY 대시보드</a></li>
+                <li><a ui-sref="chat.inbox" class="hedr-menu profile-menu">MY 화상채팅 인박스</a></li>
+                <li><a ui-sref="projects.feedback" class="hedr-menu profile-menu">작업평가</a></li>
+                 <li class="dektop-view-prject  dektop-view-prject">
+                    <ul class="list-inline text-right" style="margin-left: 16.5rem;"> 
+                        <li class="project-li"><a ui-sref="projects.project-post" class="hedr-menu"><button type="button" class="btn post-prjct-btn ">프로젝트 시작</button></a></li>
+                        <li style="color:#fff">오늘의 환율</li>
+                        <li dropdown class="currncy_drpdown">
+                            <a href="" class="dropdown-toggle" data-toggle="dropdown">원화 
+                                <b class="caret"></b>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a href="">Action</a></li>
+                                <li><a href="">Another action</a></li>
+                                <li><a href="">Something else here</a></li>
+                                <li><a href="">Separated link</a></li>
+                                <li><a href="">One more separated link</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                   </li> 
+                </ul>
+        </div>
+    </div>
+    <!-- End: Profile HEADER -->
+    <div ui-view></div>
+</div>

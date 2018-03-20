@@ -1,0 +1,1216 @@
+<section class="container-fluid p-ml-none p-mr-none" ng-controller="ProjectsController" ng-init ="getUserProjects(); ">
+<div class="col-xs-12 col-sm-12 col-md-10 col-lg-10 col-md-offset-1 container-fluid p-ml-none p-mr-none" style="padding-right: 3rem;margin-bottom:100px;">
+	<div style="margin-top:50px;margin-bottom:20px;">
+		<div class="col-xs-12 col-md-4 text-left p-l-none">
+			<h3 class="hidden-xs" style="font-weight: 800;">
+				MY <span style="color:#188ca8">프로젝트</span> ㆍ <span style="color:#a78311">콘테스트</span> 진행현황
+			</h3>
+			<h3 class="hidden-sm hidden-md hidden-lg" style="font-weight: 800;">
+				<b>MY <span style="color:#188ca8">프로젝트</span> ㆍ <span style="color:#a78311">콘테스트</span> 진행현황</b>
+			</h3>
+		</div>	
+     <div class="col-xs-12 col-md-4 pull-right freelnce-tabs p-l-none p-r-none">
+			<button class="btn btn-default btn-md employe-btn" ng-class="{true: 'my-project-tabs', false: '.financial-tabs > li >a'}[isEmployeeProject]" ng-click="showEmployee('employee'); toggleMyProject();">MY 등록현황</button>
+			<button class="btn btn-default btn-md employe-btn" ng-class="{true: 'my-project-tabs', false: '.employe-btn > li >a'}[freelancerProject]" ng-click="showEmployee('freelancer'); toggleMyProject();">MY 지원현황</button>
+		 </div> 
+	</div>
+		<div class="col-xs-12 m-b-lg p-l-none p-r-none" ng-show="!employee">
+		 <!-- <div class="main-body">
+			<div class="col-xs-12">
+		      <div class="row navbar-inverse employee-heading p-t-sm p-b-sm" style="color: white;">
+		        <div class="col-xs-5">
+		          <h6 class="pull-left"><strong>Drafts</strong></h6>
+		        </div>
+		        
+		        <div class="col-xs-4">
+		          <h6><strong>Project type</strong></h6>
+		        </div>
+		        <div class="col-xs-2">
+		          <h6><strong>Action</strong></h6>
+		        </div>
+		      </div>
+		    </div>
+		    <div>
+		    	<div class="row  m-l-none m-r-none">
+		    		<div class="col-xs-5 p-t-md">
+		    			<a ui-sref="#"><strong>Build a website</strong></a>
+		    		</div>
+		    		<div class="col-xs-4  p-t-md">
+		    			<span>Contest</span>
+		    		</div>
+		    		<div class="col-xs-3  p-t-md">
+		    			<div class="btn-group">
+							  <button class="btn btn-default btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+							    select <span class="caret"></span>
+							  </button>
+							  <ul class="dropdown-menu">
+							  	<li selected>select</li>
+							  	<li>Publish</li>
+							  	<li>Edit</li>
+							  	<li>Delete</li>
+							  </ul>
+							</div>
+		    		</div>
+		    	</div>
+		    </div>
+		 </div> -->
+
+    	<br class="hidden-xs">
+    	<br class="hidden-xs">
+    		<div class="tabs-freelncr tabBgColor">
+    	    <uib-tabset active="activeJustified" justified="true">
+
+    	    	<!-- ///////////////////////////////////////////////////////// -->
+    			<uib-tab index="0" heading="프로젝트 등록현황" ng-click="findPostedProjects()">
+    			  <div style="margin-top:20px">
+    				<div class="col-xs-7 col-md-10 p-l-none p-t-lg hidden-xs">
+    					<div class="input-group add-on">
+					      <input class="form-control" style="height: 40px;" placeholder="프로젝트 제목으로 검색 할 수 있습니다" name="srch-term" id="srch-term" type="text" ng-model="searchKeyword">
+					      <div class="input-group-btn">
+					        <button class="btn btn-default" type="submit" style="height: 40px;"><i class="glyphicon glyphicon-search"></i></button>
+					      </div>
+					    </div>
+					  </div>
+					  <!-- <div class="col-xs-5 col-md-2 p-r-none p-t-lg p-ml-none p-mr-none hidden-xs">
+					  	<div class="input-group add-on">
+					      <div class="form-group">
+							<select required class="form-control" style="height: 40px;"></select>
+						  </div>
+					      <div class="input-group-btn">
+					        <button class="btn btn-default" type="submit" style="height: 40px;"><i class="fa fa-refresh" aria-hidden="true"></i></button>
+					      </div>
+					    </div>
+					  </div> -->
+
+					  <div class="col-xs-5 col-md-2 p-r-none p-t-lg p-ml-none">
+					  	<div class="input-group add-on">
+
+					      <!-- <div class="form-group">
+								<select required class="form-control" style="height: 40px;"></select>
+							</div> -->
+							<div class="input-group add-on">
+						    	<div class="input-group-btn">
+						      		<select class="form-control pull-right" ng-model="itemsPerPage" ng-change="perPagee(itemsPerPage)" ng-options="('show '+size+' per page') for size in pageSizes"></select>
+						    	</div>
+						  </div>
+					      <div class="input-group-btn">
+					        <button class="btn btn-default" type="submit" style="height: 34px;"><i class="fa fa-refresh" aria-hidden="true"></i></button>
+					      </div>
+					    </div>
+					  </div>
+
+
+					  <div > 
+					  	<!-- asdf {{authentication.user.myProjects[3]}} -->
+					  	<div class="col-xs-12 text-center main-body p-l-none p-r-none mrgn-botm m-t-lg table-responsive">
+				  	 		<table class="table table-striped table-hover">
+				    		  <tbody><tr class="row navbar-inverse employee-heading p-t-sm p-b-sm" style="color: white;">
+				    		    <th class="id prjct-name"><strong>  프로젝트 제목</strong></th>
+				    		    <th class="description text-left"><strong>지원인원</strong></th>
+				    		    <th class="field3 text-left"><strong>평균 지원금액</strong></th>
+				    		    <th class="field4 text-center"><strong>지원마감일</strong></th>
+				    		    <th class="field5 text-center"><strong>지원자 현황</strong></th>
+				    		    <th></th>
+				    		  </tr>
+				    		  </tbody>
+				    		  <tfoot class="hidden-xs">
+				    		    <tr><td colspan="9">
+				    		      <div class="text-center">
+				    		        <ul class="pagination">
+				    		          <li ng-class="{disabled: currentPage == 0}">
+				    		            <a href="javascript:;" ng-click="prevPage()">« 이전</a>
+				    		          </li>
+				    		          <li ng-repeat="n in range(pagedItems.length)" ng-class="{active: n == currentPage}" ng-click="setPage()">
+				    		            <a href="javascript:;" ng-bind="n + 1">1</a>
+				    		          </li>
+				    		          <li ng-class="{disabled: currentPage == pagedItems.length - 1}">
+				    		            <a href="javascript:;" ng-click="nextPage()">다음 »</a>
+				    		          </li>
+				    		        </ul>
+				    		      </div>
+				    		    </td>
+				    		   </tr>
+				    		  </tfoot>
+				    		  <tbody> 
+				    		    <tr ng-repeat="item in postedProjects | orderBy: '-created' | filter: searchKeyword ">
+				    		      <td class="text-left">
+				    		      	<strong>
+				    		      		<a ui-sref="projects.project-manage({projectId: item.id})" style="display:block; word-wrap:break-word;">{{item.name}}</a>
+				    		      	</strong>
+				    		      </td>
+				    		      <td style="text-align: left;">{{item.bids}}</td>
+				    		      <td style="text-align: left;">{{item.currency.symbol}} {{item.avgBid | number: 0}}원</td>
+				    		      <td>{{item.bidEndDate | date:"y'년' MM'월' d'일'"}}</td>
+				    		       <td class="text-center">
+				    		      	<select class="btn btn-default dropdown-toggle" id="sel1" onchange="location = this.value;">
+										    	<option>선택</option>
+										    	<!-- <option>Retract Bid</option> -->
+										    	<option value="projects/project-manage/{{item.id}}">
+										    		지원자보기
+										    	</option>
+										    	<!-- <option>Send Message</option> -->
+										    	<!-- <option>Clarify</option> -->
+										  	</select>
+								  		</td>        
+				    		    </tr>
+				    		    <tr ng-if="isLoading">
+				    		    	<td class="text-center" colspan="6">
+				    		    		<i class="fa fa-spinner fa-spin fa-3x fa-fw"></i>
+				    		    	</td>
+				    		    </tr>
+					          <tr ng-if="!postedProjects.length && !isLoading">
+                      			<td class="text-center" colspan="6">
+												<h5>프로젝트를 등록하지 않으셨으면 지금 여기에 클릭하고 <a href="projects/project-post">무료 프로젝트 등록</a> 을 하십시오.</a></h5>
+											</td>
+							    	</tr>
+				    		  </tbody>
+				    		</table>
+						</div>
+					   </div> 
+					 </div>
+    				</uib-tab>
+
+    				<!-- /////////////////////////////////////////////////// -->
+
+
+
+				    <uib-tab index="1" heading="진행중인 프로젝트 현황" ng-click="findActivePostedProjects('inProgress')">
+				    	<div class="hidden-xs" style="margin-top:20px">	
+    				<div class="col-xs-7 col-md-10 p-l-none p-t-lg">
+    					<div class="input-group add-on">
+					      <input class="form-control" style="height: 40px;" placeholder="프로젝트 제목으로 검색 할 수 있습니다" name="srch-term" id="srch-term" type="text">
+					      <div class="input-group-btn">
+					        <button class="btn btn-default" type="submit" style="height: 40px;"><i class="glyphicon glyphicon-search"></i></button>
+					      </div>
+					    </div>
+					  </div>
+					  <div class="col-xs-5 col-md-2 p-r-none p-t-lg p-ml-none">
+					  	<div class="input-group add-on">
+					      <div class="input-group add-on">
+						    	<div class="input-group-btn">
+						      		<select class="form-control pull-right" ng-model="itemsPerPage" ng-change="perPagee(itemsPerPage)" ng-options="('show '+size+' per page') for size in pageSizes"></select>
+						    	</div>
+						  </div>
+					      <div class="input-group-btn">
+					        <button class="btn btn-default" type="submit" style="height: 40px;"><i class="fa fa-refresh" aria-hidden="true"></i></button>
+					      </div>
+					    </div>
+					  </div>
+					 </div> 
+					  <div>
+					  	 <div class="col-xs-12 text-center main-body p-l-none p-r-none m-t-lg table-responsive">
+					  	 		<table class="table table-striped table-hover">
+					    		  <tbody>
+						    		 <tr class="row navbar-inverse employee-heading p-t-sm p-b-sm" style="color: white;">
+						    		    <th class="id prjct-name">프로젝트 제목</strong></th>
+										<th class="name text-center"><strong>지원자 아이디</strong></th>
+										<th class="description text-center"><strong>최고 지원 금액</strong></th>
+										<th class="field3 text-center"><strong>마감날짜</strong></th>
+										<th class="field4 text-center"><strong>단계별 지급요청</strong></th>
+										<th class="field5 text-center"><strong>진행상황</strong></th>
+					    		     </tr>
+					    		  </tbody>
+					    		  <tfoot class="hidden-xs">
+					    		    <tr>
+					    		    	<td colspan="9">
+						    		      <div class="text-center">
+						    		        <ul class="pagination">
+						    		          <li ng-class="{disabled: currentPage == 0}">
+						    		            <a href="javascript:;" ng-click="prevPage()">« 이전</a>
+						    		          </li>
+						    		          <li ng-repeat="n in range(pagedItems.length)" ng-class="{active: n == currentPage}" ng-click="setPage()">
+						    		            <a href="javascript:;" ng-bind="n + 1">1</a>
+						    		          </li>
+						    		          <li ng-class="{disabled: currentPage == pagedItems.length - 1}">
+						    		            <a href="javascript:;" ng-click="nextPage()">다음 »</a>
+						    		          </li>
+						    		        </ul>
+						    		      </div>
+						    		    </td>
+						    		  </tr>
+					    		  </tfoot>
+					    		  <tbody>
+					    		    <tr ng-repeat="item in projInProgress | orderBy:'-created' track by $index">
+					    		    <!-- <tr ng-repeat="item in pagedItems[currentPage] | orderBy:sortingOrder:reverse"> -->
+					    		      <td class="text-left"><a href="projects/project-manage/{{item.id}}">{{item.name}}</a></td>
+					    		      <td>{{item.freelancer}}</td>
+					    		      <td>{{item.currency.symbol_native}} {{item.awardedBid | number:0}}</td>
+					    		      <td>{{item.bidEndDate | date:"y'년' MM'월' d'일'"}}</td>
+					    		      <td>{{item.milestones || '0'}}</td>
+    		      	    		      <td class="text-center">
+    		      	    		      	<!-- <select class="btn btn-default dropdown-toggle" id="sel1">
+    		      					    	<option>select</option>
+    		      					    	<option>Edit Project</option>
+    		      					    	<option>Send Message</option>
+    		      					  	</select> -->
+    		      				  	  </td>      
+					    		    </tr>
+					    		</tbody>	
+					    			<tr ng-if="isLoading">
+					    				<td class="text-center" colspan="6">
+					    					<i class="fa fa-spinner fa-spin fa-3x fa-fw"></i>
+					    				</td>
+					    			</tr>
+
+								    <tr ng-if="!projInProgress.length && !isLoading">
+								    <!-- <tr ng-if="!pagedItems[currentPage].length"> -->
+	                                    <td class="text-center" colspan="6">
+											<h5>프로젝트를 등록하지 않으셨으면 지금 여기에 클릭하고 <a href="projects/project-post">무료 프로젝트 등록</a> 을 하십시오.</a></h5>
+										</td>
+								    </tr>
+					    		</table>
+						    </div>
+					  </div>
+				    </uib-tab>
+				    <uib-tab index="2" heading="프로젝트 완료 내역" ng-click="findActivePostedProjects('past')">
+				    	<div class="hidden-xs" style="margin-top:20px">	
+    				<div class="col-xs-7 col-md-10 p-l-none p-t-lg">
+    					<div class="input-group add-on">
+					      <input class="form-control" style="height: 40px;" placeholder="프로젝트 제목으로 검색 할 수 있습니다" name="srch-term" id="srch-term" type="text">
+					      <div class="input-group-btn">
+					        <button class="btn btn-default" type="submit" style="height: 40px;"><i class="glyphicon glyphicon-search"></i></button>
+					      </div>
+					    </div>
+					  </div>
+					  <div class="col-xs-5 col-md-2 p-r-none p-t-lg p-ml-none">
+					  	<div class="input-group add-on">
+					      <div class="input-group add-on">
+						    	<div class="input-group-btn">
+						      		<select class="form-control pull-right" ng-model="itemsPerPage" ng-change="perPagee(itemsPerPage)" ng-options="('show '+size+' per page') for size in pageSizes"></select>
+						    	</div>
+						  </div>
+					      <div class="input-group-btn">
+					        <button class="btn btn-default" type="submit" style="height: 40px;"><i class="fa fa-refresh" aria-hidden="true"></i></button>
+					      </div>
+					    </div>
+					  </div>
+					 </div> 
+					  <div >
+					  	 <div class="col-xs-12 text-center main-body p-l-none p-r-none m-t-lg table-responsive">
+					  	 		<table class="table table-striped table-hover">
+					    		  <tbody><tr class="row navbar-inverse employee-heading p-t-sm p-b-sm" style="color: white;">
+					    		    <th class="id prjct-name">프로젝트 제목</strong></th>
+					    		    <th class="name text-center"><strong>지원인원</strong></th>
+					    		    <th class="name text-center"><strong>지원자 아이디</strong></th>
+					    		    <th class="description text-center"><strong>지원금액</strong></th>
+					    		    <th class="field3 text-center"><strong>날짜</strong></th>
+					    		    <th class="field4 text-center"><strong>작업현황</strong></th>
+					    		    <th class="field5 text-center"><strong>진행상황</strong></th>
+					    		    <th></th>
+					    		  </tr>
+					    		  </tbody>
+					    		  <tfoot class="hidden-xs">
+					    		    <tr><td colspan="9">
+					    		      <div class="text-center">
+					    		        <ul class="pagination">
+					    		          <li ng-class="{disabled: currentPage == 0}">
+					    		            <a href="javascript:;" ng-click="prevPage()">« 이전</a>
+					    		          </li>
+					    		          <li ng-repeat="n in range(pagedItems.length)" ng-class="{active: n == currentPage}" ng-click="setPage()">
+					    		            <a href="javascript:;" ng-bind="n + 1">1</a>
+					    		          </li>
+					    		          <li ng-class="{disabled: currentPage == pagedItems.length - 1}">
+					    		            <a href="javascript:;" ng-click="nextPage()">다음 »</a>
+					    		          </li>
+					    		        </ul>
+					    		      </div>
+					    		    </td>
+					    		  </tr></tfoot>
+					    		  <tbody>
+					    		    <tr ng-repeat="item in pastProjects | orderBy:'-created'">
+					    		    <!-- <tr ng-repeat="item in pagedItems[currentPage] | orderBy:sortingOrder:reverse"> -->
+					    		      <td class="text-left">
+					    		      	<a href="projects/project-manage/{{item.id}}"> {{item.name}} </a>
+					    		      </td>
+					    		      <td>{{item.bids}}</td>
+					    		      <td>{{item.freelancer}}</td>
+					    		      <td>{{item.currency.symbol_native}}{{item.awardedBid | number:1}}</td>
+					    		      <td>{{item.created | date:"y'년' MM'월' d'일'"}}</td>
+					    		      <td>Completed</td>
+    		      	    		      <td class="text-center">
+    		      	    		      	<!-- <select class="btn btn-default dropdown-toggle" id="sel1">
+    		      					    	<option>select</option>
+    		      					    	<option>Edit Project</option>
+    		      					    	<option>Send Message</option>
+    		      					  	</select> -->
+    		      				  	  </td>        
+					    		    </tr>
+
+					    		    <tr ng-if="isLoading">
+					    		    	<td class="text-center" colspan="6">
+					    		    		<i class="fa fa-spinner fa-spin fa-3x fa-fw"></i>
+					    		    	</td>
+					    		    </tr>
+
+								    <tr ng-if="!pastProjects.length && !isLoading">
+									    <!-- <tr ng-if="!pagedItems[currentPage].length"> -->
+		                                <td class="text-center" colspan="7">
+										<h5>프로젝트를 등록하지 않으셨으면 지금 여기에 클릭하고 <a href="projects/project-post">무료 프로젝트 등록</a> 를 하십시오.</a></h5>
+										</td>
+								    </tr>
+					    		  </tbody>
+					    		</table>
+						      
+						    </div>
+					  </div>
+				    </uib-tab>
+				    <uib-tab index="3" heading="콘테스트 등록현황" ng-click="getAllMyContests();">
+				    	<div class="hidden-xs" style="margin-top:20px">	
+    				<div class="col-xs-7 col-md-10 p-l-none p-t-lg">
+    					<div class="input-group add-on">
+					      <input class="form-control" style="height: 40px;" placeholder="콘테스트 제목으로 검색 할 수 있습니다" name="srch-term" id="srch-term" type="text" ng-model="contSearch">
+					      <div class="input-group-btn">
+					        <button class="btn btn-default" type="submit" style="height: 40px;"><i class="glyphicon glyphicon-search"></i></button>
+					      </div>
+					    </div>
+					  </div>
+					  <!-- <div class="col-xs-5 col-md-2 p-r-none p-t-lg p-ml-none">
+					  	<div class="input-group add-on">
+					      <div class="form-group">
+									<select required class="form-control"  style="height: 40px;"></select>
+								</div>
+					      <div class="input-group-btn">
+					        <button class="btn btn-default" type="submit" style="height: 40px;"><i class="fa fa-refresh" aria-hidden="true"></i></button>
+					      </div>
+					    </div>
+					  </div> -->
+
+
+					  <div class="col-xs-5 col-md-2 p-r-none p-t-lg p-ml-none">
+					  	<div class="input-group add-on">
+
+					      <!-- <div class="form-group">
+								<select required class="form-control" style="height: 40px;"></select>
+							</div> -->
+							<div class="input-group add-on">
+						    	<div class="input-group-btn">
+						      		<select class="form-control pull-right" ng-model="itemsPerPage" ng-change="perPagee(itemsPerPage)" ng-options="('show '+size+' per page') for size in pageSizes"></select>
+						    	</div>
+						  </div>
+					      <div class="input-group-btn">
+					        <button class="btn btn-default" type="submit" style="height: 34px;"><i class="fa fa-refresh" aria-hidden="true"></i></button>
+					      </div>
+					    </div>
+					  </div>
+
+
+					 </div> 
+					  <div >
+					  	 <div class="col-xs-12 text-center main-body p-l-none p-r-none m-t-lg table-responsive">
+					  	 		<table class="table table-striped table-hover">
+					    		  <tbody><tr class="row navbar-inverse employee-heading p-t-sm p-b-sm" style="color: white;">
+					    		    <th class="id prjct-name"><strong> 콘테스트 제목</strong></th>
+					    		    <th class="name text-center"><strong>지원인원</strong></th>
+					    		    <th class="description text-center"><strong>상금</strong></th>
+					    		    <!-- <th class="field3 text-center"><strong>MSGS</strong></th> -->
+					    		    <th class="field4 text-center"><strong>마감날짜</strong></th>
+					    		    <!-- <th class="field5 text-center"><strong>ACTION</strong></th> -->
+					    		    <th></th>
+					    		  </tr>
+					    		  </tbody>
+					    		  <tfoot class="hidden-xs">
+					    		    <tr><td colspan="9">
+					    		      <div class="text-center">
+					    		        <ul class="pagination">
+					    		          <li ng-class="{disabled: currentPage == 0}">
+					    		            <a href="javascript:;" ng-click="prevPage()">« 이전</a>
+					    		          </li>
+					    		          <li ng-repeat="n in range(pagedItems.length)" ng-class="{active: n == currentPage}" ng-click="setPage()">
+					    		            <a href="javascript:;" ng-bind="n + 1">1</a>
+					    		          </li>
+					    		          <li ng-class="{disabled: currentPage == pagedItems.length - 1}">
+					    		            <a href="javascript:;" ng-click="nextPage()">다음 »</a>
+					    		          </li>
+					    		        </ul>
+					    		      </div>
+					    		    </td>
+					    		  </tr></tfoot>
+					    		  <tbody>
+					    		  	<!-- ng-repeat="item in pagedItems[currentPage] | orderBy:sortingOrder:reverse" --> 
+					    		    <!-- <tr ng-repeat="contest in myContests | orderBy:'-'" > -->
+					    		    <tr ng-repeat="contest in awardedContests | orderBy: '-created' | filter: contSearch " >
+					    		      <td class="text-left"><a ui-sref="contests.view({contestId: contest._id})">{{contest.name}}</a></td>
+					    		      <td>{{contest.entries.length}}</td>
+					    		      <td>{{contest.sliderContestBudg | currency}}</td>
+					    		      <!-- <td>${{contest.endDate}}</td> -->
+					    		      <td>{{contest.created | date:"y'년' MM'월' d'일'"}}</td>
+					    		      <td class="text-center">
+					    		      	<!-- <select class="btn btn-default dropdown-toggle" id="sel1">
+									    	<option>select</option>
+									    	<option>Edit Project</option>
+									    	<option>Send Message</option>
+									  	</select> -->
+								  	  </td>        
+					    		    </tr>
+
+					    		    <tr ng-if="isLoading">
+					    		    	<td class="text-center" colspan="6">
+					    		    		<i class="fa fa-spinner fa-spin fa-3x fa-fw"></i>
+					    		    	</td>
+					    		    </tr>
+
+							    <!-- <tr ng-if="!pagedItems[currentPage].length"> -->
+							    <tr ng-if="!awardedContests.length && !isLoading">
+                                  <td class="text-center" colspan="6">
+									<h5>컨테스트를 등록하지 않으셨으면 지금 여기에 클릭하고 <a href="contests/contest-post">무료 컨테스트 등록</a> 을 하십시오.</a></h5>
+								  </td>
+							    </tr>
+					    		  </tbody>
+					    		</table>
+						      	
+						    </div>
+					  </div>
+				    </uib-tab>
+				    <uib-tab index="4" heading="상금지급 내역" ng-click="getContestInProgress();">
+				    	<span us-spinner="{radius:30, width:8, length: 16}" spinner-key="contLoader"></span>
+				    	<div class="hidden-xs" style="margin-top:20px;margin-bottom:20px;">	
+    				<div class="col-xs-7 col-md-10 p-l-none p-t-lg">
+    					<div class="input-group add-on">
+					      <input class="form-control" style="height: 40px;" placeholder="콘테스트 제목으로 검색 할 수 있습니다" name="srch-term" id="srch-term" type="text" ng-model="contSearchKeyword">
+					      <div class="input-group-btn">
+					        <button class="btn btn-default" type="submit" style="height: 40px;"><i class="glyphicon glyphicon-search"></i></button>
+					      </div>
+					    </div>
+					  </div>
+					  <!-- <div class="col-xs-5 col-md-2 p-r-none p-t-lg p-ml-none">
+					  	<div class="input-group add-on">
+					      <div class="form-group">
+									<select required class="form-control"  style="height: 40px;"></select>
+								</div>
+					      <div class="input-group-btn">
+					        <button class="btn btn-default" type="submit" style="height: 40px;"><i class="fa fa-refresh" aria-hidden="true"></i></button>
+					      </div>
+					    </div>
+					  </div> -->
+
+					  <div class="col-xs-5 col-md-2 p-r-none p-t-lg p-ml-none">
+					  	<div class="input-group add-on">
+
+					      <!-- <div class="form-group">
+								<select required class="form-control" style="height: 40px;"></select>
+							</div> -->
+							<div class="input-group add-on">
+						    	<div class="input-group-btn">
+						      		<select class="form-control pull-right" ng-model="itemsPerPage" ng-change="perPagee(itemsPerPage)" ng-options="('show '+size+' per page') for size in pageSizes"></select>
+						    	</div>
+						  </div>
+					      <div class="input-group-btn">
+					        <button class="btn btn-default" type="submit" style="height: 34px;"><i class="fa fa-refresh" aria-hidden="true"></i></button>
+					      </div>
+					    </div>
+					  </div>
+
+
+					 </div> 
+					  <div>
+					  	 <div class="col-xs-12 text-center main-body p-l-none p-r-none m-t-lg table-responsive">
+					  	 		<table class="table table-striped table-hover">
+					    		  <tbody><tr class="row navbar-inverse employee-heading p-t-sm p-b-sm" style="color: white;">
+					    		    <th class="id prjct-name"><strong> 콘테스트 제목</strong></th>
+					    		    <th class="name text-center"><strong>지원자 아이디</strong></th>
+					    		    <th class="name text-center"><strong>수상작 제목</strong></th>
+					    		    <th class="description text-center"><strong>지급 상금액</strong></th>
+					    		    <!-- <th class="field3 text-center"><strong>MSGS</strong></th> -->
+					    		    <th class="field4 text-center"><strong>지급 날짜</strong></th>
+					    		    <!-- <th class="field4 text-center"><strong>HANDOVER STATUS</strong></th> -->
+					    		    <!-- <th class="field5 text-center"><strong>ACTION</strong></th> -->
+					    		    <th></th>
+					    		  </tr>
+					    		  </tbody>
+					    		  <tfoot class="hidden-xs">
+					    		    <tr><td colspan="9">
+					    		      <div class="text-center">
+					    		        <ul class="pagination">
+					    		          <li ng-class="{disabled: currentPage == 0}">
+					    		            <a href="javascript:;" ng-click="prevPage()">« 이전</a>
+					    		          </li>
+					    		          <li ng-repeat="n in range(pagedItems.length)" ng-class="{active: n == currentPage}" ng-click="setPage()">
+					    		            <a href="javascript:;" ng-bind="n + 1">1</a>
+					    		          </li>
+					    		          <li ng-class="{disabled: currentPage == pagedItems.length - 1}">
+					    		            <a href="javascript:;" ng-click="nextPage()">다음 »</a>
+					    		          </li>
+					    		        </ul>
+					    		      </div>
+					    		    </td>
+					    		  </tr></tfoot>
+					    		  <tbody>
+					    		    <!-- <tr ng-repeat="item in pagedItems[currentPage] | orderBy:sortingOrder:reverse"> -->
+					    		    <tr ng-repeat="item in contestsWithEntry | orderBy: '-created' | filter: contSearchKeyword ">
+					    		      <td class="text-left">
+					    		      	<strong>
+					    		      		<a ui-sref="contests.view({contestId: item.id})" style="display:block; word-wrap:break-word;">{{item.name}}</a>
+					    		      	</strong>
+					    		      </td>
+					    		      <td>
+					    		      	<strong>
+					    		      		<a ui-sref="profile.outsourcer({profileId: item.freelancerId})" style="display:block; word-wrap:break-word;">{{item.freelancer}}</a>
+					    		      	</strong>
+					    		      </td>
+					    		      <td>{{item.entryName}}</td>
+					    		      <td>₩{{item.entryPrize}}</td>
+					    		      <!-- <td>${{item.actualBid}}</td> -->
+					    		      <td>{{item.created | date:"y'년' MM'월' d'일'"}}</td>
+    		      	    		      <td class="text-center">
+    		      	    		      	<!-- <select class="btn btn-default dropdown-toggle" id="sel1">
+    		      					    	<option>select</option>
+    		      					    	<option>Edit Project</option>
+    		      					    	<option>Send Message</option>
+    		      					  	</select> -->
+    		      				  	  </td>       
+					    		    </tr>
+
+					    		    <tr ng-if="isLoading">
+					    		    	<td class="text-center" colspan="6">
+					    		    		<i class="fa fa-spinner fa-spin fa-3x fa-fw"></i>
+					    		    	</td>
+					    		    </tr>
+
+							    <tr ng-if="!contestsWithEntry.length && !isLoading">
+									<td class="text-center" colspan="7">
+										<h5>콘테스트를 등록하지 않으셨으면 지금 여기에 클릭하시고 <a href="contests/contest-post">무료 콘테스트 등록</a> 을 하십시오.</h5>
+									</td>
+							    </tr>
+					    		  </tbody>
+					    		</table>
+						    </div>
+					  </div>
+				    </uib-tab>
+				    <!-- <uib-tab index="5" heading="Past Contests">
+				    	<div class="hidden-xs">	
+    				<div class="col-xs-7 col-md-10 p-l-none p-t-lg">
+    					<div class="input-group add-on">
+					      <input class="form-control" style="height: 40px;" placeholder="Enter project id contest name etc" name="srch-term" id="srch-term" type="text">
+					      <div class="input-group-btn">
+					        <button class="btn btn-default" type="submit" style="height: 40px;"><i class="glyphicon glyphicon-search"></i></button>
+					      </div>
+					    </div>
+					  </div>
+					  <div class="col-xs-5 col-md-2 p-r-none p-t-lg p-ml-none">
+					  	<div class="input-group add-on">
+					      <div class="form-group">
+									<select required class="form-control" style="height: 40px;"></select>
+								</div>
+					      <div class="input-group-btn">
+					        <button class="btn btn-default" type="submit" style="height: 40px;"><i class="fa fa-refresh" aria-hidden="true"></i></button>
+					      </div>
+					    </div>
+					  </div>
+					 </div> 
+					  <div >
+					  	 <div class="col-xs-12 text-center main-body p-l-none p-r-none m-t-lg table-responsive">
+					  	 <table class="table table-striped table-hover">
+					    		  <tbody><tr class="row navbar-inverse employee-heading p-t-sm p-b-sm" style="color: white;">
+					    		    <th class="id prjct-name">CONTEST NAME</strong></th>
+					    		    <th class="name text-center"><strong>ENTRIES</strong></th>
+					    		    <th class="description text-center"><strong>PRIZE</strong></th>
+					    		    <th class="field3 text-center"><strong>MSGS</strong></th>
+					    		    <th class="field4 text-center"><strong>CONTEST END DATE</strong></th>
+					    		    <th class="field5 text-center"><strong>OUTCOME</strong></th>
+					    		    <th></th>
+					    		  </tr>
+					    		  </tbody>
+					    		  <tfoot class="hidden-xs">
+					    		    <tr><td colspan="9">
+					    		      <div class="text-center">
+					    		        <ul class="pagination">
+					    		          <li ng-class="{disabled: currentPage == 0}">
+					    		            <a href="javascript:;" ng-click="prevPage()">« Prev</a>
+					    		          </li>
+					    		          <li ng-repeat="n in range(pagedItems.length)" ng-class="{active: n == currentPage}" ng-click="setPage()">
+					    		            <a href="javascript:;" ng-bind="n + 1">1</a>
+					    		          </li>
+					    		          <li ng-class="{disabled: currentPage == pagedItems.length - 1}">
+					    		            <a href="javascript:;" ng-click="nextPage()">Next »</a>
+					    		          </li>
+					    		        </ul>
+					    		      </div>
+					    		    </td>
+					    		  </tr></tfoot>
+					    		  <tbody>
+					    		    <tr ng-repeat="item in pagedItems[currentPage] | orderBy:sortingOrder:reverse">
+					    		      <td>{{item.projectName}}</td>
+					    		      <td>{{item.bidsLength}}</td>
+					    		      <td>${{item.yourBid}}</td>
+					    		      <td>${{item.actualBid}}</td>
+					    		      <td>${{item.actualBid}}</td>
+					    		      <td>{{item.created | date}}</td> 
+					    		      
+					    		    </tr>
+							    <tr ng-if="!pagedItems[currentPage].length">
+                                                              <td class="text-center" colspan="7">
+								<h5>You have not posted any contest yet please click <a href="contests/contest-post">Contest Post</a> to post contest.</a></h5>
+								</td>
+							    </tr>
+					    		  </tbody>
+					    		</table>
+						    </div>
+					  </div>
+				    </uib-tab> -->
+				  </uib-tabset>
+    		</div>
+		</div>	
+		<div class="col-xs-12 p-l-none p-r-none" ng-show="!freelancer">
+		<br class="hidden-xs">
+		<br class="hidden-xs">
+			<div class="tabs-freelncr tabBgColor">
+    	    <uib-tabset active="activeJustified" justified="true" >
+    				<uib-tab index="0" heading="지원한 프로젝트 현황" ng-click= "getUserProjects('activeBids')">
+    				<!-- <uib-tab index="0" heading="Active Bids" select= "getUserProjects('activeBids');"> -->
+    			<div class="hidden-xs" style="margin-top:20px;margin-bottom:20px;">	
+    				<div class="col-xs-7 col-md-10 p-l-none p-t-lg">
+    					<!-- For Searching in list -->
+    					<div class="input-group add-on">
+    					  <input type="text" class="form-control search-query" ng-model="query"  placeholder="프로젝트 제목으로 검색 할 수 있습니다" ng-change="searchh(query)" ng-model="searchKeyword">
+    					  <div class="input-group-btn">
+    					    <button class="btn btn-default" ng-click="searchh(query)"><i class="glyphicon glyphicon-search"></i></button>
+    					  </div>
+    					</div>
+    					<!-- <div class="input-group add-on">
+					      <input class="form-control" style="height: 40px;" placeholder="Enter project id contest name etc" name="srch-term" id="srch-term" type="text">
+					      <div class="input-group-btn">
+					        <button class="btn btn-default" type="submit" style="height: 40px;"><i class="glyphicon glyphicon-search"></i></button>
+					      </div>
+					    </div> -->
+					  </div>
+
+					  <div class="col-xs-5 col-md-2 p-r-none p-t-lg p-ml-none">
+					  	<div class="input-group add-on">
+
+					      <!-- <div class="form-group">
+								<select required class="form-control" style="height: 40px;"></select>
+							</div> -->
+							<div class="input-group add-on">
+						    	<div class="input-group-btn">
+						      		<select class="form-control pull-right" ng-model="itemsPerPage" ng-change="perPagee(itemsPerPage)" ng-options="('show '+size+' per page') for size in pageSizes"></select>
+						    	</div>
+						  </div>
+					      <div class="input-group-btn">
+					        <button class="btn btn-default" type="submit" style="height: 34px;"><i class="fa fa-refresh" aria-hidden="true"></i></button>
+					      </div>
+					    </div>
+					  </div>
+					 </div> 
+					  <div >
+					  	 
+					    	<div class="col-xs-12 text-center main-body p-l-none p-r-none mrgn-botm m-t-lg  table-responsive">
+					    	  	<!-- <br><br>
+					    		<a ui-serf="" class="add-prjct-link"><i class="fa fa-trophy" aria-hidden="true"></i><br>
+					    		<h4><strong>Take a skill test</strong></h4><br>Stand out to prospective employers by certifying your skills.
+					    		</a>
+					    		<br><br><br> -->
+
+					    		<table class="table table-striped table-hover">
+					    		  <tbody><tr class="row navbar-inverse employee-heading p-t-sm p-b-sm" style="color: white;">
+					    		    <th class="id prjct-name"><strong>프로젝트 제목</strong></th>
+					    		    <th class="name text-center"><strong>지원인원</strong></th>
+					    		    <th class="description text-center"><strong>지원 금액</strong></th>
+					    		    <th class="field3 text-center"><strong>평균 지원 금액</strong></th>
+					    		    <th class="field4 text-center"><strong>마감날짜</strong></th>
+					    		    <th class="field5 text-right"><strong>현황선택</strong></th>
+					    		    <th></th>
+					    		  </tr>
+					    		  </tbody>
+					    		  <tfoot class="hidden-xs">
+					    		    <tr><td colspan="9">
+					    		      <div class="text-center">
+					    		        <ul class="pagination">
+					    		          <li ng-class="{disabled: myCurrentPage == 0}">
+					    		            <a href="javascript:;" ng-click="prevPage()">« 이전</a>
+					    		          </li>
+					    		          <li ng-repeat="n in range(pagedItems.length)" ng-class="{active: n == myCurrentPage}" ng-click="setPage()">
+					    		            <a href="javascript:;" ng-bind="n + 1">1</a>
+					    		          </li>
+					    		          <li ng-class="{disabled: myCurrentPage == pagedItems.length - 1}">
+					    		            <a href="javascript:;" ng-click="nextPage()">다음 »</a>
+					    		          </li>
+					    		        </ul>
+					    		      </div>
+					    		    </td>
+					    		  </tr></tfoot>
+					    		  <tbody>
+					    		    <!-- <tr ng-repeat="item in pagedItems[myCurrentPage] | orderBy:sortingOrder:reverse | filter: searchKeyword"> -->
+					    		    <tr ng-repeat="item in freelancerActiveProjects | orderBy:'-created' | filter: searchKeyword">
+
+					    		      <td class="text-left"><a ui-sref="projects.view({projectId: item.projectId})">{{item.projectName}} </a></td>
+					    		      <td>{{item.bidsLength}}</td>
+					    		      <td>{{item.currency.symbol}}{{item.yourBid |number:0}}</td>
+					    		      <td>{{item.currency.symbol}}{{item.avgBids |number:0}}</td>
+					    		      <td>{{item.daysRemaining}} 일(Days)</td>
+					    		      <td class="text-right"> 
+					    		      	<select class="btn btn-default dropdown-toggle" ng-model="freelancSelected" ng-change="freelancOption(item.projectId)" onchange="location = this.value;"> 
+									    	<option value= "projects/view/{{item.projectId}}">대금지급 요청</option>
+									    	<!-- <option value="ci" >Create Invoice</option> -->
+									    	<!-- <option>Retract Bid</option> -->
+									    	<option value= "projects/view/{{item.projectId}}">프로젝트 내용</option>
+									    	<!-- <option>Send Message</option> -->
+									    	<!-- <option>Clarify</option> -->
+									  	</select>
+									  </td>
+					    		    </tr>
+					    		    <tr ng-if="isLoading">
+					    		    	<td class="text-center" colspan="6">
+					    		    		<i class="fa fa-spinner fa-spin fa-3x fa-fw"></i>
+					    		    	</td>
+					    		    </tr>
+							    <!-- <tr ng-if="!pagedItems[myCurrentPage].length"> -->
+							    <tr ng-if="!freelancerActiveProjects.length && !isLoading">
+                                    <td class="text-center" colspan="7">
+										<h5>프로젝트에 지원하지 않으셨으면 <a href="projects/project-list"> 프로젝트 검색 </a>를 클릭하여 등록된 모든 프로젝트를보십시오.</h5>
+									</td>
+							    </tr>
+					    		  </tbody>
+					    		</table>
+					    	</div>
+					    	{{tt}}
+					  </div> 
+    				</uib-tab>
+				    <uib-tab index="1" heading="진행중인 프로젝트 현황" ng-click="getUserProjects('CurrentWork')">
+				    	<div class="hidden-xs" style="margin-top:20px;margin-bottom:20px;">	
+    				<div class="col-xs-7 col-md-10 p-l-none p-t-lg">
+    					<div class="input-group add-on">
+    					  <input type="text" class="form-control search-query" ng-model="query"  placeholder="프로젝트 제목으로 검색 할 수 있습니다" ng-change="searchh(query)">
+    					  <div class="input-group-btn">
+    					    <button class="btn btn-default" ng-click="searchh(query)"><i class="glyphicon glyphicon-search"></i></button>
+    					  </div>
+    					</div> 
+					  </div>
+					  <div class="col-xs-5 col-md-2 p-r-none p-t-lg p-ml-none">
+					  	<div class="input-group add-on">
+					     	<div class="input-group add-on">
+						    	<div class="input-group-btn">
+						      		<select class="form-control pull-right" ng-model="itemsPerPage" ng-change="perPagee(itemsPerPage)" ng-options="('show '+size+' per page') for size in pageSizes"></select>
+						    	</div>
+						  </div>
+					      <div class="input-group-btn">
+					        <button class="btn btn-default" type="submit" style="height: 34px;"><i class="fa fa-refresh" aria-hidden="true"></i></button>
+					      </div>
+					    </div>
+					  </div>
+					 </div> 
+					  <div >
+					  	 <div class="col-xs-12 text-center main-body p-l-none p-r-none m-t-lg table-responsive">
+					  	 	<table class="table table-striped table-hover">
+					    		  <tbody><tr class="row navbar-inverse employee-heading p-t-sm p-b-sm" style="color: white;">
+					    		    <th class="id prjct-name"><strong> 프로젝트 제목</strong></th>
+					    		    <th class="name text-center"><strong>의뢰인 아이디</strong></th>
+					    		    <th class="description text-center"><strong>지원 금액</strong></th>
+					    		    <th class="field3 text-center"><strong>마감날짜</strong></th>
+					    		    <th class="field4 text-center"><strong>단계별 지급요청</strong></th>
+					    		    <th class="field5 text-center"><strong>진행상황</strong></th>
+					    		    <th></th>
+					    		  </tr>
+					    		  </tbody>
+					    		  <tfoot class="hidden-xs">
+					    		    <tr><td colspan="9">
+					    		      <div class="text-center">
+					    		        <ul class="pagination">
+					    		          <li ng-class="{disabled: myCurrentPage == 0}">
+					    		            <a href="javascript:;" ng-click="prevPage()">« 이전</a>
+					    		          </li>
+					    		          <li ng-repeat="n in range(pagedItems.length)" ng-class="{active: n == myCurrentPage}" ng-click="setPage()">
+					    		            <a href="javascript:;" ng-bind="n + 1">1</a>
+					    		          </li>
+					    		          <li ng-class="{disabled: myCurrentPage == pagedItems.length - 1}">
+					    		            <a href="javascript:;" ng-click="nextPage()">다음 »</a>
+					    		          </li>
+					    		        </ul>
+					    		      </div>
+					    		    </td>
+					    		  </tr></tfoot>
+					    		  <tbody>
+					    		    <tr ng-repeat="item in freelancerCurrentProjects | orderBy:'-created'">
+					    		    <!-- <tr ng-repeat="item in pagedItems[myCurrentPage] | orderBy:sortingOrder:reverse"> -->
+					    		      <td class="text-left"><a ui-sref="projects.view({projectId: item.projectId})">{{item.projectName}}</a></td>
+					    		      <td>{{item.name}}</td>
+					    		      <td>{{item.currency.symbol}}{{item.yourBid |number:0}} </td>
+					    		      <td>{{item.bidDiffDays}} 일(Days)</td>
+					    		      <td>{{item.mileStoneLength}}</td>
+    		      	    		      <td class="text-center">
+    		      	    		      	<!-- <select class="btn btn-default dropdown-toggle" id="sel1">
+    		      					    	<option>select</option>
+    		      					    	<option>Edit Project</option>
+    		      					    	<option>Send Message</option>
+    		      					  	</select> -->
+    		      				  	  </td> 
+					    		    </tr>
+					    		    <tr ng-if="isLoading">
+					    		    	<td class="text-center" colspan="6">
+					    		    		<i class="fa fa-spinner fa-spin fa-3x fa-fw"></i>
+					    		    	</td>
+					    		    </tr>
+							    <tr ng-if="!freelancerCurrentProjects.length && !isLoading">
+							    <!-- <tr ng-if="!pagedItems[myCurrentPage].length"> -->
+                                                              <td class="text-center" colspan="6">
+								<h5>프로젝트에 지원하지 않으셨으면 <a href="projects/project-list"> 프로젝트 검색 </a>를 클릭하여 등록된 모든 프로젝트를보십시오.</h5>
+								</td>
+							    </tr>
+					    		  </tbody>
+					    		</table>
+						    </div>
+					  </div>
+				    </uib-tab>
+				    <uib-tab index="2" heading="프로젝트 완료 내역" ng-click="getUserProjects('pastWork')">
+				    	<div class="hidden-xs" style="margin-top:20px;margin-bottom:20px;">	
+    				<div class="col-xs-7 col-md-10 p-l-none p-t-lg">
+    					<div class="input-group add-on">
+					      <input class="form-control" style="height: 40px;" placeholder="프로젝트 제목으로 검색 할 수 있습니다" name="srch-term" id="srch-term" type="text">
+					      <div class="input-group-btn">
+					        <button class="btn btn-default" type="submit" style="height: 40px;"><i class="glyphicon glyphicon-search"></i></button>
+					      </div>
+					    </div>
+					  </div>
+					  <div class="col-xs-5 col-md-2 p-r-none p-t-lg p-ml-none">
+					  	<div class="input-group add-on">
+					      <div class="input-group add-on">
+						    	<div class="input-group-btn">
+						      		<select class="form-control pull-right" ng-model="itemsPerPage" ng-change="perPagee(itemsPerPage)" ng-options="('show '+size+' per page') for size in pageSizes"></select>
+						    	</div>
+						  </div>
+					      <div class="input-group-btn">
+					        <button class="btn btn-default" type="submit" style="height: 40px;"><i class="fa fa-refresh" aria-hidden="true"></i></button>
+					      </div>
+					    </div>
+					  </div>
+					 </div> 
+					  <div>
+					  	 <div class="col-xs-12 text-center main-body p-l-none p-r-none m-t-lg table-responsive">
+					  	 <table class="table table-striped table-hover">
+							<tbody>
+								<tr class="row navbar-inverse employee-heading p-t-sm p-b-sm" style="color: white;">
+									<th class="id prjct-name"><strong> 프로젝트 제목</strong></th>
+									<th class="name text-center"><strong>지원인원</strong></th>
+									<th class="description text-center"><strong>의뢰인 아이디</strong></th>
+									<th class="field3 text-center"><strong>지원 금액</strong></th>
+									<th class="field4 text-center"><strong>날짜</strong></th>
+									<th class="field5 text-center"><strong>결과</strong></th>
+									<th></th>
+								</tr>
+							</tbody>
+							<tfoot class="hidden-xs">
+							<tr>
+								<td colspan="9">
+							  		<div class="text-center">
+									    <ul class="pagination">
+									      <li ng-class="{disabled: currentPage == 0}">
+									        <a href="javascript:;" ng-click="prevPage()">« 이전</a>
+									      </li>
+									      <li ng-repeat="n in range(pagedItems.length)" ng-class="{active: n == currentPage}" ng-click="setPage()">
+									        <a href="javascript:;" ng-bind="n + 1">1</a>
+									      </li>
+									      <li ng-class="{disabled: currentPage == pagedItems.length - 1}">
+									        <a href="javascript:;" ng-click="nextPage()">다음 »</a>
+									      </li>
+									    </ul>
+							  		</div>
+								</td>
+							</tr>
+							</tfoot>
+							<tbody>
+								<!-- <tr ng-repeat="item in pagedItems[myCurrentPage] | orderBy:sortingOrder:reverse"> -->
+								<tr ng-repeat="item in freelancerPastProjects | orderBy: '-created' ">
+									<td class="text-left"><a href="projects/view/{{item.projectId}}">{{item.projectName}}</a></td>
+									<td>{{item.bidsLength}}</td>
+									<td>{{item.name}}</td>
+									<td>{{item.currency.symbol_native}}{{item.actualBid |number:0}} 원</td>
+									<td>{{item.created | date}}</td>
+									<td>완료</td>
+								</tr>
+								<tr ng-if="isLoading">
+									<td class="text-center" colspan="6">
+										<i class="fa fa-spinner fa-spin fa-3x fa-fw"></i>
+									</td>
+								</tr>
+								<tr ng-if="!freelancerPastProjects.length && !isLoading">
+								<!-- <tr ng-if="!pagedItems[myCurrentPage].length"> -->
+                                                              <td class="text-center" colspan="7">
+								<h5>프로젝트에 지원하지 않으셨으면 <a href="projects/project-list"> 프로젝트 검색 </a>를 클릭하여 등록된 모든 프로젝트를보십시오.</h5>
+								</td>
+							    </tr>
+							</tbody>
+						 </table>	
+						  </div>
+					  </div>
+				    </uib-tab>
+				    <uib-tab index="3" heading="지원한 콘테스트 현황" ng-click="getAllActiveContests()">
+				    	<div class="hidden-xs" style="margin-top:20px;margin-bottom:20px;">	
+    				<div class="col-xs-7 col-md-10 p-l-none p-t-lg">
+    					<div class="input-group add-on">
+					      <input class="form-control" style="height: 40px;" placeholder="콘테스트 제목으로 검색 할 수 있습니다" name="srch-term" id="srch-term" type="text">
+					      <div class="input-group-btn">
+					        <button class="btn btn-default" type="submit" style="height: 40px;"><i class="glyphicon glyphicon-search"></i></button>
+					      </div>
+					    </div>
+					  </div>
+					  <div class="col-xs-5 col-md-2 p-r-none p-t-lg p-ml-none">
+					  	<div class="input-group add-on">
+					      <div class="input-group add-on">
+						    	<div class="input-group-btn">
+						      		<select class="form-control pull-right" ng-model="itemsPerPage" ng-change="perPagee(itemsPerPage)" ng-options="('show '+size+' per page') for size in pageSizes"></select>
+						    	</div>
+						  </div>
+					      <div class="input-group-btn">
+					        <button class="btn btn-default" type="submit" style="height: 40px;"><i class="fa fa-refresh" aria-hidden="true"></i></button>
+					      </div>
+					    </div>
+					  </div>
+					 </div> 
+					  <div>
+					 </div> 
+					  <div >
+					  	 <div class="col-xs-12 text-center main-body p-l-none p-r-none m-t-lg table-responsive">
+
+					  	 		<table class="table table-striped table-hover">
+					    		  <tbody><tr class="row navbar-inverse employee-heading p-t-sm p-b-sm" style="color: white;">
+					    		    <th class="id prjct-name">콘테스트 제목</strong></th>
+					    		    <th class="name text-center"><strong>지원인원</strong></th>
+					    		    <th class="description text-center"><strong>의뢰인 아이디</strong></th>
+					    		    <th class="field3 text-center"><strong>MY 지원횟수</strong></th>
+					    		    <th class="field4 text-center"><strong>상금</strong></th>
+					    		    <!-- <th class="field5 text-center"><strong>메시지</strong></th> -->
+					    		    <th class="field5 text-center"><strong>마감날짜</strong></th>
+					    		    <th class="field5 text-center"><strong>진행상황</strong></th>
+					    		    <th></th>
+					    		  </tr>
+					    		  </tbody>
+					    		  <tfoot class="hidden-xs">
+					    		    <tr><td colspan="9">
+					    		      <div class="text-center">
+					    		        <ul class="pagination">
+					    		          <li ng-class="{disabled: currentPage == 0}">
+					    		            <a href="javascript:;" ng-click="prevPage()">« 이전</a>
+					    		          </li>
+					    		          <li ng-repeat="n in range(pagedItems.length)" ng-class="{active: n == currentPage}" ng-click="setPage()">
+					    		          <li ng-repeat="n in range(pagedItems.length)" ng-class="{active: n == currentPage}" ng-click="setPage()">
+					    		            <a href="javascript:;" ng-bind="n + 1">1</a>
+					    		          </li>
+					    		          <li ng-class="{disabled: currentPage == pagedItems.length - 1}">
+					    		            <a href="javascript:;" ng-click="nextPage()">다음 »</a>
+					    		          </li>
+					    		        </ul>
+					    		      </div>
+					    		    </td>
+					    		  </tr></tfoot>
+					    		  <tbody>
+					    		    <tr ng-repeat="item in activeContests | orderBy: '-created' | filter: activeContKeyWord">
+					    		    <!-- <tr ng-repeat="item in pagedItems[currentPage] | orderBy:sortingOrder:reverse"> -->
+					    		      <td class="text-left">
+					    		      	<a href="contests/view/{{item._id}}">{{item.name}}</a>
+					    		      </td>
+					    		      <td>{{item.entries.length}}</td>
+					    		      <td>
+					    		      	<a href="outsourcer/{{item.userInfo.profile_id}}">{{item.userInfo.username}}</a>
+					    		      </td>
+					    		      <td>
+					    		      	<a href="#">
+					    		      		{{(item.entries | filter:{entryPersonUserId: authentication.user._id}).length}}
+					    		      	</a>
+					    		      </td>
+					    		      <td>{{item.sliderContestBudg | currency}}</td>
+					    		      <!-- <td>${{item.yourBid}}</td> -->
+					    		      <td>{{item.created | date:"y'년' MM'월' d'일'"}}</td>
+    		      	    		      <td class="text-center">
+    		      	    		      	<!-- <select class="btn btn-default dropdown-toggle" id="sel1">
+    		      					    	<option>select</option>
+    		      					    	<option>Edit Project</option>
+    		      					    	<option>Send Message</option>
+    		      					  	</select> -->
+    		      				  	  </td> 
+					    		    </tr>
+					    		    <tr ng-if="isLoading">
+					    		    	<td class="text-center" colspan="7">
+					    		    		<i class="fa fa-spinner fa-spin fa-3x fa-fw"></i>
+					    		    	</td>
+					    		    </tr>
+								    <tr ng-if="!activeContests.length && !isLoading">
+									    <!-- <tr ng-if="!pagedItems[currentPage].length"> -->
+		                                <td class="text-center" colspan="8">
+										<h5>콘테스트에 지원하지 않으셨으면 <a href="contests/contest-list"> 콘테스트 검색 </a>를 클릭하여 등록된 모든 콘테스트를 확인하십시오.</h5>
+										</td>
+								    </tr>
+					    		  </tbody>
+					    		</table>	
+						    </div>
+					  </div>
+				    </uib-tab>
+				    <!-- <uib-tab index="4" heading="Prizes Won">
+				    	<div class="hidden-xs">	
+    				<div class="col-xs-7 col-md-10 p-l-none p-t-lg">
+    					<div class="input-group add-on">
+					      <input class="form-control" style="height: 40px;" placeholder="Enter project id contest name etc" name="srch-term" id="srch-term" type="text">
+					      <div class="input-group-btn">
+					        <button class="btn btn-default" type="submit" style="height: 40px;"><i class="glyphicon glyphicon-search"></i></button>
+					      </div>
+					    </div>
+					  </div>
+					  <div class="col-xs-5 col-md-2 p-r-none p-t-lg p-ml-none">
+					  	<div class="input-group add-on">
+					      <div class="form-group">
+									<select required class="form-control"  style="height: 40px;"></select>
+								</div>
+					      <div class="input-group-btn">
+					        <button class="btn btn-default" type="submit" style="height: 40px;"><i class="fa fa-refresh" aria-hidden="true"></i></button>
+					      </div>
+					    </div>
+					  </div>
+					 </div> 
+					  <div >
+					  	 <div class="col-xs-12 text-center main-body p-l-none p-r-none m-t-lg table-responsive">
+
+					  	 		<table class="table table-striped table-hover">
+					    		  <tbody><tr class="row navbar-inverse employee-heading p-t-sm p-b-sm" style="color: white;">
+					    		    <th class="id prjct-name">CONTEST NAME</strong></th>
+					    		    <th class="name text-center"><strong>FREELANCE</strong></th>
+					    		    <th class="description text-center"><strong>AWARDED ENTRY</strong></th>
+					    		    <th class="field3 text-center"><strong>AWARDED PRIZE</strong></th>
+					    		    <th class="field4 text-center"><strong>MSGS</strong></th>
+					    		    <th class="field5 text-center"><strong>HANDOVER STATUS</strong></th>
+					    		    <th class="field5 text-center"><strong>ACTION</strong></th>
+					    		    <th></th>
+					    		  </tr>
+					    		  </tbody>
+					    		  <tfoot class="hidden-xs">
+					    		    <tr><td colspan="9">
+					    		      <div class="text-center">
+					    		        <ul class="pagination">
+					    		          <li ng-class="{disabled: currentPage == 0}">
+					    		            <a href="javascript:;" ng-click="prevPage()">« Prev</a>
+					    		          </li>
+					    		          <li ng-repeat="n in range(pagedItems.length)" ng-class="{active: n == currentPage}" ng-click="setPage()">
+					    		            <a href="javascript:;" ng-bind="n + 1">1</a>
+					    		          </li>
+					    		          <li ng-class="{disabled: currentPage == pagedItems.length - 1}">
+					    		            <a href="javascript:;" ng-click="nextPage()">Next »</a>
+					    		          </li>
+					    		        </ul>
+					    		      </div>
+					    		    </td>
+					    		  </tr></tfoot>
+					    		  <tbody>
+					    		    <tr ng-repeat="item in pagedItems[currentPage] | orderBy:sortingOrder:reverse">
+					    		      <td>{{item.projectName}}</td>
+					    		      <td>{{item.bidsLength}}</td>
+					    		      <td>${{item.yourBid}}</td>
+					    		      <td>${{item.actualBid}}</td>
+					    		      <td>${{item.yourBid}}</td>
+					    		      <td>${{item.actualBid}}</td>
+					    		      <td>{{item.created | date}}</td>
+    		      	    		      <td class="text-center">
+    		      	    		      	
+    		      				  	  </td> 
+					    		    </tr>
+							    		<tr ng-if="!pagedItems[currentPage].length">
+                    		<td class="text-center" colspan="8">
+													<h5>You have not made any entry yet please click <a href="contests/contest-list">Browse Contests</a> to view all posted contests.</a></h5>
+												</td>
+							    		</tr>
+					    		  </tbody>
+					    		</table>
+						    </div>
+					  </div>
+				    </uib-tab> -->
+				    <uib-tab index="4" heading="콘테스트 완료 내역" ng-click="getAllPastContests()">
+				    <div class="hidden-xs" style="margin-top:20px;margin-bottom:20px;">	
+	    				<div class="col-xs-7 col-md-10 p-l-none p-t-lg">
+	    					<div class="input-group add-on">
+						      <input class="form-control" style="height: 40px;" placeholder="Enter project id contest name etc" name="srch-term" id="srch-term" type="text">
+						      <div class="input-group-btn">
+						        <button class="btn btn-default" type="submit" style="height: 40px;"><i class="glyphicon glyphicon-search"></i></button>
+						      </div>
+						    </div>
+						  </div>
+						  <div class="col-xs-5 col-md-2 p-r-none p-t-lg p-ml-none">
+						  	<div class="input-group add-on">
+						      <div class="input-group add-on">
+						    	<div class="input-group-btn">
+						      		<select class="form-control pull-right" ng-model="itemsPerPage" ng-change="perPagee(itemsPerPage)" ng-options="('show '+size+' per page') for size in pageSizes"></select>
+						    	</div>
+						  </div>
+						      <div class="input-group-btn">
+						        <button class="btn btn-default" type="submit" style="height: 40px;"><i class="fa fa-refresh" aria-hidden="true"></i></button>
+						      </div>
+						    </div>
+						  </div>
+					 </div> 
+					  <div >
+					  	 <div class="col-xs-12 text-center main-body p-l-none p-r-none m-t-lg table-responsive">
+
+					  	 		<table class="table table-striped table-hover">
+					    		  <tbody><tr class="row navbar-inverse employee-heading p-t-sm p-b-sm" style="color: white;">
+					    		    <th class="id prjct-name">콘테스트 제목</strong></th>
+					    		    <th class="name text-center"><strong>지원인원</strong></th>
+					    		    <th class="description text-center"><strong>의뢰인 아이디</strong></th>
+					    		    <!-- <th class="field3 text-center"><strong>MY ENTRIES</strong></th> -->
+					    		    <th class="field3 text-center"><strong>수상작</strong></th>
+					    		    <th class="field4 text-center"><strong>지급 상금액</strong></th>
+					    		    <!-- <th class="field4 text-center"><strong>메시지</strong></th> -->
+					    		    <th class="field5 text-center"><strong>날짜</strong></th>
+					    		    <th class="field5 text-center"><strong>결과</strong></th>
+					    		    <th></th>
+					    		  </tr>
+					    		  </tbody>
+					    		  <tfoot class="hidden-xs">
+					    		    <tr><td colspan="9">
+					    		      <div class="text-center">
+					    		        <ul class="pagination">
+					    		          <li ng-class="{disabled: currentPage == 0}">
+					    		            <a href="javascript:;" ng-click="prevPage()">« 이전</a>
+					    		          </li>
+					    		          <li ng-repeat="n in range(pagedItems.length)" ng-class="{active: n == currentPage}" ng-click="setPage()">
+					    		            <a href="javascript:;" ng-bind="n + 1">1</a>
+					    		          </li>
+					    		          <li ng-class="{disabled: currentPage == pagedItems.length - 1}">
+					    		            <a href="javascript:;" ng-click="nextPage()">다음 »</a>
+					    		          </li>
+					    		        </ul>
+					    		      </div>
+					    		    </td>
+					    		  </tr></tfoot>
+					    		  <tbody>
+					    		    <tr ng-repeat="item in pastContests | orderBy: '-created' | filter: activeContKeyWord">
+					    		    <!-- <tr ng-repeat="item in pagedItems[currentPage] | orderBy:sortingOrder:reverse"> -->
+					    		      <td class="text-left"><a href="contests/view/{{item._id}}">{{item.name}}</a></td>
+					    		      <td>{{item.entries.length}}</td>
+					    		      <td><a href="outsourcer/{{item.userInfo.profile_id}}">{{item.userInfo.username}}</a></td>
+					    		      <!-- <td>{{item.myentries}}</td> -->
+					    		      <td ng-repeat="i in item.entries | filter:{youWinner: 'yes'}"> 
+					    		      	<span>{{ i.entryName}}</span>
+					    		      </td>
+					    		      <td ng-repeat="i in item.entries | filter:{youWinner: 'yes'}"> 
+					    		      	<span>{{ i.entrySellPrice}}</span>
+					    		      </td>
+					    		      <td ng-repeat="i in item.entries | filter:{youWinner: 'yes'}"> 
+					    		      	<span>{{ i.created | date:"y'년' MM'월' d'일'"}}</span>
+					    		      </td>
+					    		      <td> Accepted</td>
+					    		    </tr>
+
+					    		    <tr ng-if="isLoading">
+					    		    	<td class="text-center" colspan="7">
+					    		    		<i class="fa fa-spinner fa-spin fa-3x fa-fw"></i>
+					    		    	</td>
+					    		    </tr>
+								    <!-- <tr ng-if="!pagedItems[currentPage].length"> -->
+								    <tr ng-if="!pastContests.length && !isLoading">
+		                                <td class="text-center" colspan="9">
+										<h5>콘테스트에 지원하지 않으셨으면 <a href="contests/contest-list"> 콘테스트 검색 </a>를 클릭하여 등록된 모든 콘테스트를 확인하십시오.</h5>
+										</td>
+								    </tr>
+					    		  </tbody>
+					    		</table>
+						    </div>
+					  </div>
+				    </uib-tab>
+				  </uib-tabset>
+    		</div>
+		</div>
+		
+	</div>
+</div>
+
+<!-- chatWindow -->
+<div  ng-show="authentication.user">
+  <footer ng-include="'/modules/core/client/views/chatWindow.html'" ></footer>
+</div>
+
+</section>

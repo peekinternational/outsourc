@@ -1,0 +1,74 @@
+<section ng-controller="ContestsController">
+	<div class="container-fluid" style="margin-right: 10rem; margin-left: 12rem;">
+		<div class="col-xs-12">
+			<div class="">
+				<h2><strong>Credit Card Details</strong></h2>
+				<div class="col-xs-6 card-div">
+				 <div class="col-xs-12 p-t-lg">
+					<form name="userForm" ng-submit="signin(userForm.$valid)" class="signin" novalidate autocomplete="off">
+            <fieldset>
+              <div class="form-group" show-errors>
+              <label>Card Number</label>
+                <input type="text" id="username" name="username" class="form-control" ng-model="credentials.username" placeholder="Username" lowercase required>
+                <div ng-messages="userForm.username.$error" role="alert">
+                   <p class="help-block error-text" ng-message="required">Card Number is required.</p>
+                </div>
+              </div>
+              <div class="form-group" show-errors>
+              	<div class="row">
+	              	<div class="col-xs-6 p-t-lg">
+			              <label>Expiry Date</label>
+			                <input type="text" id="username" name="username" class="form-control" ng-model="credentials.username" placeholder="Username" lowercase required>
+			                <div ng-messages="userForm.username.$error" role="alert">
+			                   <p class="help-block error-text" ng-message="required">Expiry Date is required</p>
+			                </div>
+			            </div> 
+			            <div class="col-xs-6"></div>
+			          </div>     
+              </div>
+              
+              <div class="form-group" show-errors>
+              	<div class="col-xs-6 p-l-none p-t-lg">
+		              <label>Expiry Date</label>
+		                <input type="text" id="username" name="username" class="form-control" ng-model="credentials.username" placeholder="Username" lowercase required>
+		                <div ng-messages="userForm.username.$error" role="alert">
+		                   <p class="help-block error-text" ng-message="required">Expiry Date is required</p>
+		                </div>
+		            </div>    
+              </div>
+              <div class="form-group" show-errors>
+              	<div class="col-xs-6 p-r-none p-t-lgg">
+		              <p>Last 3 digits will be displayed on back side of your credit card</p>
+		            </div>    
+              </div>
+              <div class="form-group" show-errors>
+               
+              	<p>You agree to authorize the use of your credit card for this deposit and future payments. We will charge your card in
+	              	<select class="crncy-dropdown">
+		              	<option>USD</option>
+		              	<option>AUD</option>
+		              	<option>EUP</option>
+		              	<option>NZD</option>
+		              	<option>MXN</option>
+		              	<option>CAD</option>
+		              	<option>PLN</option>
+		              	<option>ZAR</option>
+		              	<option>MYR</option>
+		              	<option>HKD</option>
+		              	<option>JMD</option>
+		              	<option>CLP</option>
+	                </select>
+                </p> 
+              </div>
+              <div class="form-group" show-errors>
+              <button class="btn btn-lg btn-default">Continue</button>
+              </div>
+             </fieldset>
+          </form>
+         </div>     
+				</div>
+			</div>
+			</div>
+		</div>
+	</div>
+</section>	

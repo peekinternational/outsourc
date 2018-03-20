@@ -1,0 +1,136 @@
+<style>
+body {
+	background:#f2f2f2;
+}
+</style>
+
+<div class="row project-backgroundimage5 hidden-xs">
+        <div class="container about-investor-title-setting">
+<br>
+            <h3 class="investor-heading p-t-sm" style="font-size:20px;">목록ㆍ공지ㆍ계정 설정</h3>
+            <h3 class="investor-para">
+               
+            </h3>
+            <br><br>
+          </div>
+      </div>
+
+
+<section ng-controller="EditProfileController" ng-init="universalData();">
+
+  <div class="row" style="background-color: white" >
+    <div class="col-xs-12">
+      <div class="row paddingEveryRow" style="padding-top: 4%;"">
+          <h1><b>계정</b></h1>
+      </div>
+    <hr>
+<!-- part 1 -->
+
+    <!-- testing end -->
+     <!-- 1 -->
+  <form name="userForm" ng-submit="updateUserProfile(userForm.$valid)" class="signin" novalidate autocomplete="off">
+   <div class="row paddingEveryRow">
+        <h4><b>프리랜서 목록 설정하기</b></h4><br>
+       <div>
+           <label class="switch">
+             <input type="checkbox" checked ng-model="user.notificationsOnOff.hireMeForProjects" ng-click="updateUserProfile(true);">
+             <div class="slider round"></div>
+           </label> &nbsp
+           <label>프로젝트 작업을 위해서 본인을 채용 할 수 있도록 프리랜서 목록에 등록을 원합니다.</label>
+        </div>
+        <!-- Value: {{user.notificationsOnOff.hireMeForProjects}} -->
+        <div class="">
+            <label class="switch">
+              <input type="checkbox" checked ng-model="user.notificationsOnOff.allowFollowMe" ng-click="updateUserProfile(true);">
+              <div class="slider round"></div>
+            </label> &nbsp
+            <label>프로젝트ㆍ콘테스트ㆍ서비스 채용 등록 후에 모든 프리랜서들에게 공지를 원합니다.</label>
+         </div>       
+         <!-- Value: {{user.notificationsOnOff.allowFollowMe}} -->
+   </div>
+   <hr>
+   <!-- 2 -->
+   <div class="row paddingEveryRow">
+        <h4><b>계정 선택</b></h4><br>
+       <label>본인의 계정변경을 원할 경우:</label> <br>       
+         <input type="radio" name="userRole" value="work" ng-model="user.userRole" />&emsp; 프리랜서 &emsp;
+         <input type="radio" name="userRole" value="hire" ng-model="user.userRole" />&emsp; 의뢰인        
+   </div>
+   <hr>
+   <!-- 3 -->
+    <!-- <div class="row paddingEveryRow">
+         <h4><b>Close Account</b></h4><br> 
+          <button type="button" class="btn" ng-click="showHideCloseButton();">Close My Account</button>    
+    </div> -->
+  <!-- open new div -->
+
+    <div class="row paddingEveryRow" ng-show="visibleshowHideCloseButton" class="ng-hide">
+     <div class="alert alert-success">
+       <h3 style="margin-top: 0px"><strong>Alternatives to closing</strong></h3>
+       <a ui-sref="settings.notifications">Adjust my email notification settings</a>
+       <p>Are we sending you too many email notifications? Change your notification preferences.</p><br>
+       <a href="get-support">Contact Support</a>
+       <p>We're available 24/7 to assist you with any issues.</p>
+     </div>
+    <div>
+      <label>Tell us why are you leaving?</label>
+      <div class="radio">
+        <label><input type="radio" value="I have privacy concerns" ng-model="user.whyClosingAccount"> I have privacy concerns</label>
+      </div>
+      <div class="radio">
+        <label><input type="radio" value="I don't find it helpful" ng-model="user.whyClosingAccount"> I don't find it helpful</label>
+      </div>
+      <div class="radio">
+        <label><input type="radio" value="I receive too many notifications" ng-model="user.whyClosingAccount"> I receive too many notifications</label>
+      </div>
+      <div class="radio">
+        <label><input type="radio" value="I don't understand how to use the site" ng-model="user.whyClosingAccount"> I don't understand how to use the site</label>
+      </div>
+      <div class="radio">
+        <label><input type="radio" value="It's temporary I'll be back" ng-model="user.whyClosingAccount"> It's temporary I'll be back</label>
+      </div>
+      <div class="radio">
+        <label><input type="radio" value="Other" ng-model="user.whyClosingAccount"> Other</label>
+      </div>
+    </div><br>
+     <div>
+       <label>Your feedback is valuable to us:</label><br>
+       <!-- <input type="textarea" name="feedbackBeforeClosing" rows="4" cols="50" ng-model="user.feedbackBeforeClosing"> -->
+       <textarea name="feedbackBeforeClosing" rows="4" cols="100%" ng-model="user.feedbackBeforeClosing"></textarea>
+       <!-- feedback: {{user.feedbackBeforeClosing}} -->
+     </div><br>
+     <div>
+       <label>Can we contact you for more details?</label> <br>
+         <input type="radio" name="contactAfterClosing" value="yes" ng-model="user.contactAfterClosing"/>&emsp; Yes &emsp;
+         <input type="radio" name="contactAfterClosing" value="no" ng-model="user.contactAfterClosing"/>&emsp; No
+     </div><br>
+       <div>
+           <strong>What closing your account means:</strong><br>
+           <ul>
+               <li>Your profile and any listings will disappear</li>
+               <li>You will no longer receive notifications from us</li>
+               <li>You will not be able to log back into the site</li>
+               <li>More importantly - We'll miss you!</li>
+           </ul>
+       </div><br><br>
+       <div>
+         <button type="button" class="btn btn-basic" style="width: 27%;" ng-click="showHideCloseButton();">Don't close My Account</button>
+         <button type="button" class="btn btn-danger" style="width: 27%;">Close My Account</button>
+       </div>
+    </div>
+  <!-- new div end -->
+  <hr>
+   <!-- 4 -->
+   <div class="text-center">
+    <button type="submit" class="btn btn-primary" style="width: 20%;">설정 하기</button>
+   </div>
+   <div ng-show="success" class="text-center text-success">
+     <strong>프로필이 성공적으로 완료 되었습니다</strong>
+   </div>
+   </form>
+   <br><br>
+
+</div>
+   
+</div>
+</section>

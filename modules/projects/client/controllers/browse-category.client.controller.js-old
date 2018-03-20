@@ -1,0 +1,82 @@
+'use strict';
+
+angular.module('projects').controller('BrowseCatCtrl', ['$scope', '$rootScope', '$filter' ,'$state', '$location','$http', '$timeout', '$window', 'Authentication', 'Projects', 'Categories', 'SubCategories', 'Skills',
+  function ($scope, $rootScope, $filter, $state, $location, $http, $timeout, $window, Authentication, Projects, Categories, SubCategories, Skills) {
+    $scope.authentication = Authentication;
+
+    // Get all categories
+    var getAllCat = function(){
+      $scope.isLoading = true;
+      Categories.find({}, function(res, err){
+        $rootScope.categories = res;
+
+        Projects.query().$promise.then(function(res, err){
+          $rootScope.Pros = res;
+        });
+
+        Skills.find({}, function(res, err){
+          $rootScope.allSkills = res;
+          $scope.isLoading = false;
+        });
+
+      });
+    };
+
+    // If Cat detail page has catId
+    if($state.params.categoryId && $rootScope.categories ){
+      $scope.isLoading = true;
+      $scope.subCategories = [];
+      var skill = $scope.skills = [];
+
+      var cat = ($filter('filter')($rootScope.categories, {'id':$state.params.categoryId}))[0]; 
+
+      SubCategories.find({}, function(res, err){
+        var subCat = res;
+        subCat.forEach(function(val1, key1){
+          cat.subCategories.forEach(function(val2, key2){
+            if(angular.equals(val1.id, val2)){
+              $scope.subCategories.push(val1);
+              if(val1.skills){
+                skill = skill.concat(val1.skills);
+              }
+            }
+
+          });
+        });
+
+        $rootScope.allSkills.forEach(function(val1, key1){
+          skill.forEach(function(val2, key2){
+            if(angular.equals(val2, val1.id)){
+              val1.count = 0;
+              $scope.skills.push(val1);
+            }
+          });
+        });
+
+        // Remove duplicate skills
+        $scope.skills = Array.from(new Set($scope.skills));
+
+        // Count the skills with respect to projects
+        var projSkills = [];
+        $rootScope.Pros.forEach(function(proj, key){
+          projSkills = projSkills.concat(proj.skills); 
+        });
+
+        for(var i=0; i<$scope.skills.length; i++){
+          for(var j=0; j<projSkills.length; j++){
+            if( $scope.skills[i].name === projSkills[j].name ){
+              $scope.skills[i].count +=1;
+            }
+          }
+        }
+
+        $scope.isLoading = false;
+      });
+    }
+
+    // Get Cat once
+    if(!$rootScope.categories && !$rootScope.allSkills && !$rootScope.Pros)
+      getAllCat();
+
+  }
+]);

@@ -1,0 +1,228 @@
+<section ng-controller="ChatController" class="p-t-lg">
+   <div class="col-xs-12 col-sm-12 col-md-10 col-lg-10 col-md-offset-1 container-fluid p-ml-none p-mr-none">
+      <!-- to show the latest con data in window 2 -->
+      <!-- <div ng-if="okCallFunction === 1 && convToOpenFromProjects !== 1">
+         <div ng-repeat="conversation in conversations | orderBy: 'lastMessageAt': true | limitTo: 1"> -->
+      <!-- conversation:{{conversation}} -->
+      <!-- <div ng-init="getConversation(conversation);"></div>
+         </div>
+         </div> -->
+      <!-- end to show the latest con data in window 2 -->
+      <!-- open from project manage page -->
+      <!--  <div ng-if="convToOpenFromProjects === 1">
+         <div ng-init="getConversation(convToOpen);"></div>
+         </div> --> 
+      <div>
+         <div class="col-xs-12 col-md-4 p-ml-none p-mr-none">
+            <div class="profile_container bordortop_styling p-l-sm msg-div" ng-show="contactDetail">
+               <h5 class="text-center"><strong>MY 채팅 인박스</strong></h5>
+               <hr class="m-t-sm m-b-sm" style="margin-left: -10px;">
+               <!-- conversations[0]:{{conversations[0]}} -->
+               <div class="form-group">
+                  <div class="input-group add-on">
+                     <input class="form-control" placeholder="프로젝트 제목 또는 회원이름을 검색" ng-model="searchUsername" type="text">
+                     <div class="input-group-btn">
+                        <button class="btn btn-default serch-btn" type="submit"><i class="glyphicon glyphicon-search"></i></button>
+                     </div>
+                  </div>
+               </div>
+               <hr class="m-b-none m-t-xs" style="margin-left: -10px;">
+               <div style="overflow: hidden; overflow-y: auto; height: 39.5rem;">
+                  <div class="msg-details">
+                     <!-- Main Div of Mesaages -->
+                     <div class="row m-t-xs" ng-repeat="conversation in conversations | filter: searchUsername  | orderBy: 'lastMessageAt' : true" ng-if="conversations">
+                        <!--  lastMessage: {{conversation.lastMessage}}<br> 
+                           lastMessage: {{conversation.lastMessageAt | date}} -->
+                        <!-- ng-repeat="reader in book.reader | orderBy: '-created_at' | limitTo: 1"> -->
+                        <a href="#" class="col-xs-3 p-r-none">
+                           <div>
+                              <!-- <img ng-src="{{conversation.profileImageURL}}" class="img-circle img-responsive" ng-click="getConversation(conversation); scrollBottom(); conversation.hasUnreadMessages = false;  messageDetail();" style="width:51px; height:51px; position: relative;"> -->
+                              <img ng-src="{{conversation.profileImageURL}}" class="img-circle img-responsive" ng-click="getConvoByCid(conversation.id); conversation.hasUnreadMessages = false; messageDetail();" style="width:45px; height:45px; position: relative;">
+                           </div>
+                        </a>
+                        <!-- <div class="col-xs-9"  ng-click="getConversation(conversation); scrollBottom(); conversation.hasUnreadMessages = false; messageDetail();"> -->
+                        <a href="#" class="col-xs-9 p-l-none">
+                           <div  ng-click="getConvoByCid(conversation.id); conversation.hasUnreadMessages = false; messageDetail();">
+                              
+                              <span>
+                                 <span ng-class='{ unread: conversation.hasUnreadMessages}'>
+                                    {{conversation.username || 'username'}}
+                                 </span>
+                                 <span class="label label-danger" ng-if="conversation.hasUnreadMessages">unread</span>
+                              </span><br>
+
+                              <span ng-show="conversation.status === 'online'"><i class="fa fa-circle text-green" style="color: #00d88a; position: absolute; left: -3.5rem; top: 3rem;"></i></span> 
+                              <span ng-show="conversation.status !== 'online'"><i class="fa fa-circle text-green" style="color: #BEC0C2; position: absolute; left: -3.5rem; top: 3rem;"></i></span>
+                              <span style="color: rgba(51, 122, 183, 0.61); text-decoration: none;">{{conversation.projectTitle | limitTo: 29}}...</span>
+                              <!-- <p ng-if="conversation.hasUnreadMessages">has new message</p> -->
+                           </div>
+                        </a>
+                     </div>
+                     <!-- end of Main Div of Mesaages -->
+                     <div ng-if="conversations.length == 0" class="text-center p-t-sm">
+                        <span>채팅가능한 회원이 없습니다.</span>
+                     </div>
+                     <hr>
+                  </div>
+               </div>
+               <!-- End of Message div -->
+            </div>
+         </div>
+         <!-- second window -->
+         <div class="col-xs-12 col-md-8 m-b-lg" ng-show="mobileView" style="padding-left: 0; padding-right: 0;">
+            <div class="profile_container bordortop_styling p-l-md div-shadow">
+               <div class="row" style="height: 42px;">
+                  <div class="col-xs-12 col-md-9">
+                     <h4 style="display: flex; color: black;" class="m-t-xs m-b-xs mobile-view-prjct">
+                        <strong>{{conversationWith}}</strong>
+                        <a ui-sref="projects.view({projectId: conversationWithProLink})" style="margin-left: 20px; color: #337ab7; text-decoration: none;">{{conversationWithProject | limitTo: 70}}</a>
+                     </h4>
+                  </div>
+                  <div class="col-xs-3 col-md-3 hidden-xs m-t-xs">
+                     <span>
+                     <a href="#" style="text-decoration: none;"><i class="fa fa-phone iconSettingChating" aria-hidden="true"></i></a>&nbsp  
+                     <a href="#" style="text-decoration: none;text-align:center;"> <i ng-click="makeVideoCall(conversationWith)" class="iconSettingChating fa fa-video-camera" aria-hidden="true" popover-title="화상 통화" uib-popover="채팅은 프로젝트 및 콘테스트 건별로 구매시점부터 완료까지 사용할 수 있으며 채팅구매시 화상(비디오)은 무료이용 혜택을 받을 수 있습니다." popover-trigger="'mouseenter'"></i></a>  
+                     </span>
+                  </div>
+               </div>
+
+               <a ng-click="contct()" class="hidden-md hidden-sm hidden-lg"><i class="fa fa-home" aria-hidden="true"></i> >MY 채팅 인박스 돌아가기</a>
+               <hr class="m-t-xs m-b-none" style="margin-left: -10px;">
+               <div id="scrollBottomInbox" style="overflow: hidden; overflow-y: auto; height: 35rem;">
+
+                  <!-- loading -->
+                  <div ng-if="isLoading" class="text-center">
+                    <i class="fa fa-spinner fa-spin fa-3x fa-fw"></i>
+                  </div>
+                  
+                  <div data-spy="scroll" ng-repeat="messages in chatmessages track by $index">
+                     <!-- <div class="msg-detail" data-spy="scroll" ng-repeat="messages in chatmessages"> -->
+                     <!-- Message Details Div -->
+                     <!-- sender -->
+                     <div class="row m-t-xs" ng-if="messages.sender == currentUserData.username">
+                        <div class="col-xs-2">
+                           <!-- <p class="m-b-none hidden-xs">{{messages.time | date:'shortTime'}}</p> -->
+                           <p class="m-b-none hidden-xs">
+                              <time am-time-ago="messages.time"></time></span>
+                           </p>
+                        </div>
+                        <div class="col-xs-8 p-ml-none">
+                           <p class="m-b-none hidden-sm hidden-md hidden-lg">{{messages.time | date:'shortTime'}}</p>
+                           <div class="chat_talk-bubble chat_tri-right right-in" style="background: rgba(218, 218, 218, 0.42); padding: 4px 15px 4px 15px; word-break: break-word; border-radius: 4px 0px 4px 4px;">
+
+                              <!-- <p class="m-b-none">{{messages.message}} </p> -->
+                              <p class="m-b-none" ng-bind-html="messages.message"></p>
+                           </div>
+                        </div>
+                        <div class="col-xs-2 p-ml-none p-mr-none hidden-xs">
+                           <img style="height:3.5rem; width: 3.5rem;" ng-src="{{currentUserData.profileImageURL}}" class="img-circle img-responsive">
+                        </div>
+                        <div class="col-xs-2 p-ml-none p-mr-none hidden-sm hidden-md hidden-lg">
+                           <img style="height:3.5rem; width: 3.5rem;" ng-src="{{currentUserData.profileImageURL}}" class="img-circle img-responsive">
+                        </div>
+                     </div>
+                     <!-- receiver -->
+                     <div class="row m-t-xs" ng-if="messages.sender != currentUserData.username">
+                        <div class="col-xs-2 hidden-xs">
+                           <img style="height:3.5rem; width: 3.5rem;" ng-src="{{userTwoImgUrl}}" class="img-circle img-responsive">
+                        </div>
+                        <div class="col-xs-2 p-mr-none hidden-sm hidden-md hidden-lg">
+                           <img style="height:3.5rem; width: 3.5rem;" ng-src="{{userTwoImgUrl}}" class="img-circle img-responsive">
+                        </div>
+                        <div class="col-xs-8 p-ml-none">
+                           <p class="m-b-none hidden-md hidden-sm hidden-lg">{{messages.time | date:'shortTime'}}</p>
+                           <div class="chat_talk-bubble chat_tri-right left-in" style="background: rgba(0, 102, 255, 0.14); padding: 4px 15px 4px 15px; word-break: break-word; border-radius: 0px 4px 4px 4px;">
+                              <!-- <p class="m-b-none">{{messages.message}} </p> -->
+                              <p class="m-b-none" ng-bind-html="messages.message"></p>
+                           </div>
+                        </div>
+                        <div class="col-xs-2">
+                           <!-- <p class="m-b-none hidden-xs">{{messages.time | date:'shortTime'}}</p> -->
+                           <p class="m-b-none hidden-xs"><span> <time am-time-ago="messages.time"></time></span></p>
+                        </div>
+                     </div>
+                  </div>
+                  <!-- when no conversation is there -->
+                  <div ng-if="conversations.length == 0 && !isLoading" class="text-center" style="padding-top:4rem;">
+                     <h3 class="text-center">메시지가 없습니다.</h3>
+                     <div class="col-md-offset-2 col-md-8">
+                        <span>아웃소싱 오케이 실시간 채팅에 연결하면 여기에 메시지가 표시됩니다. 프로젝트를 시작 또는 프리랜서와 상담 하십시오.</span>
+                        <br>
+                        <h5><b>아웃소싱 오케이 실시간 채팅 연결 상태 유지:</b></h5>
+                        <br>
+                        <div class="col-md-5" style="text-align: -webkit-center; padding-top: 3rem;">
+                           <div class="img-circle chat-circle ">
+                              <i class="fa fa-comments-o p-t-xs" aria-hidden="true" style="color: #fff"></i>
+                           </div>
+                           <h5><b class="text-muted">실시간 채팅</b></h5>
+                           <span>실시간 동기화</span>
+                        </div>
+                        <div class="col-md-offset-2 col-md-5 p-l-none p-r-none" style="text-align: -webkit-center; padding-top: 3rem;">
+                           <div class="img-circle chat-circle">
+                              <i class="fa fa-comments-o p-t-xs " aria-hidden="true" style="color: #fff"></i>
+                           </div>
+                           <h5><b class="text-muted">정렬된 채팅</b></h5>
+                           <span>프로젝트별로 메시지 정렬</span>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+               <!-- End Message Detail div -->
+               <div class="message-textBox">
+                  <form id="txtForm"  ng-submit="sendMessage(txtmessage, conversationWithProLink);" class="p-t-xs p-b-xs p-l-xs mobile-view-form">
+                     <div class="form-group m-r-sm">
+                        <input class="form-control area-setng" placeholder="메세지를 입력하십시오" ng-model="txtmessage" style="white-space: pre-line; word-wrap: break-word;" ng-disabled="disabledMessage">
+                        <!-- <span class="form-control area-setng" emoji-picker="txtmessage" placement="right" title="Emoji" recent-limit="12"></span>
+
+                        <div ng-bind-html="txtmessage | emojify"></div> -->
+                     </div>
+                     <div class="m-r-sm m-b-none">                        
+                        <div class="pull-right">
+                           <div class="">
+                              <span>Enter키 사용가능</span> <input type="checkbox" name="" class="m-r-sm">
+                              <button type="submit" class="btn btn-info btn-sm reply-btn" ng-disabled="disabledMessage">보내기</button>
+                           </div>
+                        </div>
+                     </div>
+                  </form>
+                  <span>   
+                  <label ng-disabled="disabledMessage" class="btn btn-default" for="upload-file-selector" ng-hide="">
+                  <!-- <input id="upload-file-selector" type="file" nv-file-select uploader="uploader" > -->
+                  <input ng-disabled="disabledMessage"  id="upload-file-selector"  type="file" nv-file-select uploader="uploader" >  
+                  <i class="glyphicon glyphicon-plus"></i>
+                  <b> 첨부파일</b> 
+                  </label> 파일업로드 클릭후 파일보내기를 클릭하십시오<span style="color:#96223a">[파일크기는 최대2MB이하]</span>
+                  </span>
+
+                  <span>
+                     <div ng-show="uploader.queue.length>0">
+                       <div>파일명: {{ item.file.name }}</div>
+                       <div>크기: {{ item.file.size/1024/1024|number:2 }} Mb</div>
+                       <div ng-show="uploader.isHTML5">
+                           진행상황: {{ item.progress +'%'}}
+                           <div>
+                               <div  ng-style="{ 'width': item.progress + '%' }"></div>
+                           </div>
+                       </div>  
+
+                       <button class="btn btn-sm btn-warning" ng-click="item.upload()" ng-disabled="item.isReady || item.isUploading || item.isSuccess">파일업로드</button>
+                       <!-- <button ng-click="item.cancel()" ng-disabled="!item.isUploading">Cancel</button> -->
+                       <button class="btn btn-sm btn-danger" ng-click="item.remove()" ng-disabled="!item">삭제</button>
+                       <button class="btn btn-sm btn-success" ng-click="sendFile(conversationWithProLink);" ng-disabled="item.progress !==100">파일 보내기</button>
+                       <span ng-show="errMsg && item.progress ===0 " class="text-danger">
+                         {{errMsg}}
+                       </span>
+                       <span ng-show="item.progress ===100" class="text-success">
+                         {{sucMsg}}
+                       </span>  
+                     </div>
+                  </span>
+               </div>
+            </div>
+         </div>
+         <!--Col 8 End-->
+         <br><br>
+      </div>
+   </div>
+   <!----------------------------- Footer of Home Page -------------------------------->
+</section>

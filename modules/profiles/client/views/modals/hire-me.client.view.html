@@ -1,0 +1,74 @@
+<section>
+ <div class="container-fluid p-r-none p-l-none ">
+  <div class="modal-header">
+    <h5 class="modal-title" id="modal-title"><strong>예치금 지급</strong> </h5>
+  </div>
+    <div class="modal-body " id="modal-body">
+      <div class="row p-l-md p-r-md p-t-lg p-b-lg" style="background: #efefef; margin-top: -15px;">
+        프리랜서와 빠르게 프로젝트 작업를 시작할 수 있습니다! <b>{{profile.userInfo.username}}</b> 가 프로젝트를 승인이후에 결제가 이루어집니다.
+      </div> 
+      <br><br>
+      <div class="row">
+        <div class="col col-md-4 inline">
+          <h5><strong>예치금액</strong></h5>
+          <div class="input-group">
+            <span class="input-group-btn">
+               <button class="btn btn-default" > 
+                {{project.currency.symbol_native}}
+              </button>
+            </span>
+            <input type="number"  required ng-model="hireme_amount" class="form-control" value="50">
+          </div>
+        </div>
+
+        <div class="col col-md-8">
+          <h5><strong>예치금 설명</strong></h5>
+          <div>
+            <input type="text" required ng-model="hireme_milestone_desc" class="form-control" value="First MileStone">
+          </div>
+        </div>
+      </div>
+
+      <br><br>
+      <div class="row">
+          <center><h5><strong>권장 업데이트</strong></h5></center>
+      </div>
+
+      <br>
+      <div class="row" >
+          <div class="col col-md-1">
+            <input type="checkbox">
+          </div>
+          <div class="col col-md-3">
+            <button class="btn btn-sm btn-primary" style="border-radius: 5px;background:#efbf50;color:#fff;border-color: #efbf50;">비공개 계약(NDA) </button>
+          </div>
+          <div class="col col-md-6">
+            <p>비공개 계약 서비스를 선택하지 않아도 프로젝트 등록하는 모든 회원ㆍ프리랜서 및 아웃소싱 오케이와 함께 비공개 계약은 의무사항입니다.<span ng-click="nda = !nda" style="font-size:10px;margin-left:13px;padding-left:20px;background:#6b0816;border-radius: 3px;padding:5px;color:#fff;cursor: pointer; cursor: hand;">주의▶</span></p>
+			  <span ng-show="nda">
+			  <p>비공개 계약 서비스를 선택할 경우 하이라이트로 표시되여 프로젝트가 부각될 수 있습니다. 또한 주어진 조건에 따라 프로젝트에 대한 의뢰인과 지원자/프리랜서 및 아웃소싱오케이 제3자간 간의 기밀 ​​합의입니다.</p>
+			  <p style="color:#898989"><i class="fa fa-exclamation-triangle" aria-hidden="true" style="color:#820923;"></i> 계약방법은 등기우편 또는 아웃소싱오케이본사 중 선택해서 계약할 수 있습니다. </p> 
+			  </span>
+          </div>  
+          <div class="col col-md-2 text-right">
+            <b>{{project.currency.symbol_native}} 무료</b>
+          </div>
+      </div>
+      <hr>
+      <div class="row">
+        <div class="col col-md-8">
+          <!-- You will be directed to the deposit page to make this payment. -->
+        </div> 
+
+        <div class="col col-md-4 text-right">
+          <h4><strong>합계: {{project.currency.symbol_native}} {{hireme_amount || '0'}}</strong></h4>
+        </div>
+      </div>
+    </div> 
+
+    <div class="modal-footer" style="background: #efefef;">
+        <button class="btn btn-default" ng-click="cancel()" >협의후 지급</button>
+        <button ng-disabled="!hireme_milestone_desc || !hireme_amount" class="btn btn-primary" type="button" ng-click="ok()">지급</button>
+    </div>
+
+ </div>
+</section>

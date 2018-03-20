@@ -1,0 +1,335 @@
+  <section ui-view autoscroll="true" ng-controller="ProjectsController" ng-init="findOne();">
+
+  <!-- top banner with yellow back ground -->
+  <!-- contest top information -->
+ <!-- col-md-offset-1 col-md-10  -->
+<!-- <h3>isAwarded {{isAwarded}} </h3> -->
+  <br><br>
+ 
+  <div class="col-xs-12 col-sm-12 col-md-10 col-lg-10 col-md-offset-1 container-fulid m-ml-none m-mr-none p-ml-none p-mr-none" ng-show="bidId">
+    <div>
+     <div class="col-xs-12 col-md-12 bordortop_styling">
+      <div class="row show-bids" style="background:#fff;">
+        <!-- project title -->
+        <h2 class="m-l-sm h3-mobile-font"><strong>{{project.name}}</strong></h2>
+        <div class="text-center">
+          <ul class="list-inline bidding-list  m-t-sm m-l-sm" style="background:#f2f2f2;">
+            <li class="bidding-li">
+            <h4><strong>지원자수</strong></h4>
+            <h3 class="text-primary text-center m-t-none mobile-view-prjct"><strong>{{project.bids.length}}</strong></h3>
+            </li>
+            <li class="bidding-li">
+             <h4><strong>평균 지원/입찰 금액</strong></h4>
+             <h3 class="text-primary text-center m-t-none mobile-view-prjct"><strong>{{projectCur.symbol_native}} {{avgBid}}</strong></h3>
+            </li>
+            <li>
+            <h4><strong>프로젝트 지출예산</strong></h4>
+             <h3 class="text-primary text-center m-t-none mobile-view-prjct">
+              <strong>{{projectCur.symbol_native}}{{project.minRange}} - {{projectCur.symbol_native}}{{project.maxRange}}</strong>
+            </h3>
+            </li>
+          </ul>
+          <ul class="list-inline bidding-list m-t-sm pull-right m-r-sm hidden-xs hidden-sm" style="background:#f2f2f2;">
+            <li class="bidding-li">
+              <h4 class="verificationcheck" ng-if = "!awardedProject && days > 0"><strong>{{days}} 일 {{hours}} 시간 후 마감</strong></h4>
+              <h3 class="verificationcheck awarding-li" ng-if = "!awardedProject && project.status !== 'completed' && days < 0 "><strong>마감</strong></h3>
+              <h3 class="text-center m-t-none verificationcheck" ng-if = "!awardedProject && project.status !== 'completed' && days > 0"><strong>진행중</strong></h3>
+              <h4 class="verificationcheck awarding-li" ng-if = "awardedProject.awarded ==='pending' && project.status !== 'completed'"><strong>계약완료</strong></h4>
+              <h4 class="verificationcheck awarding-li" ng-if = "awardedProject.awarded ==='yes' && project.status !== 'completed'"><strong>진행중</strong></h4>
+              <h4 class="verificationcheck awarding-li" ng-if = "project.status ==='completed'"><strong>종료</strong></h4>
+            </li>
+          </ul>
+
+          <!-- Mobile view -->
+            <ul class="list-inline bidding-list col-xs-11 m-t-sm m-r-sm m-ml-sm hidden-md hidden-lg">
+              <li>
+                <h4 class="verificationcheck mobile-view-prjct" ng-if = "!awardedProject && days > 0"><strong>{{days}} 일 {{hours}} 시간 후 마감</strong></h4>
+                <h3 class="verificationcheck awarding-li mobile-view-prjct" ng-if = "!awardedProject && project.status !== 'completed' && days < 0 "><strong>마감</strong></h3>
+                <h3 class="text-center m-t-none verificationcheck mobile-view-prjct" ng-if = "!awardedProject && project.status !== 'completed' && days > 0"><strong>진행중</strong></h3>
+                <h4 class="verificationcheck awarding-li mobile-view-prjct" ng-if = "awardedProject.awarded ==='pending' && project.status !== 'completed'"><strong>계약완료</strong></h4>
+                <h4 class="verificationcheck awarding-li mobile-view-prjct" ng-if = "awardedProject.awarded ==='yes' && project.status !== 'completed'"><strong>진행중</strong></h4>
+                <h4 class="verificationcheck awarding-li mobile-view-prjct" ng-if = "project.status ==='completed'"><strong>종료</strong></h4>
+              </li>
+            </ul>            
+          <!-- end -->
+        </div>
+      </div>
+
+      <!-- /////////////////////////////////////////////// -->
+      <!-- when bid on this project button is clicked -->
+      <div>
+        <div class="row">
+          <div class="col-xs-12 profile_container p-mr-xs" style="background:#fff;">
+           
+            <br>
+            <div class="row" ng-show="!bidShow">
+              <div class="col-xs-12 col-md-6">
+                <div class="row">
+                  <div class="col-xs-4 col-md-6 p-mr-none p-ml-xs">
+                    <h4><strong>지원/입찰:</strong></h4>
+                    <p class="p-t-sm prjct-list-font">프로젝트 지원 제시 금액</p>
+                    <br class="hidden-xs">
+                    <!-- <p class="p-t-xs">프로젝트 수수료(+7%)</p> -->
+                    <p class="p-t-xs prjct-list-font">프로젝트 지원 제시 총금액</p>
+                  </div>
+                      
+                  <div class="col-xs-8 col-md-6 p-ml-xs">
+                    <br><br>
+                    <div class="input-group">
+                      <span class="input-group-addon">{{projectCur.symbol_native}}</span>
+                      <input type="number" min="0" class="form-control" ng-model="paidYours" ng-change="updateValues(paidYours)" onkeypress="return (event.charCode == 8 || event.charCode == 0) ? null : event.charCode >= 48 && event.charCode <= 57"> 
+                      <span class="input-group-addon">{{projectCur.code}}</span>
+                    </div>
+                    <br class="hidden-md">
+                    <!-- <input type="number" min="0" class="form-control projectFeeInput" ng-model="projectFee" disabled=""> -->
+                    <!-- <h4 class="m-t-none p-t-sm" ng-model="projectFee" ng-bind="projectFee"></h4> -->
+
+                    <!-- <h4 class="m-t-none p-t-sm"  ng-model="yourBid" ng-bind="(paidYours*0.05) + (paidYours)"><i class="fa fa-question img-circle-btn verificationcheck" style="padding-left: 4px;" aria-hidden="true"></i></h4> -->
+                    <input type="number" min="0" class="form-control yourBidInput" ng-model="yourBid" disabled="">
+                  </div>
+                </div>
+              </div>
+              <div class="col-xs-12 col-md-6">
+                <div class="row">
+                  <div class="col-xs-12 col-md-6 p-ml-xs">
+                    <h4><strong>프로젝트 작업기간</strong></h4>
+                    <div class="input-group">
+                      <input type="text" class="form-control" ng-model="deliverDays" onkeypress="return (event.charCode == 8 || event.charCode == 0) ? null : event.charCode >= 48 && event.charCode <= 57">
+                      <span class="input-group-addon">일(Days)</span>
+                    </div>
+                      </div>
+                      <div class="col-xs-6 col-md-6 hidden-xs">
+                        <div class="bidbox pull-right p-l-xs p-r-xs">
+                        <h3>{{authentication.user.remainingBids}}<sub>/300</sub></h3>
+                          <h4><strong>지원가능횟수</strong></h4>
+                        </div>
+                      </div>
+                </div>
+              </div>
+
+          </div>
+            <!-- <p ng-show="!bidShow"><b>알림:</b> 아웃소싱오케이 수수료는 프로젝트를 수락 할 때만 변경됩니다.</p> -->
+            <hr class="m-mb-sm">
+           <!-- <div class="row" ng-show="!bidShow">
+            <div class="col-xs-10">
+              <h4><strong>Supercharge your Bid and Beat your Competition!</strong></h4>
+              <div class="row bid-frstcol p-t-md">
+                <div class="col-xs-1">
+                  <input type="checkbox" name="bid-checkbox" ng-model="checkboxBit">
+                </div>
+                <div class="col-xs-10 p-l-none p-r-none">
+                 <p>
+                  <strong> Expert Guarantee</strong> 
+                  <strong class="beta-bid p-l-xs p-r-xs"> Beta </strong>
+                  <strong class="text-danger">FOUND RELEASED IN 24 HOURS IF NOT AWAEDED</strong>
+                 </p>
+                 <p>Expert Guarantees are refundable deposit that <b>show you can do the job </b>and <b>increase your bid's ranking</b>. if you are not awarded the porject , your Expert Guarantee will be automatically released in 24 hours. if you are awarded the job project ,it will be released when the project is conplete .<a href="#">Learn more</a></p>
+              </div>
+            </div>
+            <br>
+            <div class="row p-t-xs">
+                <div class="col-xs-1">
+                  <input type="checkbox" name="bid-checkbox" ng-model="checkboxBit">
+                </div>
+                <div class="col-xs-9 p-l-none p-r-none">
+                 <p>
+                  <strong> Sponcer My Bid </strong> 
+                  <strong class="text-danger">ONLY ONE PER PROJECT</strong>
+                 </p>
+                 <p>
+                 Bids that are sponsored are <b>70 to 100 times more likely to bw awarded </b>.Stand out from the rest of the OutsourcingOk and be first person bid that the employer sees.</p>
+              </div>
+              <div class="col-xs-2 p-r-none p-t-none">
+                <strong class="">$3.99 USD</strong>
+              </div>
+            </div>
+            <br>
+            <div class="row p-t-xs">
+                <div class="col-xs-1">
+                  <input type="checkbox" name="bid-checkbox" ng-model="checkboxBit">
+                </div>
+                <div class="col-xs-9 p-l-none p-r-none">
+                 <p>
+                  <strong>Highlight My Bid </strong> <br> 
+                  Attract more attention.Highlight your bid to stand out from the pack.
+                 </p>
+              </div>
+              <div class="col-xs-2 p-r-none p-t-none">
+                <strong class="">$1 USD</strong>
+              </div>
+            </div>
+          </div>
+        </div> -->
+        <!-- <hr>
+        <button  class="btn btn-success text-center" ng-click="submitBid(); bidShow=!bidShow">Place a Bid</button>
+        <br><br> -->
+        <div >
+          <div class="row">
+          <div class="col-xs-12  col-md-10 m-ml-xs">
+            <p class="p-t-md">
+              <h6><strong style="color:#820923"><i class="fa fa-exclamation-triangle" aria-hidden="true" style="color:#820923;"></i>  아래의 프로젝트 제안서 내용을 입력하셔야 지원을 하실 수 있습니다.</strong></h6>
+            </p>
+          </div>
+          <form name="proposalForm"  class="" novalidate autocomplete="off">
+            <div ng-show="!mileStoneFeilds" class="col-xs-12 col-md-8 p-ml-xs">
+              
+              <textarea placeholder="제안서를 작성하십시오." rows="5" class="form-control" ng-model = "description" required></textarea>
+              <br>
+              <!-- adding milestones of project bid -->
+              <div class="row m-mr-none">
+
+                  <div ng-repeat="milestone in milestones track by $index">
+                    <div class=" col-xs-12 col-sm-8 col-md-8 form-group p-r-none">
+                        <label>프로젝트 대금지급 일정표</label>
+                        <input type="text" placeholder="순차별 프로젝트 대금지금 일정표 제목 입력바랍니다" class="form-control" ng-model="milestones[$index].description" required>
+                    </div>
+                    <div class="col-xs-12 col-sm-3 col-md-3 form-group  p-r-none">
+                      <label class="hidden-xs">금액</label>
+                        <div class="input-group">
+                          <span class="input-group-addon">{{projectCur.symbol_native}}</span>
+                          <input type="number" class="form-control" ng-model="milestones[$index].price" onkeypress="return (event.charCode == 8 || event.charCode == 0) ? null : event.charCode >= 48 && event.charCode <= 57" min="{{min}}" >
+                        </div>
+                        <div ng-messages="form.input.$error" style="color: #ff0000" role="alert" ng-if=form.input.$dirty>
+                        <div ng-message="required">This field is required</div>
+                        <div ng-message="min">This field must be at least {{min}}.</div>
+                        <div ng-message="max">This field must be at max {{max}}.</div>
+                        <div ng-message="number">Not a valid number.</div>
+                        </div>
+                    </div>
+                    <div ng-if="$index>0"  class="col-sm-1 col-md-1 form-group p-r-none m-t-sm text-danger pull-right"> <br>
+                    <i class="fa fa-times" aria-hidden="true" title="Remove" ng-click="editBidremov($index)"></i>                     
+                     
+                    </div>
+                  </div>
+                  <!-- milestones of project -->  
+              </div>
+              <p class="text-danger p-l-md"><!-- 지원/입찰 최소금액은 {{projectCur.symbol_native}}{{min}} 원 이상입니다 --></p>
+              <p class="text-danger p-l-md">{{priceError}}</p>
+              <p class="p-l-md p-ml-none" ng-click="editMilestone(); "><i class="fa fa-plus charbi-circle" aria-hidden="true"></i> <b>추가 대금 일정 제시</b> <b class="pull-right">총 금액: {{projectCur.symbol_native}}{{milstoneTotal | number: 0}}</b></p>
+              <button class="btn btn-md btn-primary" ng-disabled = "proposalForm.$invalid || milestoneError === false" ng-click="editBid(description, deliverDays); mileStoneFeilds=!mileStoneFeilds">지원/입찰 변경</button>
+              <a ui-sref="projects.view({projectId: project._id})" class="text-primary p-l-md">취소</a>
+      
+			  
+              <div class="m-l-md p-t-lg m-ml-xs"><h6><strong style="color:#820923"><i class="fa fa-exclamation-triangle" aria-hidden="true" style="color:#820923;"></i>  프로젝트에 지원하는 프리랜서는 이메일, 유무선번호 등을 게시하여 직거래를 유도할 경우, 서비스 이용에 제재를 받을 수 있습니다.</strong></h6></div>
+   
+            </div>
+            <div class="col-xs-6 col-md-4 hidden-xs" ng-show="!mileStoneFeilds">
+              <div class="bestproposal p-l-xs p-r-xs">
+                <h5 class="bestproposal-heading p-t-sm p-b-xs"><strong>의뢰인께 좋은 제안을 해야합니다!</strong></h5>
+                <p>회원님의 제안은 의뢰인에게 좋은 인상을 남길 수있는 기회입니다.</p>
+                <p><strong>다음상황을 체크하십시오.</strong></p>
+                <ul>
+                  <li>프로젝트 요구 사항을 이해 하고 있어야합니다.</li>
+                  <li>회원님의 전문기술과 경험이 의뢰인의 프로젝트에 얼마나 적합한 지 설명이 필요합니다.</li>
+                  <li>프로젝트를 어떤기술로 어떻게 응용해서 완성 할 지 계획을 가지고 있어야 합니다</li>
+                  <li>의뢰인과 아웃소싱오케이 화상채팅 이용시 자세한 내용을 설명할 수 있도록 준비해야 합니다.</li>
+                </ul>
+              </div>
+            </div>
+            </form>
+          </div>
+        </div>    
+       </div>
+      </div>
+      </div>
+
+       <!-- /////////////////////////////////////////// -->
+        <!-- Project descirption -->
+        <div class="row">
+          <div class="col-md-8 col-xs-12 thumbnail">
+            <div class="row">
+              <div class="col-xs-12 col-md-12 p-t-xs">
+                <h4><strong>프로젝트 내용</strong></h4>
+                <br>
+                 <!-- Project Descrioption -->
+                <!-- <div style="white-space: pre-line; word-wrap: break-word;">{{project.description}} </div> -->
+
+              <div class="prjct-list-font" ng-bind-html="project.description" style="white-space: pre-line; word-wrap: break-word;"> </div>
+              </div>
+              <!-- <div class="col-xs-4 btn-tool text-right p-t-xs">
+                <button  class="btn btn-lg btn-info" ng-show = "project.user._id !== authentication.user._id && !btnBidThisPro && !bidExists && !awardedProject" ng-click="showMe=!showMe; btnBidThisPro=!btnBidThisPro"><a style="text-decoration:none; color:white" >Bid on This Project</a></button>
+              </div> -->
+            </div>
+           <!--  <hr> -->
+           
+
+            <hr>
+
+            <!-- list of skills required for the contest -->
+            <h4><strong>의뢰인이 요구하는 전문기술</strong></h4>
+            <!-- <hr> -->
+            <ul class="list-inline text-primary" >
+              <li ng-repeat="skill in project.skills">{{skill.name}}</li>
+            </ul>
+            <hr> 
+            <div>
+              <button class="btn btn-lg btn-success pull-left">유사 프로젝트 등록</button>
+              <p><b class="pull-right">프로젝트 ID: {{project._id | limitTo: 10 }}</b> </p> <br>
+              <p><a ui-sref="about.contact" class="text-danger pull-right p-t-none">프로젝트 보고</a></p>
+            </div>
+            <br><br>
+          </div>
+
+          <!-- Right side, user info -->
+          <div class="col-md-4 col-xs-12 p-r-none p-ml-none p-mr-none hidden-xs"> 
+            <div class="col-xs-12 profile_container border-mradus" style="background:#fff;">
+              <div class="row">    
+                <div class="col-xs-12 block p-t-sm">
+                  <div class="text-center">
+                     <h4><strong>의뢰인 정보</strong></h4>
+                  </div>
+                </div>
+              </div>
+              <hr>
+
+              <div class="row">
+               <div class="col-xs-5 p-r-none p-mr-none p-ml-none">
+                  <img class="profile-img-circle img-responsive" ng-src="{{currentProjectUser.profileImageURL}}" alt="{{currentProjectUser.displayName}} ">
+                </div>
+                <div class="col-xs-7">
+                <h5 ng-if = "awardedProject.userId === currentUserId || currentProjectUser._id === authentication.user._id"> 
+                    <strong>{{currentProjectUser.displayName}}</strong>
+                  </h5>
+                  <h5>
+                    <strong>
+                      <img src="http://www.geognos.com/api/en/countries/flag/{{currentProjectUser.country.code}}.png" title = "{{currentProjectUser.country.name}}" style="width: 3.3rem; height: 2rem;"></img>
+                      {{project.userInfo.country}}
+                    </strong>
+                  </h5>
+                  <h5><strong>회원 가입일:</strong> </h5>
+                  <h6>{{currentProjectUser.created | date:"y'년' MM'월' d'일'"}} </h6>
+                   <div class="text-left">
+                      <!--  <div class="starRating star-rankingcolor">
+                         <span class="label" ng-class="{'label-warning': percent<30, 'label-info': percent>=30 && percent<70, 'label-success': percent>=70}" ng-show="overStar && !isReadonly">{{percent}}%</span>
+                         <span uib-rating ng-model="rate" max="max" read-only="isReadonly" on-hover="hoveringOver(value)" on-leave="overStar = null" titles="['one','two','three']" aria-labelledby="default-rating"></span>
+                      </div> -->
+
+                      <div class="starRating">
+                        <span class="label" ng-class="{'label-warning': percent<30, 'label-info': percent>=30 && percent<70, 'label-success': percent>=70}" ng-show="overStar && !isReadonly">{{percent}}%</span>
+                        <!-- read-only="isReadonly" on-hover="hoveringOver(value)" on-leave="overStar = null" -->
+                        <span uib-rating ng-model="rate" max="max" read-only="isReadonly" titles="['one','two','three']" aria-labelledby="default-rating"></span>
+                      </div>
+                      <h5 class="text-muted">0 리뷰</h5>
+                      <p class="text-muted p-textsmall"></p>
+                      </div>
+                </div>
+
+              </div>
+              <br>
+            </div>
+          </div>
+        </div>
+
+         <!-- outsourcing awarding row -->
+
+         <!-- ////////////////////////////////////////// -->
+         <!-- list of OutsourcingOkrs who bid on this -->
+         
+         
+    </div>
+  </div>
+  <!-- chatWindow -->
+  <div  ng-show="authentication.user">
+    <footer ng-include="'/modules/core/client/views/chatWindow.html'" ></footer>
+  </div>
+</section>

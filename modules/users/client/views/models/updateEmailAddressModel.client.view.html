@@ -1,0 +1,33 @@
+<section ng-controller="EditProfileController" ng-init="universalData()">
+<div class="modal-header">
+    <h3 class="modal-title" id="modal-title"><b>Phone Verification Required</b></h3>
+</div>
+<div class="modal-body" id="modal-body">
+
+    <!-- Start of Modal body -->
+    <div class="container-fluid">
+    	<!-- <p>Provide a security phone number to use as verification of your account</p> -->
+        <!-- <a class="" href="">Setup Security Number</a> -->
+    <p>As a security precaution we will send a verification code to your secure phone number</p>
+    <div style="display: -webkit-box;">
+        <p>Phone Number:</p>
+        <p ng-model="user.mobileNumber">{{user.mobileNumber}}</p>
+    </div>
+    <h4><b>Verification Method:</b></h4>
+    <div style="display: -webkit-box;" >
+         <input type="radio" name="optradio">SMS
+         <input type="radio" name="optradio">Phone Call
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-primary" type="button" ng-click="">Send Verification Code</button>
+        <button class="btn btn-primary" type="button" ng-click="cancel()">Cencel</button>
+
+    </div>
+    </div>
+ 	
+
+    <!-- End of Modal body -->
+
+</div>
+
+</section>

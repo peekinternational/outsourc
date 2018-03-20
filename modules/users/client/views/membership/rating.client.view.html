@@ -1,0 +1,31 @@
+
+
+<div class="container">
+    <h1>Leave Feedback</h1>
+    <p>Please leave feedback for the user XYZ</p>
+    <div class="jumbotron">
+     <div class="row">
+         <div class="col-md-6"></div>
+         <div class="col-md-6">Ratings</div>
+     </div>
+
+     <div class="row">
+         <div class="col-md-6">
+             Users overall Rating
+         </div>
+
+         <div class="col-md-6">
+             <div ng-init="x = 5"><span uib-rating ng-model="x" max="5" state-on="'glyphicon-star'" state-off="'glyphicon-star-empty'" aria-labelledby="custom-icons-1"></span> <b>(<i>Rate:</i> {{x}})</b></div>
+         </div>
+         <br /><br />
+         <div class="col-md-12">
+             <p>Comments</p>
+             <textarea class="form-control" rows="5" id="comment"></textarea>
+             <br />
+             <button type="button" class="btn btn-primary">Rate User</button>
+         </div>
+
+
+     </div>
+    </div>
+</div>

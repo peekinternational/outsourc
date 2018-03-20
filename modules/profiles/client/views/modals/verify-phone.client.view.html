@@ -1,0 +1,64 @@
+<div class="modal-header">
+  <h3 class="modal-title text-center text-info" id="modal-title" >핸드폰 인증 확인</h3>
+</div>
+<div class="modal-body" id="modal-body">
+
+  <!-- Start of Modal body -->
+  <fieldset class="row" ng-disabled="codeSent">
+    <div class="col col-xs-4">핸드폰 번호:</div>
+    <div class="col col-xs-8">
+      <input class="form-control" type="text"  placeholder="예시:+821012345678" ng-model="theUser.mobileNumber">
+      <button ng-hide="codeSent" class="form-control btn btn-primary" type="button" ng-click="sendCode()" ng-disabled="!theUser.mobileNumber">인증 코드 보내기</button>
+    </div>
+  </fieldset>
+
+  <!-- loader -->
+  <div ng-if="isLoading">
+      <center>
+        <h4 class="text-info">
+        <i class="fa fa-circle-o-notch fa-spin fa-3x fa-fw"></i>
+      </h4>
+      </center>
+  </div>
+
+  <!-- error message  -->
+  <div ng-if="codeNotSent">
+      <center>
+         <h4>
+           <span class="text-danger" style="word-wrap: break-word;"> <i class="glyphicon glyphicon-remove"></i> {{errMsg || '인증코드 전송 오류입니다. 다시 시도하십시오.'}}</span>
+         </h4>
+      </center>
+  </div>
+
+  <!-- code sent message -->
+  <div class="row" ng-if="codeSent">
+    <div class="col col-xs-12">
+      <center>
+         <h4>
+           <span class="label label-success"> <i class="glyphicon glyphicon-info-sign"></i> 인증코드가 전송되었습니다. 잠시 기다려주세요.이 창을 닫지 마십시오.</span>
+         </h4>
+      </center>
+    </div>
+  </div>
+  <br>
+
+  <center ng-if="theUser.phoneAuthToken">
+    <h2 class="label label-info">
+      <span> <i class="glyphicon glyphicon-info-sign"></i> 이미 인증코드를 받으셨으면 인증코드를 입력하십시오.</span> 
+    </h2> 
+    <br><br>
+  </center>  
+ 
+  <fieldset class="row" ng-show="codeSent || theUser.phoneAuthToken">
+    <div class="col col-xs-4">인증코드:</div>
+    <div class="col col-xs-8">
+      <input class="form-control" type="text" min=0 ng-model="confirmCode" placeholeder="XXXXXXXXXX" >
+    </div>
+  </fieldset>
+  <!-- End of Modal body -->
+
+</div>
+<div class="modal-footer">
+  <button class="btn btn-danger" type="button" ng-click="cancel()">취소</button>
+  <button class="btn btn-success" type="button" ng-click="ok()" ng-disabled="!confirmCode && !theUser.phoneAuthToken">인증</button>
+</div>  

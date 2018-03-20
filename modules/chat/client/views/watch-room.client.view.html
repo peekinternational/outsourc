@@ -1,0 +1,39 @@
+<section class="container" ng-controller="WatchAppController">
+	
+	<div class="page-header">
+		<h1>Watcher</h1>
+	</div>
+
+	<style type="text/css">
+	div#remotes  video{
+	    display: block !important;
+	}
+	</style>
+
+	<div id="ctrl" class="col-xs-12 col-md-12">
+
+	  <div id='ctrl' >
+
+	    <h2>Join and watch a room</h2>
+
+	    <input type="text" ng-model="roomName" placeholder="Join room with name" />
+
+	    <watch-room
+	      room-name="roomName"
+	      joined-room="joinedRoom"
+	      nick="userEmail"
+	      muted="true">
+	  	</watch-room>
+
+	    <button ng-click="joinRoom()" ng-disabled="!roomName || joinedRoom">Join room</button>
+
+	    <button ng-click="leaveRoom()" ng-disabled="!roomName || !joinedRoom">Leave room</button>
+
+	    <p>Message <input type="text" ng-model="message" placeholder="Enter message" /> to peers
+	    in the room <button ng-click="sendMessage()">Send</button>
+
+	    <watch-room room-name="roomName" joined-room="joinedRoom" video-list="videoList"></watch-room>
+
+	  </div>
+	</div>
+</section>

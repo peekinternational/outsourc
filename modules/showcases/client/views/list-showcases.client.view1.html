@@ -1,0 +1,372 @@
+<section ng-controller="ShowcasesListController" class="m-negtve-row" style="background: #F0F0F0;">
+
+  <!-- banner_section -->
+  <div class="banner_section">
+    <div class="container">
+		<br><br class="hidden-xs"><br class="hidden-xs"><br class="hidden-xs"><br class="hidden-xs">
+        <h1 class="title"><span  style="color:#090037">아웃소싱 오케이</span> 쇼케이스</h1>
+        <h4 class="subTitle" style="padding-top:15px;">비즈니스의 완성 · 창의력인 디자인 · 자신만의 아이디어</h4>
+        <form class="col-md-offset-2 col-md-8 hidden-xs">
+          <div class="row" style="padding-top:10px;">
+            <div class="col-md-12">
+              <div class="inner-addons">
+                <i class="fa fa-search"></i>
+                <input type="text" model="" class="form-control" ng-model="searchString.title" placeholder="전문 개발자ㆍ사진가ㆍ일러스트레이터ㆍ제작자를 검색하고 실시간으로 구매및상담 하십시오!">
+                <button class="btn btn-info btn-lg">검색</button>
+              </div><br><br><br><br><br><br>
+            </div>
+            <!-- <div class="col-md-3 select-box-showcase">
+              <select>
+                <option>₩20-₩40</option>
+                <option>₩40-₩100</option>
+                <option>₩100-₩200</option>
+              </select>
+            </div> -->
+          </div>
+        </form>
+		
+    </div>
+  </div>
+  <!-- banner_section_end -->
+
+  <!-- main Content -->
+  <!-- <div class="container"> -->
+  <div>
+    <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8 col-md-offset-2">
+      <div class="main_content m-mb-lg" style="padding-top:20px">
+        
+		<h3 class="h3-mobile-font"><span class="pull-right"><button class="btn btn-success" ui-sref="showcases.myshowcases" style="background:#5f5b56;border-color: #5f5b56;">MY 쇼케이스</button>&nbsp;&nbsp;&nbsp;<button class="btn btn-success" ui-sref="showcases.create" style="background:#5f5b56;border-color: #5f5b56;">쇼케이스 등록</button></span></h3>
+
+		<ul class="nav nav-pills nav-showcase-tabs m-mt-lg" style="padding-top:50px;text-align: left !important;">
+          <li>
+            <a ng-click="tab=1; searchByType('');" ng-init="tab=1" ng-class="{'active':tab==1}" href="#">전체</a>
+          </li>
+          <li>
+            <a ng-click="tab=2; searchByType('Logos');" ng-class="{'active':tab==2}" href="#">로고</a>
+          </li>
+          <li>
+            <a ng-click="tab=3; searchByType('Websites');" ng-class="{'active':tab==3}" href="#">웹사이트</a>
+          </li>
+          <li>
+            <a ng-click="tab=4; searchByType('Mobile App');" ng-class="{'active':tab==4}" href="#">모바일 앱</a>
+          </li>
+          <li>
+            <a ng-click="tab=5; searchByType('Graphic Design');" ng-class="{'active':tab==5}" href="#">그래픽 디자인</a>
+          </li>
+          <li>
+            <a ng-click="tab=6; searchByType('Illustration');" ng-class="{'active':tab==6}" href="#">일러스트레이션</a>
+          </li>
+          <li>
+            <a ng-click="tab=7; searchByType('3D Models');" ng-class="{'active':tab==7}" href="#">3D 모델</a>
+          </li>
+          <!-- <li class="pull-right m-mt-xs m-mb-xs">
+            <button class="btn btn-warning"><a href="showcases/create">쇼케이스 등록</a></button>
+          </li>
+          <li class="pull-right m-mt-xs m-mb-xs">
+            <button class="btn btn-info"><a ui-sref="showcases.myshowcases">MY 쇼케이스</a></button>
+          </li> -->
+        </ul>
+
+        <div class="tab-content">
+          <!-- Tab 1 -->
+          <!-- Show All Showcases -->
+          <div ng-show="tab==1">
+            <div class="showAll">
+              <div class="row">
+                <div class="col-xs-6 col-md-3 showcase-card" ng-repeat="sc in showcases | filter: searchString as filtered">
+                  <div class="card">
+                    <div class="showcase-overlay" ng-click="viewShowcase($index)" data-toggle="modal">
+                      <div class="showcase-content">
+                        <button class="btn btn-info" >상세보기 </button>
+                      </div>
+                    </div>
+                    <img src="{{sc.file.link}}" alt="Avatar" style="width:100%">
+                    <div class="caption">
+                      <p class="prjct-list-font"><b>{{sc.title}}</b></p>
+                      프리랜서 <a href="outsourcer/{{sc.userInfo.profileId}}">{{sc.userInfo.username}}</a>
+                    </div>
+                    <hr>
+                    <div class="card-footer">
+                      <ul class="list-inline">
+                        <li ng-if="sc.budget.cur === 'KRW'"> <i class="fa fa-krw" aria-hidden="true"></i>{{sc.budget.amount |number:0}}</li>
+                        <li ng-if="sc.budget.cur === 'USD'"> <i class="fa fa-usd" aria-hidden="true"></i>{{sc.budget.amount |number:0}}</li>
+                        <li class="pull-right">
+                          <i class="fa fa-heart"></i>
+                          {{sc.likes.length}}
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+
+                <center ng-if="isLoading">
+                  <span style="font-size:25px;color:#734912;"><b>아웃소싱 오케이 로딩중...</b></span>
+					<br>
+				  <h3 class="danub-font"> <span class="fa fa-spinner fa-spin fa-2x fa-fw"></span><!--  로딩중... --></h3>
+                </center>
+                <center ng-if="!filtered.length && !isLoading">
+                  <img src="modules/showcases/client/img/no_search_results.png" width="10%">
+                  <h3 class="danub-font">등록한 쇼케이스가 없습니다.</h3>
+                </center>
+              </div>
+            </div>
+          </div>
+          <!-- End Tab 1 -->
+          <!-- Tab 2 -->
+          <div ng-show="tab==2">
+            <div class="showAll">
+              <div class="row">
+                <div class="col-xs-6 col-md-3 showcase-card" ng-repeat="sc in showcases | filter: searchString as filtered">
+                  <div class="card">
+                    <div class="showcase-overlay" ng-click="viewShowcase($index)" data-toggle="modal">
+                      <div class="showcase-content"> 
+                        <button class="btn btn-info" >상세보기 </button>
+                      </div>
+                    </div>
+                    <img src="{{sc.file.link}}" alt="Avatar" style="width:100%">
+                    <div class="caption">
+                      <p class="prjct-list-font"><b>{{sc.title}}</b></p> 
+                      프리랜서 <a href="outsourcer/{{sc.userInfo.profileId}}">{{sc.userInfo.username}}</a>
+                    </div>
+                    <hr>
+                    <div class="card-footer">
+                      <ul class="list-inline">
+                        <li ng-if="sc.budget.cur === 'KRW'"> <i class="fa fa-krw" aria-hidden="true"></i>{{sc.budget.amount |number:0}}</li>
+                        <li ng-if="sc.budget.cur === 'USD'"> <i class="fa fa-usd" aria-hidden="true"></i>{{sc.budget.amount |number:0}}</li>
+                        <li class="pull-right">
+                          <i class="fa fa-heart"></i>
+                          {{sc.likes.length}}
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+
+                <center ng-if="isLoading">
+                  <h3 class="danub-font"> <span class="fa fa-spinner fa-spin fa-2x fa-fw"></span> 로딩중...</h3>
+                </center>
+                <center ng-if="!filtered.length && !isLoading">
+                  <img src="modules/showcases/client/img/no_search_results.png" width="10%">
+                  <h3 class="danub-font">등록한 쇼케이스가 없습니다.</h3>
+                </center>
+              </div>
+            </div>
+          </div>
+          <!-- End Tab 3 -->
+          <!-- Tab 3 -->
+          <div ng-show="tab==3">
+            <div class="showAll">
+              <div class="row">
+                <div class="col-xs-6 col-md-3 showcase-card" ng-repeat="sc in showcases | filter: searchString as filtered">
+                  <div class="card">
+                    <div class="showcase-overlay" ng-click="viewShowcase($index)" data-toggle="modal">
+                      <div class="showcase-content"> 
+                        <button class="btn btn-info" >상세보기 </button>
+                      </div>
+                    </div>
+                    <img src="{{sc.file.link}}" alt="Avatar" style="width:100%">
+                    <div class="caption">
+                      <p class="prjct-list-font"><b>{{sc.title}}</b></p> 
+                      프리랜서 <a href="outsourcer/{{sc.userInfo.profileId}}">{{sc.userInfo.username}}</a>
+                    </div>
+                    <hr>
+                    <div class="card-footer">
+                      <ul class="list-inline">
+                        <li ng-if="sc.budget.cur === 'KRW'"> <i class="fa fa-krw" aria-hidden="true"></i>{{sc.budget.amount |number:1}}</li>
+                        <li ng-if="sc.budget.cur === 'USD'"> <i class="fa fa-usd" aria-hidden="true"></i>{{sc.budget.amount |number:1}}</li>
+                        <li class="pull-right">
+                          <i class="fa fa-heart"></i>
+                          {{sc.likes.length}}
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+
+                <center ng-if="isLoading">
+                  <h3 class="danub-font"> <span class="fa fa-spinner fa-spin fa-2x fa-fw"></span> 로딩중...</h3>
+                </center>
+                <center ng-if="!filtered.length && !isLoading">
+                  <img src="modules/showcases/client/img/no_search_results.png" width="10%">
+                  <h3 class="danub-font">등록한 쇼케이스가 없습니다.</h3>
+                </center>
+              </div>
+            </div>
+          </div>
+          <!-- End Tab 4 -->
+          <!-- Tab 4 -->
+          <div ng-show="tab==4">
+            <div class="showAll">
+              <div class="row">
+                <div class="col-xs-6 col-md-3 showcase-card" ng-repeat="sc in showcases | filter: searchString as filtered">
+                  <div class="card">
+                    <div class="showcase-overlay" ng-click="viewShowcase($index)" data-toggle="modal">
+                      <div class="showcase-content"> 
+                        <button class="btn btn-info" >상세보기 </button>
+                      </div>
+                    </div>
+                    <img src="{{sc.file.link}}" alt="Avatar" style="width:100%">
+                    <div class="caption">
+                      <p class="prjct-list-font"><b>{{sc.title}}</b></p> 
+                      프리랜서 <a href="outsourcer/{{sc.userInfo.profileId}}">{{sc.userInfo.username}}</a>
+                    </div>
+                    <hr>
+                    <div class="card-footer">
+                      <ul class="list-inline">
+                        <li ng-if="sc.budget.cur === 'KRW'"> <i class="fa fa-krw" aria-hidden="true"></i>{{sc.budget.amount |number:1}}</li>
+                        <li ng-if="sc.budget.cur === 'USD'"> <i class="fa fa-usd" aria-hidden="true"></i>{{sc.budget.amount |number:1}}</li>
+                        <li class="pull-right">
+                          <i class="fa fa-heart"></i>
+                          {{sc.likes.length}}
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+
+                <center ng-if="isLoading">
+                  <h3 class="danub-font"> <span class="fa fa-spinner fa-spin fa-2x fa-fw"></span> 로딩중...</h3>
+                </center>
+                <center ng-if="!filtered.length && !isLoading">
+                  <img src="modules/showcases/client/img/no_search_results.png" width="10%">
+                  <h3 class="danub-font">등록한 쇼케이스가 없습니다.</h3>
+                </center>
+              </div>
+            </div>
+          </div>
+          <!-- End Tab 4 -->
+          <!-- Tab 5 -->
+          <div ng-show="tab==5">
+            <div class="showAll">
+              <div class="row">
+                <div class="col-xs-6 col-md-3 showcase-card" ng-repeat="sc in showcases | filter: searchString as filtered">
+                  <div class="card">
+                    <div class="showcase-overlay" ng-click="viewShowcase($index)" data-toggle="modal">
+                      <div class="showcase-content"> 
+                        <button class="btn btn-info" >상세보기 </button>
+                      </div>
+                    </div>
+                    <img src="{{sc.file.link}}" alt="Avatar" style="width:100%">
+                    <div class="caption">
+                      <p class="prjct-list-font"><b>{{sc.title}}</b></p> 
+                      프리랜서 <a href="outsourcer/{{sc.userInfo.profileId}}">{{sc.userInfo.username}}</a>
+                    </div>
+                    <hr>
+                    <div class="card-footer">
+                      <ul class="list-inline">
+                        <li ng-if="sc.budget.cur === 'KRW'"> <i class="fa fa-krw" aria-hidden="true"></i>{{sc.budget.amount |number:1}}</li>
+                        <li ng-if="sc.budget.cur === 'USD'"> <i class="fa fa-usd" aria-hidden="true"></i>{{sc.budget.amount |number:1}}</li>
+                        <li class="pull-right">
+                          <i class="fa fa-heart"></i>
+                          {{sc.likes.length}}
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+
+                <center ng-if="isLoading">
+                  <h3 class="danub-font"> <span class="fa fa-spinner fa-spin fa-2x fa-fw"></span> 로딩중...</h3>
+                </center>
+                <center ng-if="!filtered.length && !isLoading">
+                  <img src="modules/showcases/client/img/no_search_results.png" width="10%">
+                  <h3 class="danub-font">등록한 쇼케이스가 없습니다.</h3>
+                </center>
+              </div>
+            </div>
+          </div>
+          <!-- End tab 5 -->
+          <!-- Tab 6 -->
+          <div ng-show="tab==6">
+            <div class="showAll">
+              <div class="row">
+                <div class="col-xs-6 col-md-3 showcase-card" ng-repeat="sc in showcases | filter: searchString as filtered">
+                  <div class="card">
+                    <div class="showcase-overlay" ng-click="viewShowcase($index)" data-toggle="modal">
+                      <div class="showcase-content"> 
+                        <button class="btn btn-info" >상세보기 </button>
+                      </div>
+                    </div>
+                    <img src="{{sc.file.link}}" alt="Avatar" style="width:100%">
+                    <div class="caption">
+                      <p class="prjct-list-font"><b>{{sc.title}}</b></p> 
+                      프리랜서 <a href="outsourcer/{{sc.userInfo.profileId}}">{{sc.userInfo.username}}</a>
+                    </div>
+                    <hr>
+                    <div class="card-footer">
+                      <ul class="list-inline">
+                        <li ng-if="sc.budget.cur === 'KRW'"> <i class="fa fa-krw" aria-hidden="true"></i>{{sc.budget.amount |number:1}}</li>
+                        <li ng-if="sc.budget.cur === 'USD'"> <i class="fa fa-usd" aria-hidden="true"></i>{{sc.budget.amount |number:1}}</li>
+                        <li class="pull-right">
+                          <i class="fa fa-heart"></i>
+                          {{sc.likes.length}}
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+
+                <center ng-if="isLoading">
+                  <h3 class="danub-font"> <span class="fa fa-spinner fa-spin fa-2x fa-fw"></span> 로딩중...</h3>
+                </center>
+                <center ng-if="!filtered.length && !isLoading">
+                  <img src="modules/showcases/client/img/no_search_results.png" width="10%">
+                  <h3 class="danub-font">등록한 쇼케이스가 없습니다.</h3>
+                </center>
+              </div>
+            </div>
+          </div>
+          <!-- End tab 6 -->
+          <!-- Tab 7 -->
+          <div ng-show="tab==7">
+            <div class="showAll">
+              <div class="row">
+                <div class="col-xs-6 col-md-3 showcase-card" ng-repeat="sc in showcases | filter: searchString as filtered">
+                  <div class="card">
+                    <div class="showcase-overlay" ng-click="viewShowcase($index)" data-toggle="modal">
+                      <div class="showcase-content"> 
+                        <button class="btn btn-info" >상세보기 </button>
+                      </div>
+                    </div>
+                    <img src="{{sc.file.link}}" alt="Avatar" style="width:100%">
+                    <div class="caption">
+                      <p class="prjct-list-font"><b>{{sc.title}}</b></p> 
+                      프리랜서 <a href="outsourcer/{{sc.userInfo.profileId}}">{{sc.userInfo.username}}</a>
+                    </div>
+                    <hr>
+                    <div class="card-footer">
+                      <ul class="list-inline">
+                        <li ng-if="sc.budget.cur === 'KRW'"> <i class="fa fa-krw" aria-hidden="true"></i>{{sc.budget.amount |number:1}}</li>
+                        <li ng-if="sc.budget.cur === 'USD'"> <i class="fa fa-usd" aria-hidden="true"></i>{{sc.budget.amount |number:1}}</li>
+                        <li class="pull-right">
+                          <i class="fa fa-heart"></i>
+                          {{sc.likes.length}}
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+
+                <center ng-if="isLoading">
+                  <h3 class="danub-font"> <span class="fa fa-spinner fa-spin fa-2x fa-fw"></span> 로딩중...</h3>
+                </center>
+                <center ng-if="!filtered.length && !isLoading">
+                  <img src="modules/showcases/client/img/no_search_results.png" width="10%">
+                  <h3 class="danub-font">등록한 쇼케이스가 없습니다.</h3>
+                </center>
+              </div>
+            </div>
+          </div>
+          <!-- End tab 7 -->
+        </div>
+      </div>
+
+      <div class="text-center content-myShow" ng-if="!showcases.length">
+        <h2 class="h3-mobile-font"><strong><!-- Looks like there isn't any showcases added yet. --></strong></h2>
+        <p class="prjct-list-font">회원님의 작품을 쇼케이스를 통해서 보여주십시오. <a href="showcases/create">쇼케이스 등록!</a></p>
+      </div>
+
+    </div>
+  </div>  
+
+</section>

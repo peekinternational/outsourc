@@ -1,0 +1,58 @@
+<section autoscroll="true" class="container-fluid" ng-controller="ProjectsController"  ng-init="findOne()">
+<div class="col-xs-12 col-sm-12 col-md-10 col-lg-10 col-md-offset-1 container-fluid p-ml-none p-mr-none" style="padding-right:2.5rem; padding-left:3rem;">
+  <div> 
+  <h2>사용자 평가</h2>
+  <p>사용자평가와 의견을 작성하시길 바랍니다.</p>
+  </div>
+  <div class="feedbacksetting">
+    <br>
+     <p class="text-center rating-align"> 부정적 &nbsp 긍정적</p>
+     <div class="row">
+       <div class="col-xs-7 col-md-6 p-ml-none p-mt-sm">
+        <p class="para-font-mobile"><strong>전문성</strong></p>
+        <p class="para-font-mobile"><strong>의사소통</strong></p>
+        <p class="para-font-mobile"><strong>결과물 만족도</strong></p>
+        <p class="para-font-mobile"><strong>작업일정 만족도</strong></p>
+        <p class="para-font-mobile"><strong>프리랜서와 다시 작업하시겠습니까?</strong></p>
+        <br>
+        <p class="para-font-mobile">
+          <strong>프로젝트 작업일정을 준수하셨나요?</strong> 
+          <input type="checkbox"  ng-model="onTime" checked="checked">
+          &nbsp&nbsp&nbsp<strong>계약금액대로 프로젝트가 완료되었나요?</strong> 
+          <input type="checkbox" checked="checked" ng-model="onBudget">
+        </p>
+        <br>
+       </div>
+       <div class="col-xs-5 col-md-6 p-ml-none">
+        
+        <!-- project{{projects}} -->
+        <div class="p-t-sms star-rankingcolor" ng-click="check1()"><span uib-rating  ng-model="specifiction" rating-states="ratingStates" aria-labelledby="custom-icons-2"></span></div>
+          <!-- feedback: {{specifiction}} -->
+         <div class="p-t-sms star-rankingcolor" ng-click="check2()"><span uib-rating ng-model="communication" rating-states="ratingStates" aria-labelledby="custom-icons-2"></span></div>
+        <div class="p-t-sms star-rankingcolor" ng-click="check3()"><span uib-rating ng-model="payment" rating-states="ratingStates" aria-labelledby="custom-icons-2"></span></div>
+        <div class="p-t-sms star-rankingcolor" ng-click="check4()"><span uib-rating ng-model="professionl" rating-states="ratingStates" aria-labelledby="custom-icons-2"></span></div>
+        <div class="p-t-sms star-rankingcolor" ng-click="check5()"><span uib-rating ng-model="overall" rating-states="ratingStates" aria-labelledby="custom-icons-2"></span></div>
+       </div>
+     </div>
+     <!-- Angular spinner -->
+     <span us-spinner="{radius:30, width:8, length: 16}" spinner-key="feedbackLoader"></span>
+     <div class="form-group m-l-negtv">
+       <label for="comment">평가 작성:&nbsp <span class="text-muted para-font-mobile" style="font-weight: 500"><i>(최대200자. 작성된 평가서는 공개됩니다.)</i></span></label>
+       <textarea class="form-control fedback-area" ng-model="comment" rows="5" style="white-space: pre-line; word-wrap: break-word;"></textarea>
+       <span class="pull-right text-muted hidden-xs"><i class="margin-charter">200자</i></span> 
+     </div>
+     <!-- <div class="form-group">
+      <input type="checkbox" name="note" class="m-r-sm">Leave a note for OutSoucingOk Staff
+     </div> -->
+     <div>
+      <button class="btn-info btn-sm rate-btn" ng-click="submitFeedBack()" ng-disabled="!specifiction || !communication || !payment || !professionl ||!overall || ! comment">평가서 제출</button>
+     </div>
+  </div>
+
+</div>
+
+<!-- chatWindow -->
+<div  ng-show="authentication.user">
+  <footer ng-include="'/modules/core/client/views/chatWindow.html'" ></footer>
+</div>
+</section>

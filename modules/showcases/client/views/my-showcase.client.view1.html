@@ -1,0 +1,154 @@
+<section ng-controller="MyShowcaseController" class="m-negtve-row" style="background: #F0F0F0;">
+	<!-- banner_section -->
+  
+  <div class="banner_section">
+    <div class="container">
+		<br class="hidden-xs"><br class="hidden-xs"><br class="hidden-xs"><br class="hidden-xs"><br class="hidden-xs"><br class="hidden-xs"><br class="hidden-xs">
+        <h1 class="title"><span  style="color:#090037">아웃소싱 오케이</span> 쇼케이스</h1>
+        <h4 class="subTitle"><b  style="color:#090037">견적ㆍ작업물</b>을 화상채팅을 통해서 <b  style="color:#090037">실시간</b> 확인할 수 있습니다.</h4>
+		<br class="hidden-xs"><br class="hidden-xs"><br class="hidden-xs"><br class="hidden-xs"><br class="hidden-xs"><br class="hidden-xs"><br class="hidden-xs"><br class="hidden-xs">
+    </div>
+  </div>
+  <!-- banner_section_end -->
+
+
+	<!-- main content -->
+	<!-- <div class="container"> -->
+	<div>
+		<div class="col-xs-12 col-sm-12 col-md-8 col-lg-8 col-md-offset-2">
+			<div class="main_content m-mb-lg">
+			 	<h3 class="h3-mobile-font" style="padding-top:10px;padding-right:70px;"><span class="pull-right"><button class="btn btn-success" ui-sref="showcases.list" style="background:#5f5b56;border-color: #5f5b56;">쇼케이스 홈</button>&nbsp;&nbsp;&nbsp;<button class="btn btn-success" ui-sref="showcases.create" style="background:#5f5b56;border-color: #5f5b56;">쇼케이스 등록</button></span></h3>
+
+				
+
+
+				<h2 class="h3-mobile-font" style="padding-top:30px;"><b>MY 쇼케이스</b></h2>
+			 	<!-- <hr> -->
+
+
+			 	<uib-tabset active="active">
+					
+				
+		<!-- <a ui-sref="showcases.list"><span style="color:#fff;text-align:left;"><i class="fa fa-check-circle-o"></i> <b>쇼케이스 몰 가기</b></span></a> -->
+			 			
+
+
+			 		<uib-tab index="0">
+			 			<uib-tab-heading>
+			 				<i class="fa fa-check-circle-o"></i> 등록된 쇼케이스
+			 			</uib-tab-heading>
+
+			 			<div class="row">
+			 			  <div class="col-xs-6 col-md-3 showcase-card" ng-repeat="sc in activeShowcases">
+			 			    <div class="card">
+			 			      <div class="showcase-overlay showcase-overlay-my"> 
+			 			    	<div class="showcase-content my-showcase"> 
+			 			    		<a ui-sref="showcases.edit({showcaseId: sc._id})"><i class="fa fa-pencil" ng-click="" style="color:#ff0000"></i></a> 
+			 			    		<i class="fa fa-trash" ng-click="removeShowcase(sc._id)"></i> 
+			 			    	</div> 
+			 			      </div>
+			 			      <img src="{{sc.file.link}}" alt="Avatar" style="width:100%">
+			 			      <div class="caption">
+			 			        <p class="prjct-list-font"><b>{{sc.title}}</b></p>
+			 			        <a href="">프리랜서 {{authentication.user.username}}</a>
+			 			      </div>
+			 			      <hr>
+			 			      <div class="card-footer">
+			 			        <ul class="list-inline">
+			 			          <li>{{sc.budget.cur}} {{sc.budget.amount}}</li>
+			 			          <li class="pull-right"><i class="fa fa-heart"></i>{{sc.likes.length}}</li>
+			 			        </ul>
+			 			      </div>
+			 			    </div>
+			 			  </div>
+			 			</div>
+
+			 			<div class="text-center content-myShow" ng-if="!activeShowcases.length">
+			 				<h2 class="h3-mobile-font"><strong>쇼케이스에 등록한 상품이 없습니다.</strong></h2>
+			 				<p class="prjct-list-font">회원님의 상품을 쇼케이스를 통해서 전세계 회원에게 알리십시오. <a href="showcases/create">쇼케이스 등록!</a></p>
+			 			</div>	
+			 		</uib-tab>
+
+
+			 		<uib-tab index="1" >
+			 			<uib-tab-heading>
+			 				<i class="fa fa-spinner"></i> 승인중
+			 			</uib-tab-heading>
+
+			 			<div class="row">
+			 			  <div class="col-xs-6 col-md-3 showcase-card" ng-repeat="sc in pendingShowcases">
+			 			    <div class="card">
+			 			      <div class="showcase-overlay showcase-overlay-my"> 
+			 			    	<div class="showcase-content my-showcase"> 
+			 			    		<a ui-sref="showcases.edit({showcaseId: sc._id})"><i class="fa fa-pencil" ng-click="" style="color:#ff0000"></i></a> 
+			 			    		<i class="fa fa-trash" ng-click="removeShowcase(sc._id)"></i> 
+			 			    	</div> 
+			 			      </div>
+			 			      <img src="{{sc.file.link}}" alt="Avatar" style="width:100%">
+			 			      <div class="caption">
+			 			        <p class="prjct-list-font"><b>{{sc.title}}</b></p>
+			 			        <a href="">프리랜서 {{authentication.user.username}}</a>
+			 			      </div>
+			 			      <hr>
+			 			      <div class="card-footer">
+			 			        <ul class="list-inline">
+			 			          <li>{{sc.budget.cur}} {{sc.budget.amount}}</li>
+			 			          <li class="pull-right"><i class="fa fa-heart"></i>{{sc.likes.length}}</li>
+			 			        </ul>
+			 			      </div>
+			 			    </div>
+			 			  </div>
+			 			</div>
+			 			
+						<div class="text-center content-myShow" ng-if="!pendingShowcases.length">
+							<h1><i class="fa fa-smile-o" aria-hidden="true"></i></h1>
+			 				<h2 class="h3-mobile-font"><strong>쇼케이스에 승인 중인 상품이 현재 없습니다.</strong></h2>			 				
+			 			</div>	
+
+			 			
+			 		</uib-tab>
+
+			 		<uib-tab index="2" >
+			 			<uib-tab-heading>
+			 				<i class="fa fa-times"></i> 미승인현황
+			 			</uib-tab-heading>
+			 			
+			 			<div class="row">
+			 			  <div class="col-xs-6 col-md-3 showcase-card" ng-repeat="sc in rejectedShowcases">
+			 			    <div class="card">
+			 			      <div class="showcase-overlay showcase-overlay-my"> 
+			 			    	<div class="showcase-content my-showcase"> 
+			 			    		<a ui-sref="showcases.edit({showcaseId: sc._id})"><i class="fa fa-pencil" ng-click="" style="color:#ff0000"></i></a> 
+			 			    		<i class="fa fa-trash" ng-click="removeShowcase(sc._id)"></i> 
+			 			    	</div> 
+			 			      </div>
+			 			      <img src="{{sc.file.link}}" alt="Avatar" style="width:100%">
+			 			      <div class="caption">
+			 			        <p class="prjct-list-font"><b>{{sc.title}}</b></p>
+			 			        <a href="">프리랜서 {{authentication.user.username}}</a>
+			 			      </div>
+			 			      <hr>
+			 			      <div class="card-footer">
+			 			        <ul class="list-inline">
+			 			          <li>{{sc.budget.cur}} {{sc.budget.amount}}</li>
+			 			          <li class="pull-right"><i class="fa fa-heart"></i>{{sc.likes.length}}</li>
+			 			        </ul>
+			 			      </div>
+			 			    </div>
+			 			  </div>
+			 			</div>
+
+						<div class="text-center content-myShow" ng-if="!rejectedShowcases.length">
+							<h1><i class="fa fa-hand-spock-o" aria-hidden="true"></i></h1>
+			 				<h2 class="h3-mobile-font"><strong>미승인된 쇼케이스 상품이 현재 없습니다.</strong></h2>			 				
+			 			</div>	
+
+			 			
+			 		</uib-tab>
+			 	</uib-tabset>
+
+			 </div>
+		</div>
+	</div>
+	<!-- End -->
+</section>

@@ -1,0 +1,63 @@
+<section ng-controller="EditProfileController" ng-init="universalData()">
+<div class="modal-header">
+    <h3 class="modal-title" id="modal-title">Request to Change Security Phone Number</h3>
+</div>
+<div class="modal-body" id="modal-body">
+
+    <!-- Start of Modal body -->
+    <div class="container-fluid" ng-show="divOne">
+    	
+    		<p>To change your current Security Phone Number you must:</p>
+    		<ul>
+    			<li>Verify your new Security Phone Number you wish to change to</li>
+    			<li>Verify your identification by completing our ID Verification process</li>
+    		</ul>
+    		<p>Your current Security Phone Number and Country:</p>
+    		
+    		<div style="display: -webkit-box;">
+    			<p><b>Security Number:</b></p><br>
+    			 <p>{{user.mobileNumber}}</p>
+    		</div>
+    		 
+    		  <div style="display: -webkit-box;">
+    		  	<p><b>Country:</b></p><br>
+    		  	 <p>{{user.country}}</p>
+    		  </div>
+    	<div class="modal-footer">
+    	    <button class="btn btn-primary" type="button" ng-click="showSecondDivOnModel();">Change Security Number</button>
+    	    <button class="btn btn-primary" type="button" ng-click="cancel()">Cencel</button>
+    	</div>
+     </div>
+     	<!-- show 2nd model -->
+ 	<div class="container-fluid" ng-show="divTwo">
+ 		<p>Please provide a phone number below to use as verification of your account.</p>
+ 		<div style="display: -webkit-box;">
+ 			<div class="col-xs-6">
+ 				<label for="Country">Country</label>
+ 				<input type="text" id="country" name="country" class="form-control" style="width: 100%" ng-model="user.country" placeholder="country" required><br>
+ 			</div>
+ 			<div class="col-xs-6">
+ 				<label>Phone Number:</label>
+ 				<input type="text" id="secondNumber" name="secondNumber" class="form-control" style="width: 100%" ng-model="user.secondNumber">
+ 			</div>
+ 		</div>
+ 		<h4><b>Verification Method:</b></h4>
+ 		<p style="color: red;">Please select a verification method.</p>
+ 		<div style="display: -webkit-box;" >
+ 			<form>
+ 			     <label><input type="radio" name="optradio">SMS</label>
+ 			     <label><input type="radio" name="optradio">Phone Call</label>
+ 			 </form>
+ 		</div>
+ 		<div class="modal-footer">
+ 		    <button class="btn btn-primary" type="button" ng-click="ok()">Send Verification Code</button>
+ 		    <button class="btn btn-primary" type="button" ng-click="cancel()">Cencel</button>
+
+ 		</div>
+     </div> 	
+
+    <!-- End of Modal body -->
+
+</div>
+
+</section>

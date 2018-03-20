@@ -1,0 +1,508 @@
+<div class="row project-backgroundimage5 hidden-xs">
+        <div class="container about-investor-title-setting">
+<br>
+            <h3 class="investor-heading p-t-sm" style="font-size:20px;">콘테스트 리스트</h3>
+            <h3 class="investor-para">
+               
+            </h3>
+            <br><br>
+          </div>
+      </div>
+
+ <section class="container-fluid p-ml-none p-mr-none" ng-controller="ContestsController" ng-init="find();universalData()">
+  <div ng-include="search"></div>
+
+
+<div class="col-xs-12 col-sm-12 col-md-10 col-lg-10 col-md-offset-1 m-ml-none m-mr-none">
+
+
+  <!-- loader -->
+  <span us-spinner="{radius:30, width:8, length: 16}" spinner-key="contLoader"></span>
+  <div class="p-ml-none p-mr-none" style="padding-left: 2rem; padding-right: 3rem;padding-top: 2rem;">
+    <h3 class="h2-mobile-font hidden-xs" style="color:#c3980d;"><strong>콘테스트 수상작</strong></h3>
+    <!-- <h4 class="h3-mobile-font hidden-xs">콘테스트 수상작</h4> -->
+    <div class="col-xs-12 thumbnail  bordortop_styling hidden-xs" style="border-top: 5px solid #bab3a9;margin-bottom:30px;">
+      <br>
+      <div>  
+         <div class="col-xs-12 col-sm-6 col-md-3 contest-div">
+
+            <div class="entryImgDiv">
+              <a href="#">
+                <img class="imgContest text-center" src="modules/projects/client/img/5.png" alt="doodle"> 
+              </a>  
+            </div>     
+            <button class="btn btn-default btn-block" ui-sref="contests.contest-post"><strong>유사 콘테스트 무료등록</strong></button>
+            <!-- for trophy icon -->
+            <div class="row p-t-xs">
+              <div class="col-xs-3">
+                <!-- <i class="fa fa-trophy" style="font-size: 29px;color: #c3980d;"></i> -->
+				      <img src="modules/contests/client/img/contest_icon2.png">
+              </div>
+              <div class="col-xs-9">
+                <strong></strong>
+                <p class="m-b-none m-t-xs">[수상자] 박수진</p>
+              </div>
+            </div>
+            <hr class="m-t-sm m-b-sm">
+            <!-- rating -->
+            <div class="row p-b-lg">
+              <div class="col-xs-7 starRating">&nbsp;
+                <span class="label" ng-class="{'label-warning': percent<30, 'label-info': percent>=30 && percent<70, 'label-success': percent>=70}" style="background:#8ba753;border: 1px solid #8ba753;">{{percent}}%</span>&nbsp;
+                <span uib-rating ng-model="rate" max="max" read-only="isReadonly" titles="['one','two','three']" aria-labelledby="default-rating" style="color:#d0a620"> </span>
+
+                <!-- <span class="label" ng-class="{'label-warning': percent<30, 'label-info': percent>=30 && percent<70, 'label-success': percent>=70}">{{rateStars  | number: 1}}</span>
+                <span uib-rating ng-model="rateStars" max="max" read-only="isReadonly" titles="['one','two','three']" aria-labelledby="default-rating"> </span> -->
+
+              </div>
+              <div class="col-xs-5 p-l-none">
+                <strong>￦500,000원</strong>
+              </div>
+            </div>
+        </div> 
+         <div class="col-xs-12 col-sm-6 col-md-3 contest-div m-mt-md">
+
+            <div class="entryImgDiv">
+              <a href="#">
+                <img class="imgContest text-center" src="modules/projects/client/img/1.png" alt="doodle"> 
+              </a>  
+            </div>     
+            <button class="btn btn-default btn-block" ui-sref="contests.contest-post"><strong>유사 콘테스트 무료등록</strong></button>
+            <!-- for trophy icon -->
+            <div class="row p-t-xs">
+              <div class="col-xs-3">
+                <!-- <i class="fa fa-trophy" style="font-size: 29px;color: #c3980d;"></i> -->
+				      <img src="modules/contests/client/img/contest_icon2.png">
+              </div>
+              <div class="col-xs-9">
+                <strong></strong>
+                <p class="m-b-none m-t-xs">[수상자] 조윤주</p>
+              </div>
+            </div>
+            <hr class="m-b-sm m-t-sm">
+            <!-- rating -->
+            <div class="row p-b-lg">
+              <div class="col-xs-7 starRating">&nbsp;
+                <span class="label" ng-class="{'label-warning': percent<30, 'label-info': percent>=30 && percent<70, 'label-success': percent>=70}" style="background:#8ba753;border: 1px solid #8ba753;">{{percent}}%</span>&nbsp;
+                <span uib-rating ng-model="rate" max="max" read-only="isReadonly" titles="['one','two','three']" aria-labelledby="default-rating" style="color:#d0a620"> </span>
+              </div>
+              <div class="col-xs-5 p-l-none">
+                <strong>￦700,000원</strong>
+              </div>
+            </div>
+        </div> 
+         <div class="col-xs-12 col-sm-6 col-md-3 contest-div m-mt-md">
+
+            <div class="entryImgDiv">
+              <a href="#">
+                <img class="imgContest text-center" src="modules/projects/client/img/7.png" alt="doodle"> 
+              </a>  
+            </div>     
+            <button class="btn btn-default btn-block" ui-sref="contests.contest-post"><strong>유사 콘테스트 무료등록</strong></button>
+            <!-- for trophy icon -->
+            <div class="row p-t-xs">
+              <div class="col-xs-3">
+                <!-- <i class="fa fa-trophy" style="font-size: 29px;color: #c3980d;"></i> -->
+				      <img src="modules/contests/client/img/contest_icon2.png">
+              </div>
+              <div class="col-xs-9">
+                <strong></strong>
+                <p class="m-b-none m-t-xs">[수상자] 정선영</p>
+              </div>
+            </div>
+            <hr class="m-t-sm m-b-sm">
+            <!-- rating -->
+            <div class="row p-b-lg">
+              <div class="col-xs-7 starRating">&nbsp;
+                <span class="label" ng-class="{'label-warning': percent<30, 'label-info': percent>=30 && percent<70, 'label-success': percent>=70}" style="background:#8ba753;border: 1px solid #8ba753;">{{percent}}%</span>&nbsp;
+                <span uib-rating ng-model="rate" max="max" read-only="isReadonly" titles="['one','two','three']" aria-labelledby="default-rating" style="color:#d0a620"> </span>
+              </div>
+              <div class="col-xs-5 p-l-none">
+                <strong>￦500,000원</strong>
+              </div>
+            </div>
+        </div> 
+        <div class="col-xs-12 col-sm-6 col-md-3 contest-div m-mt-md">
+
+            <div class="entryImgDiv">
+              <a href="#">
+                <img class="imgContest text-center" src="modules/projects/client/img/8.png" alt="doodle"> 
+              </a>  
+            </div>     
+            <button class="btn btn-default btn-block" ui-sref="contests.contest-post"><strong>유사 콘테스트 무료등록</strong></button>
+            <!-- for trophy icon -->
+            <div class="row p-t-xs">
+              <div class="col-xs-3">
+                <!-- <i class="fa fa-trophy" style="font-size: 29px;color: #c3980d;"></i> -->
+				      <img src="modules/contests/client/img/contest_icon2.png">
+              </div>
+              <div class="col-xs-9">
+                <strong></strong>
+                <p class="m-b-none m-t-xs">[수상자] 황준수</p>
+              </div>
+            </div>
+            <hr class="m-t-sm m-b-sm">
+            <!-- rating -->
+            <div class="row p-b-lg">
+              <div class="col-xs-7 starRating">&nbsp;
+                <span class="label" ng-class="{'label-warning': percent<30, 'label-info': percent>=30 && percent<70, 'label-success': percent>=70}" style="background:#8ba753;border: 1px solid #8ba753;">{{percent}}%</span>&nbsp;
+                <span uib-rating ng-model="rate" max="max" read-only="isReadonly" titles="['one','two','three']" aria-labelledby="default-rating" style="color:#d0a620"> </span>
+              </div>
+              <div class="col-xs-5 p-l-none">
+                <strong>￦300,000원</strong>
+              </div>
+            </div>
+        </div>
+      </div> 
+    </div>
+  </div>
+
+
+  <!-- center button -->
+  <br class="hidden-xs"><br class="hidden-xs">
+  <!-- <div class="text-center img-responsive"> 
+    <div class="btn btn-small border-wla" style="border: 1px solid #d0a620;padding:10px 50px;">
+      <h4><b>콘테스트 리스트</b></h4>
+    </div> 
+  </div>
+  <br><br class="hidden-xs"> -->
+
+  <!-- looking for contest - search bar -->
+  <!-- form to filter the contest -->
+
+  <div class="row thumbnail bordortop_styling p-l-sm p-r-sm m-ml-none m-mr-none" style="margin-right: 3rem; margin-left: 2rem;border-top: 5px solid #bab3a9;">
+    <h4 class="hidden-xs" style="padding-top:50px;padding-bottom:20px"><strong>콘테스트 검색</strong></h4>
+    <!-- <h4 class="hidden-xs"><strong>검색</strong></h4> -->
+    <!-- form for the contest filter starts here -->
+    <!-- form for the contest filter starts here -->
+    <form class="hidden-xs">
+      <div class="input-group">
+        <span class="input-group-btn">
+           <button class="btn btn-default" type="button" ng-click="search('byDescription')"> 
+            <i class="glyphicon glyphicon-search text-muted">
+          </i></button>
+        </span>
+        <input type="text" class="form-control" ng-keyup="$event.keyCode == 13 ? search('byDescription') : null" name="searchContest" ng-model="searchContest" placeholder="등록된 콘테스트 개최 제목 또는 내용으로 찾을 수 있습니다." ng-change="search('byDescription')">
+      </div>
+
+      <hr>
+
+      <h4><strong>전문기술</strong></h4>
+      <div>
+        <div >
+          <select selector model="searchSkills" multi="true" options="skills" label-attr="name" placeholder="프리랜서께서 보유한 전문 기술로 등록된 콘테스트 개최 목록을 찾을 수 있습니다" ></select>
+         <!--  <div class="btn-group">
+             <button class="btn btn-success skillbutn" ng-click="skillsSave()">
+             <i class="glyphicon glyphicon-close white"></i> Done
+             </button>
+          </div> -->
+        </div>
+        <div class="col-md-12">
+          <div ng-show="skills" class="row">
+            <div ng-repeat="skill in profile.skills" style="display: inline-block">
+               <span class="label label-success m-l-sm" >{{skill}}</span>
+            </div>
+          </div>
+          <hr>
+        </div>
+      </div>
+
+	  <!-- <h4><strong>분야 검색</strong></h4>
+        <div>
+          <div>
+            <select selector change="subCatSelect()" model="contest.workRequire" options="typeOfWork" label-attr="name" placeholder="분야 선택">	
+			</select>
+          </div>
+        </div>
+
+		<hr> -->
+
+      <!-- <div>
+        <button class="btn btn-primary pull-right" ng-click="advanceSearch=!advanceSearch"> Advance Search</button> <br><br><br>
+      </div> -->
+
+      <!-- show or hide -->
+      <div ng-show="advanceSearchdd">
+        <!-- slider filter -->
+        <br>
+        <div class="col-sm-12">
+          <div class="row text-center">
+            <div class="col-xs-3 pull-left p-l-none">
+              <h4><strong>Projects Types</strong></h4>
+            </div>
+            <div class="col-xs-12 col-md-3 p-t-xs p-r-sm p-l-sm">
+              <label>
+                <input type="radio" name="project_type"> Fixed Price Contest
+              </label>   
+              <rzslider class="text-warning" rz-slider-model="sliderFixedPrice.minValue"
+                        rz-slider-high="sliderFixedPrice.maxValue"
+                        rz-slider-options="sliderFixedPrice.options"></rzslider>  
+              <h5><strong>$50 - $1000</strong></h5>
+            </div>
+            <div class="col-xs-12 col-md-3 p-t-xs p-r-sm p-l-sm">
+              <label>
+                <input type="radio" name="project_type"> Hourly Contest
+              </label>   
+              <rzslider rz-slider-model="sliderHourly.minValue"
+                        rz-slider-high="sliderHourly.maxValue"
+                        rz-slider-options="sliderHourly.options"></rzslider> 
+              <h5><strong>$50 - $1000</strong></h5>
+            </div>
+            <div class="col-xs-12 col-md-3 p-t-xs p-r-sm p-l-sm">
+              <label>
+                <input type="radio" name="project_type"> Contractor
+              </label>   
+              <rzslider rz-slider-model="sliderContractor.minValue"
+                        rz-slider-high="sliderContractor.maxValue"
+                        rz-slider-options="sliderContractor.options"></rzslider> 
+              <h5><strong>$50 - $1000</strong></h5>
+            </div>
+          </div>
+        </div>
+
+        <div class="row text-center">
+          <!-- Single button -->
+          <!-- <div class="btn-group">
+            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <strong>All Duration</strong>
+               <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu">
+              <li><a href="#">Action</a></li>
+              <li><a href="#">Another action</a></li>
+              <li><a href="#">Something else here</a></li>
+              <li role="separator" class="divider"></li>
+              <li><a href="#">Separated link</a></li>
+            </ul>
+          </div> -->
+        </div>
+
+
+        <hr>
+
+        <h4><strong>Listing Types</strong></h4>
+        <div>
+          <div>
+            <select selector multi="true" model="project.listingTypes" options="listingTypes" value-attr="value" placeholder="Type to filter projects by listing types" ></select>
+           <!--  <div class="btn-group">
+               <button class="btn btn-success skillbutn" ng-click="skillsSave()">
+               <i class="glyphicon glyphicon-close white"></i> Done
+               </button>
+            </div> -->
+          </div>
+          <div class="col-md-12">
+            <div ng-show="skills" class="row">
+              <div ng-repeat="lt in listingTypes" style="display: inline-block">
+                 <!-- <span class="label label-success m-l-sm" >{{lt}}</span> -->
+              </div>
+            </div>
+            <hr>
+          </div>
+        </div> 
+        <hr>
+
+        <h4><strong>Languages</strong></h4>
+        <input type="text" class="form-control" placeholder="Type to filter projects"> 
+        <hr>
+
+        <h4><strong>Location</strong></h4>
+        <div class="input-group">
+          <input type="text" class="form-control" placeholder="Search for projects">
+          <span class="input-group-btn">
+            <button class="btn btn-default" type="button">
+              <i class="glyphicon glyphicon-map-marker text-muted">
+            </i></button>
+          </span>
+        </div>
+
+        <!-- for pager -->
+        <br>
+        <div class="btn-toolbar list-inline">
+          <button class="btn btn-default m-t-lg" ng-click="advanceSearch=!advanceSearch"> <strong>Less Options</strong></button> &nbsp
+          <button class="btn btn-default m-t-lg"> <strong>Clear Filters</strong></button>
+
+          <!-- <ul uib-pagination total-items="bigTotalItems" ng-model="bigCurrentPage" max-size="maxSize" class=" pull-right pagination-sm " boundary-links="true" num-pages="numPages"></ul> -->
+        </div>
+      </div>
+
+
+     <!--  <div class=" btn-toolbar"> 
+        <br>
+        <button class="btn btn-default m-r-md"> <i class="text-info glyphicon glyphicon-star-empty"></i> &nbsp<strong>Bookmarks</strong></button> 
+        <button class="btn btn-default m-r-md"> <i class="text-info glyphicon glyphicon-heart"></i>&nbsp<strong>Favourites</strong></button>
+        <button class="btn btn-default m-r-md"> <i class="text-info glyphicon glyphicon-user"></i>&nbsp<strong>Information</strong></button>
+        <button class="btn btn-default m-r-md"> <i class="text-info glyphicon glyphicon-map-marker"></i> &nbsp<strong>Location</strong></button>
+
+        <!-- Single button -->
+        <!-- <div class="btn-group pull-right">
+          <button type="button" class="pull-right btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <strong>Date of Registration</strong>
+             <span class="caret"></span>
+          </button>
+          <ul class="dropdown-menu">
+            <li><a href="#">Action</a></li>
+            <li><a href="#">Another action</a></li>
+            <li><a href="#">Something else here</a></li>
+            <li role="separator" class="divider"></li>
+            <li><a href="#">Separated link</a></li>
+          </ul>
+        </div> -->
+     <!--  </div> --> 
+    </form>
+
+    <br class="hidden-xs">
+    <br class="hidden-xs">
+    <ul uib-pagination total-items="contestsLength" ng-model="currentPage" max-size="maxSize" class=" pull-right pagination-sm " boundary-links="true" num-pages="numPages"></ul>
+    <!-- contest view -->
+    <div class="col-xs-12">
+      <!-- Mobile View -->
+      <div class="row hidden-md hidden-lg" style="background: #222;">
+        <h4 class="p-ml-sm" style="color: white;">콘테스트 리스트</h4>
+      </div>
+      <!-- end -->
+      <div class="row navbar-inverse  hidden-xs" style="color: white;">
+        <div class="col-xs-4 col-md-5">
+          <h4 class="pull-left prjct-list-font"><strong>콘테스트 제목</strong></h4>
+        </div>
+        <div class="col-xs-2 col-md-1">
+          <h4 class="text-center prjct-list-font"><strong>지원</strong></h4>
+        </div>
+        <div class="col-xs-2 col-md-2 p-ml-xs">
+          <h4 class="text-center prjct-list-font"><strong>등록일</strong></h4>
+        </div>
+        <div class="col-xs-3 col-md-1 p-l-none p-r-none">
+          <h4 class="text-center prjct-list-font"><strong>수상금액</strong></h4>
+        </div>
+        <div class="col-md-3 hidden-xs">
+          <h4 class="text-center prjct-list-font"><strong>참가여부 <!-- <span class="caret"></strong> --></h4>
+        </div>
+      </div>
+    </div>
+
+    <!-- project contest listing -->
+     <section ng-repeat= "contests in filteredContests">
+      
+
+      <!-- contest title, description, trophy, flag etc -->
+      <div class="col-xs-12 col-md-5 p-t-sm">
+        <div class="row">
+          <div class="col-xs-1 col-md-1 p-l-none hidden-xs">
+           <center> <i class="fa fa-trophy p-t-sm" style="font-size: 29px;color: #c3980d;"></i></i></center> <br>
+            <!-- <div class=" row btn-tool text-center p-r-xs p-l-xs">
+              <i class="ittu-sa-icons glyphicon glyphicon-play text-success p-r-xs"></i> 
+              <i class="ittu-sa-icons glyphicon glyphicon-star-empty text-info p-r-xs"></i> 
+              <i class="ittu-sa-icons glyphicon glyphicon-heart text-info p-r-xs"></i> 
+              <i class="ittu-sa-icons glyphicon glyphicon-user text-info p-r-xs"></i> 
+              <i class="ittu-sa-icons glyphicon glyphicon-map-marker text-info p-r-xs"></i> 
+            </div> -->
+          </div>
+          <div class="col-xs-12 col-md-11 p-t-sm p-ml-none p-mt-none">
+            <h4 class="text-info mobile-view-prjct m-t-none" ng-show="contests.additionalPakages.nda"><a ng-click="ndaAccept(contests._id);"><strong style="cursor: pointer; cursor: hand;">{{contests.name}}</strong></a></h4>
+			       <a ui-sref="contests.view({contestId: contests._id})"><h4 class="text-info mobile-view-prjct m-t-none" ng-show="!contests.additionalPakages.nda"><strong>{{contests.name}}</strong></h4></a>
+
+            <!-- <p class="prjct-list-font">{{contests.description | limitTo : 100}} ...</p> -->
+            <p class="prjct-list-font" style="display:block; word-wrap:break-word;">{{contests.description | htmlToPlainText| limitTo: 150}}</p>
+            <!-- <div style="display: -webkit-inline-box;">
+              <ul class="text-info list-inline hidden-xs" ng-repeat="skill in contests.skills">
+                <li>{{skill.name}}</li> 
+              </ul>
+            </div> -->
+            <div class="text-info list-inline prjct-list-font p-l-xs p-r-md" ng-repeat="skill in contests.skills" style="display: inline-block;">
+              {{skill.name}}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Entries -->
+      <div class="col-xs-6 col-md-1 p-t-sm p-ml-none">
+        <h5 class="text-center mobile-align">{{contests.entries.length}}명 지원</h5>
+      </div>
+
+      <!-- started -->
+      <div class="col-xs-6 col-md-2 p-t-sm p-ml-none p-l-none p-r-none">
+        <h5 class="text-center">
+          공모전 등록일 <br>
+          <i class="glyphicon glyphicon-time text-danger hidden-xs"></i> {{contests.created | date:"y'년' MM'월' d'일'"}}
+        </h5>
+      </div>
+
+      <!-- Price USD -->
+      <div class="col-xs-3 col-md-1 p-t-sm p-ml-none">
+        <h5 class="text-center mobile-align">
+          <div class="parent">
+              {{contests.currency.symbol_native}}{{contests.sliderContestBudg | number:0}}<br>
+            <div class="hover-content">
+              <button class="ittu-sa btn btn-xs btn-success" style="background:#5f5b56;border-color: #5f5b56;"> 상금예치완료</button> <br> <br>
+              <button class="ittu-sa btn btn-xs btn-warning" ui-sref = "contests.contest-post" style="background:#5f5b56;border-color: #5f5b56;"> 유사 콘테스트등록</button>
+            </div>
+          </div>
+        </h5>
+      </div>
+      
+      <!-- Available interview -->
+      <div class="col-xs-3 p-t-lg hidden-xs">
+        <div class="row">
+          <div class="btn-tool text-center p-r-xs p-l-xs">
+            <i class="glyphicon glyphicon-play text-muted p-r-xs"></i> 
+            <i class="glyphicon glyphicon-comment text-muted p-r-xs"></i> 
+            <i class="glyphicon glyphicon-phone-alt text-muted p-r-xs"></i> 
+            <i class="glyphicon glyphicon-envelope text-muted p-r-xs"></i> 
+            <i class="glyphicon glyphicon-time text-muted p-r-xs"></i> 
+            <i class="glyphicon glyphicon-print text-muted "></i>  
+          </div>
+          <br>
+		  <center ng-if="authentication.user._id !== contests.user._id && contests.contestStatus !== 'closed'"><button  ui-sref="contests.view({contestId: contests._id})" class="btn btn-medium btn-primary" style="background:#688686;border-color: #688686;">콘테스트 참가</button></center>
+
+          <center ng-if="authentication.user._id === contests.user._id && contests.contestStatus !== 'closed' "><button  ui-sref="contests.view({contestId: contests._id})" class="btn btn-medium btn-info" style="background:#37526a;border-color: #37526a;">MY 콘테스트</button></center>
+
+          <center ng-if="authentication.user._id !== contests.user._id && contests.contestStatus === 'closed' ">
+            <h3> <span class="btn btn-medium  label-danger" style="background:#5f4119;border: 1px solid #5f4119;color:#fff;"> 콘테스트 종료 </span></h3>
+          </center>
+
+          <center ng-if="authentication.user._id === contests.user._id && contests.contestStatus === 'closed' ">
+            <h3> <span class="btn btn-medium  label-danger" style="background:#5f4119;border: 1px solid #5f4119;color:#fff;"> 콘테스트 종료 </span></h3>
+          </center>
+		  <!-- 
+          <center ng-if="authentication.user._id !== contests.user._id"><button  ui-sref="contests.view({contestId: contests._id})" class="btn btn-medium btn-success" style="background:#d0a620;border-color:#d0a620;">콘테스트 참가</button></center>
+
+          <center ng-if="authentication.user._id === contests.user._id"><button  ui-sref="contests.view({contestId: contests._id})" class="btn btn-medium btn-info">MY 콘테스트</button></center>
+		  -->
+
+        </div>
+      </div>
+      <div class="col-xs-12">
+        <br class="hidden-xs">
+        <!-- button tags -->
+        <div class="row btn-tool">
+          <button ng-show="contests.additionalPakages.urgent" class="ittu-sa btn btn-xs btn-danger" style="background:#6b081d;border: 1px solid #6b081d;">긴급</button>
+          <button ng-show="contests.additionalPakages.sealed" class="ittu-sa btn btn-xs  btn-warning" style="background:#113886;border: 1px solid #113886;">비공개</button>
+          <button ng-show="contests.additionalPakages.private" class="ittu-sa btn btn-xs btn-info" style="background:#008000;border: 1px solid #008000;">개인서비스</button>
+          <button ng-show="contests.additionalPakages.nda" class="ittu-sa btn btn-xs btn-info" style="background:#efbf50;border: 1px solid #efbf50;">계약(NDA)</button>
+		  <button ng-show="contests.additionalPakages.gaurantee" class="ittu-sa btn btn-xs btn-info" style="background:#886513;border: 1px solid #886513;">상금보장</button>
+		  <button ng-show="contests.additionalPakages.pakage_1" class="ittu-sa btn btn-xs btn-info" style="background:#1793b1;border: 1px solid #1793b1;">채팅</button>
+        </div>
+        <br class="hidden-xs">
+        <hr class="m-mb-xs">
+      </div>
+    </section>
+
+    
+    <!-- pagination -->
+    <div class="row">  
+      <div class="col-xs-12">
+        <ul uib-pagination total-items="contestsLength" ng-model="currentPage" max-size="maxSize" class="pagination-sm " boundary-links="true" num-pages="numPages"></ul>
+      </div>
+    </div>  
+  </div>
+
+  <div  ng-show="authentication.user">
+    <footer ng-include="'/modules/core/client/views/chatWindow.html'" ></footer>
+  </div> 
+
+
+
+ 
+  </div>
+
+  
+</section>

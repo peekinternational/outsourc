@@ -1,0 +1,599 @@
+
+.profile_container{
+  border: 1px solid #E5E5E5;
+}
+.bordortop_styling{
+  border-top: 5px solid #bab3a9;
+  border-top-left-radius: .5em;
+  border-top-right-radius:.5em;
+}
+.addskills {
+  margin-bottom: 12px;
+}
+.skillbutn{
+  margin-top: 16px;
+  margin-bottom: 0;
+  border: 1px solid #E5E5E5;
+}
+
+/*deposit page*/
+.upper-label{
+  background: #2c456c;
+  color: white;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-left: 18px;
+  padding-right: 18px;
+  margin-left: -4px;
+  margin-top: -4px;
+  margin-right: -4px;
+  border-top-left-radius: 2.5px;
+  border-top-right-radius: 2.5px;
+}
+
+.deposit-body{
+  padding-left: 70px;
+  padding-right: 70px;
+}
+
+.deposit{
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+.cardDeposit{
+  width: 5rem;
+}
+/*deposit page*/
+
+
+/*cover Image*/
+.coverImageBox{
+  width: 100%;
+  height: 450px;
+  overflow: hidden;
+}
+
+/*img in outsourcing list*/
+.img-outsoucer{
+  width: 129px;
+  height: 129px;
+}
+.img-outsoucer img{
+  width: 129px;
+  height: 129px;
+}
+
+.coverImageBox img{
+  width: 100%;
+}
+
+.hireTab{
+  background: #3a3a3a;
+  color: #fff;
+}
+
+
+.profileheader>ul>li>a{
+  text-decoration: none;
+}
+.compprofile_info{
+  border: 1px solid #E5E5E5;
+  border-top: 9px solid #35abc8;
+    border-top-left-radius: .5em;
+    border-top-right-radius:.5em;
+}
+.icon-pencil{
+  font-size: 1.4rem;
+}
+.country-icon{
+  position: absolute;
+  top: 8rem;
+  left: 8rem;
+}
+.fileselectors{
+    position: absolute;
+    top: 7rem;
+    left: 8rem;
+  }
+.img-wrapper {
+  position: relative;
+ }
+
+.img-overlay {
+  position: absolute;
+  top: 70px;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  text-align: center;
+}
+
+.img-overlay:before {
+  content: ' ';
+  display: block;
+  /* adjust 'height' to position overlay content vertically */
+  height: 50%;
+}
+.img-circle-btn{    border-radius: 10px;
+    padding-top: 3px;
+    padding-left: 3px;
+    padding-bottom: 0;
+    width: 18px;
+    height: 19px;
+    border: 1px solid #83817c;
+    font-size: 10px;
+}
+.img-circle-btn2{    border-radius: 50%;
+    padding-top: 7px;
+    padding-left: 3px;
+    padding-bottom: 0;
+    width: 38px;
+    height: 38px;
+    border: 1px solid #efefef;
+    font-size: 10px;
+}
+.image-circle-text{
+  color: rgba(119, 119, 119, 0.83);
+}
+.profile-img-circle{ border-radius: 50%;
+    width: 15rem;
+    height: 15rem;
+    border: 6px solid #f5f5f5;
+    box-shadow: 1px 1px 12px 3px #eee;
+} 
+.intro-save-btn{
+  background: #00BFF5;
+  border: #00BFF5;
+}
+.compnyIntro_para{
+  line-height: 3rem;
+  text-align: justify;
+}
+.intro-area{
+  border-radius: 8px;
+}
+.porfoli-div{    
+  box-shadow: 1px 1px 9px 2px rgba(238, 238, 238, 0.77);
+  border: 2px solid rgba(238, 238, 238, 0.77);
+  border-radius: 19px;
+  padding: 0px;
+} 
+.btn-profile{
+  font-size: 1rem;
+}
+.imgcricle{
+  border-radius: 25px;
+  padding-top: 7px;
+  padding-left: 6px;
+  padding-bottom: 21px;
+  width: 29px;
+  height: 18px;
+  border: 1px solid #35abc8
+}
+.verificationfb{
+  font-size: 2rem;
+  color: #a5a3a3;
+}
+
+.fb-icon{
+  color: white;
+   padding-right: 1rem;
+}
+.add-icon{
+  float: right;
+}
+.year-btn{
+  padding-top: 25px;
+}
+.tops_kills{
+  padding-left: 6px;
+    padding-right: 16px;
+}
+.profile_image{
+  width: 50%;
+    margin-top: 22px;
+    margin-bottom: 20px;
+}
+.form_margbotm{
+   margin-bottom: 12px;
+}
+.profileMenus{
+  background-color:rgba(220, 204, 0, 1);
+}
+.profileMenus a{
+  color: #fff;
+  background:transparent;
+}
+.fileselector {
+    position: absolute;
+    top: 3.5rem;
+    left: 3rem;
+}
+#upload-file-selector {
+    display:none;   
+}
+.margin-correction {
+    margin-right: 10px;   
+}
+.bottomMenu{
+    position: absolute;
+    bottom: 1px;
+}
+.margn20{
+  margin-bottom: 38px;
+  margin-top: -1rem;
+}
+.pn{
+  padding: 0px;
+}
+.affiliation{
+  float: left;
+}
+.affiliationButton{
+  float: right;
+}
+.comptetionCont{
+  background-color: #4e4a41; 
+  padding-left: 21vh;
+  color: white;
+  font-weight: 600;
+  margin-right: -15px;
+  margin-left: -15px;
+}
+.last-div{
+  color: black;
+  font-weight: 700;
+}
+
+.icon-pencil{
+  font-size: 1.4rem;
+}
+.country-icon{
+  position: absolute;
+  top: 8rem;
+  left: 8rem;
+}
+.fileselectors{
+    position: absolute;
+    top: 7rem;
+    left: 8rem;
+  }
+  .btn-profile{
+    font-size: 1rem;
+  }
+
+.buttondemoBasicUsage section {
+  background: #f7f7f7;
+  border-radius: 3px;
+  text-align: center;
+  margin: 1em;
+  position: relative !important;
+  padding-bottom: 10px; }
+
+.buttondemoBasicUsage md-content {
+  margin-right: 7px; }
+
+.buttondemoBasicUsage section .md-button {
+  margin-top: 16px;
+  margin-bottom: 16px; }
+
+.buttondemoBasicUsage .label {
+  position: absolute;
+  bottom: 5px;
+  left: 7px;
+  font-size: 14px;
+  opacity: 0.54; 
+}
+.profileheader{
+  background: #5f5b56;
+  margin-left: -1.5rem;
+  margin-right: -1.5rem;
+}
+.user_list{
+  padding-top: 0.7rem;
+  padding-bottom: 0.7rem;
+}
+.edt-profile{
+  width: auto;
+  background: black;
+  color: white;
+  height: 3rem;
+  padding-top: 0.5rem;
+  border-radius: 0.5rem;
+}
+.post-prjct{
+ width: 11rem;
+ height: 3.5rem;
+ background-color: #8AF158 !important;
+ margin-left: 5rem;
+ padding-top: 7px;
+ color: white;
+ text-align: center;
+ border-radius: 0.5rem;
+}
+.currncy_drpdown{
+  border: 1px solid;
+  border-radius:0.5rem;
+  color: #fff;
+}
+.currncy_drpdown >a{
+  color: #fff;
+}
+.checkboxList {
+    border:1px solid #000;
+    background-color:#fff; 
+    color:#000;
+    width:300px; 
+    height: 100px; 
+    overflow-y: scroll;
+}
+.current-color{
+  color: #35abc8;
+}
+.btn-circle {
+  width: 49px;
+  height: 49px;
+  text-align: center;
+  padding: 5px 0;
+  font-size: 20px;
+  line-height: 2.00;
+  border-radius: 30px;
+  margin-bottom: 10px;
+}
+.border-mradus{
+  margin-bottom: 30px;
+  border-bottom-left-radius: .5em;
+    border-bottom-right-radius: .5em;
+}
+/*=======*/
+.cover{
+  position: absolute;
+    top: 1.3rem;
+    background: #444444;
+    height: 2.5rem;
+    border-radius: 0.4rem
+}
+.cover > span{
+  line-height: 2.4rem;
+    color: white;
+}
+
+/* profile view css */
+.profile_detail{
+  border: 1px solid #B6B6B6;
+}
+
+.profile-menu:active{
+   width: auto;
+  background: black;
+  color: white;
+  height: 3rem;
+  padding-top: 0.5rem;
+  padding-right: 0.4rem;
+  padding-left: 0.4rem;
+  padding-bottom: 0.5rem;
+  border-radius: 0.5rem;
+}
+.profile-menu:hover{
+   width: auto;
+  background: #8ba753;
+  color: white;
+  height: 3rem;
+  padding-top: 0.5rem;
+  padding-right: 0.4rem;
+  padding-left: 0.4rem;
+  padding-bottom: 0.5rem;
+  border-radius: 0.5rem;
+}
+.profile-menu:focus{
+   width: auto;
+  background: black;
+  color: white;
+  height: 3rem;
+  padding-top: 0.5rem;
+  padding-right: 0.4rem;
+  padding-left: 0.4rem;
+  padding-bottom: 0.5rem;
+  border-radius: 0.5rem;
+}
+.hedr-menu {
+    color: #fff;
+    
+}
+
+.namelables{
+  background-color: #EAF4FD;
+  line-height: 30px;
+} 
+.returnslables{
+  border-bottom: 1px solid #FBFBFB;
+  line-height: 30px;
+}
+.verificationcolum{
+  border-bottom: 1px solid #EEEEEE;
+  line-height: 46px;
+}
+
+/*for verified*/
+.verificationcheck{
+  padding-left: 7px;
+  padding-right: 7px;
+  color: #35abc8;
+}
+/*for un verified*/
+.nonverified{
+  color: #a5a3a3;
+  border-radius: 25px;
+  padding-top: 7px;
+  padding-left: 6px;
+  padding-right: 7px;
+  padding-bottom: 21px;
+  width: 29px;
+  height: 18px;
+  border: 1px solid #a5a3a3;
+
+}/*for un verified*/
+.non-verified{
+  color: #a5a3a3;
+  border-radius: 25px;
+  padding-top: 7px;
+  padding-right: 7px;
+  padding-left: 6px;
+  padding-bottom: 21px;
+  width: 29px;
+  height: 18px;
+  border: 1px solid #a5a3a3;
+
+}
+
+/*for verified*/
+.verified{
+  color: #35abc8;
+  border-radius: 25px;
+  padding-top: 7px;
+  padding-left: 6px;
+  padding-bottom: 21px;
+  width: 29px;
+  height: 18px;
+  border: 1px solid #35abc8;
+
+}
+
+/*portfolio image size*/
+
+.img-portfolio{
+  width: 100%;
+  height: 280px;
+  /*height: 280px;*/
+  overflow: hidden;
+}
+.img-portfolio img{
+  width: 100%;
+  height: 100%;
+  border-radius: 19px;
+}
+
+.editablepincle{
+  font-size: 24px;
+  font-weight: 700;
+  color: #fff;
+}
+.img-comp-pincle{
+  border-radius: 18px;
+  padding-top: 3px;
+  padding-left: 3px;
+  padding-bottom: 0;
+  width: 23px;
+  height: 23px;
+  border: 1px solid #35abc8;
+}
+.upload-btn{
+  background-color: black;
+  opacity: 0.7;
+  color: white;
+}
+.bold-font{
+  font-weight: 900;
+  font-size: 30px;
+}
+.div-background{
+   display: flex;
+}
+/*My Resume Page*/
+.eductu-span{
+  font-size: 2rem;
+}
+.portfolio-item .portfolio-link .caption {
+    background: rgba(24,188,156,.9);
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 19px;
+    opacity: 0;
+    transition: all ease .5s;
+    -webkit-transition: all ease .5s;
+    -moz-transition: all ease .5s;
+}
+.portfolio-item .portfolio-link .caption .caption-content {
+    position: absolute;
+    width: 100%;
+    height: 20px;
+    font-size: 20px;
+    text-align: center;
+    top: 50%;
+    margin-top: -12px;
+    color: #fff;
+}
+.portfolio-item .portfolio-link .caption:hover {
+    opacity: 1;
+}
+.portfolio-item .portfolio-link .caption .caption-content i {
+    margin-top: -12px;
+}
+.del-icon{
+    position: absolute;
+    left: 53rem;
+    top: 34.8rem;
+    font-size: 2.5rem;
+    color: red;
+}
+.user-portfolio-picture{
+  width: 35%;
+  min-height: 150px;
+}
+@media only screen and (max-width: 768px){
+  .country-icon{
+    position: absolute;
+    top: 6rem;
+    left: 8rem;
+  }
+  .fileselectors{
+    position: absolute;
+    top: 6.5rem;
+    left: 10.4rem;
+  }
+  .coverImageBox {
+      width: 100%;
+      overflow: hidden;
+      height: auto;
+  }
+  .bold-font {
+      font-weight: 900;
+      font-size: 15px;
+  }
+  .editablepincle{
+    font-size: 16px;
+    font-weight: 700;
+    color: black;
+    margin-right: 12rem !important;
+  }
+  .del-icon {
+      left: 19rem;
+  }
+  .img-portfolio {
+    height: 182px;
+  }
+  .coverImageBox img {
+      height: 217px;
+  }
+  .comptetionCont{
+    background: transparent;
+    position: absolute;
+    top: 18.7rem;
+    color: white;
+  }
+  .bold-font > p{
+    font-size: 11px !important;
+  }
+  .comptetionCont > .bold-font{
+    font-size: 11px;
+  }
+  .comptetionCont .last-div{
+    color: white;
+  }
+  .mobile-view-rating{
+    width: 5rem !important;
+    height: auto !important;
+  }
+}

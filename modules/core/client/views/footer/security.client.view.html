@@ -1,0 +1,81 @@
+<section ng-controller="ProjectsController">
+
+  <!-- top banner with yellow back ground -->
+  <!-- contest top information -->
+  <div class="row about-security-background ">
+    <center>
+      <h1 class="mediasettingsecuritytitle mediasettingsecuritytitle2"><b>Responsible Disclosure of<br> Security Vulnerabilities</b></h1>
+            <p class="mediasettingsecuritypara mediasettingsecuritypara2">At OutSoucingOK, we do our absolute best to ensure that our website is as<br> secure as possible. Keeping up with the latest in web security can be a<br> daunting task and new vulnerabilities can appear in new and old products.<br> OutSoucingOK has an amazing community of very skilled users, particularly<br> amongst the highly technical freelancers. We encourage users who find<br> security vulnerabilities to report them to us as soon as possible.</p>
+    </center>
+  </div>
+<br>
+  <!-- part 2 -->
+  <div class="container" style="background: #F0F0F0;">
+    <div class="row about-security-background2">
+        <h2>Please submit vulnerabilities to:</h2>
+
+              <p>Only security related submissions will be considered. If you wish to encrypt your submission please use the following <a href="https://www.freelancer.com/info/WhitehatsPGP.txt">PGP key</a>.<br />
+              If you require site-related support please visit the <a href="/users/helpdesk.php">support page</a>.
+              </p>
+    </div>
+<br>
+  <!-- part 3 -->
+
+  <div class="row about-security-background3">
+              <h2>Do not engage in malicious activity</h2>
+              <p>Examples include denial of service, viewing another user&#039;s private data or modifying data without authorization.
+              </p>
+  </div>
+<br>
+ <!-- part 4 -->
+        <div class="row">
+            <div class="col-xs-12 col-xs-12 col-md-6">
+                <h2>Guidelines</h2>
+                <p>OutSoucingOK recognizes the importance of researchers who contribute to the security of our website. To encourage bug and vulnerability reports, we will commit to not bringing private action nor public inquiry against researchers who follow these guidelines such that the vulnerability:
+                </p>
+                <ul>
+                    <li>is reported to OutSoucingOK via the above email as soon as possible</li>
+                    <li>is not published elsewhere</li>
+                    <li>exists on a domain owned by OutSoucingOK (e.g. *.freelancer.com, freelancer.co.*)</li>
+                    <li>is verifiable by the security team</li>
+                </ul>
+
+                <p>Please include the following information in your submission:
+                </p>
+                <ul>
+                    <li>a proof-of-concept or demonstration of the vulnerability</li>
+                    <li>detailed instructions on how to reproduce the vulnerability</li>
+                    <li>an e-mail address we can contact you at</li>
+                </ul>
+            </div>
+
+            <div class="col-xs-12 col-xs-12 col-md-6">
+                <h2>Recognition</h2>
+                <p>Vulnerabilities that are deemed especially worthy by the security team may be rewarded in the following ways:</p>
+                <ul>
+                    <li>a name or company of the researcher's choosing published on the Security Hall Of Fame</li>
+                    <li>a special White Hat badge (shown below) awarded to the researcher's OutSoucingOK.com account</li>
+                </ul>
+
+               <center>
+                 <img class="about-security-image" src="https://cdn2.f-cdn.com/static/css/images/whitehats.png?v=d54a67aee86cced1bceb0095446a590b&m=6">
+               </center> 
+            </div>
+        </div>
+            <center>
+             <br><br><br><br>
+              <a href="#" class="btn btn-info btn-large">
+                 Security Hall Of Fame
+              </a>
+            </center>>
+           
+
+        </div>
+<br>
+ 
+  <!-- chatWindow -->
+ <div  ng-show="authentication.user">
+   <footer ng-include="'/modules/core/client/views/chatWindow.html'" ></footer>
+ </div>
+ 
+</section>

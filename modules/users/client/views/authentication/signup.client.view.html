@@ -1,0 +1,436 @@
+<div ui-view autoscroll="true" ng-hide="$state.includes('login')" ng-controller="AuthenticationController" ng-init="universalData();getCountry();">
+   <div class="container-fluid reg-container">
+   
+      <!-- Start: First Column -->
+      <div class="col-xs-12 col-sm-6 col-md-6 left-side information hidden-xs">
+         <div class="logo">
+ 
+			<!-- <a href="#"><img itemprop="image" class="img-responsive logo-imgs" src="modules/core/client/img/landing/outsoucing.png" alt=""></a> -->
+            <h2 class="main_heading" style="padding-top:150px"><span style="color: #fff; font-weight: 700; font-size: 20px;border: 2px solid #fff;padding:5px 15px;">회원가입은 무료입니다</span>
+		
+            <div class="signup-font" style="padding-top:10px">
+               <p class="p-b-none p-t-none m-t-none m-b-none">신용카드 예치금 결제시스템ㆍ검증된 프리랜서</p>               
+               <p class="p-b-none p-t-none m-t-none m-b-none">실시간 화상채팅 지원ㆍ의뢰인과 프리랜서 연결지원</p> 
+               <p class="p-b-none p-t-none m-t-none m-b-none">프로젝트ㆍ콘테스트 무료등록</p>
+            </div>
+			<h2 class="main_heading"><span style="color: #fff; font-weight: 700; font-size: 20px;">프로필 작성하지 않으시면 일주일 후 회원 자동 삭제됩니다.</h2>
+			<h2 class="main_heading"><span style="color: #37526a; font-weight: 700; font-size: 20px;">아웃소싱오케이는 구글크롬에 최적화되어 있습니다</h2></span>
+            </h2>
+         </div>
+      </div>
+      <!-- End: First Column -->
+      <div class=" col-xs-12 col-sm-6 col-md-6 form-section">
+         <div class="container-fluid">
+            <div class="hidden-xs text-right alrdy p-t-md">
+               <p>회원에 이미 가입하셨나요? <a ui-sref="authentication.signin" class="logn">로그인</a> </p>
+            </div>
+         </div>
+         <!-- custom code -->
+         <div class="col-xs-12 col-md-offset-2 col-md-8">
+            <div class="registeration">
+               <h3 class="signu">아웃소싱 오케이 무료 회원가입</h3>
+               <uib-tabset active="active">
+                  <uib-tab index="$index + 1" ng-click = "checkUser()" ng-repeat="user in users" heading="{{user.title}}" disable="user.disabled">
+                     <div ng-if=" user.value == 'company' ">
+                        <div class="col-xs-11 col-md-12 signup-form">
+                           <form name="userForm" ng-submit="signup(userForm.$valid,'company')" class="signin" novalidate autocomplete="off">
+                              <fieldset>
+                                 <div class="form-group" show-errors>
+                                    <img itemprop="image" class="starimg" src="modules/users/client/img/basic/star.png" alt="">
+                                    <input type="text" id="companyName" name="companyName" class="form-control" ng-model="credentials.company.companyName" placeholder="회사명" required>
+                                    <div ng-messages="userForm.companyName.$error" role="alert">
+                                       <p class="help-block error-text" ng-message="required">회사 상호명을 입력바랍니다.</p>
+                                    </div>
+                                 </div>
+                                 <div class="form-group" show-errors>
+                                    <img itemprop="image" class="starimg" src="modules/users/client/img/basic/star.png" alt="">
+                                    <input type="text" id="registrationNo" name="registrationNo" class="form-control" ng-model="credentials.company.companyRegNum" placeholder="사업자등록번호 (잘못된 번호는 강제탈퇴 조치됩니다)" required>
+                                    <div ng-messages="userForm.registrationNo.$error" role="alert">
+                                       <p class="help-block error-text" ng-message="required">사업자 등록번호를 입력바랍니다.</p>
+                                    </div>
+                                 </div>
+                                 <div class="form-group" show-errors>
+                                    <img itemprop="image" class="starimg" src="modules/users/client/img/basic/star.png" alt="">
+                                    <input type="email" id="email" name="email" class="form-control" ng-model="credentials.company.email" placeholder="이메일주소" lowercase required>
+                                    <div ng-messages="userForm.email.$error" role="alert">
+                                       <p class="help-block error-text" ng-message="required">이메일 주소를 입력바랍니다.</p>
+                                       <p class="help-block error-text" ng-message="email">이메일 주소가 유효하지 않습니다.</p>
+                                    </div>
+                                 </div>
+                                 <div class="form-group" show-errors>
+                                    <img itemprop="image" class="starimg" src="modules/users/client/img/basic/star.png" alt="">
+                                    <input type="text" id="username" name="username" class="form-control" ng-model="credentials.company.username" placeholder="아이디" lowercase required>
+                                    <div ng-messages="userForm.username.$error" role="alert">
+                                       <p class="help-block error-text" ng-message="required">사용자 아이디를 입력바랍니다.</p>
+                                    </div>
+                                 </div>
+
+                                 <script type="text/ng-template" id="selector/demo/country">
+                                    <i class="flag" ng-class="option.code.toLowerCase()"></i>&nbsp;
+                                    {{option}}
+                                 </script>
+                                 <!-- <div class="form-group" ng-if="tab.value=='company'">
+                                    <img itemprop="image" class="starimg" src="modules/users/client/img/basic/star.png" alt="">
+                                    <select selector
+                                       model="credentials.company.country.name"
+                                       value-attr="name"
+                                       name = "country"
+                                       debounce="200"
+                                       remote="remote"
+                                       remote-param="{{remoteParam}}"
+                                       view-item-template="'selector/demo/country'"
+                                       dropdown-item-template="'selector/demo/country'"
+                                       change="getPhoneCodeCompany()"
+                                       placeholder="Select Country">
+                                    </select> -->
+                                    <!-- <p>Current value: <code ng-bind="credentials.individual.country|json"></code> </p> -->
+                                    <!-- <div ng-messages="userForm.country.$error" role="alert">
+                                       <p class="help-block error-text" ng-message="required">Country is required.</p>
+                                    </div> -->
+
+                                    <!-- for city -->
+                                    <!-- <input type="text" class="hidden form-control" ng-model="credentials.company.country.city" placeholder="Company Name" required>  -->
+
+                                 <!-- </div>
+                                 <div class="form-group" >
+                                    <div class="row">
+                                       <div class="col-xs-8">
+                                          <img itemprop="image" class="starimg" src="modules/users/client/img/basic/star.png" alt="">
+                                          <div class="input-group" show-errors>
+                                             <span class="input-group-addon">{{dialCodeCompany}}</span>
+                                             <input type="text" id="telephone" name="telephone" placeholder="Company Telephone No" class="form-control"  ng-model="credentials.company.companyTel" required="" onkeypress="return (event.charCode == 8 || event.charCode == 0) ? null : event.charCode >= 48 && event.charCode <= 57">
+
+                                             
+                                             <div ng-messages="userForm.telephone.$error" role="alert">
+                                                <p class="help-block error-text" ng-message="required">Telephone Number is required.</p>
+                                             </div>
+                                          </div>
+                                       </div>
+
+                                       <div class="col-xs-4 extns">
+                                          <div class="input-group" show-errors>
+                                             <input type="number" id="extension" name="extension" placeholder="Extension No" class="form-control ext-txt" ng-model="credentials.company.companyExt" required>
+
+
+                                             <div ng-messages="userForm.extension.$error" role="alert">
+                                                <p class="help-block error-text" ng-message="required">Extension is required.</p>
+                                             </div>
+                                          </div>
+                                       </div>
+
+                                    </div>
+                                 </div>
+                                 <div class="form-group" show-errors>
+                                    <img itemprop="image" class="starimg" src="modules/users/client/img/basic/star.png" alt="">
+                                    <input type="text" id="mblNumber" name="mblNumber" placeholder="Person In charge of Mobile Number" class="form-control" ng-model="credentials.company.personInChargeNum"  required="" >
+                                    <div ng-messages="userForm.mblNumber.$error" role="alert">
+                                       <p class="help-block error-text" ng-message="required">Mobile Number required.</p>
+                                    </div>
+                                 </div> -->
+                                 <div class="form-group" show-errors>
+                                    <img itemprop="image" class="starimg" src="modules/users/client/img/basic/star.png" alt="">
+                                    <input type="password" id="password" name="password" class="form-control" ng-model="credentials.company.password" placeholder="비밀번호(8자이상 영문대문자 및 특수기호)" popover="{{popoverMsg}}" popover-trigger="focus" password-validator required>
+                                    <div ng-messages="userForm.password.$error" role="alert">
+                                       <p class="help-block error-text" ng-message="required">비밀번호를 입력 바랍니다.</p>
+                                       <div ng-repeat="passwordError in passwordErrors">
+                                          <p class="help-block error-text" ng-show="userForm.password.$error.requirements">{{passwordError}}</p>
+                                       </div>
+                                    </div>
+                                 </div>
+                                 <div class="form-group" ng-show="!userForm.password.$error.required">
+                                    <label>비밀번호를 입력 바랍니다.</label>
+                                    <uib-progressbar  type="{{requirementsColor}}" max="max" value="requirementsProgress"><span style="color:white; white-space:nowrap;">{{requirementsProgress}}%</span></uib-progressbar>
+                                 </div>
+                                 <div class="form-group" show-errors>
+                                    <img itemprop="image" class="starimg" src="modules/users/client/img/basic/star.png" alt="">
+                                    <input type="password" id="confirmPassword" name="confirmPassword" class="form-control" ng-model="credentials.company.confirmPassword" placeholder="비밀번호 재입력 확인" popover="{{popoverMsg}}" popover-trigger="focus" match-password="password" required="">
+                                    <div ng-messages="userForm.confirmPassword.$error" role="alert">
+                                       <p class="help-block error-text" ng-message="required">비밀번호 재입력 확인 바랍니다.</p>
+                                       <p class="help-block error-text" ng-message="passwordMatch" >비밀번호가 잘못 입력 됐습니다.</p>
+                                    </div>
+                                 </div>
+                                 <div class="form-group">
+                                    <h6 class="text-center want"><img src="modules/users/client/img/basic/mem2-h.png" alt="">&nbsp;<span style="font-size:17px">프로젝트 이용목적을 선택바랍니다</span></h6>
+                                    <br>
+                                  <div class="rdio-btn">
+                                    <div class="col-xs-5">
+                                       <div class="hire" class="col-xs-12 text-center">
+                                          <input id="work" type="radio" class="hir" value="hire" name="hirin" ng-model="credentials.company.userRole" >
+                                          <!-- ng-change="companyInterestRemove()" -->
+                                          <span class="hires">의뢰인</span>
+                                       </div>
+									            <div class="col-xs-12 prjct-list-font p-t-xs p-l-xs"> 
+                                          <span>등록인 전용</span>
+                                       </div>
+                                     </div>
+
+                                     <div class="col-xs-3 p-t-sm text-center">  
+                                       <span>  또는</span>
+                                     </div>
+                                     <div class="col-xs-4 text-center">
+                                       <div class="hire" style="background:#688686;border: 1px solid #688686;">
+                                          <input type="radio" id="workss" class="hir2" value="work" name="hirin" ng-model="credentials.company.userRole">
+                                         <!--  ng-change="companyInterestRemove()" -->
+                                          <span class="hires">프리랜서</span>
+                                       </div>
+									            <div class="prjct-list-font p-t-xs"> 
+                                          <span>지원자 전용</span>
+                                       </div>
+                                      </div> 
+									  
+                                    </div>
+                                 </div>
+                            <!--      <div class="show_work work-show" id="showworkss" ng-if=" credentials.company.userRole =='work'">
+                                    <p class="text-center logn"><b>And I am intrested in</b> </p>
+                                    <div class="hire-job">
+                                       <input type="radio" ng-model="credentials.company.interest" value="job" class="hir-s" name="individual" >
+                                       <span class="hires">Looking for Job</span>
+                                    </div>
+                                    <div class="hire-job">
+                                       <input type="radio" class="hir-s" ng-model="credentials.company.interest" value="project" name="individual">
+                                       <span class="hires">View of Projects</span>
+                                    </div>
+                                 </div>
+                                 <div class="show_work work-show" ng-if=" credentials.company.userRole =='hire'">
+                                    <p class="text-center logn"><b>And I am intrested in</b> </p>
+                                    <div class="hire-job">
+                                       <input type="radio" class="hir-s" ng-model="credentials.company.interest" value="Employee" name="individual" ng-checked="true">
+                                       <span class="hires">Looking for Employee</span>
+                                    </div>
+                                    <div class="hire-job">
+                                       <input type="radio" class="hir-s" ng-model="credentials.company.interest" value="Directory" name="individual">
+                                       <span class="hires">View of Directory</span>
+                                    </div>
+                                 </div> -->
+                                 <div class="form-group">
+                                    <img itemprop="image" class="starimg" src="modules/users/client/img/basic/star.png" alt="">
+                                    <h5 class="reqfield">필수입력</h5>
+                                 </div>
+                                 <div ng-show="error" class="text-center text-danger">
+                                    <strong ng-bind="error"></strong>
+                                 </div>
+                                 <div class="bots login-bot prjct-list-font">
+                                    <div class="form-group chkbx">
+                                       <input type="checkbox" ng-model = "credentials.company.subscribe"> 본 <a ui-sref="codeofconduct" class="logn agree" target="_blank">이용자 수칙</a> 및 이메일 수신에 동의합니다
+                                    </div>
+                                     <div class="form-group chkbx">
+                                       <input type="checkbox" ng-model = 'agreement.isSelected'> 본<a ui-sref="term-condition" class="logn" >이용약관</a> 및  
+                                       <a ui-sref="privacy-policy" class="logn agree">개인정보 취급방침</a> 에 동의합니다.
+                                    </div>
+                                    <div class="text-center form-group">
+                                       <button type="submit" class="btn btn-lg btn-signup" ng-disabled = "!agreement.isSelected">회원가입</button>
+                                    </div>
+                                    <hr class="hrs">
+                                    <b><img src="modules/users/client/img/basic/passwd.png" alt="">아웃소싱 오케이</b> 회원에 이미가입하셨나요? <a ui-sref="authentication.signin" class="logn">로그인</a>
+                                 </div>
+                              </fieldset>
+                           </form>
+						   <div class="auth_signup hidden-xs hidden-sm">
+                             <img src="modules/core/client/img/customimages/main_icon10.png" alt="">&nbsp;아웃소싱 오케이는 구글크롬 데스크탑으로 최적화 되어있습니다.<br><a href="https://www.google.co.kr/chrome/browser/desktop/index.html" target="_blank"><img src="modules/users/client/img/chrome.png" style="padding-top:5px">&nbsp;&nbsp;다운로드</a>
+                           </div>
+						   <div class="auth_signup hidden-xs hidden-sm">
+                             <img src="modules/core/client/img/customimages/main_icon9.png" alt="">회원님간에 원할한 소통을 위해서 구글 크롬 브라우저를 이용한 실시간 화상 채팅으로 운영됩니다. 현재 IE(인터넷 익스프로러)에서 화상채팅을 이용할 경우 화상 이용은 불가능하며 채팅은 사용 할 수 있으나 다소 불편을 감수 해야 합니다. 회원님의 소중한 재산을 보호하기위해서 구글 크롬 사용을 적극 권장 합니다, 회원님께서 IE(인터넷 익스플로러)에서 구글 크롬을 다운로드 하신경우 바탕화면에 크롬아이콘을 클릭하고 사용하셔야 실시간 화상 채팅이 가능 합니다.
+                           </div>
+                        </div>
+                     </div>
+                     <div ng-if=" user.value == 'individual'">
+                       <hr>
+                        <!-- <div class="sign-tdy">
+                           
+                           <a ng-click="callOauthProvider('/api/auth/facebook')"><button class="btns fbw" value=""><i class="fa fa-facebook fb-icon"></i>페이스북계정 회원가입</button></a>
+                           <a ng-click="callOauthProvider('/api/auth/google')"><button class="btns glw"><i class="fa fa-google fb-icon"></i>구글계정 회원가입</button></a>
+                           <br>
+                           <h5 class="text-right or"><span class="top-or">또는</span></h5>
+                           <span class="clear"></span>
+                        </div> -->
+                        <div class="col-xs-11 col-md-12 signup-form">
+                           <form name="userForm" ng-submit="signup(userForm.$valid,'individual')" class="signin" novalidate autocomplete="off">
+                              <fieldset>
+                                 <div class="form-group" show-errors>
+                                    <div class="row">
+                                       <div class="col-xs-6">
+                                          <img itemprop="image" class="starimg" src="modules/users/client/img/basic/star.png" alt="">
+                                          <input type="text" id="firstName" name="firstName" class="form-control" ng-model="credentials.individual.firstName" placeholder="성" required>
+                                          <div ng-messages="userForm.firstName.$error" role="alert">
+                                             <p class="help-block error-text" ng-message="required">본인 성을 입력 바랍니다.</p>
+                                          </div>
+                                       </div>
+
+									   <div class="col-xs-6">
+                                          <img itemprop="image" class="starimg" src="modules/users/client/img/basic/star.png" alt="">
+                                          <input type="text" id="lastName" name="lastName" class="form-control" ng-model="credentials.individual.lastName" placeholder="이름" required>
+                                          <div ng-messages="userForm.lastName.$error" role="alert">
+                                             <p class="help-block error-text" ng-message="required">이름을 입력 바랍니다.</p>
+                                          </div>
+                                       </div>
+                                       
+                                    </div>
+                                 </div>
+                                 <div class="form-group" show-errors>
+                                    <img itemprop="image" class="starimg" src="modules/users/client/img/basic/star.png" alt="">
+                                    <input type="email" id="email" name="email" class="form-control" ng-model="credentials.individual.email" placeholder="이메일 주소" lowercase required>
+                                    <div ng-messages="userForm.email.$error" role="alert">
+                                       <p class="help-block error-text" ng-message="required">이메일 주소를 입력 바랍니다.</p>
+                                       <p class="help-block error-text" ng-message="email">이메일 주소가 유효하지 않습니다.</p>
+                                    </div>
+                                 </div>
+                                 <div class="form-group" show-errors>
+                                    <img itemprop="image" class="starimg" src="modules/users/client/img/basic/star.png" alt="">
+                                    <input type="text" id="username" name="username" class="form-control" ng-model="credentials.individual.username" placeholder="아이디" lowercase required>
+                                    <div ng-messages="userForm.username.$error" role="alert">
+                                       <p class="help-block error-text" ng-message="required">사용자 아이디를 입력 바랍니다.</p>
+                                    </div>
+                                 </div>
+                                 
+                                 <script type="text/ng-template" id="selector/demo/country">
+                                    <i class="flag" ng-class="option.code.toLowerCase()"></i>&nbsp;
+                                    {{option.name}}
+                                 </script>
+                                 <!-- <div class="form-group" show-errors ng-if="tab.value=='individual'">
+                                    <img itemprop="image" class="starimg" src="modules/users/client/img/basic/star.png" alt="">
+                                    <select selector
+                                       model="credentials.individual.country.name"
+                                       value-attr="name"
+                                       name = "country"
+                                       debounce="200"
+                                       remote="remote"
+                                       remote-param="{{remoteParam}}"
+                                       view-item-template="'selector/demo/country'"
+                                       dropdown-item-template="'selector/demo/country'"
+                                       change="getPhoneCodeIndivisual()">
+                                    </select> -->
+                                    <!-- <p>Current value: <code ng-bind="credentials.company.country|json"></code> </p> -->
+                                    <!-- <div ng-messages="userForm.country.$error" role="alert">
+                                       <p class="help-block error-text" ng-message="required">Country is required.</p>
+                                    </div> -->
+
+                                    <!-- for city -->
+                                    <!-- <input type="text" class="hidden form-control" ng-model="credentials.individual.country.city" placeholder="Company Name" required>  -->
+
+                                 <!-- </div>
+                                 <div class="form-group" show-errors>
+                                    <img itemprop="image" class="starimg" src="modules/users/client/img/basic/star.png" alt="">
+                                    <div class="input-group">
+                                       <span class="input-group-addon">{{dialCodeIndivisual}}</span>
+                                       <input type="text" id="phone" name="phone" class="form-control" ng-model="credentials.individual.mobileNumber" popover="{{popoverMsg}}" popover-trigger="focus" placeholder="Mobile No" required onkeypress="return (event.charCode == 8 || event.charCode == 0) ? null : event.charCode >= 48 && event.charCode <= 57">
+                                    </div>
+                                    <div ng-messages="userForm.phone.$error" role="alert">
+                                       <p class="help-block error-text" ng-message="required">Phone is required.</p>
+                                       <div ng-repeat="passwordError in passwordErrors">
+                                          <p class="help-block error-text" ng-show="userForm.phone.$error.requirements">{{passwordError}}</p>
+                                       </div>
+                                    </div>
+                                 </div> -->
+                                 <div class="form-group" show-errors>
+                                    <img itemprop="image" class="starimg" src="modules/users/client/img/basic/star.png" alt="">
+                                    <input type="password" id="password" name="password" class="form-control" ng-model="credentials.individual.password" placeholder="비밀번호(8자이상 영문대문자 및 특수기호)" popover="{{popoverMsg}}" popover-trigger="focus" password-validator required>
+                                    <div ng-messages="userForm.password.$error" role="alert">
+                                       <p class="help-block error-text" ng-message="required">비밀번호를 입력 바랍니다.</p>
+                                       <div ng-repeat="passwordError in passwordErrors">
+                                          <p class="help-block error-text" ng-show="userForm.password.$error.requirements">{{passwordError}}</p>
+                                       </div>
+                                    </div>
+                                 </div>
+                                 <div class="form-group" ng-show="!userForm.password.$error.required">
+                                    <label>Password Requirements</label>
+                                    <uib-progressbar  type="{{requirementsColor}}" max="max" value="requirementsProgress"><span style="color:white; white-space:nowrap;">{{requirementsProgress}}%</span></uib-progressbar>
+                                 </div>
+                                 <div class="form-group" show-errors>
+                                    <img itemprop="image" class="starimg" src="modules/users/client/img/basic/star.png" alt="">
+                                    <input type="password" id="confirmPassword" name="confirmPassword" class="form-control" ng-model="credentials.individual.confirmPassword" placeholder="비밀번호 재입력 확인" popover="{{popoverMsg}}" popover-trigger="focus" match-password="password" required="">
+                                    <div ng-messages="userForm.confirmPassword.$error" role="alert">
+                                       <p class="help-block error-text" ng-message="required">비밀번호를 재입력 바랍니다.</p>
+                                       <p class="help-block error-text" ng-message="passwordMatch" >비밀번호가 잘못 입력 됐습니다.</p>
+                                    </div>
+                                 </div>
+                                 <div class="form-group">
+                                    <h6 class="text-center want"><img src="modules/users/client/img/basic/mem2-h.png" alt="">&nbsp;<span style="font-size:17px">프로젝트 이용목적을 선택바랍니다</span></h6>
+                                    <br>
+                                    <div class="rdio-btn">
+                                    <div class="col-xs-5">
+                                       <div class="hire" class="col-xs-12 text-center">
+                                          <input id="work" type="radio" class="hir" value="hire" name="hirin" ng-model="credentials.individual.userRole" >
+                                          <!-- ng-change="companyInterestRemove()" -->
+                                          <span class="hires">의뢰인</span>
+                                       </div>
+									            <div class="col-xs-12 prjct-list-font p-t-xs p-l-xs"> 
+                                          <span>등록인 전용</span>
+                                       </div>
+                                     </div>
+                                     <div class="col-xs-3 p-t-sm text-center">  
+                                       <span>또는</span>
+                                     </div>
+                                     <div class="col-xs-4 text-center">
+                                       <div class="hire" style="background:#688686;border: 1px solid #688686;">
+                                          <input type="radio" id="workss" class="hir2" value="work" name="hirin" ng-model="credentials.individual.userRole">
+                                         <!--  ng-change="companyInterestRemove()" -->
+                                          <span class="hires">프리랜서</span>
+                                       </div>
+									            <div class="prjct-list-font p-t-xs"> 
+                                          <span>지원자 전용</span>
+                                       </div>
+                                      </div>  
+                                    </div>
+                                 </div>
+                                <!--  <div class="show_work work-show" id="showworkss" ng-if=" credentials.individual.userRole =='work'">
+                                    <p class="text-center logn"><b>And I am intrested in</b> </p>
+                                    <div class="hire-job">
+                                       <input type="radio" ng-model="credentials.individual.interest" value="job" class="hir-s" name="individual" >
+                                       <span class="hires">Looking for Job</span>
+                                    </div>
+                                    <div class="hire-job">
+                                       <input type="radio" class="hir-s" ng-model="credentials.individual.interest" value="project" name="individual" >
+                                       <span class="hires">View of Projects</span>
+                                    </div>
+                                 </div>
+                                 <div class="show_work work-show" ng-if=" credentials.individual.userRole =='hire'">
+                                    <p class="text-center logn"><b>And I am intrested in</b> </p>
+                                    <div class="hire-job">
+                                       <input type="radio" class="hir-s" ng-model="credentials.individual.interest" value="Employee" name="individual" >
+                                       <span class="hires">Looking for Employee</span>
+                                    </div>
+                                    <div class="hire-job">
+                                       <input type="radio" class="hir-s" ng-model="credentials.individual.interest" value="Directory" name="individual" >
+                                       <span class="hires">View of Directory</span>
+                                    </div>
+                                 </div> -->
+                                 <div class="form-group">
+                                    <img itemprop="image" class="starimg" src="modules/users/client/img/basic/star.png" alt="">
+                                    <h5 class="reqfield">필수입력</h5>
+                                 </div>
+                                 <div ng-show="error" class="text-center text-danger">
+                                    <strong ng-bind="error"></strong>
+                                 </div>
+                                 <div class="bots login-bot prjct-list-font">
+                                    <div class="form-group chkbx">
+                                       <input type="checkbox" ng-model = "credentials.company.subscribe"> 본 <a ui-sref="codeofconduct" class="logn agree" target="_blank">이용자 수칙</a> 및 이메일 수신에 동의합니다 
+                                    </div>
+                                     <div class="form-group chkbx">
+                                       <input type="checkbox" ng-model = 'agreement.isSelected'><span class="chk-text"> 본<a ui-sref="term-condition" class="logn" >이용약관</a> 및  
+                                       <a ui-sref="privacy-policy" class="logn agree">개인정보 취급방침</a> 에 동의합니다.
+                                       </span>
+                                    </div>
+                                    <div class="text-center form-group">
+                                       <button type="submit" class="btn btn-lg btn-signup" ng-disabled = "!agreement.isSelected">회원가입</button>
+                                    </div>
+                                    <hr class="hrs">
+                                    <b><img src="modules/users/client/img/basic/passwd.png" alt="">아웃소싱 오케이</b> 회원에 이미가입하셨나요? <a ui-sref="authentication.signin" class="logn">로그인</a>
+                                 </div>
+                              </fieldset>
+                           </form>
+						   <div class="auth_signup hidden-xs hidden-sm">
+                             <img src="modules/core/client/img/customimages/main_icon10.png" alt="">&nbsp;아웃소싱 오케이는 구글크롬 데스크탑으로 최적화 되어있습니다.<br><a href="https://www.google.co.kr/chrome/browser/desktop/index.html" target="_blank"><img src="modules/users/client/img/chrome.png" style="padding-top:5px">&nbsp;&nbsp;다운로드</a>
+                           </div>
+						   <div class="auth_signup hidden-xs hidden-sm">
+                             <img src="modules/core/client/img/customimages/main_icon9.png" alt="">회원님간에 원할한 소통을 위해서 구글 크롬 브라우저를 이용한 실시간 화상 채팅으로 운영됩니다. 현재 IE(인터넷 익스프로러)에서 화상채팅을 이용할 경우 화상 이용은 불가능하며 채팅은 사용 할 수 있으나 다소 불편을 감수 해야 합니다. 회원님의 소중한 재산을 보호하기위해서 구글 크롬 사용을 적극 권장 합니다, 회원님께서 IE(인터넷 익스플로러)에서 구글 크롬을 다운로드 하신경우 바탕화면에 크롬아이콘을 클릭하고 사용하셔야 실시간 화상 채팅이 가능 합니다.
+                           </div>
+                        </div>
+                     </div>
+                  </uib-tab>
+               </uib-tabset>
+            </div>
+         </div>
+      </div>
+   </div>
+</div>
+<!-- ends custom code -->

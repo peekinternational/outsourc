@@ -1,0 +1,4765 @@
+'use strict';
+
+// Projects controller
+angular.module('projects').controller('ProjectsController', ['$scope', '$rootScope', '$filter', 'Socket', 'Notification', '$state', 'toastr', '$stateParams', '$location', '$http', '$timeout', '$window', 'Authentication', 'Projects', 'geolocation', 'FileUploader', 'UniversalData', 'Account', 'Transactions', 'SweetAlert', 'Conversation', 'usSpinnerService', 'uuid2', 'Notifications', 'ProjectFeed', 'Categories', 'SubCategories', 'Skills', 'Contests',
+  function ($scope, $rootScope, $filter, Socket, Notification, $state, toastr, $stateParams, $location, $http, $timeout, $window, Authentication, Projects, geolocation, FileUploader, UniversalData, Account, Transactions, SweetAlert, Conversation, usSpinnerService, uuid2, Notifications, ProjectFeed, Categories, SubCategories, Skills, Contests){
+    $scope.authentication = Authentication;
+
+   //toastr config
+    toastr.options = {
+      "closeButton": false,
+      "debug": false,
+      "newestOnTop": false,
+      "progressBar": false,
+      "positionClass": "toast-bottom-left",
+      "preventDuplicates": false,
+      "onclick": null,
+      "showDuration": "300",
+      "hideDuration": "1000",
+      "timeOut": "5000",
+      "extendedTimeOut": "1000",
+      "showEasing": "swing",
+      "hideEasing": "linear",
+      "showMethod": "fadeIn",
+      "hideMethod": "fadeOut"
+    };
+
+    $scope.view_processing = true;
+
+    // Currency rate is being hardcoded here instead of getting the latest rate
+    // 1 USD = 1000 KRW
+    $rootScope.latestCurrencyRate = { 'USD': 1, 'KRW': 1000 };
+
+    // if(typeof(JSON.parse(localStorage.getItem('latestCurrencyRate'))) === 'undefined' ){
+    //   $http.get('https://api.fixer.io/latest?base=USD').then(function(res){
+    //     $rootScope.latestCurrencyRate = res.data.rates;
+    //     $rootScope.latestCurrencyRate.USD = 1;
+    //     localStorage.setItem('latestCurrencyRate', JSON.stringify($rootScope.latestCurrencyRate));
+    //     // console.log('rate 1:', $rootScope.latestCurrencyRate);
+    //   });
+    // }else{
+    //   $rootScope.latestCurrencyRate = JSON.parse(localStorage.getItem('latestCurrencyRate'));      
+    // }
+
+    $scope.getLatestRate = function(){
+
+      $rootScope.latestCurrencyRate = { 'USD': 1, 'KRW': 1000 };
+
+      // $http.get('https://api.fixer.io/latest?base=USD').then(function(res){
+      //   $rootScope.latestCurrencyRate = res.data.rates;
+      //   $rootScope.latestCurrencyRate.USD = 1;
+      //   localStorage.setItem('latestCurrencyRate', JSON.stringify($rootScope.latestCurrencyRate));
+      // });
+    };
+
+    // Add an event listener when freelancer requests milestone
+    Socket.on(Authentication.user.username+'requestedMileStone', function (message) {
+      if($scope.awardedProject.proposal){
+        Notification.warning({
+          message: 'Freelancer has requested a milestone creation', 
+          positionY: 'bottom', 
+          positionX: 'left', 
+          closeOnClick: true, 
+          title: '<i class="glyphicon glyphicon-check"></i>Request for milestone',
+          maxCount:6
+        });
+
+        $scope.awardedProject.proposal.milestones.push(message.text.data);
+      }
+    }); 
+    
+    //console.log('$scope.mainCat', $scope.mainCat);
+    //console.log('$scope.subCat', $scope.subCat);
+    // $timeout(function() {
+    //   usSpinnerService.spin('similarProjectLoader');
+    // }, 0);
+
+    // $timeout(function() {
+    //   usSpinnerService.stop('similarProjectLoader');
+    // }, 1500);
+
+    $scope.detail = true;
+    $scope.edit = true;
+    
+    /*update project information from project-mange*/
+    $scope.updateProject = function(){
+      $scope.totalAmount = $scope.totalAmount * (-1);
+      // alert($scope.totalAmount);
+      if($scope.totalAmount>0){
+        SweetAlert.swal({
+          title: "프로젝트 업그레이드 하시겠습니까?",		  
+          text: "회원님께서는 아웃소싱오케이 서비스를 구매하셨습니다. 금액은 " + "₩" + $scope.totalAmount + "  원 입니다. 회원님께서 승인 할 경우 회원님계좌에 있는 예치금에서 자동인출됩니다. 예치금이 부족할 경우 [서비스 이용료 결제]에서 지불하시길 바랍니다.",
+          type: "warning",
+          showCancelButton: true,
+          confirmButtonColor: "#008000",
+          confirmButtonText: "업그레이드",
+          closeOnConfirm: false,
+          closeOnCancel: false
+        },
+        function (isConfirm) {
+          if(isConfirm){
+            SweetAlert.close();
+            Transactions.transfer({
+              Sid:$rootScope.userAccountBalance.id,
+              Rid:$rootScope.adminEWalletId,
+              amount:parseInt($scope.totalAmount),
+              currency:'USD'
+            }, function(suc){
+              var project = $scope.project;
+              project.$update(function (response) {
+                $scope.project = response;
+              }, function (fail) {
+                toastr.error('Edit error', 'Oops, something went wrong');
+              });
+            }, function(fail){
+              SweetAlert.swal('No Money!', 'Not enough amount in wallet for upgradation of project.', 'error');
+            });
+          }
+          else{
+            SweetAlert.close();
+          }
+        });
+      }else{
+        var project = $scope.project;
+        project.$update(function (response) {
+          $scope.project = response;
+        }, function (fail) {
+          toastr.error('Edit error', 'Oops, something went wrong');
+        });
+      }
+    };
+
+    //check the project is simple or similar
+    if($scope.mainCat !== null && $scope.subCat !== null)
+    { 
+      $scope.similarProjectPost = 1;
+    }
+    else
+    {
+      $scope.similarProjectPost = 0;
+    }
+
+  //console.log('$scope.similarProjectPost', $scope.similarProjectPost);
+  $scope.reloadRoute = function() {
+     $window.location.reload();
+  };
+  $scope.images = [1, 2, 3, 4, 5, 6, 7, 8];
+
+  $scope.loadMore = function() {
+    var last = $scope.images[$scope.images.length - 1];
+    for(var i = 1; i <= 8; i++) {
+      $scope.images.push(last + i);
+    }
+  };
+    
+   $scope.universalData = function () {
+
+     $scope.universal = UniversalData.query().$promise.then(function (data) {
+       $scope.records = data[0];
+       $scope.typeOfWork = $scope.records.typeOfWork;
+       $scope.fixedRate = $scope.records.fixedRate;
+       $scope.hourlyRate = $scope.records.hourlyRate;
+       $scope.skills = $scope.records.skills;
+       // $scope.project.currency = 'USD';
+       $scope.subcatweb = $scope.records.subcatweb;
+       $scope.subcatmobile = $scope.records.subcatmobile;
+       $scope.subcatwriting = $scope.records.subcatwriting;
+       $scope.subcatdesign = $scope.records.subcatdesign;
+       $scope.subcatdataentry = $scope.records.subcatdataentry;
+       $scope.subcatmanufact = $scope.records.subcatmanufact;
+       $scope.subcatsalemarket = $scope.records.subcatsalemarket;
+       $scope.subcatlocaljob = $scope.records.subcatlocaljob;
+
+       //Project-post project budget selector
+       $scope.rateList = $scope.fixedRate;
+       $scope.project.price = $scope.rateList[0];
+       $scope.commonCurrency = data[0].currency;
+
+       $scope.getCommonCurrency();
+
+       return $scope.records;
+     }, function (error) {
+       // error handler
+     });
+   };
+
+    //integration of chat module
+    $scope.createConversation = function (bid, bool, projectId, projectName) {
+      //console.log('bid::', bid);
+      //console.log("Conversation Called");
+      // Find the existing convo
+      Conversation.findOne({
+        filter:{
+          where:{
+            and:[
+              {
+                projectTitle: projectName,
+                userTwo: bid.bidderInfo.username
+              }
+            ]
+          }
+        }
+      }, function(suc){
+           $rootScope.convToOpen = suc;
+           $rootScope.convToOpenFromProjects = 1;
+           $location.path('chat/inbox/'+suc.id);
+      }, function(err){
+        // toastr.error('Oops, something went wrong.', 'Conversation')
+        Conversation.create({
+          "userOne": bid.bidderInfo.username,
+          "userTwo": Authentication.user.username,
+          "projectTitle": projectName,
+          "projectLink": projectId,
+          "projectId": projectId,
+          "isAwarded": bool,
+          "cid": uuid2.newuuid(),
+          "hasUnreadMessages": true
+        }, function(_resp){
+
+          Conversation.findOne({
+            filter:{
+              where:{
+                and:[
+                  {
+                    projectTitle: projectName,
+                    userTwo: bid.bidderInfo.username
+                  }
+                ]
+              }
+            }
+          }, function(suc){
+            $rootScope.convToOpen = suc;
+            $rootScope.convToOpenFromProjects = 1;
+            $location.path('chat/inbox/'+suc.id);
+          });
+          
+        }, function(err){
+          // $location.path('chat/inbox');
+          toastr.success('Oops! Something went wrong', 'Conversation');
+          //console.log(err);
+        });
+      });
+    };
+
+    //chat from freelancer side
+    $scope.createConversationFreelancerSide = function (project, bool, projectId, projectName) {
+      // Find the existing convo
+      Conversation.findOne({
+        filter:{
+          where:{
+            and:[
+              {
+                projectTitle: projectName,
+                userTwo: project.userInfo.username
+              }
+            ]
+          }
+        }
+      }, function(suc){
+           $rootScope.convToOpen = suc;
+           $rootScope.convToOpenFromProjects = 1;
+           $location.path('chat/inbox');
+      }, function(err){
+        // toastr.error('Oops, something went wrong.', 'Conversation')
+        Conversation.create({
+          "userOne": project.userInfo.username,
+          "userTwo": Authentication.user.username,
+          "projectTitle": projectName,
+          "projectLink": projectId,
+          "projectId": projectId,
+          "isAwarded": bool,
+          "cid": uuid2.newuuid(),
+          "hasUnreadMessages": true
+        }, function(_resp){
+          //console.log("Conversation Created");
+          $rootScope.convToOpen = _resp;
+          $rootScope.convToOpenFromProjects = 1;
+          //console.log('$rootScope.convToOpen in projects', $rootScope.convToOpen);
+          $location.path('chat/inbox');
+        }, function(err){
+          // $location.path('chat/inbox');
+          toastr.success('Oops! Something went wrong', 'Conversation');
+          //console.log(err);
+        });
+      });
+    };
+
+
+    //end integration of chat module
+
+
+    // Freelancer Options on myProjects
+    $scope.freelancSelected = '';
+    $scope.freelancOption = function(id){
+      //console.log('msssss', $scope.freelancSelected);
+      switch($scope.freelancSelected){
+        case 'ms':
+          //console.log('ms');
+          break;
+
+        case 'ci':
+          //console.log('ci');
+          break;
+        default:
+
+      }
+    };
+
+    //minvalue of mile stone input
+    $scope.checkValuefn = function () {
+      if ($scope.checkValue < 3) {
+        $scope.addAlert = function () {
+          $scope.alerts.push({
+            msg: 'Your Milestones must be a minimun of $3 USD'
+          });
+        };
+      }
+    };
+
+    // Search bar partial    $scope.search = '/modules/projects/client/views/search-project.client.view.html';
+
+    $scope.project = {};
+
+    $scope.upgradeProject = {};
+    // $scope.project.rate = 'hourly';
+    // $scope.rateList = [];
+
+    $scope.deliverDays = 3;
+    $scope.projectFee = 0;
+    $scope.yourBid = 0;
+    $scope.totalAmount = 0;
+    $scope.project.projectRate = 'fixed';
+    // $scope.rateList = $scope.fixedRate;
+    $scope.customizeProjectBudget = false;
+    $scope.min = 3;
+    $scope.newMilestone = {};
+    $scope.items = [];
+    $scope.optSub = null;
+    $scope.milestoneError = true;
+    $scope.dispute = {};
+    $scope.tabs = [{text:"First Text",active:false}, {active:true},{active:false},{active:false}];
+    $scope.showArbButtonTab2 = false;
+    $scope.showArbButtonTab3 = false;
+    $scope.currentUserId = $scope.authentication.user._id.toString();
+
+    // To add subcategory based on main category 
+   $scope.subCatSelect = function () {
+     $timeout(function () {
+       if ($scope.project.workRequire.name.includes('Websites')) {
+       // if ($scope.project.workRequire.name === 'Websites IT and Software') {
+         $scope.optSub = $scope.subcatweb;
+       }
+       else if ($scope.project.workRequire.name.includes('Mobile')) {
+       // else if ($scope.project.workRequire.name === 'Mobile') {
+         $scope.optSub = $scope.subcatmobile;
+       }
+       else if ($scope.project.workRequire.name.includes('Design')) {     
+       // else if ($scope.project.workRequire.name === 'Design') {     
+         $scope.optSub = $scope.subcatdesign;          
+       }
+       else if ($scope.project.workRequire.name.includes('Writing')) {
+       // else if ($scope.project.workRequire.name === 'Writing') {
+         $scope.optSub = $scope.subcatwriting;
+       }
+       else if ($scope.project.workRequire.name.includes('Entry')) {
+       // else if ($scope.project.workRequire.name === 'Data Entry') {
+         $scope.optSub = $scope.subcatdataentry;
+       }
+       else if ($scope.project.workRequire.name.includes('Manufacuturing')) {
+       // else if ($scope.project.workRequire.name === 'Product Sourcing and Manufacuturing') {
+         $scope.optSub = $scope.subcatmanufact;
+       }
+       else if ($scope.project.workRequire.name.includes('Marketing')) {
+       // else if ($scope.project.workRequire.name === 'Sales and Marketing') {
+         $scope.optSub = $scope.subcatsalemarket;               
+       }
+       else if ($scope.project.workRequire.name.includes('Services')) {
+       // else if ($scope.project.workRequire.name === 'Local Jobs and Services') {
+         $scope.optSub = $scope.subcatlocaljob;         
+       }
+       else if ($scope.project.workRequire.name.includes('Customized')) { 
+       // else if ($scope.project.workRequire.name === 'Customized Skills(Select manually)') { 
+         $scope.optSub = '';          
+       }
+       else if ($scope.project.workRequire.name.includes('Category')) {
+       // else if ($scope.project.workRequire.name === 'Select Category of Work (Optional))') {
+         $scope.optSub = '';         
+       }
+     
+     }, 10);
+   };
+
+   /*
+   * Get common currency data
+   */
+   $scope.currency = [];
+   $scope.getCommonCurrency = function(){
+      var c;
+    if($scope.commonCurrency.KRW){
+      c = $scope.commonCurrency.KRW;
+      $scope.commonCurrency.KRW.cur = $scope.commonCurrency.KRW.name + ' ' + $scope.commonCurrency.KRW.code +' '+$scope.commonCurrency.KRW.symbol_native;
+      $scope.currency.push($scope.commonCurrency.KRW);
+    }if($scope.commonCurrency.USD){
+      c = $scope.commonCurrency.USD;
+      $scope.commonCurrency.USD.cur = $scope.commonCurrency.USD.name + ' ' + $scope.commonCurrency.USD.code +' '+$scope.commonCurrency.USD.symbol_native;
+      $scope.currency.push($scope.commonCurrency.USD);
+    }
+    // if($scope.commonCurrency.JPY){
+    //   c = $scope.commonCurrency.JPY;
+    //   $scope.commonCurrency.JPY.cur = $scope.commonCurrency.JPY.name + ' ' + $scope.commonCurrency.JPY.code +' '+$scope.commonCurrency.JPY.symbol_native;
+    //   $scope.currency.push($scope.commonCurrency.JPY);
+    // }if($scope.commonCurrency.CNY){
+    //   c = $scope.commonCurrency.CNY;
+    //   $scope.commonCurrency.CNY.cur = $scope.commonCurrency.CNY.name + ' ' + $scope.commonCurrency.CNY.code +' '+$scope.commonCurrency.CNY.symbol_native;
+    //   $scope.currency.push($scope.commonCurrency.CNY);
+    // }
+    $scope.project.currency = $scope.currency[0];
+   };
+
+   /*
+   * When currency is changed
+   */
+   $scope.currencyChange = function(){
+
+    if(!$rootScope.latestCurrencyRate){
+      $timeout(function() {
+        $scope.getLatestRate();
+      }, 100);
+    }
+    
+    // Change the total amount to zero and uncheck all additional features 
+    $scope.totalAmount = 0;
+    $scope.urgent = false;
+    $scope.NDA = false;
+    $scope.sealed = false;
+    $scope.private = false;
+    $scope.pakage_2 = false;
+    $scope.pakage_3 = false;
+    $scope.pakage_1 = false;
+
+    UniversalData.query().$promise.then(function (data) {
+      $scope.fixedRate = data[0].fixedRate;
+      $scope.hourlyRate = data[0].hourlyRate;
+    });
+
+    $scope.tempRate = [];
+    $scope.rateListt = [];
+
+    $timeout(function() {
+      if($scope.project.projectRate === 'fixed')
+        $scope.tempRate = $scope.fixedRate;
+      if($scope.project.projectRate === 'hourly')
+        $scope.tempRate = $scope.hourlyRate;
+
+      $scope.rateListt = [];
+
+      $scope.project.price = $scope.tempRate[0];
+      
+      // $http.get('https://api.fixer.io/latest?base=USD').then(function(res){
+        var i =0; 
+        var name;
+        var curCode;
+
+        if($scope.project.currency){
+          curCode = $scope.project.currency.code; 
+        }
+        
+        if(curCode === 'USD'){
+          for(i=0; i<$scope.tempRate.length; i++){  
+            name = $scope.tempRate[i].name.split('(')[0];
+
+            if(typeof $scope.tempRate[i].value === 'undefined'){
+              $scope.max = '';
+              $scope.min = '';
+
+            }else{
+              $scope.min = $scope.tempRate[i].value.min;
+              $scope.max = $scope.tempRate[i].value.max;
+
+              $scope.tempRate[i].value.min = $scope.min;
+              $scope.tempRate[i].value.max = $scope.max;
+            }
+            $scope.optCharg = 1; 
+            $scope.tempRate[i].name = name+'('+$scope.project.currency.symbol_native+$scope.min+ '-'+$scope.project.currency.symbol_native+$scope.max+')';
+            $scope.rateListt.push($scope.tempRate[i]);
+          }
+        }
+        else{
+          for(i=0; i<$scope.tempRate.length; i++){
+            name = $scope.tempRate[i].name.split('(')[0];
+            if(typeof $scope.tempRate[i].value === 'undefined'){
+              $scope.max = '';
+              $scope.min = '';
+              // $scope.tempRate[i].value.min = $scope.min;
+              // $scope.tempRate[i].value.max = $scope.max;
+            }else{
+              if(curCode === 'KRW'){
+                $scope.optCharg = $rootScope.latestCurrencyRate.KRW; 
+                $scope.max = Math.round(parseFloat($scope.tempRate[i].value.max)*$rootScope.latestCurrencyRate.KRW);
+                $scope.min = Math.round(parseFloat($scope.tempRate[i].value.min)*$rootScope.latestCurrencyRate.KRW);
+                $scope.tempRate[i].value.min = $scope.min;
+                $scope.tempRate[i].value.max = $scope.max;
+              }
+
+              if(curCode === 'JPY'){
+                $scope.optCharg = $rootScope.latestCurrencyRate.JPY;
+                $scope.max = Math.round(parseFloat($scope.tempRate[i].value.max)*$rootScope.latestCurrencyRate.JPY);
+                $scope.min = Math.round(parseFloat($scope.tempRate[i].value.min)*$rootScope.latestCurrencyRate.JPY);
+                $scope.tempRate[i].value.min = $scope.min;
+                $scope.tempRate[i].value.max = $scope.max;
+              }
+
+              if(curCode === 'CNY'){
+                $scope.optCharg = $rootScope.latestCurrencyRate.JPY;
+                $scope.max = Math.round(parseFloat($scope.tempRate[i].value.max)*$rootScope.latestCurrencyRate.CNY);
+                $scope.min = Math.round(parseFloat($scope.tempRate[i].value.min)*$rootScope.latestCurrencyRate.CNY);
+                $scope.tempRate[i].value.min = $scope.min;
+                $scope.tempRate[i].value.max = $scope.max;
+              }
+            }
+            // console.log('tempRate[',+i+'] :', $scope.tempRate[i].value);
+            
+            if($scope.project.currency){
+              $scope.tempRate[i].name = name+'('+$scope.project.currency.symbol_native+$scope.min+ '-'+$scope.project.currency.symbol_native+$scope.max+')';
+              $scope.rateListt.push($scope.tempRate[i]);
+            }
+          }
+        }
+
+      // });
+
+    }, 100);
+   };
+   
+
+    $scope.project.isLocal = false;
+    // $scope.priceList = [{
+    //   id: 1,
+    //   price: '$250 - $750'
+    // }, {
+    //   id: 2,
+    //   price: 'Custom price'
+    // }];
+
+    $scope.pakagePrices = {
+      'pakage_1': 5,
+      'pakage_2': 3,
+      'pakage_3': 3,
+      'private': 5,
+      'sealed': 1,
+      'NDA': 0,
+      'urgent': 1
+    };
+
+    $scope.rate = 0;
+    $scope.max = 5;
+    $scope.isReadonly = true;
+
+    $scope.hoveringOver = function (value) {
+      $scope.overStar = value;
+      $scope.percent = 100 * (value / $scope.max);
+    };
+
+    $scope.ratingStates = [{
+        stateOn: 'glyphicon-star',
+        stateOff: 'glyphicon-star-empty'
+      },
+      {
+        stateOn: 'glyphicon-star',
+        stateOff: 'glyphicon-star-empty'
+      },
+      {
+        stateOn: 'glyphicon-star',
+        stateOff: 'glyphicon-star-empty'
+      },
+      {
+        stateOn: 'glyphicon-star',
+        stateOff: 'glyphicon-star-empty'
+      },
+      {
+        stateOn: 'glyphicon-star',
+        stateOff: 'glyphicon-star-empty'
+      },
+    ];
+
+
+    //Calculate Average of Rating stars
+
+    $scope.specifiction = 0;
+    $scope.communication = 0;
+    $scope.payment = 0;
+    $scope.professionl = 0;
+    $scope.overall = 0;
+
+    $scope.calculteAvg = function () {
+      var sum = $scope.specifiction + $scope.communication + $scope.payment + $scope.professionl + $scope.overall;
+      var Avg = sum / 5;
+      //console.log(Avg);
+    };
+
+    $scope.checkLocal = function () {
+      $scope.project.isLocal = !$scope.project.isLocal;
+    };
+
+    // Toggle custom profile fields
+    $scope.toggleCustomPrice = function () {
+      // //console.log('in');
+    };
+
+    $scope.rateToFixed = function () {
+      $scope.rateList = $scope.fixedRate;
+      $scope.project.price = $scope.rateList[3];
+      $scope.project.minRange = '';
+      $scope.project.maxRange = '';
+    };
+    $scope.rateToHourly = function () {
+      $scope.rateList = $scope.hourlyRate;
+      $scope.project.price = $scope.rateList[2];
+      $scope.project.minRange = '';
+      $scope.project.maxRange = '';
+    };
+
+    // to hide button, bid on this project
+    $scope.btnBTP = function () {
+      ////console.log('really');
+      $scope.btnBidThisPro = true;
+    };
+
+    $scope.checktotalAmount = function (value, pakage_name) {
+      // console.log('check total');
+      if (pakage_name === 'pakage_1') {
+        if (value) {
+          $scope.totalAmount = $scope.totalAmount + ($scope.pakagePrices.pakage_1*$rootScope.latestCurrencyRate[$scope.project.currency.code]);
+          if ($scope.pakage_2 === true) {
+            $scope.pakage_2 = false;
+            $scope.totalAmount = $scope.totalAmount - ($scope.pakagePrices.pakage_2*$rootScope.latestCurrencyRate[$scope.project.currency.code]);
+          }
+          if ($scope.pakage_3 === true) {
+            $scope.pakage_3 = false;
+            $scope.totalAmount = $scope.totalAmount - ($scope.pakagePrices.pakage_3*$rootScope.latestCurrencyRate[$scope.project.currency.code]);
+          }
+
+        } else {
+          $scope.totalAmount = $scope.totalAmount - ($scope.pakagePrices.pakage_1*$rootScope.latestCurrencyRate[$scope.project.currency.code]);
+        }
+
+      } else if (pakage_name === 'pakage_2') {
+        if (value) {
+          $scope.totalAmount = $scope.totalAmount + ($scope.pakagePrices.pakage_2*$rootScope.latestCurrencyRate[$scope.project.currency.code]);
+        } else {
+          $scope.totalAmount = $scope.totalAmount - ($scope.pakagePrices.pakage_2*$rootScope.latestCurrencyRate[$scope.project.currency.code]);
+        }
+
+
+      } else if (pakage_name === 'pakage_3') {
+        if (value) {
+          $scope.totalAmount = $scope.totalAmount + ($scope.pakagePrices.pakage_3*$rootScope.latestCurrencyRate[$scope.project.currency.code]);
+        } else {
+          $scope.totalAmount = $scope.totalAmount - ($scope.pakagePrices.pakage_3*$rootScope.latestCurrencyRate[$scope.project.currency.code]);
+        }
+
+      } else if (pakage_name === 'private') {
+        if (value) {
+          $scope.totalAmount = $scope.totalAmount + ($scope.pakagePrices.private*$rootScope.latestCurrencyRate[$scope.project.currency.code]);
+        } else {
+          $scope.totalAmount = $scope.totalAmount - ($scope.pakagePrices.private*$rootScope.latestCurrencyRate[$scope.project.currency.code]);
+        }
+
+      } else if (pakage_name === 'sealed') {
+        if (value) {
+          $scope.totalAmount = $scope.totalAmount + ($scope.pakagePrices.sealed*$rootScope.latestCurrencyRate[$scope.project.currency.code]);
+        } else {
+          $scope.totalAmount = $scope.totalAmount - ($scope.pakagePrices.sealed*$rootScope.latestCurrencyRate[$scope.project.currency.code]);
+        }
+
+      } else if (pakage_name === 'NDA') {
+        if (value) {
+          $scope.totalAmount = $scope.totalAmount + ($scope.pakagePrices.NDA*$rootScope.latestCurrencyRate[$scope.project.currency.code]);
+        } else {
+          $scope.totalAmount = $scope.totalAmount - ($scope.pakagePrices.NDA*$rootScope.latestCurrencyRate[$scope.project.currency.code]);
+        }
+
+      } else if (pakage_name === 'urgent') {
+        if (value) {
+          $scope.totalAmount = $scope.totalAmount + ($scope.pakagePrices.urgent*$rootScope.latestCurrencyRate[$scope.project.currency.code]);
+        } else {
+          $scope.totalAmount = $scope.totalAmount - ($scope.pakagePrices.urgent*$rootScope.latestCurrencyRate[$scope.project.currency.code]);
+        }
+
+      }
+      //console.log($scope.totalAmount);
+
+    };
+
+
+    $scope.detectMyLocation = function () {
+      geolocation.getLocation().then(function (data) {
+        // console.log(data);
+        $scope.coords = {
+          lat: data.coords.latitude,
+          long: data.coords.longitude
+        };
+        //console.log($scope.coords);
+        var url = 'https://maps.googleapis.com/maps/api/geocode/json?latlng=' + $scope.coords.lat + ',' + $scope.coords.long + '&sensor=true';
+        $http.get(url)
+          .then(function (result) {
+            var address = result.data.results[0].formatted_address;
+            $scope.project.location = address;
+
+          });
+      });
+    };
+
+    // File Uploader
+    $scope.uploader = new FileUploader({
+      url: '/api/project/uploadProjectFile',
+      alias: 'newProjectFile'
+    });
+
+    // console.log('$scope.uploader', $scope.uploader);
+
+    $scope.uploader.onWhenAddingFileFailed = function(item /*{File|FileLikeObject}*/, filter, options) {
+      // console.info('onWhenAddingFileFailed', item, filter, options);
+     };
+    // $scope.uploader.onAfterAddingFile = function(fileItem) {
+    //   // console.info('onAfterAddingFile', fileItem);
+    //   $scope.item = fileItem;
+    // };
+    // $scope.uploader.onAfterAddingAll = function(addedFileItems) {
+    //   console.info('onAfterAddingAll', addedFileItems);
+    // };
+    $scope.uploader.onBeforeUploadItem = function(item) {
+      // console.info('onBeforeUploadItem', item);
+    };
+    $scope.uploader.onProgressItem = function(fileItem, progress) {
+      // console.info('onProgressItem', fileItem, progress);
+    };
+    // $scope.uploader.onProgressAll = function(progress) {
+    //   console.info('onProgressAll', progress);
+    // };
+    var uploadedFileLink;
+    var uploadedFileName;
+    $scope.uploader.onSuccessItem = function(fileItem, response, status, headers) {
+      // console.info('onSuccessItem', fileItem, response, status, headers);
+      uploadedFileLink = response;
+      uploadedFileName = fileItem.file.name;
+      $scope.sucMsg = '파일이 성공적으로 업로드 되었습니다.'  ;
+      $scope.errMsg = '';
+    };
+    $scope.uploader.onErrorItem = function(fileItem, response, status, headers) {
+      // console.info('onErrorItem', fileItem, response, status, headers);
+      $scope.errMsg = response.message;
+      $scope.sucMsg = '';
+    };
+    // $scope.uploader.onCancelItem = function(fileItem, response, status, headers) {
+    //   console.info('onCancelItem', fileItem, response, status, headers);
+    // };
+    $scope.uploader.onCompleteItem = function(fileItem, response, status, headers) {
+      // console.info('onCompleteItem', fileItem, response, status, headers);
+      if(status === 400){
+        $scope.errMsg = response.message;
+        $scope.sucMsg = '';
+      }
+      else{
+        $scope.sucMsg = '파일이 성공적으로 업로드 되었습니다.';
+        $scope.errMsg = '';
+      }
+    };
+    // $scope.uploader.onCompleteAll = function() {
+    //   console.info('onCompleteAll');
+    // };
+
+    $scope.uploader.onAfterAddingFile = function (fileItem) {
+      $timeout(function() {
+        usSpinnerService.spin('entryLoader');
+      }, 300);
+
+      $scope.item = fileItem;
+
+
+      if ($window.FileReader) {
+        var fileReader = new FileReader();
+        fileReader.readAsDataURL(fileItem._file);
+        var extension = fileItem.file.name.split('.').pop().toLowerCase();
+        fileReader.onload = function (fileReaderEvent) {
+          $timeout(function () {
+            $scope.imageURL = fileReaderEvent.target.result;
+            $scope.isImageUploaded = true;
+          }, 0);
+
+          // stop spinner
+          $timeout(function() {
+            usSpinnerService.stop('entryLoader');
+          }, 500);
+        };
+      }
+    };
+
+    // Get users location
+    geolocation.getLocation().then(function(data){
+      $scope.coords = { lat:data.coords.latitude, long:data.coords.longitude };
+      var url = 'https://maps.googleapis.com/maps/api/geocode/json?latlng=' + $scope.coords.lat + ',' + $scope.coords.long + '&sensor=true';
+      $http.get(url)
+      .then(function(result) {
+        if(result.data.results[0].address_components[4]){
+          $scope.countryName  = result.data.results[0].address_components[4].long_name;
+          $scope.countryCod  = result.data.results[0].address_components[4].short_name;
+        }
+      });
+    });
+
+
+    // Create new Project
+    $scope.create = function (isValid) {
+      $scope.error = null;
+      var project = new Projects($scope.project);
+
+      if(!project.currency){
+        SweetAlert.swal('Select currency');
+        return;
+      }
+
+      // Get users location
+      geolocation.getLocation().then(function(data){
+        $scope.coords = { lat:data.coords.latitude, long:data.coords.longitude };
+        var url = 'https://maps.googleapis.com/maps/api/geocode/json?latlng=' + $scope.coords.lat + ',' + $scope.coords.long + '&sensor=true';
+        $http.get(url)
+        .then(function(result) {
+          if(result.data.results[0].address_components[4]){
+            $scope.countryName  = result.data.results[0].address_components[4].long_name;
+            $scope.countryCod  = result.data.results[0].address_components[4].short_name;
+          }
+        });
+      });
+      if($scope.authentication.user.country){
+        project.userInfo = {
+          'email': $scope.authentication.user.email,
+          'name': $scope.authentication.user.displayName,
+          'username': $scope.authentication.user.username,
+          'imageURL': $scope.authentication.user.profileImageURL,
+          'country': $scope.authentication.user.country.name,
+          'countryCode': $scope.authentication.user.country.code,
+          'created': $scope.authentication.user.created,
+          'notifications': $scope.authentication.user.notificationsOnOff
+        };
+      }
+      else if(!$scope.authentication.user.country && $scope.countryName){
+        project.userInfo = {
+          'email': $scope.authentication.user.email,
+          'name': $scope.authentication.user.displayName,
+          'username': $scope.authentication.user.username,
+          'imageURL': $scope.authentication.user.profileImageURL,
+          'country': $scope.countryName,
+          'countryCode': $scope.countryCod,
+          'created': $scope.authentication.user.created,
+          'notifications': $scope.authentication.user.notificationsOnOff
+        };
+      }
+      else if(!$scope.authentication.user.country && !$scope.countryName){
+        project.userInfo = {
+          'email': $scope.authentication.user.email,
+          'name': $scope.authentication.user.displayName,
+          'username': $scope.authentication.user.username,
+          'imageURL': $scope.authentication.user.profileImageURL,
+          'country': 'South Korea',
+          'countryCode': 'KOR',
+          'created': $scope.authentication.user.created,
+          'notifications': $scope.authentication.user.notificationsOnOff
+        };
+      }
+      // else if(typeof $scope.authentication.user.country.name === 'undefined' && !$scope.countryName){
+      //   SweetAlert.swal({
+      //     title: 'Oops!',
+      //     text: "Turn your browser location to post project, select your country from settings page to avoid this message in future.",
+      //     type: 'warning'
+      //   });
+      //   return;
+      // }
+      
+      var Pakages = {
+        'featured': $scope.pakage_1,
+        'pakage_2': $scope.pakage_2,
+        'fulltime': $scope.pakage_3,
+        'private': $scope.private,
+        'sealed': $scope.sealed,
+        'NDA': $scope.NDA,
+        'urgent': $scope.urgent
+      };
+      project.additionalPakages = Pakages;
+
+      console.log('project:');
+
+      if($scope.totalAmount > 0){ /*when additional feature is selected*/
+        SweetAlert.swal({
+          title: "프로젝트 등록을 하시겠습니까?",
+          text: "회원님께서는 아웃소싱오케이 서비스를 구매하셨습니다. 금액은 " + $scope.project.currency.symbol_native + $scope.totalAmount + " 원 입니다. 회원님께서 승인 할 경우 회원님계좌에 있는 예치금에서 자동인출됩니다. 예치금이 부족할 경우 [서비스 이용료 결제]에서 지불하시길 바랍니다.",
+          type: "warning",
+          showCancelButton: true,
+          confirmButtonColor: "#2f70a9",
+          confirmButtonText: "등록하기",
+          closeOnConfirm: false,
+          closeOnCancel: false
+        },function (isConfirm) {
+          if(isConfirm){
+            SweetAlert.close();
+            if($rootScope.userAccountBalance.accountBalance[$scope.project.currency.code]  >= $scope.totalAmount){
+              $scope.postNewProject();
+              $scope.isLoading = true;
+            }
+            else if($rootScope.userAccountBalance.accountBalance[$scope.project.currency.code] < $scope.totalAmount ){
+              $scope.isLoading = true;
+
+              var convertedAmount;
+              if($scope.project.currency.code === 'USD'){
+                console.log('usd');
+                convertedAmount = $rootScope.userAccountBalance.accountBalance.USD +  ($rootScope.userAccountBalance.accountBalance.KRW/$rootScope.latestCurrencyRate.KRW);
+              }else if($scope.project.currency.code === 'KRW'){
+                console.log('krw');
+                convertedAmount =  $rootScope.userAccountBalance.accountBalance.KRW + ($rootScope.userAccountBalance.accountBalance.USD*$rootScope.latestCurrencyRate.KRW);
+              }
+
+              // console.log('totalAmount',$scope.totalAmount);
+              // console.log('wallet wala',$rootScope.userAccountBalance.accountBalance[$scope.project.currency.code]);
+              // console.log('coverted', convertedAmount);
+
+              if(convertedAmount>= $scope.totalAmount){
+                // updateAccount
+                Account.updateAccount({
+                  ownerId: Authentication.user.username,
+                  currency: $scope.project.currency.code,
+                  amount: convertedAmount
+                }, function(suc){
+                  Account.findOne({
+                    filter: {
+                      where: {
+                        ownerId: $scope.authentication.user.username
+                      }
+                    }
+                  }, function (res) {
+                    $rootScope.userAccountBalance = res;
+                    // post project
+                    $scope.postNewProject();
+                  });
+
+                }, function(fail){
+                  $scope.isLoading = false;
+                  SweetAlert.swal('Try again!', '', 'warning');
+                });
+              }else{
+                $scope.isLoading = false;
+                SweetAlert.swal("Account warning", "Not enough amount in account to select additional features", "error");
+                $location.path('credit-deposit');
+              }
+            }
+          }else{
+            $scope.viewLoading = false;
+            SweetAlert.close();
+          }
+        }); 
+      }else{ /*When no additional feature is selected*/
+        if($scope.uploader.queue.length){
+          // $scope.uploader.onSuccessItem = function (fileItem, response, status, headers) {
+            $scope.success = true;
+            // project.fileLink = response;
+            // project.fileName = fileItem.file.name;
+            project.fileLink = uploadedFileLink;
+            project.fileName = uploadedFileName;
+            console.log('file uploaded');
+            $scope.isLoading = true;
+            project.$save(function (response) {
+              
+              /*Project Feed, Notfiy all the users having 
+              the same skills as the project posted have*/
+
+              $scope.skillsRequriedForProj = [];
+              for(var i=0; i<response.skills.length; i++){
+                $scope.skillsRequriedForProj[i] =response.skills[i].name;
+              }
+
+              ProjectFeed.create({
+                "publisher": Authentication.user.username,
+                "description": response.description,
+                "skills": $scope.skillsRequriedForProj,
+                "link": response._id,
+                "project": response.name
+              });
+              // ends project feed
+              $scope.isLoading = false; 
+
+              $location.path('projects/project-manage/' + response._id);
+            }, function(fail){
+              $scope.isLoading = false;
+              SweetAlert.swal("Oops!", "Sorry, something went wrong, try again.", "error");
+              toastr.error('Oops','Something went wrong');
+            });
+          // };
+        }
+        else if (!$scope.uploader.queue.length) {
+          $scope.isLoading = true;
+          project.$save(function (response) {
+            
+            /*Project Feed, Notfiy all the users having 
+            the same skills as the project posted have*/
+
+            $scope.skillsRequriedForProj = [];
+            for(var i=0; i<response.skills.length; i++){
+              $scope.skillsRequriedForProj[i] =response.skills[i].name;
+            }
+
+            ProjectFeed.create({
+              "publisher": Authentication.user.username,
+              "description": response.description,
+              "skills": $scope.skillsRequriedForProj,
+              "link": response._id,
+              "project": response.name
+            });
+            // ends project feed
+            $scope.isLoading = false;
+            $location.path('projects/project-manage/' + response._id);
+
+          }, function (errorResponse) {
+            $scope.viewLoading = false;
+            SweetAlert.swal("Oops!", "Sorry, something went wrong, try again.", "error");
+            $scope.error = errorResponse.data.message;
+          });
+        }
+      }
+
+  };
+
+    // Post the project when there is enough money if additonal features are selected
+    $scope.postNewProject  = function (){
+      var project = new Projects($scope.project);
+
+      if($scope.authentication.user.country){
+        project.userInfo = {
+          'email': $scope.authentication.user.email,
+          'name': $scope.authentication.user.displayName,
+          'username': $scope.authentication.user.username,
+          'imageURL': $scope.authentication.user.profileImageURL,
+          'country': $scope.authentication.user.country.name,
+          'countryCode': $scope.authentication.user.country.code,
+          'created': $scope.authentication.user.created,
+          'notifications': $scope.authentication.user.notificationsOnOff
+        };
+      }
+      else if(!$scope.authentication.user.country && $scope.countryName){
+        project.userInfo = {
+          'email': $scope.authentication.user.email,
+          'name': $scope.authentication.user.displayName,
+          'username': $scope.authentication.user.username,
+          'imageURL': $scope.authentication.user.profileImageURL,
+          'country': $scope.countryName,
+          'countryCode': $scope.countryCod,
+          'created': $scope.authentication.user.created,
+          'notifications': $scope.authentication.user.notificationsOnOff
+        };
+      }
+      else if(!$scope.authentication.user.country && !$scope.countryName){
+        project.userInfo = {
+          'email': $scope.authentication.user.email,
+          'name': $scope.authentication.user.displayName,
+          'username': $scope.authentication.user.username,
+          'imageURL': $scope.authentication.user.profileImageURL,
+          'country': 'South Korea',
+          'countryCode': 'KOR',
+          'created': $scope.authentication.user.created,
+          'notifications': $scope.authentication.user.notificationsOnOff
+        };
+      }
+
+      var Pakages = {
+        'featured': $scope.pakage_1,
+        'pakage_2': $scope.pakage_2,
+        'fulltime': $scope.pakage_3,
+        'private': $scope.private,
+        'sealed': $scope.sealed,
+        'NDA': $scope.NDA,
+        'urgent': $scope.urgent
+      };
+      project.additionalPakages = Pakages;
+      
+      Transactions.transfer({
+        Sid: $rootScope.userAccountBalance.id,
+        Rid: $rootScope.adminEWalletId,
+        amount: parseFloat($scope.totalAmount),
+        currency: $scope.project.currency.code
+      }, function(res){
+        
+        if($scope.uploader.queue.length){ /*If file is attached*/
+          // $scope.uploader.onSuccessItem = function (fileItem, response, status, headers) {
+            $scope.isLoading = true;
+            $scope.success = true;
+            // project.fileLink = response;
+            // project.fileName = fileItem.file.name;
+            project.fileLink = uploadedFileLink;
+            project.fileName = uploadedFileName;
+            console.log('file uploaded');
+            project.$save(function (response) {
+
+              /*Project Feed, Notfiy all the users having 
+              the same skills as the project posted have*/
+
+              Account.findOne({
+                filter: {
+                  where: {
+                    ownerId: $scope.authentication.user.username
+                  }
+                }
+              }, function (res) {
+                $rootScope.userAccountBalance = res;
+              });
+              $scope.isLoading = false;
+              SweetAlert.swal("프로젝트 등록 완료!", "프로젝트 등록이 성공적으로 완료되었습니다.", "success");
+
+              $scope.skillsRequriedForProj = [];
+              for(var i=0; i<response.skills.length; i++){
+                $scope.skillsRequriedForProj[i] =response.skills[i].name;
+              }
+
+              ProjectFeed.create({
+                "publisher": Authentication.user.username,
+                "description": response.description,
+                "skills": $scope.skillsRequriedForProj,
+                "link": response._id,
+                "project": response.name
+              });
+              // ends project feed
+              $location.path('projects/project-manage/' + response._id);
+            }, function(fail){
+              //Reverse the transaction
+              $scope.isLoading = false;
+              SweetAlert.swal("Oops!", "Something went wrong", "warning");
+              $scope.viewLoading = false;
+              Transactions.transfer({
+                Sid: $rootScope.adminEWalletId,
+                Rid: $rootScope.userAccountBalance.id,
+                amount: parseFloat($scope.totalAmount),
+                currency: $scope.project.currency.code
+              }, function(res){
+
+              });
+            });
+          // };
+        }else if(!$scope.uploader.queue.length){ /*If no file is attached*/
+          $scope.isLoading = true;
+          project.$save(function (response) {
+
+          /*Project Feed, Notfiy all the users having 
+          the same skills as the project posted have*/
+
+          Account.findOne({
+            filter: {
+              where: {
+                ownerId: $scope.authentication.user.username
+              }
+            }
+          }, function (res) {
+            $rootScope.userAccountBalance = res;
+          });
+          SweetAlert.swal("프로젝트 등록 완료!", "프로젝트 등록이 성공적으로 완료되었습니다.", "success");
+
+          $scope.skillsRequriedForProj = [];
+          for(var i=0; i<response.skills.length; i++){
+            $scope.skillsRequriedForProj[i] =response.skills[i].name;
+          }
+
+          ProjectFeed.create({
+            "publisher": Authentication.user.username,
+            "description": response.description,
+            "skills": $scope.skillsRequriedForProj,
+            "link": response._id,
+            "project": response.name
+          });
+          // ends project feed
+
+          $scope.isLoading = false;
+          $location.path('projects/project-manage/' + response._id);
+
+          }, function (errorResponse) {
+            //Reverse the transaction
+            $scope.isLoading = false;
+            SweetAlert.swal("Oops!", "Something went wrong", "warning");
+            Transactions.transfer({
+              Sid: $rootScope.adminEWalletId,
+              Rid: $rootScope.userAccountBalance.id,
+              amount: parseFloat($scope.totalAmount),
+              currency: $scope.project.currency.code
+            }, function(res){
+              
+            });
+          });
+        }
+          
+
+      }, function(transFail){
+        $scope.isLoading = false;
+        SweetAlert.swal("Oops!", "Sorry, something went wrong, try again.", "error");
+      });
+    };
+
+    // Edit bid once bidded
+    $scope.editBid = function (description, deliverDays) {
+      //console.log('deliverDays', deliverDays);
+
+      $scope.currentBidId = $stateParams.bidId;
+
+      var bidData = {
+        'userId': $scope.authentication.user._id,
+        'bidderName': $scope.authentication.user.displayName,
+        'bidderEmail': $scope.authentication.user.email,
+        'bidId': $stateParams.bidId,
+        'bidderImageURl': $scope.authentication.user.profileImageURL,
+        'bidderInfo': $scope.authentication.user,
+        'created': Date.now(),
+        'actualBid': $scope.paidYours,
+        'yourBid': $scope.yourBid,
+        'awarded': $scope.isAwarded,
+        'deliverInDays': deliverDays,
+        'proposal': {
+          'description': description,
+          'milestones': $scope.milestones
+        }
+      };
+
+      var obj = {
+        'bids': bidData
+      };
+
+      //console.log('edit bid obj', obj);
+
+      if ($stateParams.bidId) {
+        return $http({
+          url: '/api/project/editBid/' + $scope.project._id,
+          method: 'PUT',
+          data: obj
+        }).then(function (response) {
+          // success
+          $scope.project = response.data;
+          $timeout(function () {
+            $scope.findAvgBid();
+          }, 100);
+
+          $location.path('projects/view/' + $scope.project._id);
+        }, function (response) {
+          // failed
+          //console.log(response);
+        });
+      }
+
+    };
+
+
+    $scope.submitBid = function (deliverDays) {
+
+      if ($scope.authentication.user.remainingBids >0) {
+        $scope.isLoading = true;
+
+        var bidderInfo = $scope.authentication.user;
+        bidderInfo.myProjects = '';
+        bidderInfo.projectsAwarded = '';
+
+        var bidData = {
+          'userId': $scope.authentication.user._id,
+          'bidderName': $scope.authentication.user.displayName,
+          'bidderEmail': $scope.authentication.user.email,
+          'bidderImageURl': $scope.authentication.user.profileImageURL,
+          'bidderInfo': bidderInfo,
+          'created': Date.now(),
+          'actualBid': $scope.paidYours,
+          'yourBid': $scope.yourBid,
+          'awarded': 'no',
+          'deliverInDays': deliverDays
+        };
+        
+        var obj = {
+          'bids': bidData
+        };
+
+        return $http({
+          url: '/api/project/placeBid/' + $scope.project._id,
+          method: 'PUT',
+          data: obj
+        }).then(function (response) {
+          $scope.isLoading = false;
+
+          $scope.milestones = [{
+            description: '프로젝트 대금',
+            price: parseInt($scope.yourBid),
+            status: 'Requested'
+          }];
+          $scope.milstoneTotal = $scope.yourBid;
+          $scope.totalBidAmount = parseInt($scope.yourBid);
+          $scope.project = response.data.project;
+          $scope.authentication.user = response.data.user;
+          $timeout(function () {
+            $scope.findAvgBid();
+          }, 100);
+
+          // Notify the employer
+          Notifications.create({  
+            "publisher": Authentication.user.username,  
+            "subscriber": $scope.project.userInfo.username, 
+            "description": $scope.authentication.user.username + " 님이 프로젝트에 지원했습니다.", 
+            "link": $scope.project._id, 
+            "isClicked": false,
+            "project": true
+          });
+        },function(fail){
+          $scope.isLoading = false;
+          SweetAlert.swal('Bidding', 'We are sorry, something went wrong and your bid couldn\'t be placed.', 'warning');
+        });
+      } else {
+        SweetAlert.swal('Bid Limit!', 'We are sorry, your bid limit has reached, get more bids!', 'warning');
+      }
+
+    };
+
+    $scope.onTime = true;
+    $scope.onBudget =true;
+
+    
+    //feedback
+    $scope.submitFeedBack = function () {
+
+
+
+      $timeout(function() {
+          usSpinnerService.spin('feedbackLoader');
+        }, 100);
+
+      $timeout(function() {
+          usSpinnerService.stop('feedbackLoader');
+          $location.path('/thankyou');
+        }, 100);
+      
+
+      if (!$scope.project.bids) {
+        alert('Projec isn\'t assigned to anyone yet!');
+        return;
+      }
+
+      for (var i = 0; i < $scope.project.bids.length; i++) {
+        if ($scope.project.bids[i].awarded === 'no' || $scope.project.bids[i].awarded === 'yes' || $scope.project.bids[i].awarded === 'pending') {
+          $scope.bidIndex = i;
+          $scope.bidderId = $scope.project.bids[i].userId;
+          break;
+        }
+      }
+
+      // //console.log('index is', $scope.bidIndex);      
+      // //console.log('db pid is', user.projectsAwarded[$scope.bidIndex].projectId);
+      // //console.log('my pid is', $scope.project._id);
+
+      var sum = $scope.specifiction + $scope.communication + $scope.payment + $scope.professionl + $scope.overall;
+      var avgRating = sum / 5;
+      // //console.log('avgRating', avgRating);
+
+      var feedbackData = {
+        'userId': $scope.authentication.user._id,
+        'specifiction': $scope.specifiction,
+        'communication': $scope.communication,
+        'payment': $scope.payment,
+        'professionl': $scope.professionl,
+        'overall': $scope.overall,
+        'avgRating': avgRating,
+        'comment': $scope.comment,
+        'onTime': $scope.onTime,
+        'onBudget': $scope.onBudget,
+        'proj_name': $scope.project.name
+      };
+      // //console.log('feedbackdata is', feedbackData);
+
+      // user.projectsAwarded[$scope.bidIndex].feedback = feedbackData;
+
+      var obj = {
+        'bids': feedbackData,
+        'index': $scope.bidIndex,
+        'bidderId': $scope.bidderId,
+        'empIdd': $scope.project.user._id,
+        'currentUserIdd': $scope.authentication.user._id,
+        'projectId': $scope.project._id,
+        'ratedDate': Date.now()
+      };
+
+      //console.log('Final Obj to sent', obj);
+
+      return $http({
+        url: '/api/project/placeFeedBack/' + $scope.project._id,
+        method: 'PUT',
+        data: obj
+      }).then(function (response) {
+        $scope.project = response.data;
+
+        $timeout(function() {
+          usSpinnerService.stop('feedbackLoader');
+          $location.path('/thankyou');
+        }, 100);
+
+        //console.log('response', response.data);
+      }, function (err) {
+        $timeout(function() {
+          usSpinnerService.stop('feedbackLoader');
+        }, 100);
+        //console.log(err);
+        toastr.error('Something went wrong, we are sorry. Try agian', 'Error');
+      });
+
+    };
+
+    $scope.submitProposal = function (bidDescription, status) {
+      $scope.isLoading = true;
+      for (var i = 0; i < $scope.project.bids.length; i++) {
+        if ($scope.authentication.user._id === $scope.project.bids[i].userId) {
+          $scope.bidIndex = i;
+          break;
+        }
+      }
+
+      var proposal = {
+        'description': bidDescription,
+        'milestones': $scope.milestones
+      };
+
+      $scope.project.bids[$scope.bidIndex].proposal = proposal;
+      var obj = {
+        'data': $scope.project.bids[$scope.bidIndex],
+        'index': $scope.bidIndex
+      };
+
+      return $http({
+        url: '/api/project/submitProposal/' + $scope.project._id,
+        method: 'PUT',
+        data: obj
+      }).then(function (response) {
+        $scope.isLoading = false;
+        $scope.project = response.data;
+        // console.log('Proposal:',response);
+      }, function (response) {
+        $scope.isLoading = false;
+      });
+
+    };
+
+    $scope.award = function (index) {
+      var bidData = $scope.project.bids[index];
+      bidData.awarded = 'pending';
+
+
+      var object = {
+        'data': bidData,
+        'index': index
+      };
+
+      $scope.findAwardedProject();
+      //console.log("$scope.awardedProject.bidderInfo.username", $scope.awardedProject);
+
+      return $http({
+        url: '/api/project/projectAwarded/' + $scope.project._id,
+        method: 'PUT',
+        data: object
+      }).then(function (response) {
+        //console.log(response);
+        $scope.project = response.data;
+        $scope.project.bids = response.data.bids;
+
+        // Find the owner of project
+        // UserSchema.findOne({
+        //   filter:{
+        //     where:{
+        //       username: $scope.project.userInfo.username
+        //     }
+        //   }
+        // }, function(suc){
+        //   $scope.projectOwner = suc;
+        // });
+
+        // Notify the user
+        Notifications.create({  
+          "publisher": Authentication.user.username,  
+          "subscriber": $scope.awardedProject.bidderInfo.username, 
+          "description": Authentication.user.username + " 님 프로젝트에 선정되었습니다", 
+          "link": $scope.project._id, 
+          "isClicked": false,
+          "project": true
+        }, function(suc){
+          // succ
+        }, function(err){
+          // err
+        });
+
+        ////console.log(response);
+      }, function (response) {
+        // failed
+        //console.log(response);
+      });
+
+
+    };
+
+    $scope.acceptProject = function () {
+
+      var bidData = $scope.awardedProject;
+
+      // if proj is re-awarded by employer to freelancer who rejected it first
+      // if(bidData.rejected){
+      //   delete bidData.rejected;
+      //   delete bidData.projectRejectDate;
+      // }
+
+      bidData.awarded = 'yes';
+      bidData.projectAcceptDate = Date.now();
+
+      var object = {
+        'data': bidData,
+        'index': $scope.awardedProjectIndex
+      };
+
+
+      return $http({
+        url: '/api/project/acceptProject/' + $scope.project._id,
+        method: 'PUT',
+        data: object
+      }).then(function (response) {
+
+        $scope.project = response.data;
+        $scope.project.bids = response.data.bids;
+
+        // Notify the user
+        Notifications.create({  
+          "publisher": Authentication.user.username,  
+          "subscriber": $scope.project.userInfo.username, 
+          "description": Authentication.user.username + " 님이 프로젝트를 수락하였습니다", 
+          "link": $scope.project._id, 
+          "isClicked": false,
+          "project": true
+        });
+      });
+
+
+    };
+
+    // Reject the awarded project
+    $scope.rejectProject = function () {
+
+      var bidData = $scope.awardedProject;
+      bidData.awarded = 'no';
+      bidData.rejected = true;
+      bidData.projectRejectDate = Date.now();
+
+
+      var object = {
+        'data': bidData,
+        'index': $scope.awardedProjectIndex
+      };
+
+
+      return $http({
+        url: '/api/project/acceptProject/' + $scope.project._id,
+        method: 'PUT',
+        data: object
+      }).then(function (response) {
+        // Notify the user
+        Notifications.create({  
+          "publisher": Authentication.user.username,  
+          "subscriber": $scope.project.userInfo.username, 
+          "description": Authentication.user.username + " 님이 프로젝트를 거절하였습니다", 
+          "link": $scope.project._id, 
+          "isClicked": false,
+          "project": true
+        }, function(suc){
+          $location.path('/projects/project-list');
+        });
+      });
+
+    };
+
+    // Delete/Remove existing Project
+    $scope.remove = function (project) {
+      if (project) {
+        project.$remove();
+
+        for (var i in $scope.projects) {
+          if ($scope.projects[i] === project) {
+            $scope.projects.splice(i, 1);
+          }
+        }
+      } else {
+        $scope.project.$remove(function () {
+          $location.path('projects');
+        });
+      }
+    };
+
+    // Update existing Project
+    $scope.update = function (isValid) {
+      $scope.error = null;
+
+      if (!isValid) {
+        $scope.$broadcast('show-errors-check-validity', 'projectForm');
+
+        return false;
+      }
+
+      var project = $scope.project;
+
+      project.$update(function () {
+        $location.path('projects/' + project._id);
+      }, function (errorResponse) {
+        $scope.error = errorResponse.data.message;
+      });
+    };
+
+    // Find a list of Projects
+    $scope.find = function () {
+      $timeout(function() {
+        usSpinnerService.spin('projLoader');
+      }, 100);
+      $scope.projects = Projects.query().$promise.then(function (data) {
+        $scope.view_processing = false;
+        $scope.promiseResolved = true;
+        $scope.projects = data;
+        $scope.allProjects = data;
+
+        $scope.oldData = $scope.projects;
+
+        //start code for pagination
+        var begin = (($scope.currentPage - 1) * $scope.numPerPage);
+        var end = begin + $scope.numPerPage;
+        $scope.filteredProjects = $scope.projects.slice(begin, end);
+        //end code for pagination
+        $scope.projectsLength = $scope.projects.length;
+        $timeout(function() {
+          usSpinnerService.stop('projLoader');
+        }, 50);
+
+      }, function (error) {
+        // error handler
+      });
+    };
+
+    // Find existing Project
+    $scope.findOne = function () {
+
+      // show loader
+      $scope.projViewProcess = true;
+
+      $scope.curBidId = $stateParams.bidId;
+      $scope.project = Projects.get({
+        projectId: $stateParams.projectId
+      }).$promise.then(function (data) {
+        $scope.projViewProcess = false;
+        $scope.project = data;
+
+        // console.log('Projects:', $scope.project);
+        $scope.projectCur = $scope.project.currency; 
+
+        if (data.file) {
+          $scope.filePath = data.file.split('/');
+          $scope.fileName = $scope.filePath[$scope.filePath.length - 1];
+        }
+
+        $scope.getremainingDaysAndHours();
+
+        if(typeof($scope.curBidId) === 'undefined') {
+          // //console.log('asdsada');
+          $scope.paidToYouAmount = parseInt(parseInt($scope.project.minRange) + parseInt($scope.project.maxRange)) / 2;
+          $scope.paidYours = $scope.paidToYouAmount;
+          $scope.updateValues($scope.paidYours);
+
+          $scope.milestones = [{
+            description: '프로젝트 대금',
+            price: parseInt($scope.yourBid)
+          }];
+
+          $scope.totalBidAmount = parseInt($scope.yourBid);
+          $scope.findAwardedProject();
+          $scope.checkBidExists();
+          $scope.findAvgBid();
+          $scope.projectUserInfo();
+        }
+        // if($scope.bidId) {
+        //   $scope.getBidInfo();
+        // }
+
+        if ($scope.project.bids) {
+          // //console.log('getBidInfo');
+          $scope.getBidInfo();
+          $scope.projectUserInfo();
+        } else if ($location.path().includes('edit-bid')) {
+          
+          $scope.paidYours = '';
+          $scope.projectFee = '';
+          $scope.yourBid = '';
+          $scope.deliverDays = '';
+          $scope.milestones = '';
+
+        }
+
+        // Get the userInfo freelancer
+
+        // return $http({
+        //   url: '/api/hiddenUser/' + $scope.project.user._id,
+        //   method: 'GET'
+        // }).then(function (succ) {
+        //   $scope.empUserInfo = succ.data;
+        // });
+        
+      }, function (error) {
+        $scope.projViewProcess = false;
+      });
+    };
+
+    $scope.getremainingDaysAndHours = function () {
+      var date_future = new Date($scope.project.created);
+      date_future.setDate(date_future.getDate() + 7);
+      var date_now = new Date();
+
+      var seconds = Math.floor((date_future - (date_now)) / 1000);
+      var minutes = Math.floor(seconds / 60);
+      var hours = Math.floor(minutes / 60);
+      $scope.days = Math.floor(hours / 24);
+
+      $scope.hours = hours - ($scope.days * 24);
+    };
+
+    $scope.getBidInfo = function () {
+
+
+      // //console.log('Inside getBidInfo');
+
+      for (var i = 0; i < $scope.project.bids.length; i++) {
+
+        
+
+        if ($scope.curBidId === $scope.project.bids[i].bidId) {
+
+          $scope.paidYours = $scope.project.bids[i].actualBid;
+          $scope.yourBid = $scope.project.bids[i].yourBid;
+          $scope.deliverDays = $scope.project.bids[i].deliverInDays;
+          $scope.projectFee = parseInt($scope.project.bids[i].yourBid) - parseInt($scope.project.bids[i].actualBid);
+          $scope.totalBidAmount = parseInt($scope.project.bids[i].yourBid);
+          if ($scope.project.bids[i].proposal) {
+            $scope.description = $scope.project.bids[i].proposal.description;
+          }
+
+          $scope.milestones = [{
+            description: '순차별 프로젝트 대금지금 일정표 제목 입력바랍니다',
+            price: parseInt($scope.yourBid)
+          }];
+
+          $scope.isAwarded = $scope.project.bids[i].awarded;
+
+          // //console.log('Is Awarded: ', $scope.isAwarded);
+
+          // //console.log('$scope.project.bids[i].awarded;', $scope.project.bids[i].awarded);
+
+          if ($scope.project.bids[i].proposal) {
+            $scope.milestones = $scope.project.bids[i].proposal.milestones;
+          }
+          break;
+        }
+
+      }
+    };
+
+    $scope.findAwardedProject = function () {
+
+      // //console.log('findAwardedProject', $scope.project);
+
+      for (var j = 0; j < $scope.project.bids.length; j++) {
+
+        if ($scope.project.bids[j].awarded === 'yes' || $scope.project.bids[j].awarded === 'pending') {
+          $scope.awardedProject = $scope.project.bids[j];
+          $scope.awardedProjectIndex = j;
+
+          // //console.log('findAwardedProject awarded project: ', $scope.awardedProject);
+          break;
+        }
+
+      }
+      if ($scope.awardedProject) {
+        if ($scope.awardedProject.proposal) {
+          $scope.totalAmountOfMilestones = 0.0;
+          for (var i = 0; i < $scope.awardedProject.proposal.milestones.length; i++) {
+            // //console.log( $scope.awardedProject.proposal.milestones[i].status, ':' , $scope.awardedProject.proposal.milestones[i].status === 'Created' || $scope.awardedProject.proposal.milestones[i].status === 'Released');
+            // //console.log( $scope.awardedProject.proposal.milestones[i].status, ':', $scope.awardedProject.proposal.milestones[i].status !== 'Cancelled');
+
+            if ($scope.awardedProject.proposal.milestones[i].status === 'Created' || $scope.awardedProject.proposal.milestones[i].status === 'Released') {
+              $scope.totalAmountOfMilestones = $scope.totalAmountOfMilestones + $scope.awardedProject.proposal.milestones[i].price;
+              // //console.log('proposal.milestones.status', $scope.awardedProject.proposal.milestones[i].status);
+            }
+          }
+        }
+
+      }
+
+      if($location.absUrl().includes('projects/dispute')) {
+ 
+        if($scope.project.dispute) {
+          var date2 = new Date($scope.project.dispute.createdDateExpire);
+          var date1 = new Date(Date.now());
+ 
+ 
+          var seconds = Math.floor((date2 - (date1))/1000);
+          var minutes = Math.floor(seconds/60);
+          var hours = Math.floor(minutes/60);
+          $scope.disputeDaysRemaining = Math.floor(hours/24);
+ 
+          $scope.disputeHoursRemainig = hours-($scope.disputeDaysRemaining*24);
+          $scope.disputeMinutesRemainig = minutes-($scope.disputeDaysRemaining*24*60)-($scope.disputeHoursRemainig*60);
+          if($scope.disputeDaysRemaining<0){
+            $scope.showArbButtonTab2 = true;
+          }
+ 
+          if($scope.project.dispute.tab === 3) {
+ 
+            var date4 = new Date($scope.project.dispute.tab2ArbitrationCreatedDateExpire);
+            var date3 = new Date(Date.now());
+ 
+            //console.log(date4);
+            //console.log(date3);
+ 
+ 
+            var secondsTab3 = Math.floor((date4 - (date3))/1000);
+            var minutesTab3 = Math.floor(secondsTab3/60);
+            var hoursTab3 = Math.floor(minutesTab3/60);
+            $scope.tab3DaysRemaining = Math.floor(hoursTab3/24);
+ 
+            $scope.tab3HoursRemainig = hoursTab3-($scope.tab3DaysRemaining*24);
+            $scope.tab3MinutesRemainig = minutes-($scope.tab3DaysRemaining*24*60)-($scope.tab3HoursRemainig*60);
+            if($scope.tab3DaysRemaining<0){
+              $scope.showArbButtonTab3 = true;
+            }
+          }
+ 
+        }
+ 
+        if($scope.selectedMilestone !== null) {
+          $scope.initializeMilestoneTotal();
+        }
+      }
+
+    };
+
+    $scope.checkBidExists = function () {
+
+      $scope.bidExists = false;
+
+      for (var j = 0; j < $scope.project.bids.length; j++) {
+
+        if ($scope.project.bids[j].userId === $scope.authentication.user._id) {
+          $scope.bidExists = true;
+          break;
+        }
+
+      }
+    };
+
+    $scope.findAvgBid = function () {
+
+      $scope.avgBid = 0;
+
+      for (var i = 0; i < $scope.project.bids.length; i++) {
+
+        $scope.avgBid = $scope.avgBid + $scope.project.bids[i].yourBid;
+
+      }
+      if ($scope.avgBid !== 0)
+        $scope.avgBid = ($scope.avgBid / $scope.project.bids.length).toFixed(2);
+
+    };
+
+    // Calculate % of bid on budget
+
+    // $scope.$watch('paidYours',function(newValue,oldValue){
+    //   //console.log(newValue);
+    //   //console.log(oldValue);
+    // });
+
+    $scope.updateValues = function (paidYours) {
+
+      $timeout(function () {
+        //console.log('paid yours', paidYours);
+        $scope.paidYours  = paidYours;
+        $scope.projectFee = parseInt(parseInt(paidYours) * 0.07);
+        $scope.yourBid = parseInt($scope.projectFee) + parseInt(paidYours);
+
+      }, 100);
+
+
+    };
+
+    $scope.getMinMaxValue = function () {
+      $timeout(function () {
+
+        if($scope.project.price){
+          if (!$scope.project.price.name.includes('Customized')) {
+
+            $scope.customizeProjectBudget = false;
+            $scope.project.minRange = $scope.project.price.value.min;
+            $scope.project.maxRange = $scope.project.price.value.max;
+          } else {
+            $scope.project.minRange = '';
+            $scope.project.maxRange = '';
+            $scope.customizeProjectBudget = true;
+          }
+        }
+      }, 100);
+
+    };
+
+
+
+
+    $scope.$watch('currentPage + numPerPage', function () {
+      var begin = (($scope.currentPage - 1) * $scope.numPerPage);
+      var end = begin + $scope.numPerPage;
+
+      if ($scope.promiseResolved) {
+        $scope.filteredProjects = $scope.projects.slice(begin, end);
+      }
+    });
+
+    $scope.maxSize = 5;
+    $scope.numPerPage = 10;
+    $scope.currentPage = 1;
+
+    // $scope.totalItems = 64;
+    // $scope.currentPage = 4;
+
+    // $scope.setPage = function (pageNo) {
+    //  $scope.currentPage = pageNo;
+    // };
+
+    // $scope.pageChanged = function() {
+    // $scope.log('Page changed to: ' + $scope.currentPage);
+    // };
+
+    $scope.maxSize = 5;
+    $scope.bigTotalItems = 175;
+    $scope.bigCurrentPage = 1;
+
+    //for slider filter
+
+    // in contest-post budget
+    $scope.sliderContestBudg = {
+      minValue: 50,
+      maxValue: 1000,
+      options: {
+        floor: 0,
+        ceil: 100,
+        step: 1,
+        showSelectionBar: true
+      }
+    };
+
+    // in project-manage
+    $scope.sliderManage = {
+      minValue: 50,
+      maxValue: 1000,
+      options: {
+        floor: 0,
+        ceil: 100,
+        step: 1,
+        showSelectionBar: true
+      }
+    };
+
+    // in project-list page
+    $scope.sliderFixedPrice = {
+      minValue: 50,
+      maxValue: 1000,
+      options: {
+        floor: 0,
+        ceil: 100,
+        step: 1,
+        showSelectionBar: true
+      }
+    };
+    $scope.sliderHourly = {
+      minValue: 10,
+      maxValue: 1000,
+      options: {
+        floor: 0,
+        ceil: 100,
+        step: 1,
+        showSelectionBar: true
+      }
+    };
+    $scope.sliderContractor = {
+      minValue: 50,
+      maxValue: 1000,
+      options: {
+        floor: 0,
+        ceil: 100,
+        step: 1,
+        showSelectionBar: true
+      }
+    };
+
+    // For Listing types
+    $scope.listingTypes = [{
+        value: 'nda',
+        label: 'NDA'
+      },
+      {
+        value: 'urgent',
+        label: 'URGENT'
+      },
+      {
+        value: 'featured',
+        label: 'FEATURED'
+      },
+      {
+        value: 'guranteed',
+        label: 'GURANTEED'
+      },
+      {
+        value: 'fulltime',
+        label: 'FULL TIME'
+      },
+      {
+        value: 'qualified',
+        label: 'QUALIFIED'
+      },
+      {
+        value: 'highlight',
+        label: 'HIGHLIGHT'
+      },
+      {
+        value: 'topcontest',
+        label: 'TOP CONTEST'
+      },
+      {
+        value: 'localjob',
+        label: 'LOCAL JOB'
+      },
+      {
+        value: 'sealed',
+        label: 'SEALED'
+      }
+    ];
+
+
+    // Adding milestones of project bid
+
+    $scope.$watch('milestones', function (newValue) {
+
+      if (typeof (newValue) !== 'undefined') {
+        var total = 0;
+        for (var i = 0; i < newValue.length; i++) {
+          if (typeof (newValue[i].price) === 'undefined') {
+            $scope.priceError = 'price should be greater than or equal to 3';
+            $scope.milestoneError = false;
+            return;
+          } else {
+            total = total + newValue[i].price;
+            $scope.priceError = '';
+            $scope.milestoneError = true;
+          }
+        }
+        if (total !== 0)
+          $scope.milstoneTotal = total;
+      }
+    }, true);
+
+
+    $scope.remov = function (index) {
+
+      //console.log($scope.milestones[index].price);
+      if ($scope.milestones[index].price > $scope.totalBidAmount || $scope.milestones[index].price === null || typeof ($scope.milestones[index].price) === 'undefined') {
+        $scope.milestones[index - 1].price = $scope.milestones[index - 1].price + $scope.totalBidAmount;
+      } else {
+        $scope.milestones[index - 1].price = $scope.milestones[index - 1].price + $scope.milestones[index].price;
+      }
+
+      $scope.totalBidAmount = $scope.milestones[index - 1].price;
+      $scope.milestones.splice(index, 1);
+    };
+
+    $scope.editBidremov = function (index) {
+
+      //console.log($scope.milestones[index].price);
+      if ($scope.milestones[index].price > $scope.totalBidAmount || $scope.milestones[index].price === null || typeof ($scope.milestones[index].price) === 'undefined') {
+        $scope.milestones[index - 1].price = $scope.milestones[index - 1].price + $scope.totalBidAmount;
+      } else {
+        $scope.milestones[index - 1].price = $scope.milestones[index - 1].price + $scope.milestones[index].price;
+      }
+
+      //$scope.totalBidAmount = $scope.milestones[index - 1].price;
+      $scope.milestones.splice(index, 1);
+    };
+
+    $scope.editMilestone = function () {
+      $scope.amountCalculated = 0;
+      if ($scope.milestones.length < 5) {
+
+        for (var k = 0; k < $scope.milestones.length; k++) {
+          $scope.amountCalculated = $scope.amountCalculated + parseInt($scope.milestones[k].price);
+        }
+
+        //console.log('total amount',$scope.totalBidAmount);
+        //console.log('amount calculated' , $scope.amountCalculated);
+
+        $scope.amountCalculated = $scope.totalBidAmount - parseInt($scope.amountCalculated);
+        //console.log($scope.amountCalculated);
+        if ($scope.amountCalculated !== 0 && $scope.amountCalculated > 0 && $scope.amountCalculated < $scope.totalBidAmount) {
+          $scope.milestones.push({
+            description: '',
+            price: $scope.amountCalculated,
+            status: 'Requested'
+          });
+          //$scope.totalBidAmount = $scope.amountCalculated;
+        }
+        for (var j = 0; j < $scope.milestones; j++) {
+          $scope.milstoneTotal = $scope.milstoneTotal + $scope.milestones[j].price;
+        }
+      }
+      //console.log('check' , $scope.totalBidAmount);
+    };
+
+    $scope.add = function (name) {
+
+      if ($scope.milestones.length < 5) {
+        //console.log('total amount : ' , $scope.totalBidAmount);
+        //console.log('milestone amount : ' , $scope.milestones[$scope.milestones.length - 1].price);
+        $scope.amountCalculated = parseInt($scope.totalBidAmount) - parseInt($scope.milestones[$scope.milestones.length - 1].price);
+        //console.log('calculated' ,$scope.amountCalculated );
+        if ($scope.amountCalculated !== 0 && $scope.milestones[$scope.milestones.length - 1].price >= 3 && $scope.milestones[$scope.milestones.length - 1].price <= parseInt($scope.totalBidAmount)) {
+          //console.log($scope.amountCalculated);
+          $scope.milestones.push({
+            description: '',
+            price: $scope.amountCalculated,
+            status: 'Requested'
+          });
+          $scope.totalBidAmount = $scope.amountCalculated;
+        }
+        for (var j = 0; j < $scope.milestones; j++) {
+          $scope.milstoneTotal = $scope.milstoneTotal + $scope.milestones[j].price;
+        }
+        //console.log($scope.milstoneTotal);
+      }
+    };
+
+    //TAbs button function my project page
+    $scope.employee = true;
+    $scope.freelancer = false;
+    $scope.showEmployee = function (label) {
+
+
+      if (label === 'employee') {
+        $scope.findPostedProjects();
+        // $scope.findPostedContests();
+        $scope.freelancer = true;
+        $scope.employee = false;
+      } else if (label === 'freelancer') {
+        //console.log('freelancer');
+        $scope.employee = true;
+        $scope.freelancer = false;
+      } else {
+        $scope.employee = true;
+      }
+    };
+
+
+
+    $scope.paginateSearchResults = function (key) {
+
+      $scope.currentPage = 1;
+      var begin = (($scope.currentPage - 1) * $scope.numPerPage);
+      var end = begin + $scope.numPerPage;
+      if($scope.projects){
+        $scope.filteredProjects = $scope.projects.slice(begin, end);
+        $scope.projectsLength = $scope.projects.length + 1;
+      }
+    };
+
+    $scope.$watch('searchSkills', function (newValue, oldValue) {
+       if (typeof newValue !== 'undefined' && newValue.length > 0) {
+        angular.copy($scope.projects, $scope.previousData);
+        $scope.projects = $scope.projects.filter(function (obj) {
+          for (var i = 0; i < obj.skills.length; i++) {
+            if (obj.skills[i].name.includes(newValue[newValue.length - 1].name)) {
+              return obj.skills[i].name.includes(newValue[newValue.length - 1].name);
+            }
+          }
+
+        });
+        $scope.paginateSearchResults();
+      } 
+      else if(!newValue && !oldValue){
+        $scope.projects = $scope.oldData;
+        $scope.paginateSearchResults();
+      }
+      else if (typeof newValue !== 'undefined' && newValue.length === 0) {
+        //console.log($scope.previousData);
+        $scope.projects = $scope.previousData;
+        $scope.projects = $scope.oldData;
+        $scope.previousData = [];
+        $scope.paginateSearchResults();
+      }
+    });
+
+    $scope.search = function (key) {
+      if (key === 'byDescription') {
+        if($scope.searchProject){
+          $scope.projects = $scope.oldData;
+          $scope.projects = $scope.projects.filter(function (obj) {
+            if(obj.description.toUpperCase().includes($scope.searchProject.toUpperCase()) || obj.name.toUpperCase().includes($scope.searchProject.toUpperCase())){
+              return obj;
+              // return obj.description.includes($scope.searchProject);
+            }
+          });
+        }else{
+          $scope.projects = $scope.oldData;
+        }
+      }
+      $scope.paginateSearchResults();
+    };
+
+    $scope.clearFilters = function () {
+
+      $scope.filteredProjects = $scope.allProjects;
+      $scope.projects = $scope.allProjects;
+      $scope.paginateSearchResults();
+    };
+
+    $scope.addMilestone = function (bidId, status, identifier) {
+      // When Milestone is being created, check account balance of user and if req amount is there, only
+      // then allow the user to create milestone
+
+      // If created
+      if (status === 'Created') {
+        // Confirm user wether to Create Milestone
+        SweetAlert.swal({
+            title: "프로젝트 대금결제를 하시겠습니까?",
+            text: "프리랜서가 작업일정대로 완료되어 단계별로 지급계약을 요청한 경우 프리랜서와 협의하기전 의뢰인께서 원하는 금액대로 대금을 지급하시면 안됩니다. 계약에 준하는 대금지급을 권장합니다. 합의한대로 대금을 지급한경우 취소나 환불은 불가능합니다. 그렇지 않을경우 분쟁조정을 신청해야 됩니다. 그래도 대금지급을 지금 승인하시겠습니까? ",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#5cb85c",
+            confirmButtonText: "예, 승인!",
+            closeOnConfirm: false,
+            closeOnCancel: false
+          },
+          function (isConfirm) {
+            if (isConfirm) {
+              SweetAlert.close();
+              // check if user has enough amount in account and then allow to create milestone
+              if ($rootScope.userAccountBalance.accountBalance[$scope.project.currency.code] >= parseFloat($scope.newMilestone.price)) {
+                $scope.createMS(bidId, status, identifier);
+                return;
+              }else if($rootScope.userAccountBalance.accountBalance[$scope.project.currency.code] < parseFloat($scope.newMilestone.price)) {
+                $scope.findTotalAmountInWallet($scope.project.currency.code);
+                if($scope.totalConverted>=parseFloat($scope.newMilestone.price)){  
+                  $scope.createMS(bidId, status, identifier);
+                  return;
+                }
+                else{
+                  SweetAlert.swal("Account Error", "Sorry, cann\'t create milesone! Not enough amount in account", "error");
+                  $location.path('credit-deposit');
+                }
+              }
+              // return;
+            } else {
+              SweetAlert.close();
+            }
+          });
+      }
+
+      // If Requested
+      else if (status === 'Requested') {
+        // Confirm user wether to Create Milestone
+        SweetAlert.swal({
+            title: "대금요청을 하시겠습니까?",
+            text: "의뢰인과 계약한 작업일정대로 작업이 완료되었으면 의뢰인께 프로젝트 대금요청을 하실 수 있습니다. 만약 계약에 준하지 않고 일방적으로 대금요청 하시면 경고조치를 받을수있습니다.",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#008000",
+            confirmButtonText: "예, 대금요청!",
+            closeOnConfirm: false,
+            closeOnCancel: false
+          },
+          function (isConfirm) {
+            if (isConfirm) {
+              SweetAlert.close();
+              var obj = {
+                'price': $scope.newMilestone.price,
+                'description': $scope.newMilestone.description,
+                'status': status
+              };
+
+              var object = {
+                'data': obj,
+                'bidId': bidId,
+                'identifier' : identifier
+              };
+
+              return $http({
+                url: '/api/project/addMilestone/' + $scope.project._id,
+                method: 'PUT',
+                data: object
+              }).then(function (response) {
+                // //console.log(response);
+                SweetAlert.swal("대금요청이 완료되었습니다.!", " ", "success");
+                $scope.project = response.data;
+                $scope.findAwardedProject();
+
+                // Notify the user
+                Notifications.create({  
+                  "publisher": Authentication.user.username,  
+                  "subscriber": $scope.project.userInfo.username, 
+                  "description": Authentication.user.username + " 님이 프로젝트 대금을 요청했습니다.", 
+                  "link": $scope.project._id, 
+                  "isClicked": false,
+                  "project": true
+                }, function(suc){
+                  // succ
+                }, function(err){
+                  // err
+                });
+
+                ////console.log(response);
+              }, function (response) {
+                // failed
+                SweetAlert.swal("Account Error", "Sorry, something went wrong, try again! ", "error");
+                // //console.log(response);
+              });
+            } else {
+              SweetAlert.close();
+            }
+          });
+      }
+    };
+
+    // Milestone creation (When employer himself creates)
+    $scope.createMS = function(bidId, status, identifier){
+      Transactions.transfer({
+        Sid: $rootScope.userAccountBalance.id,
+        Rid: $rootScope.adminEWalletId,
+        amount: parseFloat($scope.newMilestone.price),
+        currency: $scope.project.currency.code
+      }, function (tranSucc) {
+        // create milestone when amount is being deducted from the user's account
+        var obj = {
+          'price': $scope.newMilestone.price,
+          'description': $scope.newMilestone.description,
+          'status': status
+        };
+
+        //console.log($scope.awardedProject);
+        var object = {
+          'data': obj,
+          'bidId': bidId,
+          'identifier' : identifier,
+          'bidderEmail' : $scope.awardedProject.bidderInfo.email
+
+        };
+
+        return $http({
+          url: '/api/project/addMilestone/' + $scope.project._id,
+          method: 'PUT',
+          data: object
+        }).then(function (response) {
+          $scope.project = response.data;
+          $scope.findAwardedProject();
+
+          Account.findOne({
+            filter: {
+              where: {
+                ownerId: $scope.authentication.user.username
+              }
+            }
+          }, function (suc) {
+            $rootScope.userAccountBalance = suc;
+            // $rootScope.totalBalanceKrw();
+            SweetAlert.swal("대급지급이 완료되었습니다.!", " ", "success");
+            // Notify the user
+            Notifications.create({  
+              "publisher": Authentication.user.username,  
+              "subscriber": $scope.awardedProject.bidderInfo.username, 
+              "description": Authentication.user.username + " 님이 프로젝트 대금지급을 완료했습니다.", 
+              "link": $scope.project._id, 
+              "isClicked": false,
+              "project": true
+            }, function(suc){
+              // succ
+            }, function(err){
+              // err
+            });
+
+          }, function (err) {
+            SweetAlert.swal("Account Error", "Sorry, something went wrong, try again! ", "error");
+          });
+
+          ////console.log(response);
+        }, function (response) {
+          SweetAlert.swal("Account Error", "Sorry, something went wrong, try again! ", "error");
+          // reverse the transacttion
+          Transactions.transfer({
+            Sid: $rootScope.adminEWalletId,
+            Rid: $rootScope.userAccountBalance.accountBalance.id,
+            amount: parseFloat($scope.newMilestone.price),
+            currency: $scope.project.currency.code
+          }, function(rTSuc){
+            //console.log(rTSuc);
+            Account.findOne({
+              filter:{
+                where:{
+                  ownerId: Authentication.user.username
+                }
+              }
+            }, function(aSuc){
+              $rootScope.userAccountBalance = aSuc;
+            });
+          }, function(rTFail){
+            //console.log(rTFail);
+          });
+        });
+
+      }, function (tranFail) {
+        SweetAlert.swal("Account Error", "Sorry, something went wrong, try again! ", "error");
+        console.log('Trans Err:', tranFail);
+        return;
+      });
+    };
+
+    // Milestone creation (When employer creates on request of Freelancer)
+    $scope.createRequestedMileStone = function(index, label){
+      Transactions.transfer({
+        Sid: $rootScope.userAccountBalance.id,
+        Rid: $rootScope.adminEWalletId,
+        amount: parseFloat($scope.milestonePrice),
+        currency: $scope.project.currency.code
+      }, function (tranSucc) {
+        // Change status of milestone when amount is being deducted from the user's account
+        var obj = {
+          'data' :  $scope.awardedProject,
+          'identifier' : label,
+          'milestoneamount' : $scope.milestonePrice
+        };
+
+        return $http({
+          url: '/api/project/changeMilestonStatus/' + $scope.project._id,
+          method: 'PUT',
+          data: obj
+        }).then(function (response) {
+          $scope.project = response.data;
+
+          Account.findOne({
+            filter: {
+              where: {
+                ownerId: $scope.authentication.user.username
+              }
+            }
+          }, function (suc) {
+            $rootScope.userAccountBalance = suc;
+            SweetAlert.swal("대금지급이 완료되었습니다.", " ", "success");
+            // Notify the user
+            Notifications.create({  
+              "publisher": Authentication.user.username,  
+              "subscriber": $scope.awardedProject.bidderInfo.username, 
+              "description": Authentication.user.username + " 님이 프로젝트 대금지급을 완료했습니다.", 
+              "link": $scope.project._id, 
+              "isClicked": false,
+              "project": true
+            });
+
+          }, function (err) {
+            SweetAlert.swal("Account Error", "Sorry, something went wrong, try again! ", "error");
+          });
+        }, function (fail) {
+          SweetAlert.swal("Error", "Sorry, something went wrong, try again! ", "error");
+          // Reverse the transaction
+          Transactions.transfer({
+            Sid: $rootScope.userAccountBalance.id,
+            Rid: $rootScope.adminEWalletId,
+            amount: parseFloat($scope.milestonePrice),
+            currency: $scope.project.currency.code
+          }, function (tranSucc) {
+            Account.findOne({
+              filter: {
+                where: {
+                  ownerId: $scope.authentication.user.username
+                }
+              }
+            }, function (suc) {
+              $rootScope.userAccountBalance = suc;
+            });
+          });
+          
+        });
+
+
+      }, function (tranFail) {
+        SweetAlert.swal("Error", "Sorry, something went wrong, try again! ", "error");
+        return;
+      });
+    };
+
+    $scope.deleteBid = function (bidId) {
+
+      SweetAlert.swal({
+        title: "프로젝트 삭제를 원하시나요?",
+        type: "warning",
+        text : "삭제시 본 프로젝트복원이 불가능하며 재등록 해야 합니다!",
+        showCancelButton: true,
+        confirmButtonColor: "#DD6B55",
+        confirmButtonText: "예, 삭제!",
+        closeOnConfirm: true
+      },function (isConfirm) {
+        if (isConfirm) {
+          SweetAlert.close();
+          var bid = {
+            'bidId': bidId
+          };
+          return $http({
+            url: '/api/project/bid/deleteBid/' + $scope.project._id,
+            method: 'PUT',
+            data: bid
+          }).then(function (response) {
+           
+            $window.location.reload();
+          }, function (response) {
+            // failed
+            //console.log(response);
+          });
+          
+        }
+        else {
+          SweetAlert.close();
+        }
+      });  
+
+    };
+
+    // get user projects
+    $scope.getUserProjects = function (label) {
+      $scope.items = [];
+      // console.log(' !$scope.getUserProjects:',  !$scope.UserProjects);
+      // console.log(' !$scope.getUserProjects:',  typeof (label) !== 'undefined');
+      // if ( label=== 'CurrentWork' || label=== 'pastWork' || label=== 'activeBids') {
+      // if (typeof (label) !== 'undefined' && !$scope.UserProjects) {
+        $scope.isLoading = true;
+        return $http({
+          url: '/api/users/userBid/' + Authentication.user._id,
+          method: 'PUT',
+          data:{
+            'username': Authentication.user.username
+          }
+        }).then(function (response) {
+          $scope.UserProjects = response;
+          // console.log('resp:', response);
+
+          // if (label === 'activeBids') {
+            $scope.freelancerActiveProjects = [];
+            for (var k = 0; k < response.data.length; k++) {
+              if (response.data[k].projectStatus === 'no' || response.data[k].projectStatus === 'pending') {
+                $scope.freelancerActiveProjects.push(response.data[k]);
+                // $scope.items.push(response.data[k]);
+              }
+            }
+
+          // } 
+          // else if (label === 'CurrentWork') {
+            $scope.freelancerCurrentProjects = [];
+            for (var i = 0; i < response.data.length; i++) {
+              if (response.data[i].projectStatus === 'awarded') {
+                $scope.freelancerCurrentProjects.push(response.data[i]);
+                // $scope.items.push(response.data[i]);
+              }
+            }
+          // } 
+          // else if (label === 'pastWork') {
+            $scope.freelancerPastProjects = [];
+            $scope.items = [];
+            for (var j = 0; j < response.data.length; j++) {
+              if (response.data[j].projectStatus === 'complete') {
+                $scope.freelancerPastProjects.push(response.data[j]);
+                // $scope.items.push(response.data[j]);
+              }
+            }
+
+            // console.log('freelancerPastProjects', $scope.freelancerPastProjects);
+            // // }
+            // // var obj = {
+            // //   'key' : 'its working' 
+                
+            // // };
+            // //console.log($scope.authentication);
+            // return $http({
+            //   url: '/api/hiddenUserUpdate/5969eae5e8d01ffe15d60023',
+            //   method: 'PUT',
+            //   data: $scope.authentication.user.projectsAwarded
+            // }).then(function (response) {
+            //   //console.log('findPostedContests', response);
+              
+            // },  function (error) {
+            //   //console.log('error', response);
+             
+          //console.log($scope.items);
+            // });
+          // }
+          $scope.isLoading = false;
+          $scope.searchh();
+        }, function (response) {
+          $scope.isLoading = false;
+        });
+      // }
+    };
+
+    // /////////////////////////////////
+    var generateData = function () {
+      var arr = [];
+      var letterWords = ['alpha', 'bravo', 'charlie', 'daniel', 'earl', 'fish', 'grace', 'henry', 'ian', 'jack', 'karen', 'mike', 'delta', 'alex', 'larry', 'bob', 'zelda'];
+      for (var i = 1; i < 60; i++) {
+        var id = letterWords[Math.floor(Math.random() * letterWords.length)];
+        arr.push({
+          'id': id + i,
+          'name': 'name ' + i,
+          'description': 'Description of item #' + i,
+          'field3': id,
+          'field4': 'Some stuff about rec: ' + i,
+          'field5': 'field' + i
+        });
+      }
+      return arr;
+    };
+
+    var sortingOrder = 'name'; //default sort
+
+    // init
+    $scope.sortingOrder = sortingOrder;
+    $scope.pageSizes = [1, 10, 25, 50];
+    $scope.reverse = false;
+    $scope.filteredItems = [];
+    $scope.groupedItems = [];
+    $scope.itemsPerPage = 10;
+    $scope.pagedItems = [];
+    $scope.myCurrentPage = 0;
+    $scope.query = '';
+
+    //$scope.items = generateData();
+
+    var searchMatch = function (haystack, needle) {
+
+      if (!needle) {
+        return true;
+      }
+      return haystack.toLowerCase().indexOf(needle.toLowerCase()) !== -1;
+    };
+
+    // init the filtered items
+    $scope.searchh = function (query) {
+      $scope.query = query;
+      $scope.filteredItems = [];
+      $scope.filteredItems = $filter('filter')($scope.items, function (item) {
+
+        if (searchMatch(item.projectName, $scope.query)) {
+
+          return true;
+        }
+        //}
+        return false;
+      });
+      // take care of the sorting order
+      if ($scope.sortingOrder !== '') {
+        $scope.filteredItems = $filter('orderBy')($scope.filteredItems, $scope.sortingOrder, $scope.reverse);
+      }
+      $scope.myCurrentPage = 0;
+      // now group by pages
+      // //console.log($scope.filteredItems);
+      $scope.groupToPages();
+    };
+
+    // show items per page
+    $scope.perPagee = function (value) {
+      $scope.itemsPerPage = value;
+      $scope.groupToPages();
+    };
+
+    // calculate page in place
+    $scope.groupToPages = function () {
+      $scope.pagedItems = [];
+
+      for (var i = 0; i < $scope.filteredItems.length; i++) {
+        if (i % $scope.itemsPerPage === 0) {
+          $scope.pagedItems[Math.floor(i / $scope.itemsPerPage)] = [$scope.filteredItems[i]];
+        } else {
+          $scope.pagedItems[Math.floor(i / $scope.itemsPerPage)].push($scope.filteredItems[i]);
+        }
+      }
+      //console.log($scope.pagedItems);
+    };
+
+    $scope.range = function (start, end) {
+      var ret = [];
+      if (!end) {
+        end = start;
+        start = 0;
+      }
+      for (var i = start; i < end; i++) {
+        ret.push(i);
+      }
+      return ret;
+    };
+
+    $scope.prevPage = function () {
+      if ($scope.myCurrentPage > 0) {
+        $scope.myCurrentPage--;
+      }
+    };
+
+    $scope.nextPage = function () {
+      if ($scope.myCurrentPage < $scope.pagedItems.length - 1) {
+        $scope.myCurrentPage++;
+      }
+    };
+
+    $scope.setPage = function () {
+      $scope.myCurrentPage = this.n;
+    };
+
+    // functions have been describe process the data for display
+
+
+
+    // change sorting order
+    $scope.sort_by = function (newSortingOrder) {
+      if ($scope.sortingOrder === newSortingOrder)
+        $scope.reverse = !$scope.reverse;
+
+      $scope.sortingOrder = newSortingOrder;
+    };
+    // /////////////////////////////////   
+
+
+    $scope.projectUserInfo = function () {
+      //console.log($scope.project.user._id);
+      return $http({
+        url: '/api/hiddenUser/' + $scope.project.user._id,
+        method: 'GET'
+      }).then(function (response) {
+        $scope.currentProjectUser = response.data;
+      }, function (response) {
+        //console.log(response);
+      });
+    };
+
+    // $scope.hello = function(id) {
+    //   $timeout(function () {
+    //         //console.log(id);
+    //       }, 220);
+
+    // };
+      //Financial Dashboard
+    $scope.financialMilstoneIncoming = true;
+    $scope.financialMilstoneOutgoing = false;
+    $scope.showMilestoneDetails = function (label) {
+
+
+      if (label === 'incoming') {
+        $scope.financialMilstoneOutgoing = true;
+        $scope.financialMilstoneIncoming = false;
+      } else if (label === 'outgoing') {
+        $scope.financialMilstoneIncoming = true;
+        $scope.financialMilstoneOutgoing = false;
+      } else {
+        $scope.financialMilstoneIncoming = true;
+      }
+    };
+
+    $scope.milestone = true;
+    $scope.requestMilestone = false;
+    $scope.invoice = false;
+    $scope.transferFunds = false;
+    $scope.withdrawal = false;
+    $scope.showTranscation = function (label) {
+
+      $scope.outMilestoneRequests();
+
+      if (label === 'milestone') {
+        $scope.requestMilestone = false;
+        $scope.milestone = true;
+        $scope.invoice = false;
+        $scope.transferFunds = false;
+        $scope.withdrawal = false;
+      } else if (label === 'requestMilestone') {
+        $scope.requestMilestone = true;
+        $scope.milestone = false;
+        $scope.invoice = false;
+        $scope.transferFunds = false;
+        $scope.withdrawal = false;
+      } else if (label === 'invoice') {
+        $scope.requestMilestone = false;
+        $scope.milestone = false;
+        $scope.invoice = true;
+        $scope.transferFunds = false;
+        $scope.withdrawal = false;
+      } else if (label === 'transferFunds') {
+        $scope.requestMilestone = false;
+        $scope.milestone = false;
+        $scope.invoice = false;
+        $scope.transferFunds = true;
+        $scope.withdrawal = false;
+      } else if (label === 'withdrawal') {
+        $scope.requestMilestone = false;
+        $scope.milestone = false;
+        $scope.invoice = false;
+        $scope.transferFunds = false;
+        $scope.withdrawal = true;
+      }
+       else {
+        $scope.milestone = true;
+      }
+    };
+
+
+    //Create Mile Stone
+    $scope.createMileStone = false;
+    $scope.createMileStoneButton = function(createMileStone){
+      if($scope.createMileStone === false){
+        $scope.createMileStone = true;
+
+      } else if($scope.createMileStone === true) {
+        $scope.createMileStone = false;
+      }
+    };
+
+    //Profit and loss
+    $scope.month = true;
+    $scope.quarter = false;
+    $scope.halfYear = false;
+    $scope.year = false;
+    $scope.twoYear = false;
+    $scope.showProfitLoss = function (label) {
+      if (label === 'month') {
+        $scope.month = true;
+        $scope.quarter = false;
+        $scope.halfYear = false;
+        $scope.year = false;
+        $scope.twoYear = false;
+      } else if (label === 'quarter') {
+        $scope.month = false;
+        $scope.quarter = true;
+        $scope.halfYear = false;
+        $scope.year = false;
+        $scope.twoYear = false;
+      } else if (label === 'halfyear') {
+        $scope.month = false;
+        $scope.quarter = false;
+        $scope.halfYear = true;
+        $scope.year = false;
+        $scope.twoYear = false;
+      } else if (label === 'year') {
+        $scope.month = false;
+        $scope.quarter = false;
+        $scope.halfYear = false;
+        $scope.year = true;
+        $scope.twoYear = false;
+      } else if (label === 'twoyear') {
+        $scope.month = false;
+        $scope.quarter = false;
+        $scope.halfYear = false;
+        $scope.year = false;
+        $scope.twoYear = true;
+      }
+       else {
+        $scope.month = false;
+      }
+    };
+    //
+    //Quick States
+     //Create Mile Stone
+    $scope.employeeStates = true;
+    $scope.freelancerStates = false;
+    $scope.showQuickStates = function(label){
+      if(label === 'employee'){
+        $scope.employeeStates = true;
+        $scope.freelancerStates = false;
+
+      } else if(label === 'freelancer') {
+        $scope.freelancerStates = true;
+        $scope.employeeStates = false;
+      } else {
+        $scope.employeeStates = true;
+      }
+    };
+    //
+    //Earning 
+    $scope.earning = false;
+    $scope.EarningButton = function(earning){
+      if($scope.earning === false){
+        $scope.earning = true;
+
+      } else if($scope.earning === true) {
+        $scope.earning = false;
+      }
+    };
+    //
+    //Other Income
+    $scope.otherIncome = false;
+    $scope.otherIncomeButton = function(otherIncome){
+      if($scope.otherIncome === false){
+        $scope.otherIncome = true;
+
+      } else if($scope.otherIncome === true) {
+        $scope.otherIncome = false;
+      }
+    };
+    //
+    //Cost of Sale
+    $scope.sale = false;
+    $scope.saleButton = function(sale){
+      if($scope.sale === false){
+        $scope.sale = true;
+
+      } else if($scope.sale === true) {
+        $scope.sale = false;
+      }
+    };
+    //
+    //Expense expense
+    $scope.expense = false;
+    $scope.expenseButton = function(expense){
+      if($scope.expense === false){
+        $scope.expense = true;
+
+      } else if($scope.expense === true) {
+        $scope.expense = false;
+      }
+    };
+    //
+    //Payments
+    $scope.payments = false;
+    $scope.paymentsButton = function(payments){
+      if($scope.payments === false){
+        $scope.payments = true;
+
+      } else if($scope.payments === true) {
+        $scope.payments = false;
+      }
+    };
+    $scope.isActive = true;
+    $scope.outgoingActive = false;
+    $scope.toggleActive = function() {
+      $scope.isActive = !$scope.isActive;
+      $scope.outgoingActive = !$scope.outgoingActive;
+    };
+    $scope.isEmployee = true;
+    $scope.freelancerActive = false;
+    $scope.toggleActiveStates = function() {
+      $scope.isEmployee = !$scope.isEmployee;
+      $scope.freelancerActive = !$scope.freelancerActive;
+    };
+    //li lists active values
+    // $scope.MilestoneActive = true;
+    // $scope.MilestoneRequestsActive;
+    // $scope.invoiceActive;
+    // $scope.transferFundsActive;
+    // $scope.withdrawalActive;
+    // $scope.historyActive;
+    // $scope.earningActive;
+    
+    // $scope.toggleMilestone = function() {
+    //   $scope.MilestoneActive = !$scope.MilestoneActive;
+    //   $scope.MilestoneRequestsActive = !$scope.MilestoneRequestsActive;
+    //   $scope.invoiceActive = !$scope.invoiceActive;
+    //   $scope.transferFundsActive = !$scope.transferFundsActive;
+    //   $scope.withdrawalActive = !$scope.withdrawalActive;
+    //   $scope.historyActive = !$scope.historyActive;
+    //   $scope.earningActive = !$scope.earningActive;
+
+    // };
+    // $scope.MilestoneActive = true;
+    // $scope.MilestoneRequestsActive;
+    // $scope.invoiceActive;
+    // $scope.toggleMilestone = function() {
+    //   $scope.MilestoneActive = !$scope.MilestoneActive;
+    //   $scope.MilestoneRequestsActive = !$scope.MilestoneRequestsActive;
+    //   $scope.invoiceActive = !$scope.invoiceActive;
+    // //
+    $scope.isEmployeeProject = false;
+    $scope.freelancerProject = true;
+    $scope.toggleMyProject = function() {
+      $scope.isEmployeeProject = !$scope.isEmployeeProject;
+      $scope.freelancerProject = !$scope.freelancerProject;
+    };
+    //
+    $scope.checkMilestonesAmount = function () {
+
+      $scope.totalAmountOfMilestones = 0.0;
+      for (var i = 0; i < $scope.awardedProject.proposal.milestones.length; i++) {
+
+        if ($scope.awardedProject.proposal.milestones[i].status === 'Released') {
+          $scope.totalAmountOfMilestones = $scope.totalAmountOfMilestones + $scope.awardedProject.proposal.milestones[i].price;
+        }
+      }
+      //console.log($scope.totalAmountOfMilestones);
+      if ($scope.totalAmountOfMilestones >= $scope.awardedProject.yourBid) {
+        return true;
+      } else {
+        return false;
+      }
+    };
+
+    // Change the Status of mileston to Created or Released
+    $scope.changeMilestonStatus = function (index, label) {
+
+      // To Create Milestone
+      if (label === 'Created') {
+        // Confirm user wether to create Milestone
+        SweetAlert.swal({
+            title: "대금지급을 승인 하시겠습니까?",
+            text: "대금지급을 승인한 경우는 계약 작업일정대로 완료되었다는것을 의미합니다. 프리랜서와 합의하지 않는 이상은 의뢰인께서 대금지급을  지금 승인하게되면 취소나 환불을 할 수 없으며 취소나 환불을 원할경우 분쟁조정을 신청해야 됩니다. 그래도 대금지급을 지금 승인하시겠습니까?",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#008000",
+            confirmButtonText: "예, 승인!",
+            closeOnConfirm: false,
+            closeOnCancel: false
+          },
+          function (isConfirm) {
+            if (isConfirm) {
+              SweetAlert.close();
+              // check if there is enough amount in eWallet
+              $scope.awardedProject.proposal.milestones[index].status = label;
+              $scope.milestonePrice = $scope.awardedProject.proposal.milestones[index].price;
+
+              if ($rootScope.userAccountBalance.accountBalance[$scope.project.currency.code] >= parseFloat($scope.milestonePrice)) {
+                // Create Milestone
+                $scope.createRequestedMileStone(index, label);
+                return;
+              } else if($rootScope.userAccountBalance.accountBalance[$scope.project.currency.code] < parseFloat($scope.milestonePrice)) {
+                $scope.findTotalAmountInWallet($scope.project.currency.code);
+
+                if($scope.totalConverted>=parseFloat($scope.milestonePrice)){  
+                  $scope.createRequestedMileStone(index, label);
+                  return;
+                }
+                else{
+                  SweetAlert.swal("Account Error", "Sorry, cann\'t create milesone! Not enough amount in account", "error");
+                  $location.path('credit-deposit');
+                }
+              }
+              return;
+            } else {
+              SweetAlert.close();
+            }
+          });
+
+      }
+
+      // Change milestone status to Released
+      
+      else if (label === 'Released') {
+              // Confirm user wether to Release Milestone
+              SweetAlert.swal({
+                  title: "의뢰인께서 지급승인을 할경우 프리랜서에게 대금 지급이 바로 이루어집니다.",
+                  text: "만약 취소을 원할경우 분쟁조정으로 가야됩니다! ",
+                  type: "warning",
+                  showCancelButton: true,
+                  confirmButtonColor: "#DD6B55",
+                  confirmButtonText: "예, 지급승인!",
+                  closeOnConfirm: false,
+                  closeOnCancel: false
+                },
+                function (isConfirm) {
+                  if (isConfirm) {
+                    SweetAlert.close();
+                    $scope.awardedProject.proposal.milestones[index].status = label;
+                    $scope.milestonePrice = $scope.awardedProject.proposal.milestones[index].price;
+
+                    Account.findOne({
+                      filter: {
+                        where: {
+                          ownerId: $scope.awardedProject.bidderInfo.username
+                        }
+                      }
+                    }, function (suc) {
+
+                      $scope.outsourcingFee = parseFloat($scope.milestonePrice) * 0.05;
+                      $scope.deductedAmount = parseFloat($scope.milestonePrice) - $scope.outsourcingFee;
+
+                      Transactions.transfer({
+                        Sid: $rootScope.adminEWalletId,
+                        Rid: suc.id,
+                        amount: $scope.deductedAmount,
+                        currency: $scope.project.currency.code
+                      }, function (tranSucc) {
+
+                        // //console.log('Transactions success', tranSucc);
+                        // Change status of milestone when amount is being deducted from the user's account
+                        var obj = {
+                          'deductedAmount' : $scope.deductedAmount,
+                          'data' :  $scope.awardedProject,
+                          'identifier' : label
+                        };
+
+                        return $http({
+                          url: '/api/project/changeMilestonStatus/' + $scope.project._id,
+                          method: 'PUT',
+                          data: obj
+                        }).then(function (response) {
+                          // //console.log('Change Milestone Resp',response);
+                          // toastr.success('Milestone Released successfully!', 'Success');
+                          SweetAlert.swal("대금결제가 완료되었습니다!", " ", "success");
+                          $scope.project = response.data;
+
+                          // Notify the user
+                          Notifications.create({  
+                            "publisher": Authentication.user.username,  
+                            "subscriber": $scope.awardedProject.bidderInfo.username, 
+                            "description": Authentication.user.username + " 님이 프로젝트 대금결제가 완료되었습니다", 
+                            "link": $scope.project._id, 
+                            "isClicked": false,
+                            "project": true
+                          }, function(suc){
+                            // succ
+                          }, function(err){
+                            // err
+                          });
+
+                          if ($scope.checkMilestonesAmount()) {
+
+                            $scope.project.status = 'completed';
+                            return $http({
+                              url: '/api/projects/' + $scope.project._id,
+                              method: 'PUT',
+                              data: $scope.project
+                            }).then(function (response) {
+
+                              return $http({
+                                url: '/api/hiddenUser/' + $scope.awardedProject.userId,
+                                method: 'GET',
+                              }).then(function (response) {
+
+                                $scope.tempUser  = response.data;
+                                //console.log(response);
+                                for(var i =0;i<$scope.tempUser.projectsAwarded.length;i++) {
+                                  //console.log($scope.tempUser.projectsAwarded[i].bidId);
+                                  //console.log($scope.awardedProject.bidId);
+
+                                  if($scope.tempUser.projectsAwarded[i].bidId === $scope.awardedProject.bidId) {
+                                    $scope.index = i;
+                                    break;
+                                  }
+                                }
+                                //console.log($scope.index);
+                                $scope.tempUser.projectsAwarded[$scope.index].awarded = 'complete';
+                                 return $http({
+                                    url: '/api/hiddenUserUpdate/' + $scope.tempUser._id,
+                                    method: 'PUT',
+                                    data: $scope.tempUser.projectsAwarded
+                                  }).then(function (response) {
+
+                                    $location.path('projects/feedback/' + $scope.project._id);
+
+                                  }, function (response) {
+                           
+                                    //console.log(response);
+                                   
+                                  }); 
+
+                              }, function (response) {
+
+                                //console.log(response);
+                                 
+                              });   
+                                
+
+                            }, function (response) {
+                              // failed
+                              SweetAlert.swal("Error", "Sorry, something went wrong, try again! ", "error");
+                              // //console.log(response);
+                            });
+
+                          }
+
+
+                        }, function (response) {
+                          // failed
+                          SweetAlert.swal("Error", "Sorry, something went wrong, try again! ", "error");
+                          // //console.log(response);
+                        });
+
+
+                      }, function (tranFail) {
+                        SweetAlert.swal("Account Error", "Sorry, something went wrong, try again! ", "error");
+                        // toastr.error('Sorry, something went wrong, try again!', 'Account Error');
+                        return;
+                      });
+
+                    }, function (err) {
+                      SweetAlert.swal("Account Error", "Sorry, something went wrong, try again! ", "error");
+                      // toastr.error('Sorry, something went wrong, try again!', 'Account Error');
+                      //console.log(err);
+                    });
+                    return;
+                  } else {
+                    SweetAlert.close();
+                  }
+                });
+      }
+
+      // when Milestone is cancelled
+      else if (label === 'Cancelled') {
+
+        // Confirm user wether to Cancel Milestone
+        SweetAlert.swal({
+            title: "예치금을 취소 하시겠습니까?",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#DD6B55",
+            confirmButtonText: "예, 취소!",
+            closeOnConfirm: false,
+            closeOnCancel: false
+          },
+          function (isConfirm) {
+            if (isConfirm) {
+              SweetAlert.close();
+              $scope.milestonePrice = $scope.awardedProject.proposal.milestones[index].price;
+
+              Account.findOne({
+                filter: {
+                  where: {
+                    ownerId: $scope.project.userInfo.username
+                  }
+                }
+              }, function (success) {
+                // //console.log('Acc success', success);
+                // Transfer back amount to employers account
+                Transactions.transfer({
+                  Sid: $rootScope.adminEWalletId,
+                  Rid: success.id,
+                  amount: parseFloat($scope.milestonePrice),
+                  currency: $scope.project.currency.code
+                }, function (tranSucc) {
+                  // //console.log('Transactions success', tranSucc);
+                  // Change status of milestone when amount is being deducted from the user's account
+                  $scope.awardedProject.proposal.milestones.splice(index,1);
+                  var obj = {
+                    'bids': $scope.awardedProject
+                  };
+                  return $http({
+                    url: '/api/project/editBid/' + $scope.project._id,
+                    method: 'PUT',
+                    data: obj
+                  }).then(function (response) {
+                    
+                    $location.path('/projects/view/' + $scope.project._id);
+
+                    Account.findOne({
+                      filter: {
+                        where: {
+                          ownerId: $scope.project.userInfo.username
+                        }
+                      }
+                    }, function (suc) {
+                      // //console.log('succccccccc', suc);
+                      $rootScope.userAccountBalance = suc;
+                      // $rootScope.totalBalanceKrw();
+                      SweetAlert.swal("예치금이 취소 되었습니다.!", " ", "success");
+                      // toastr.success('Milestone Cancelled successfully!', 'Success');
+
+                      // Find the owner of project
+                      // UserSchema.findOne({
+                      //   filter:{
+                      //     where:{
+                      //       username: $scope.project.userInfo.username
+                      //     }
+                      //   }
+                      // }, function(suc){
+                      //   $scope.projectOwner = suc;
+                      // });
+                    
+                      // Notify the user
+                      Notifications.create({  
+                        "publisher": Authentication.user.username,  
+                        "subscriber": $scope.project.userInfo.username, 
+                        "description": Authentication.user.username + "님 예치금이 취소 되었습니다", 
+                        "link": $scope.project._id, 
+                        "isClicked": false,
+                        "project": true
+                      }, function(suc){
+                        // succ
+                      }, function(err){
+                        // err
+                      });
+
+                    }, function (err) {
+                      SweetAlert.swal("Account Error", "Sorry, something went wrong, try again! ", "error");
+                      //console.log(err);
+                    });
+
+
+                    // $scope.findAwardedProject();
+                    ////console.log(response);
+                  }, function (response) {
+                    // failed
+                    SweetAlert.swal("Error", "Sorry, something went wrong, try again! ", "error");
+                  });
+
+
+                }, function (tranFail) {
+                  SweetAlert.swal("Account Error", "Sorry, something went wrong, try again! ", "error");
+                  return;
+                });
+
+              }, function (accErr) {
+                // //console.log('Acc Error', accErr);
+                SweetAlert.swal("Account Error", "Sorry, something went wrong, try again! ", "error");
+                // toastr.error('Sorry, something went wrong, try again!', 'Error');
+              });
+              return;
+            } else {
+              SweetAlert.close();
+            }
+          });
+      }
+
+    };
+
+    // find posted projects findPostedProjects
+    $scope.findPostedProjects = function () {
+      // if(!$scope.postedProjects){
+        $scope.isLoading = true;
+
+        return $http({
+          url: '/api/users/findPostedProjects/' + $scope.authentication.user._id,
+          method: 'GET'
+        }).then(function (response) {
+          // console.log('findPostedProjects');
+          $scope.myProjects = response.data;
+          var avgBid = 0;
+          $scope.postedProjects = [];
+          for (var i = 0; i < $scope.myProjects.length; i++) {
+            // console.log('$scope.myProjects[i]', $scope.myProjects[i]);
+            var temp = {};
+            temp.id = $scope.myProjects[i]._id;
+            temp.name = $scope.myProjects[i].name;
+            temp.created = $scope.myProjects[i].created;
+
+            if ($scope.myProjects[i].bids.length > 0) {
+              temp.bids = $scope.myProjects[i].bids.length;
+              for (var j = 0; j < $scope.myProjects[i].bids.length; j++) {
+                avgBid = avgBid + $scope.myProjects[i].bids[j].yourBid;
+              }
+              temp.avgBid = avgBid / temp.bids;
+              // //console.log('temp.avgBid', temp.avgBid);
+            } else {
+              temp.bids = 0;
+              temp.avgBid = 0;
+              // //console.log('temp.avgBid', temp.avgBid);
+            }
+
+            temp.bidEndDate = new Date($scope.myProjects[i].created);
+            temp.bidEndDate.setDate(temp.bidEndDate.getDate() + 7);
+            temp.currency = $scope.myProjects[i].currency;
+            $scope.postedProjects.push(temp);
+            avgBid = 0;
+          }
+          $scope.isLoading = false;
+        }, function(err){
+          $scope.isLoading = false;
+        });
+      // }
+    };
+
+    // get all projects which are in progress as employer
+    $scope.findActivePostedProjects = function(label){
+      console.log(label);
+      // if(!$scope.activeProjects){
+        $scope.isLoading = true;
+
+        return $http({
+          url: '/api/users/findActivePostedProjects/' + $scope.authentication.user._id,
+          method: 'GET'
+        }).then(function (response) {
+          console.log('findActivePostedProjects');
+          $scope.activeProjects = response.data;
+
+          $scope.projInProgress = [];
+          $scope.pastProjects = [];
+          for (var i = 0; i < $scope.activeProjects.length; i++) {
+            var temp;
+            var j;
+            for(var m =0; m< Authentication.user.myProjects.length; m++){
+              
+              if(Authentication.user.myProjects[m].proj_id === $scope.activeProjects[i]._id && Authentication.user.myProjects[m].feedback){
+                console.log('completed');
+                temp = {};
+                temp.id = $scope.activeProjects[i]._id;
+                temp.name = $scope.activeProjects[i].name;
+                temp.created = $scope.activeProjects[i].created;
+
+                temp.bids = $scope.activeProjects[i].bids.length;
+                for (j = 0; j < $scope.activeProjects[i].bids.length; j++) {
+                  temp.freelancer = $scope.activeProjects[i].bids[j].bidderInfo.username;
+                  temp.awardedBid = $scope.activeProjects[i].bids[j].yourBid;
+                  if($scope.activeProjects[i].bids[j].proposal){
+                    temp.milestones = $scope.activeProjects[i].bids[j].proposal.milestones.length;
+                  }
+                }
+                temp.bidEndDate = new Date($scope.activeProjects[i].created);
+                temp.bidEndDate.setDate(temp.bidEndDate.getDate() + 7);
+                temp.currency = $scope.activeProjects[i].currency;
+                $scope.pastProjects.push(temp);
+              }
+              else if(Authentication.user.myProjects[m].proj_id === $scope.activeProjects[i]._id && !Authentication.user.myProjects[m].feedback){
+                console.log('awarded');
+                temp = {};
+                temp.id = $scope.activeProjects[i]._id;
+                temp.name = $scope.activeProjects[i].name;
+                temp.created = $scope.activeProjects[i].created;
+
+                for (j = 0; j < $scope.activeProjects[i].bids.length; j++) {
+                  temp.freelancer = $scope.activeProjects[i].bids[j].bidderInfo.username;
+                  temp.awardedBid = $scope.activeProjects[i].bids[j].yourBid;
+                  if($scope.activeProjects[i].bids[j].proposal){
+                    temp.milestones = $scope.activeProjects[i].bids[j].proposal.milestones.length;
+                  }
+                  temp.bidEndDate = new Date($scope.activeProjects[i].created);
+                  temp.bidEndDate.setDate(temp.bidEndDate.getDate() + 7);
+                  temp.currency = $scope.activeProjects[i].currency;
+                  $scope.projInProgress.push(temp);
+                }
+              }
+            }
+          }
+          $scope.isLoading = false;
+        }, function(err){
+          $scope.isLoading = false;
+        });
+      // }
+    };
+
+
+    // find posted contests findPostedContests
+    $scope.findPostedContests = function () { 
+      return $http({
+        url: '/api/users/findPostedContests/' + $scope.authentication.user._id,
+        method: 'GET'
+      }).then(function (response) {
+        //console.log('findPostedContests', response);
+        $scope.myContests = response.data;
+
+
+        // var avgBid = 0;
+        // $scope.postedContests = [];
+        // for (var i = 0; i < $scope.myContests.length; i++) {
+        //   // //console.log('$scope.myContests[i]', $scope.myContests[i]._id);
+        //   var temp = {};
+        //   temp.id = $scope.myContests[i]._id;
+        //   temp.name = $scope.myContests[i].name;
+        //   if ($scope.myContests[i].bids.length > 0) {
+        //     temp.bids = $scope.myContests[i].bids.length;
+        //     for (var j = 0; j < $scope.myContests[i].bids.length; j++) {
+        //       avgBid = avgBid + $scope.myContests[i].bids[j].yourBid;
+        //     }
+        //     temp.avgBid = avgBid / temp.bids;
+        //     //console.log('temp.avgBid', temp.avgBid);
+        //   } else {
+        //     temp.bids = 0;
+        //     temp.avgBid = 0;
+        //     //console.log('temp.avgBid', temp.avgBid);
+        //   }
+
+        //   temp.bidEndDate = new Date($scope.myContests[i].created);
+        //   temp.bidEndDate.setDate(temp.bidEndDate.getDate() + 7);
+        //   $scope.postedContests.push(temp);
+        // }
+
+
+      }, function (response) {
+        // failed
+        // SweetAlert.swal("Error", "Sorry, something went wrong, try again! ", "warning");
+      });
+    };
+
+
+    $scope.removeProject = function() {
+
+      SweetAlert.swal({
+        title: "프로젝트 삭제를 원하시나요?",
+        type: "warning",
+        text : "삭제시 본 프로젝트복원이 불가능하며 재등록 해야 합니다!",
+        showCancelButton: true,
+        confirmButtonColor: "#DD6B55",
+        confirmButtonText: "예, 삭제!",
+        closeOnConfirm: true
+      },function (isConfirm) {
+        if (isConfirm) {
+          SweetAlert.close();
+            $scope.project.$remove(function () {
+            $timeout(function() {
+              SweetAlert.swal({
+                type: 'success',
+                title: '삭제 완료'
+              });
+            }, 100);
+            $location.path('projects/my-project');
+          });
+        }
+        else {
+          SweetAlert.close();
+        }
+      });  
+    };
+
+    // redirect to dispute page
+    $scope.goToDispute = function(index){
+      $scope.disputeMilestoneIndex = index;
+      //console.log('disputeMilestoneIndex',$scope.disputeMilestoneIndex);
+      //console.log('disputeMilestoneIndex',$scope.awardedProject);
+      $location.path('projects/dispute/'+$stateParams.projectId);
+    };
+
+    $scope.submitDispute = function(index){
+
+      $scope.commentUploader = new FileUploader({
+        url: 'api/project/DisputeCommentFile',
+        alias: 'newProjectDisputeCommentFile'
+      });
+
+      if ($scope.uploader.queue.length) {
+        $scope.commentFileName = $scope.uploader.queue[0].upload();
+      }
+
+      //console.log($scope.dispute);
+      //console.log($scope.disputedMilestones);
+      $scope.dispute.disputeCreatedBy = $scope.authentication.user._id;
+      $scope.dispute.disputeCreatedByUsername = $scope.authentication.user.username;
+
+      if($scope.authentication.user._id === $scope.awardedProject.userId){
+        $scope.dispute.disputeCreatedfor = $scope.project.user._id;
+        $scope.dispute.disputeCreatedforUsername = $scope.project.userInfo.username;
+      }
+      if($scope.authentication.user._id === $scope.project.user._id){
+        $scope.dispute.disputeCreatedfor = $scope.awardedProject.userId;
+        $scope.dispute.disputeCreatedforUsername = $scope.awardedProject.bidderInfo.username;
+      }
+      
+      
+      $scope.dispute.tab = 2;
+      $scope.dispute.createdDate = Date.now();
+
+      var date = new Date(Date.now());
+      $scope.dispute.createdDateExpire = date.setDate(date.getDate()+7);
+
+      $scope.dispute.totalDisputedAmount = $scope.selectedMilestoneTotal;
+      $scope.project.dispute = {};
+      $scope.dispute.milestones = [];
+
+      //console.log($scope.disputedMilestones.length);
+      //console.log($scope.awardedProject.milestones);
+      for(var i =0; i<$scope.disputedMilestones.length;i++) {
+        $scope.dispute.milestones.push($scope.awardedProject.proposal.milestones[i]);
+      }
+      $scope.dispute.tab2Comments = [];
+
+      var obj = {
+        'dispute': $scope.dispute,
+        'status' : 'disputeCreated'
+      };
+
+      $scope.uploader.onSuccessItem = function (fileItem, response, status, headers) {
+        // Show success message
+
+        $scope.success = true;
+
+        $scope.dispute.file = response;
+        return $http({
+          url: '/api/project/manageDispute/' + $scope.project._id,
+          method: 'PUT',
+          data: obj
+        }).then(function (response) {
+
+          $scope.project = response.data;
+          $timeout(function () {
+            $state.reload();
+          }, 1000);
+          
+
+        }, function (response) {
+          //console.log(response);
+        });
+       
+      };
+      if (!$scope.uploader.queue.length) {
+
+        return $http({
+          url: '/api/project/manageDispute/' + $scope.project._id,
+          method: 'PUT',
+          data: obj
+        }).then(function (response) {
+
+          $scope.project = response.data;
+          $timeout(function () {
+            $state.reload();
+          }, 1000);
+          
+
+        }, function (response) {
+          //console.log(response);
+        });
+      }
+    };
+
+    // $scope.selectedProducts = [];
+    $scope.selectedMilestoneTotal = 0;
+    $scope.disputedMilestones = [];
+    $scope.initializeMilestoneTotal = function(){
+      
+      $scope.selectedMilestoneTotal = parseFloat($scope.awardedProject.proposal.milestones[$scope.selectedMilestone].price);
+      $scope.disputedMilestones.push({
+        'index' : $scope.selectedMilestone
+      });
+    };
+
+    $scope.checking = function(prod,index){
+      
+      if(prod.selected === true) {
+        $scope.selectedMilestoneTotal = $scope.selectedMilestoneTotal + parseFloat(prod.price);
+        $scope.disputedMilestones.push({
+        'index' : index
+      });
+      }
+      else {
+        $scope.selectedMilestoneTotal = $scope.selectedMilestoneTotal - parseFloat(prod.price);
+        //$scope.disputedMilestones.splice(index,1);
+        angular.forEach($scope.disputedMilestones, function(i, el){
+          if (el.index === index){
+              $scope.disputedMilestones.splice(i, 1);
+          }
+        });
+      }
+      //console.log($scope.selectedMilestoneTotal);
+      //console.log($scope.disputedMilestones);
+    };
+
+
+      // $scope.commentUploader = new FileUploader({
+      //   url: 'api/project/DisputeCommentFile',
+      //   alias: 'newProjectDisputeCommentFile'
+      // });
+
+
+
+      // $scope.commentUploader.onAfterAddingFile = function (fileItem) {
+      //   if ($window.FileReader) {
+      //     var fileReader = new FileReader();
+      //     fileReader.readAsDataURL(fileItem._file);
+      //     var extension = fileItem.file.name.split('.').pop().toLowerCase();
+      //     //console.log('extension', extension);
+      //     fileReader.onload = function (fileReaderEvent) {
+      //       $timeout(function () {
+      //         $scope.commentFile = fileReaderEvent.target.result;
+      //         //console.log('$scope.commentFile', $scope.commentFile);
+      //       }, 0);
+      //     };
+      //   }
+      // };
+
+    $scope.disputeComments = function(comment ,tab) {
+
+      $scope.commentUploader = new FileUploader({
+        url: 'api/project/DisputeCommentFile',
+        alias: 'newProjectDisputeCommentFile'
+      });
+
+      if ($scope.uploader.queue.length) {
+        $scope.commentFileName = $scope.uploader.queue[0].upload();
+      }
+
+      $scope.uploader.onSuccessItem = function (fileItem, response, status, headers) {
+        // Show success message
+
+        $scope.success = true;
+
+        var data = {
+          'image': $scope.authentication.user.profileImageURL,
+          'username' :  $scope.authentication.user.username,
+          'id' :  $scope.authentication.user._id,
+          'date_created' : Date.now(),
+          'comment' : comment,
+          'file' : response
+        };
+        var obj = {
+          'data' : data,
+          'tab' : tab
+        };
+        //console.log(obj);
+        return $http({
+          url: '/api/project/manageDisputeComments/' + $scope.project._id,
+          method: 'PUT',
+          data: obj
+        }).then(function (response) {
+
+          if(tab === 3)
+            $scope.project.dispute.tab3Comments = response.data.dispute.tab3Comments;
+          if(tab === 2)
+            $scope.project.dispute.tab2Comments = response.data.dispute.tab2Comments;
+
+        }, function (response) {
+          //console.log(response);
+        });
+      };
+
+      $scope.uploader.onErrorItem = function (fileItem, response, status, headers) {
+
+        //console.log(response);
+        $scope.project = {};
+        // Show error message
+        $scope.error = response.message;
+      };
+
+      if (!$scope.uploader.queue.length) {
+
+        var data = {
+          'image': $scope.authentication.user.profileImageURL,
+          'username' :  $scope.authentication.user.username,
+          'id' :  $scope.authentication.user._id,
+          'date_created' : Date.now(),
+          'comment' : comment
+        };
+        var obj = {
+          'data' : data,
+          'tab' : tab
+        };
+        //console.log(obj);
+        return $http({
+          url: '/api/project/manageDisputeComments/' + $scope.project._id,
+          method: 'PUT',
+          data: obj
+        }).then(function (response) {
+
+          if(tab === 3)
+            $scope.project.dispute.tab3Comments = response.data.dispute.tab3Comments;
+          if(tab === 2)
+            $scope.project.dispute.tab2Comments = response.data.dispute.tab2Comments;
+
+        }, function (response) {
+          //console.log(response);
+        });
+      }
+
+      
+
+
+    };
+
+    $scope.initializeDisputeCommmentImage = function () {
+
+      $scope.uploader = new FileUploader({
+        url: 'api/project/uploadProjectFile',
+        alias: 'newProjectDisputeFileUploade'
+      });
+
+
+
+    $scope.uploader.onAfterAddingFile = function (fileItem) {
+      if ($window.FileReader) {
+        var fileReader = new FileReader();
+        fileReader.readAsDataURL(fileItem._file);
+        // $scope.disputeFilename = fileItem.file.name.split('.').pop().toLowerCase();
+        $scope.disputeFilename = fileItem.file.name;
+        //console.log('extension', fileItem.file.name);
+        fileReader.onload = function (fileReaderEvent) {
+          $timeout(function () {
+            $scope.imageURL = fileReaderEvent.target.result;
+            //console.log('$scope.sdffsdfsd', $scope.imageURL);
+          }, 0);
+        };
+      }
+    };
+
+    };
+
+    $scope.placeNewOffer = function(offer) {
+      if(offer < $scope.project.dispute.amountOffer)
+      {
+        var obj = null;
+        
+        if($scope.project.dispute.disputeCreatedBy === $scope.currentUserId) {
+          obj = {
+            'dispute.amountOffer' : offer
+          };
+        }
+        
+        if($scope.project.dispute.disputeCreatedfor === $scope.currentUserId) {
+ 
+          obj = {
+            'dispute.secondUserAmountOffer' : offer
+          };
+        }
+
+        //console.log(obj);
+        return $http({
+          url: '/api/project/updateField/' + $scope.project._id,
+          method: 'PUT',
+          data: obj
+        }).then(function (response) {
+
+          $state.reload();
+
+        }, function (response) {
+          //console.log(response);
+        });
+
+      }
+      else {
+        alert('이전단계에서 제시한 금액보다 적은 금액을 입력 바랍니다.');
+      }
+    };
+
+    $scope.proceedToArbitrationTab2 = function() {
+
+      SweetAlert.swal({
+        title: "수수료 지불에 동의합니까?",
+        text: "동의할 경우 대한상사중재원의 결정전까지 예치금액은 지급 및 인출이 보류됩니다.",
+        type: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#008000",confirmButtonText: "예, 동의합니다!",
+        cancelButtonText: "아니오, 취소합니다!",
+        closeOnConfirm: false,
+        closeOnCancel: false }, 
+      function(isConfirm){ 
+
+        if (isConfirm) {
+          SweetAlert.close();
+          Account.findOne({
+            filter: {
+              where: {
+                ownerId: $scope.authentication.user.username
+              }
+            }
+          }, function (suc) {
+
+            $scope.outsourcingFee = parseFloat($scope.project.dispute.amountOffer) * 0.05;
+
+            Transactions.transfer({
+              Sid: suc.id,
+              Rid: $rootScope.adminEWalletId,
+              amount: $scope.outsourcingFee,
+              currency: $scope.project.currency.code
+            }, function (tranSucc) {
+              //console.log('wah g wah');
+              $scope.dispute = $scope.project.dispute;
+              $scope.dispute.tab = 3;
+              $scope.dispute.tab2ArbitrationCreatedDate = Date.now();
+              var date = new Date(Date.now());
+              $scope.dispute.tab2ArbitrationCreatedDateExpire = date.setDate(date.getDate()+4);
+              $scope.dispute.userPayFirst = $scope.authentication.user._id;
+              $scope.dispute.tab3Comments = [];
+
+              var obj = {
+                'dispute': $scope.dispute,
+                'status' : 'ProceedToTab3'
+              };
+
+              return $http({
+                url: '/api/project/manageDispute/' + $scope.project._id,
+                method: 'PUT',
+                data: obj
+              }).then(function (response) {
+
+                $scope.project = response.data;
+                // $location.path('projects/dispute/' + $scope.project._id);
+               $state.reload();
+                SweetAlert.swal("보냈습니다!", "금액을 보냈습니다.", "success");
+                
+
+              }, function (response) {
+                //console.log(response);
+              });
+              
+
+            }, function(err){
+               //console.log('ahhhhhhhhh');
+            });
+          }, function(err){
+              //console.log('ohhh no');
+          });
+          
+        } else {
+          SweetAlert.swal("취소 되었습니다.", "중재가 취소되었습니다.", "error");
+        }
+      });
+    };
+
+    $scope.proceedToArbitrationTab3 = function() {
+
+      SweetAlert.swal({
+		title: "수수료 지불에 동의합니까?",
+        text: "동의할 경우 대한상사중재원의 결정전까지 예치금액은 지급 및 인출이 보류됩니다.",        
+        type: "warning",
+        showCancelButton: true,
+		confirmButtonColor: "#008000",confirmButtonText: "예, 동의합니다!",
+        cancelButtonText: "아니오, 취소합니다!",        
+        closeOnConfirm: false,
+        closeOnCancel: false }, 
+      function(isConfirm){ 
+
+        if (isConfirm) {
+          SweetAlert.close();
+          Account.findOne({
+            filter: {
+              where: {
+                ownerId: $scope.authentication.user.username
+              }
+            }
+          }, function (suc) {
+
+            $scope.outsourcingFee = parseFloat($scope.project.dispute.amountOffer) * 0.05;
+
+            Transactions.transfer({
+              Sid: suc.id,
+              Rid: $rootScope.adminEWalletId,
+              amount: $scope.outsourcingFee,
+              currency: $scope.project.currency.code
+            }, function (tranSucc) {
+              //console.log('wah g wah');
+              $scope.dispute = $scope.project.dispute;
+              $scope.dispute.tab = 4;
+              $scope.dispute.userPaySecond = $scope.authentication.user._id;
+              $scope.dispute.adminCanView = 'yes';
+
+              var obj = {
+                'dispute': $scope.dispute,
+                'status' : 'ProceedToTab4'
+              };
+
+              return $http({
+                url: '/api/project/manageDispute/' + $scope.project._id,
+                method: 'PUT',
+                data: obj
+              }).then(function (response) {
+
+                $scope.project = response.data;
+                // $location.path('projects/dispute/' + $scope.project._id);
+               $state.reload();
+                SweetAlert.swal("보냈습니다!", "금액을 보냈습니다.", "success");
+                
+
+              }, function (response) {
+                //console.log(response);
+              });
+              
+
+            }, function(err){
+               //console.log('ahhhhhhhhh');
+            });
+          }, function(err){
+              //console.log('ohhh no');
+          });
+          
+        } else {
+          SweetAlert.close();
+        }
+      });
+    };
+
+    $scope.acceptOffer = function() {
+
+      if($scope.project.dispute.disputeCreatedBy  === $scope.currentUserId ) {
+
+        SweetAlert.swal({
+          title: "합의가 확실합니까?",
+          text: "승인을 하시면 금액 조정해 합의를 하게됩니다.",
+          type: "warning",
+          showCancelButton: true,
+          confirmButtonColor: "#DD6B55",confirmButtonText: "예, 승인!",
+          cancelButtonText: "아니오, 취소!",
+          closeOnConfirm: false,
+          closeOnCancel: false }, 
+        function(isConfirm){ 
+
+          if (isConfirm) {
+            SweetAlert.close();
+            Account.findOne({
+              filter: {
+                where: {
+                  ownerId: $scope.project.dispute.disputeCreatedByUsername
+                }
+              }
+            }, function (suc) {
+
+              $scope.outsourcingFee = parseFloat($scope.project.dispute.secondUserAmountOffer) * 0.05;
+              var remainingAmount = $scope.project.dispute.secondUserAmountOffer - $scope.outsourcingFee; 
+
+              Transactions.transfer({
+                Sid: $rootScope.adminEWalletId,
+                Rid: suc.id,
+                amount: parseFloat(remainingAmount),
+                currency: $scope.project.currency.code
+              }, function (tranSucc) {
+
+                  Account.findOne({
+                  filter: {
+                    where: {
+                      ownerId: $scope.project.dispute.disputeCreatedforUsername
+                    }
+                  }
+                }, function (succ) {
+
+                var moneyBack = parseFloat($scope.project.dispute.totalDisputedAmount) - parseFloat($scope.project.dispute.amountOffer) * 0.05;
+
+                Transactions.transfer({
+                    Sid: $rootScope.adminEWalletId,
+                    Rid: succ.id,
+                    amount: parseFloat(moneyBack),
+                    currency: $scope.project.currency.code
+                  }, function (tranSucc) {
+
+                    for(var i =0 ; i<$scope.project.dispute.milestones.length;i++){
+                      for(var j =0 ; j<$scope.awardedProject.proposal.milestones.length; j++){
+                        if($scope.project.dispute.milestones[i].description === $scope.awardedProject.proposal.milestones[j].description && $scope.project.dispute.milestones[i].price === $scope.awardedProject.proposal.milestones[j].price){
+                          $scope.awardedProject.proposal.milestones[j].status = "Released";
+                          break;
+                        }
+                      }
+                    }
+                   
+                    var obj = {
+                      'dispute': {},
+                      'status' : 'offerAccepted'
+                    };
+
+                    return $http({
+                      url: '/api/project/manageDispute/' + $scope.project._id,
+                      method: 'PUT',
+                      data: obj
+                    }).then(function (response) {
+
+                      $scope.project = response.data;
+                      
+                      
+                      $location.path('projects/view/' + $scope.project._id);
+                      SweetAlert.swal("보냈습니다!", "금액을 보냈습니다.", "success");
+                      
+
+                    }, function (response) {
+                      //console.log(response);
+                    }); 
+                  });
+
+                }, function(err){
+                   //console.log('ahhhhhhhhh');
+                });
+
+              }, function(err){
+                 //console.log('ahhhhhhhhh');
+              });
+            }, function(err){
+                //console.log('ohhh no');
+            });
+            
+          }else{
+            SweetAlert.close();
+          }
+        });
+
+      }
+      else if($scope.project.dispute.disputeCreatedfor  === $scope.currentUserId) {
+        SweetAlert.swal({
+          title: "승인에 동의합니까?",
+          text: "동의할 경우 예치금액은 지급 및 인출이 보류됩니다.",
+          type: "warning",
+          showCancelButton: true,
+          confirmButtonColor: "#008000",confirmButtonText: "Yes, 동의합니다!",
+          cancelButtonText: "아니오, 취소합니다!",
+          closeOnConfirm: false,
+          closeOnCancel: false }, 
+        function(isConfirm){ 
+
+          if (isConfirm) {
+            SweetAlert.close();
+            Account.findOne({
+              filter: {
+                where: {
+                  ownerId: $scope.project.dispute.disputeCreatedByUsername
+                }
+              }
+            }, function (suc) {
+
+              $scope.outsourcingFee = parseFloat($scope.project.dispute.amountOffer) * 0.05;
+              var remainingAmount = $scope.project.dispute.amountOffer - $scope.outsourcingFee; 
+
+              Transactions.transfer({
+                Sid: $rootScope.adminEWalletId,
+                Rid: suc.id,
+                amount: parseFloat(remainingAmount),
+                currency: $scope.project.currency.code
+              }, function (tranSucc) {
+
+                 Account.findOne({
+                  filter: {
+                    where: {
+                      ownerId: $scope.project.dispute.disputeCreatedforUsername
+                    }
+                  }
+                }, function (succ) {
+                var moneyBack = parseFloat($scope.project.dispute.totalDisputedAmount) - parseFloat($scope.project.dispute.amountOffer) * 0.05;
+
+                Transactions.transfer({
+                    Sid: $rootScope.adminEWalletId,
+                    Rid: succ.id,
+                    amount: parseFloat(moneyBack),
+                    currency: $scope.project.currency.code
+                  }, function (tranSucc) {
+
+                    for(var i =0 ; i<$scope.project.dispute.milestones.length;i++){
+                      for(var j =0 ; j<$scope.awardedProject.proposal.milestones.length; j++){
+                        if($scope.project.dispute.milestones[i].description === $scope.awardedProject.proposal.milestones[j].description && $scope.project.dispute.milestones[i].price === $scope.awardedProject.proposal.milestones[j].price){
+                          $scope.awardedProject.proposal.milestones[j].status = "Released";
+                          break;
+                        }
+                      }
+                    }
+                   
+                    var obj = {
+                      'dispute': {},
+                      'status' : 'offerAccepted'
+                    };
+
+                    return $http({
+                      url: '/api/project/manageDispute/' + $scope.project._id,
+                      method: 'PUT',
+                      data: obj
+                    }).then(function (response) {
+
+                      $scope.project = response.data;
+
+                      var obj = {
+                        'deductedAmount' : $scope.outsourcingFee,
+                        'data' :  $scope.awardedProject,
+                        'identifier' : 'Released'
+                      };
+
+                      return $http({
+                        url: '/api/project/changeMilestonStatus/' + $scope.project._id,
+                        method: 'PUT',
+                        data: obj
+                      }).then(function (response) {
+                        //console.log($scope.awardedProject);
+                        $location.path('projects/view/' + $scope.project._id);
+                        SweetAlert.swal("보냈습니다!", "금액을 보냈습니다.", "success");
+                      }, function (response) {
+                        //console.log(response);
+                      }); 
+
+                    }, function (response) {
+                      //console.log(response);
+                    }); 
+                  });
+
+              }, function(err){
+                 //console.log('ahhhhhhhhh');
+              });
+            }, function(err){
+                //console.log('ohhh no');
+            });
+            
+          } , function(err){
+                 //console.log('ahhhhhhhhh');
+          });
+        }else{
+          SweetAlert.close();
+        }
+      });
+      }
+    };
+
+    $scope.cancelDipsute = function() {
+
+      var obj = {
+        'dispute': [],
+        'status' : 'cancel'
+      };
+
+      return $http({
+        url: '/api/project/manageDispute/' + $scope.project._id,
+        method: 'PUT',
+        data: obj
+      }).then(function (response) {
+
+        $location.path('projects/view/' + $scope.project._id);
+
+      }, function (response) {
+        //console.log(response);
+      });
+    };
+
+
+    //showCatagories 
+    $scope.showCatagories = function(){
+
+      Categories.find({}, function(suc){
+        $scope.skillsCategories = suc;
+      });
+
+    };
+
+    //show showSubCat  
+    $scope.showSubCategories = function(){
+      $scope.subCategories = [];
+      // Find the Category first
+      Categories.find({
+        filter:{
+          where:{
+            _id: $stateParams.categoryId
+          }
+        }
+      }, function(catSuc){
+        $scope.catName = catSuc[0].name;
+        angular.forEach(catSuc[0].subCategories, function(cat, i){
+
+          SubCategories.find({
+            filter:{
+              where:{
+                _id: cat
+              }
+            }
+          }, function(suc){
+            $scope.subCategories.push(suc[0]);
+          });
+
+        });
+
+      });
+    };
+
+    // show showSubCatSkills
+    $scope.showSubCatSkills = function (skills){
+
+      $scope.subCatSkill = [];
+
+      angular.forEach(skills, function(skill, i){
+        Skills.findOne({
+          filter:{
+            where:{
+              _id: skill
+            }
+          }
+        }, function (rsltSkill) {
+          $scope.subCatSkill.push(rsltSkill);
+        });
+      });
+      //console.log("subCatSkill:", $scope.subCatSkill);
+      setTimeout(function() {
+        // alert($scope.subCatSkill.join('\n'));
+        alert(JSON.stringify($scope.subCatSkill));
+      }, 100);
+    };
+
+    /*
+    * Check if user account has enough amount in eWallet for payment related activities
+
+    --  if user hasn't enough amount in the currecny in which project has been posted, 
+        get sum of all other currencies coverted in that particular currency.
+    --  withdraw amount from all accounts if there is any amount 
+    --  deposit the account with calculated sum of currencies in related currency
+    */
+    $scope.findTotalAmountInWallet = function(cur){
+      var actualWallet = $rootScope.userAccountBalance.accountBalance; //{USD:0, KRW:0, JPY:0}
+      var curRate = $rootScope.latestCurrencyRate; // currency rate agains 1 USD
+      var totalConvertedAmount = 0;
+      var inUSD =0;
+      var key;
+      if(!$rootScope.latestCurrencyRate){
+        alert('Opps, reload the page and try again');
+        return;
+      }
+      if(cur !== 'USD'){
+        for(key in actualWallet){
+          if(key === cur){
+            totalConvertedAmount = totalConvertedAmount + actualWallet[key];
+          }else if(key === 'USD'){
+            totalConvertedAmount = totalConvertedAmount + actualWallet[key]*curRate[cur]; 
+          }else if(key === 'CNY'){
+            inUSD = actualWallet[key]/curRate[key];
+            totalConvertedAmount = totalConvertedAmount + inUSD*curRate[cur];
+          }else if(key === 'JPY'){
+            inUSD = actualWallet[key]/curRate[key];
+            totalConvertedAmount = totalConvertedAmount + inUSD*curRate[cur];
+          }
+        }
+      }else{  /*When USD=0 and othre currencies are changed to USD*/   
+        for(key in actualWallet){
+          if(key === cur){
+            totalConvertedAmount = totalConvertedAmount + actualWallet[key];
+          }else if(key === 'CNY'){
+            inUSD = actualWallet[key]/curRate[key];
+            totalConvertedAmount = totalConvertedAmount + inUSD;
+          }else if(key === 'JPY'){
+            inUSD = actualWallet[key]/curRate[key];
+            totalConvertedAmount = totalConvertedAmount + inUSD;
+          }else if(key === 'KRW'){
+            inUSD = actualWallet[key]/curRate[key];
+            totalConvertedAmount = totalConvertedAmount + inUSD;
+          }
+        }
+      }
+
+      if(totalConvertedAmount>0){
+        alert("예치금 잔액이 부족합니다.\n결제 페이지로 이동합니다.");
+		//alert(totalConvertedAmount);
+        //Withdraw amount from all accounts
+        $timeout(function() {
+          for(var key in actualWallet){
+            Transactions.withdraw({
+              id:$rootScope.userAccountBalance.id,
+              amountWit:actualWallet[key],
+              currency:key
+            });
+          }
+        }, 400);
+
+        //Now deposit the converted amount in the relevent currency
+        $timeout(function() {
+          Transactions.deposit({
+            id : $rootScope.userAccountBalance.id,
+            amountDep : totalConvertedAmount,
+            currency : cur
+          }, function(suc){
+            Account.findOne({
+              filter :{
+                where :{
+                  ownerId : $scope.authentication.user.username
+                }
+              }
+            }, function(suc){
+              $rootScope.userAccountBalance = suc;
+            });
+          });
+        }, 500);
+      }
+
+      $scope.totalConverted = totalConvertedAmount;
+    };
+
+
+    //purchaseBid
+    $scope.purchaseBid = function (){
+      SweetAlert.swal({
+        title: '자동인출에 동의하시나요?',
+        text: '',
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonText: "예!동의",
+        closeOnConfirm: false,
+        closeOnCancel: false
+        }, function (isConfirm){
+          if(isConfirm){
+            SweetAlert.close();
+            if($rootScope.userAccountBalance.accountBalance.KRW>=2200){
+              Transactions.transfer({
+                Sid:$rootScope.userAccountBalance.id,
+                Rid:$rootScope.adminEWalletId,
+                amount:2200,
+                currency: 'KRW',
+              }, function(suc){
+                // update the user's bid 
+                $scope.authentication.user.remainingBids = $scope.authentication.user.remainingBids + 50;
+                return $http({
+                  url: '/api/updateUser/'+Authentication.user._id,
+                  method: 'PUT',
+                  data: $scope.authentication.user
+                }).then(function(res){
+                  $rootScope.userAccountBalance.accountBalance.KRW = $rootScope.userAccountBalance.accountBalance.KRW - 2200;
+                  $scope.bidPurchase = false;
+                  $scope.authentication.user = res.data;
+                  SweetAlert.swal('감사합니다! 회원님께서는 50회를 추가로 지원할 수 있습니다!', '', 'success');
+                }, function(fail){
+                  //Reverse the transaction
+                  $scope.authentication.user.remainingBids = $scope.authentication.user.remainingBids - 50;
+                  Transactions.transfer({
+                    Sid:$rootScope.adminEWalletId,
+                    Rid:$rootScope.userAccountBalance.id,
+                    amount:2200,
+                    currency: 'KRW',
+                  }, function(suc){
+                    $scope.bidPurchase = false;
+                    SweetAlert.swal('Opps!', 'Sorry, Something went wrong', 'info');
+                    $rootScope.userAccountBalance.accountBalance.KRW = $rootScope.userAccountBalance.accountBalance.KRW + 2200;
+                  });
+                });
+
+              });
+            }else{
+             
+              SweetAlert.swal('Opps!', 'Sorry, you dont have enough amount in account to get bids', 'error');
+            }
+          }else{
+            $scope.bidPurchase = false;
+            SweetAlert.close();
+          }
+        });
+    }; 
+
+    /*
+    *  To get all the My Contests 
+    */
+    $scope.getAllMyContests = function(){
+      
+      // if(!$scope.awardedContests){
+        $scope.awardedContests = [];
+        $scope.isLoading = true;
+
+        $http({
+          url: '/api/contest/getAllMyContests',
+          method: 'PUT',
+          data: {
+            'userId': Authentication.user._id
+          }
+        }).then( function(suc){
+          $scope.awardedContests = suc.data;
+          $scope.isLoading = false;
+        }, function(err){
+          $scope.isLoading = false;
+        });
+        
+      // }
+    };
+
+    /*
+    *  get all contests in progress
+    */
+    $scope.getContestInProgress = function(){
+      var contests = {};
+      $scope.awardedContests = [];
+      $scope.contestsWithEntry = [];
+
+      // Contests.query().$promise.then(function(data) {
+      //   if(data){
+      //     for(var i=0; i< data.length; i++){
+      //       if(data[i].user._id === Authentication.user._id){
+      //         $scope.awardedContests.push(data[i]); 
+      //       }
+      //     }
+      //   }
+      // });
+
+      // if(!$scope.contestsWithEntry){
+        $scope.isLoading = true;
+
+        $http({
+          url: '/api/contest/getAllContestsAwarded',
+          method: 'PUT',
+          data: {
+            'userId': Authentication.user._id
+          }
+        }).then( function(suc){
+          $scope.awardedContests = suc.data;
+          //Get the entry makers
+          if($scope.awardedContests){
+            var awarded = $scope.awardedContests;
+            for(var j=0; j<awarded.length; j++){
+              if(awarded[j].entries.length>0){
+                // console.log('inside:', awarded[j]);
+                for(var k=0; k<awarded[j].entries.length; k++){
+                  //Push only awarded entry
+                  if(awarded[j].entries[k].youWinner === 'yes'){
+                    contests.id = awarded[j]._id;
+                    contests.name = awarded[j].name;
+                    contests.created = awarded[j].created;
+                    contests.freelancer = awarded[j].entries[k].entryPersonUsername;
+                    contests.entryName = awarded[j].entries[k].entryName;
+                    contests.entryPrize = awarded[j].entries[k].entrySellPrice;
+                    contests.freelancerId = awarded[j].entries[k].entryPersonProfId;
+                    $scope.contestsWithEntry.push(contests);
+                    contests = {};
+                  }
+                }
+              }
+            }
+          }
+          $scope.isLoading = false;
+        }, function(err){
+          $scope.isLoading = false;
+        });
+      // }
+
+    };
+
+    /*
+    * getAllActiveContests freelancer side
+    */
+
+    $scope.getAllActiveContests = function (){
+      $scope.activeContests = [];
+      
+      // if(!$scope.activeContests){
+        $scope.isLoading = true;
+        $http({
+          url: '/api/contest/getAllActiveContests',
+          method: 'PUT',
+          data: {
+            'userId': Authentication.user._id
+          }
+        }).then( function(suc){
+          $scope.activeContests = suc.data;
+          $scope.isLoading = false;
+        }, function(err){
+          $scope.isLoading = false;
+        });
+      // }
+
+    };
+
+    /*
+    * getAllPastContests freelancer side
+    */
+    $scope.getAllPastContests = function (){
+      $scope.pastContests = [];
+      
+      // if(!$scope.pastContests){
+        $scope.isLoading = true;
+        $http({
+          url: '/api/contest/getAllPastContests',
+          method: 'PUT',
+          data: {
+            'userId': Authentication.user._id
+          }
+        }).then( function(suc){
+          $scope.pastContests = suc.data;
+          $scope.isLoading = false;
+        }, function(err){
+          $scope.isLoading = false;
+        });
+      // }
+    };
+
+    /*
+    *  Financial dashboard
+    */
+    // Transaction History
+    $scope.transac = function(){
+      $scope.transactions = [];
+      // start spinner 
+      $timeout(function() {
+        usSpinnerService.spin('transLoader');
+      }, 500);
+
+      $scope.showOutGoingMileStones();
+
+      // Find the user Specific
+      Transactions.find({},function(resp){
+        for(var i=0; i<resp.length; i++){
+          if(resp[i].accountId === $rootScope.userAccountBalance.id){
+            $scope.transactions.push(resp[i]);
+          }
+        }
+        // stop spinner
+        $timeout(function() {
+          usSpinnerService.stop('transLoader');
+        }, 500);
+
+      }, function(err){
+        // stop spinner
+        $timeout(function() {
+          usSpinnerService.stop('transLoader');
+        }, 500);
+      });
+
+    };
+
+    // Show Outgoin Milestones
+    $scope.showOutGoingMileStones = function(){
+      var newProj = '';
+      var count = 0;
+
+      if( typeof($scope.outGoMileStone) === 'undefined'){
+        $scope.outGoMileStone = [];
+        
+        $http({
+          url: '/api/project/allOutGoinglMilestones',
+          method: 'PUT',
+          data: {
+            'userId': Authentication.user._id
+          }
+        }).then( function(suc){
+          $scope.projOutWithMileStone = suc.data;
+
+          angular.forEach($scope.projOutWithMileStone, function(proj, i){
+            for(var j=0; j<proj.bids.length; j++){
+              if ( typeof(proj.bids[j].proposal) !== 'undefined' && proj.bids[j].awarded === 'yes'){ 
+                newProj = proj.bids[j].proposal.milestones;
+                var l=0;
+                for(l; l<newProj.length; l++){
+                  if(newProj[l].status === 'Created'){
+                    $scope.outGoMileStone[count] = newProj[l];
+                    $scope.outGoMileStone[count].projId = proj._id;
+                    $scope.outGoMileStone[count].projName = proj.name;
+                    $scope.outGoMileStone[count].bidder = proj.bids[j].bidderInfo.username;
+                    $scope.outGoMileStone[count].bidderProfId = proj.bids[j].bidderInfo.profile_id;
+                    $scope.outGoMileStone[count].projDate = proj.created;
+                    count ++;
+                  }
+                }
+              }
+            }
+          });
+        });
+      }
+    };
+
+    // Show Incoming Milestones
+    $scope.showIncomingMileStones = function(){
+      var newProj = '';
+      var count = 0;
+
+      if( typeof($scope.incomMileStone) === 'undefined'){
+        $scope.incomMileStone = [];
+
+        $http({
+          url: '/api/project/allIncominglMilestones',
+          method: 'PUT',
+          data: {
+            'userId': Authentication.user._id
+          }
+        }).then( function(suc){
+          $scope.projIncomWithMileStone = suc.data;
+          for (var i =0;  i<$scope.projIncomWithMileStone.length; i++) {
+            for(var j=0; j<$scope.projIncomWithMileStone[i].bids.length; j++){
+              if ( typeof($scope.projIncomWithMileStone[i].bids[j].proposal) !== 'undefined' && $scope.projIncomWithMileStone[i].bids[j].awarded === 'yes'){ 
+                newProj = $scope.projIncomWithMileStone[i].bids[j].proposal.milestones;
+                var l=0;
+                for(l; l<newProj.length; l++){
+                  if(newProj[l].status === 'Created'){
+                    $scope.incomMileStone[count] = newProj[l];
+                    $scope.incomMileStone[count].projId =  $scope.projIncomWithMileStone[i]._id;
+                    $scope.incomMileStone[count].projName =  $scope.projIncomWithMileStone[i].name;
+                    $scope.incomMileStone[count].projOwner =  $scope.projIncomWithMileStone[i].userInfo.username;
+                    $scope.incomMileStone[count].projDate =  $scope.projIncomWithMileStone[i].created;
+                    count++;
+                  }
+                }
+              }
+            }
+          }
+        });
+      }
+    };
+
+    // Show  Milestones Requests
+    $scope.outMilestoneRequests = function(){
+      var newProj = '';
+      var count = 0;
+
+      if( typeof($scope.projOutWithMileStone) === 'undefined'){
+        $scope.outReqMileStone = [];
+        $http({
+          url: '/api/project/allOutGoinglMilestones',
+          method: 'PUT',
+          data: {
+            'userId': Authentication.user._id
+          }
+        }).then( function(suc){
+          $scope.projOutWithMileStone = suc.data;
+          for (var i =0;  i<$scope.projOutWithMileStone.length; i++) {
+            for(var j=0; j<$scope.projOutWithMileStone[i].bids.length; j++){
+              if ( typeof($scope.projOutWithMileStone[i].bids[j].proposal) !== 'undefined' && $scope.projOutWithMileStone[i].bids[j].awarded === 'yes'){ 
+                newProj = $scope.projOutWithMileStone[i].bids[j].proposal.milestones;
+                var l=0;
+                for(l; l<newProj.length; l++){
+                  if(newProj[l].status === 'Requested'){
+                    $scope.outReqMileStone[count] = newProj[l];
+                    $scope.outReqMileStone[count].projId = $scope.projOutWithMileStone[i]._id;
+                    $scope.outReqMileStone[count].projName = $scope.projOutWithMileStone[i].name;
+                    $scope.outReqMileStone[count].bidder = $scope.projOutWithMileStone[i].bids[j].bidderInfo.username;
+                    $scope.outReqMileStone[count].bidderProfId = $scope.projOutWithMileStone[i].bids[j].bidderInfo.profile_id;
+                    $scope.outReqMileStone[count].projDate = $scope.projOutWithMileStone[i].created;
+                    count ++;
+                  }
+                }
+              }
+            }
+          }
+        });
+      }else{
+        $scope.outReqMileStone = [];
+        for (var i =0;  i<$scope.projOutWithMileStone.length; i++) {
+          for(var j=0; j<$scope.projOutWithMileStone[i].bids.length; j++){
+            if ( typeof($scope.projOutWithMileStone[i].bids[j].proposal) !== 'undefined' && $scope.projOutWithMileStone[i].bids[j].awarded === 'yes'){ 
+              newProj = $scope.projOutWithMileStone[i].bids[j].proposal.milestones;
+              var l=0;
+              for(l; l<newProj.length; l++){
+                if(newProj[l].status === 'Requested'){
+                  $scope.outReqMileStone[count] = newProj[l];
+                  $scope.outReqMileStone[count].projId = $scope.projOutWithMileStone[i]._id;
+                  $scope.outReqMileStone[count].projName = $scope.projOutWithMileStone[i].name;
+                  $scope.outReqMileStone[count].bidder = $scope.projOutWithMileStone[i].bids[j].bidderInfo.username;
+                  $scope.outReqMileStone[count].bidderProfId = $scope.projOutWithMileStone[i].bids[j].bidderInfo.profile_id;
+                  $scope.outReqMileStone[count].projDate = $scope.projOutWithMileStone[i].created;
+                  count ++;
+                }
+              }
+            }
+          }
+        }
+      }
+    };
+
+    // Show Incoming Milestones requests
+    $scope.incomMilestoneRequests = function(){
+      var newProj = '';
+      var count = 0;
+
+      if( typeof($scope.projIncomWithMileStoneprojIncomWithMileStone) === 'undefined'){
+        $scope.incomReqMileStone = [];
+
+        $http({
+          url: '/api/project/allIncominglMilestones',
+          method: 'PUT',
+          data: {
+            'userId': Authentication.user._id
+          }
+        }).then( function(suc){
+          $scope.projIncomWithMileStone = suc.data;
+          for (var i =0;  i<$scope.projIncomWithMileStone.length; i++) {
+            for(var j=0; j<$scope.projIncomWithMileStone[i].bids.length; j++){
+              if ( typeof($scope.projIncomWithMileStone[i].bids[j].proposal) !== 'undefined' && $scope.projIncomWithMileStone[i].bids[j].awarded === 'yes'){ 
+                newProj = $scope.projIncomWithMileStone[i].bids[j].proposal.milestones;
+                var l=0;
+                for(l; l<newProj.length; l++){
+                  if(newProj[l].status === 'Requested'){
+                    $scope.incomReqMileStone[count] = newProj[l];
+                    $scope.incomReqMileStone[count].projId =  $scope.projIncomWithMileStone[i]._id;
+                    $scope.incomReqMileStone[count].projName =  $scope.projIncomWithMileStone[i].name;
+                    $scope.incomReqMileStone[count].projOwner =  $scope.projIncomWithMileStone[i].userInfo.username;
+                    $scope.incomReqMileStone[count].projDate =  $scope.projIncomWithMileStone[i].created;
+                    count++;
+                  }
+                }
+              }
+            }
+          }
+        });
+      }else{
+        $scope.incomReqMileStone = [];
+        for (var i =0;  i<$scope.projIncomWithMileStone.length; i++) {
+            for(var j=0; j<$scope.projIncomWithMileStone[i].bids.length; j++){
+              if ( typeof($scope.projIncomWithMileStone[i].bids[j].proposal) !== 'undefined' && $scope.projIncomWithMileStone[i].bids[j].awarded === 'yes'){ 
+                newProj = $scope.projIncomWithMileStone[i].bids[j].proposal.milestones;
+                var l=0;
+                for(l; l<newProj.length; l++){
+                  if(newProj[l].status === 'Requested'){
+                    $scope.incomReqMileStone[count] = newProj[l];
+                    $scope.incomReqMileStone[count].projId =  $scope.projIncomWithMileStone[i]._id;
+                    $scope.incomReqMileStone[count].projName =  $scope.projIncomWithMileStone[i].name;
+                    $scope.incomReqMileStone[count].projOwner =  $scope.projIncomWithMileStone[i].userInfo.username;
+                    $scope.incomReqMileStone[count].projDate =  $scope.projIncomWithMileStone[i].created;
+                    count++;
+                  }
+                }
+              }
+            }
+          }
+      }
+    };
+
+
+  }
+]);

@@ -1,0 +1,312 @@
+<style>
+body {
+	background:#f2f2f2;
+}
+</style>
+
+<div class="row project-backgroundimage5 hidden-xs">
+        <div class="container about-investor-title-setting">
+<br>
+            <h3 class="investor-heading p-t-sm" style="font-size:20px;">알림 설정</h3>
+            <h3 class="investor-para">
+               
+            </h3>
+            <br><br>
+          </div>
+      </div>
+
+
+<section class="row" style="background-color: white" ng-controller="EditProfileController">
+
+  <div class="col-xs-12">
+    <div class="row paddingEveryRow" style="padding-top: 4%;"">
+        <h1><b>알림</b></h1>
+    </div>
+   
+    <hr>
+
+    <!-- <button class="btn btn-default" ng-click="updateUserProfile(userForm.$valid)">test</button> -->
+     <form name="userForm" ng-submit="" class="signin" novalidate autocomplete="off">
+     <div class="row paddingEveryRow">
+         <h4><b>이메일</b></h4>
+         <div class="col-xs-12 col-md-6 p-l-none form-group" show-errors>
+           <label for="email">이메일 주소</label>
+           <input  type="email" id="email" name="email" class="form-control" ng-model="user.email" placeholder="Email" lowercase required>
+           <div ng-messages="userForm.email.$error" role="alert">
+             <p class="help-block error-text" ng-message="required">이메일 주소를 입력 바랍니다.</p>
+             <p class="help-block error-text" ng-message="email">이메일 주소가 유효하지 않습니다.</p>
+           </div>
+         </div>
+         <div class="col-xs-12 col-md-6 p-l-none form-group" show-errors>
+           <!-- <label for="currentPassword">Enter Current Password (if changing email)</label>
+           <input type="password" id="currentPassword" name="currentPassword" class="form-control" ng-model="passwordDetails.currentPassword" placeholder="Current Password" required>
+           <div ng-messages="passwordForm.currentPassword.$error" role="alert">
+             <p class="help-block error-text" ng-message="required">Your current password is required.</p>
+           </div> -->
+         </div>
+         <!-- <button type="button" class="btn btn-default" ng-click="updateEmailAddress('md');">Update Email Address</button> -->
+         <button type="button" class="btn btn-default" ng-click="updateEmail();">이메일 주소 업테이트</button>
+
+         <div ng-show="success" class="text-center text-success">
+           <strong>Email Changed Successfully</strong>
+         </div>
+     </div>
+     
+     
+    <!-- part 2 -->
+    <!--  <hr>
+    <div class="row paddingEveryRow">
+        <h4><b>Email Format</b></h4><br>
+        <label>Email Format</label><br>
+
+         <select selector
+            rtl="rtl"
+            multi="multi"
+            model="user.notEmailFormate"
+            disable="disabled"
+            change= "updateUserProfile(true)"
+            options="notEmailFormateOptions"
+            value-attr="value"
+            label-attr="value"
+            remove-button="remove"
+            soft-delete="restore"
+            placeholder="Select Email Format"
+            style="width: 50%; height: 32px;">            
+            <option value="HTML"></option>
+            <option value="Plain Text"></option>
+        </select>
+    </div>
+    <hr> -->
+<!-- prt 3 -->
+    <div class="row paddingEveryRow">
+        <h4><b>신규 프로젝트ㆍ컨테스트ㆍ서비스 채용 소식을 이메일로 받기 원합니다</b></h4>
+          <p class="text-muted">
+            이 기능을 사용하면 알림을 받게되며 프로젝트ㆍ콘테스트ㆍ서비스 채용 소식을 다음과 같은  다양한 활동에 대해 이메일을 통해 알 수 있습니다:
+            <ul class="text-muted text-info ">
+              <li>프리랜서가 프로젝트에 지원 할 경우</li>
+              <li>프리랜서가 프로젝트를 승인 할 경우</li>
+              <li>프리랜서가 대금 지불 요구 할 경우</li>
+              <li>프리랜서가 콘테스트에 출품 할 경우</li>
+              <li>의뢰인이 예치금을 생성 할 경우</li>
+              <li>의뢰인이 예치금을 지불 할 경우</li>
+              <li>프로젝트 완료 작업평가를 할 경우</li>
+            </ul> 
+        </p>
+        <div>
+            <label class="switch">
+              <input type="checkbox" ng-model="user.notificationsOnOff.bidRetracted" ng-click="updateUserProfile(true);"> 
+              <div class="slider round"></div>
+            </label> &nbsp
+            <label>프로젝트 제시 금액이 취소 또는 갱신된 경우</label>
+         </div>
+         <br>
+       <!-- <label>Email frequency for project related activity</label><br>
+
+       <select selector
+          rtl="rtl"
+          multi="multi"
+          model="user.notPostedProjets"
+          disable="disabled"
+          change= "updateUserProfile(true)"
+          options="notPostedProjetsOptions"
+          value-attr="value"
+          label-attr="value"
+          remove-button="remove"
+          soft-delete="restore"
+          placeholder="emails for your posted projects"
+          style="width: 50%; height: 32px;">            
+         <option value="Default"></option>
+         <option value="Instantly"></option>
+         <option value="Every hour"></option>
+         <option value="Every 3 hour"></option>
+         <option value="Every 6 hour"></option>
+         <option value="Every 12 hour"></option>
+         <option value="Daily"></option>
+      </select><br><br>
+      <p>Receive the first 3 notifications immediately. Then project activity summaries after 15, 30 and 45 minutes, then after 2 and 6 hours, and then daily.</p> -->
+    </div>
+    <hr>
+    <!-- part 4 -->
+    <div class="row paddingEveryRow">
+        <h4><b>자신의 전문기술과 일치되는 프로잭트 알림</b></h4>
+        <p class="text-muted">이기능을 사용하시면 자신의 전문기술과 일치되는 모든 프로젝트에 대한 알림을 받습니다.</p>
+        <div>
+            <label class="switch">
+              <input type="checkbox" ng-model="user.notificationsOnOff.receiveEntry" ng-click="updateUserProfile(true);">
+              <div class="slider round"></div>
+            </label> &nbsp
+            <label> 프로젝트 등록될때 나의 전문기술과 일치되는 경우 알림</label> 
+            <!-- <label> When you receive an entry for your contest</label> -->
+         </div>
+         <!-- <div>
+             <label class="switch">
+               <input type="checkbox" checked checked ng-model="user.notificationsOnOff.topContests" ng-click="updateUserProfile(true);">
+               <div class="slider round"></div>
+             </label> &nbsp
+             <label>We notify you of recent Top Contests</label>
+          </div> -->
+    </div>
+    <hr>
+    <!-- part 5 -->
+    <!-- <div class="row paddingEveryRow">
+        <h4><b>Notification of latest projects posted</b></h4>
+        <div>
+            <label class="switch">
+              <input type="checkbox" checked ng-model="user.notificationsOnOff.selectedSkills" ng-click="updateUserProfile(true);">
+              <div class="slider round"></div>
+            </label> &nbsp
+           <label>When a project gets posted that matches my selected skills</label>
+         </div><br>
+         <label>Email frequency</label><br>
+       <select selector
+          rtl="rtl"
+          multi="multi""
+          model="user.notEmailFrequency"
+          disable="disabled"
+          change= "updateUserProfile(true)"
+          options="notEmailFrequencyOptions"
+          value-attr="value"
+          label-attr="value"
+          remove-button="remove"
+          soft-delete="restore"
+          placeholder="Notifications of latest projects posted"
+          style="width: 50%; height: 32px;">            
+         <option value="Every hour"></option>
+         <option value="Every 4 hour"></option>
+         <option value="Every 6 hour"></option>
+         <option value="Every 12 hour"></option>
+         <option value="Daily"></option>
+         <option value="Weekly"></option>
+         <option value="Monthly"></option>
+      </select>
+    </div>
+    <hr> -->
+    <!-- part 6 -->
+    <!-- <div class="row paddingEveryRow">
+        <h4><b>Notification of latest local jobs</b></h4>
+        <div>
+            <label class="switch">
+              <input type="checkbox" checked ng-model="user.notificationsOnOff.getsPosted" ng-click="updateUserProfile(true);">
+              <div class="slider round"></div>
+            </label> &nbsp
+           <label> When a local job in my area gets posted</label>
+         </div>
+    </div>
+    <hr> -->
+    <!-- part 7 -->
+    <!-- <div class="row paddingEveryRow">
+     <h4><b>Digest emails for messages</b></h4>
+     <div>
+         <label class="switch">
+           <input type="checkbox" checked  ng-model="user.notificationsOnOff.privateMessage" ng-click="updateUserProfile(true);">
+           <div class="slider round"></div>
+         </label> &nbsp
+        <label>When you receive a private message from a contact</label>
+      </div>
+      <div>
+          <label class="switch">
+            <input type="checkbox" checked  ng-model="user.notificationsOnOff.projectMessage" ng-click="updateUserProfile(true);">
+            <div class="slider round"></div>
+          </label> &nbsp
+         <label>When you receive a message about a project or contest</label>
+       </div>
+       <div>
+           <label class="switch">
+             <input type="checkbox" checked  ng-model="user.notificationsOnOff.outSoucingOkMessage" ng-click="updateUserProfile(true);">
+             <div class="slider round"></div>
+           </label> &nbsp
+          <label>When you receive a message from OutSoucingOK.com staff</label>
+        </div>
+    </div>
+    <hr> -->
+    <!-- part 8 -->
+    <!-- <div class="row paddingEveryRow">
+         <h4><b>Individual Notifications</b></h4>
+         <div>
+             <label class="switch">
+               <input type="checkbox" checked ng-model="user.notificationsOnOff.newsAnnouncements" ng-click="updateUserProfile(true);">
+               <div class="slider round"></div>
+             </label> &nbsp
+            <label>News and announcements from OutsouchingOk.com</label>
+          </div>
+          <div>
+              <label class="switch">
+                <input type="checkbox" checked ng-model="user.notificationsOnOff.awardsProjects" ng-click="updateUserProfile(true);">
+                <div class="slider round"></div>
+              </label> &nbsp
+             <label>A buyer awards you a project</label>
+           </div>
+           <div>
+               <label class="switch">
+                 <input type="checkbox" checked ng-model="user.notificationsOnOff.milestonePayment" ng-click="updateUserProfile(true);">
+                 <div class="slider round"></div>
+               </label> &nbsp
+              <label>A freelancer requests you to release a milestone payment</label>
+            </div>
+        <div>
+            <label class="switch">
+              <input type="checkbox" checked ng-model="user.notificationsOnOff.topBidder">
+              <div class="slider round"></div>
+            </label> &nbsp
+           <label>We notify you of the top bidder for your project</label>
+         </div>
+         <div>
+             <label class="switch">
+               <input type="checkbox" checked ng-model="user.notificationsOnOff.regardingServices" ng-click="updateUserProfile(true);">
+               <div class="slider round"></div>
+             </label> &nbsp
+            <label>We notify you of the latest activity regarding Services.</label>
+          </div>
+          <div>
+              <label class="switch">
+                <input type="checkbox" checked ng-model="user.notificationsOnOff.regardingFreemarket" ng-click="updateUserProfile(true);">
+                <div class="slider round"></div>
+              </label> &nbsp
+             <label>We notify you of the latest activity regarding Freemarket.</label>
+           </div>
+           <div>
+               <label class="switch">
+                 <input type="checkbox" checked ng-model="user.notificationsOnOff.requestsYouContact" ng-click="updateUserProfile(true);">
+                 <div class="slider round"></div>
+               </label> &nbsp
+              <label>A freelancer requests you as a contact</label>
+          </div>
+    </div>
+    <hr> -->
+<!-- part 9 -->
+   <!--  <div class="row paddingEveryRow">
+         <h4><b>Other Notifications</b></h4>
+        <div>
+            <label class="switch">
+                <input type="checkbox" checked ng-model="user.notificationsOnOff.marketingEmails" ng-click="updateUserProfile(true);">
+                <div class="slider round"></div>
+            </label> &nbsp
+            <label>Marketing emails</label>
+        </div>
+        <div>
+            <label class="switch">
+                <input type="checkbox" checked ng-model="user.notificationsOnOff.OutsouchingOKDeals" ng-click="updateUserProfile(true);">
+                <div class="slider round"></div>
+            </label> &nbsp
+            <label>OutsouchingOK.com deals</label>
+        </div>
+        <div>
+            <label class="switch">
+                <input type="checkbox" checked ng-model="user.notificationsOnOff.monthlyNewsLetter" ng-click="updateUserProfile(true);">
+                <div class="slider round"></div>
+            </label> &nbsp
+            <label>Monthly newsletter</label>
+        </div>
+        <div>
+            <label class="switch">
+                <input type="checkbox" checked ng-model="user.notificationsOnOff.communityDigest" ng-click="updateUserProfile(true);">
+                <div class="slider round"></div>
+            </label> &nbsp
+            <label>Weekly Community digest</label>
+        </div>
+    </div>
+    <br> -->
+</form>
+</div>
+   
+</section>

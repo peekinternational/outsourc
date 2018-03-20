@@ -1,0 +1,44 @@
+<div ng-controller="ProjectsController" style="margin-top:50px">
+	<center>
+		<h2>
+			<strong class="text-info"> 지원/입찰 횟수 추가 구매</strong>
+		</h2>
+	</center>
+	<hr style="width: 32rem;height: 0rem;color: #e4bf00;border-top: 2px double;">
+
+	<div class="row">
+		<div class="col-xs-offset-2 col-xs-8 col-xs-offset-2" style="margin-top:50px;margin-bottom:50px">
+			<form style="border: 1px solid burlywood; border-radius: 1rem; margin-bottom: 5rem; padding: 1.5rem">
+				<center>
+					<h3>회원님께서는 현재 : <label class="text-success"> {{authentication.user.remainingBids}}번 지원/입찰 횟수가 남았습니다.</label></h3>
+
+					<button class="btn btn-lg btn-default hidden-xs" ng-click="bidPurchase =!bidPurchase">
+						<img src="modules/core/client/img/customimages/main_icon9.png" alt="">지원/입찰 횟수 50번 추가 구매 / 2,000원[부가세별도]
+					</button>
+
+					<button class="btn btn-lg btn-default hidden-md hidden-lg" ng-click="bidPurchase =!bidPurchase">
+						지원/입찰 횟수 50번 추가 구매 / 2,000원[부가세별도]
+					</button>
+<br><br><br>
+					<div class="bg-warning" ng-show="bidPurchase">
+						<span class="text-danger">
+							<b>
+								<br>
+								회원님의 예치금 계좌에서 2,200원(부가세포함)를 자동 인출이 됩니다. 자동 인출을 원하시나요? 	
+							</b>
+						</span>
+						<br><br>
+						<button class="btn btn-success" ng-click="purchaseBid()">
+							예. 자동 인출에 동의합니다.
+						</button>
+						<button class="btn btn-warning" ng-click="bidPurchase=!bidPurchase">
+							아니오. 취소합니다.!
+						</button>
+						<br><br>
+					</div>
+				</center>		
+
+			</form>
+		</div>
+	</div>
+</div>

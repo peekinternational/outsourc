@@ -1,0 +1,430 @@
+<section class="container-fulid p-mt-lg p-ml-none p-mr-none" ng-controller="ProjectsController" ng-init ="findOne();initializeDisputeCommmentImage()">
+
+	<div class="row m-ml-none m-mr-none" style="margin-left: 2rem;" ng-if = 'currentUserId === project.user._id || currentUserId === awardedProject.userId'>
+		<div class="col-xs-12 col-sm-12 col-md-10 col-lg-10 col-md-offset-1 m-ml-none m-mr-none">		
+			<div class="row" style="padding-top:80px;padding-bottom:10px;">
+				<h3><strong>중재신청</strong></h3>
+				<!-- 
+				<div class="col-xs-3">
+					<img src="modules/projects/client/img/1.png" class="img-responsive">
+				</div>
+				<div class="col-xs-3">
+					<img src="modules/projects/client/img/1.png" class="img-responsive">
+				</div>
+				<div class="col-xs-3">
+					<img src="modules/projects/client/img/1.png" class="img-responsive">
+				</div>
+				<div class="col-xs-3">
+					<img src="modules/projects/client/img/1.png" class="img-responsive">
+				</div>
+				-->
+			</div>
+			<div class="row">
+				<uib-tabset active="activeForm"><!-- {{project.dispute.length}} -->
+					<uib-tab index="0" heading="1단계 중재원인" disable="project.dispute" active = 'tabs[0].active'>
+						<div class="col-xs-12 col-md-11 p-mt-lg p-t-lg p-ml-none p-mr-none">
+							<div class="steps-detail p-t-sm p-l-md p-b-sm">
+								<h5 class="p-l-lg"><strong>1단계 중재원인</strong></h5>
+								<ul>
+									<li>대부분의 중재는 단순한 오해에서 시작합니다.</li>
+									<li>아웃소싱 오케이 중재 해결 시스템은 양 당사자가 문제를 해결할 수 있도록 시스템화 되어있습니다.</li>
+									<li>대부분의 중재는 오해의 결과로 중재없이 해결됩니다.</li>
+									<li>1단계에서부터 4단계까지 합의에 이르지 못하면 양 당사자는 대한상사중재원을 통해서 문제를 해결할 수 있습니다.</li>
+								</ul>
+							</div>
+						</div>
+						<div class="col-xs-12 col-md-6 p-l-none p-ml-none p-t-md col-md-offset-2">
+							<div class="form-group">
+								<div class="col-xs-6">
+									<strong>중재 프로젝트 제목:</strong> 
+								</div>
+								<div class="col-xs-6">
+									<span class="form-control">{{project.name}}</span>
+								</div>
+							</div>
+							<div class="form-group p-t-xlg">
+								<div class="col-xs-6">
+									<b>신청자:</b> 
+								</div>
+								<div class="col-xs-6">
+									<span class="form-control">{{awardedProject.bidderInfo.username}}</span>
+								</div>
+							</div>{{milestone.selected}}
+							<div class="form-group p-t-xlg p-l-md">
+								<b>지급보류한 대금 금액을 선택 바랍니다.:</b> <br>
+								<p class="p-l-xs bg-info" ng-repeat = "milestone in awardedProject.proposal.milestones">
+								<span ng-if = "milestone.status === 'Created'">
+								<input type="checkbox" ng-checked = "$index === selectedMilestone" ng-model="milestone.selected" ng-click="checking(milestone,$index)"> 
+									<!-- <span class="pading-left-span">{{disputeMilestoneIndex}}</span> -->
+									<span class="pading-left-span">{{milestone.price}}</span>
+									<span class="pading-left-span">{{milestone.description}}</span> 
+									<!-- <span class="pading-left-span">{{awardedProject.proposal.milestones[disputeMilestoneIndex].description}}</span> -->
+									</p>
+									<span>
+								<p>대금 합계<span class="pading-left-span"><b>5000</b></span></p>
+							</div>
+							<div class="form-group p-l-md">
+								<b>중재를 하는이유를 자세히 작성하시길 바랍니다:</b> <br>
+								<textarea class="form-control" ng-model="dispute.reason" rows="10" style="white-space: pre-line; word-wrap: break-word;"></textarea>
+							</div>
+							<div class="form-group p-t-lg p-l-md p-mt-none">
+								<b class="text-muted">중재에 필요한 증빙 자료를 첨부 바랍니다.</b> <br>
+								<p class="bg-faded p-l-xs p-t-xs p-b-xs">
+									<label  class="btn btn-default browse-file">
+										<input type="file" nv-file-select uploader="uploader">
+										<i class="glyphicon glyphicon-plus"></i><b>첨부파일..</b>
+									</label><span class="p-l-sm">{{disputeFilename}}</span>
+								</p>	
+							</div>
+							<div class="bg-faded m-l-md" >
+								<p class="p-l-sm p-t-xs"><strong>중재 총금액: ₩{{selectedMilestoneTotal}}</strong></p>
+								<hr class="hr-setng">
+								<p class="p-l-sm"><strong>금액을 조정하면 합의가 가능합니까? :</strong></p>
+								<b class="p-r-xs p-l-sm">₩</b><input type="text" ng-model="dispute.amountOffer"><span>₩ 1에서 ₩{{selectedMilestoneTotal}} 사이의 대금 금액을 입력바랍니다.</span> 
+								<div class="form-group p-t-lg p-l-sm">
+									<p>제시한 금액내에서 협의는 할 수 있지만 제시한 금액이상은 조정이 어려울 수 있습니다.</p>
+								</div>
+								<div class="form-group p-t-lg p-l-sm p-b-lg">
+									<button class="btn btn-info" ng-click = "submitDispute();">중재 신청</button>
+								</div>
+							</div>
+
+						</div>
+					</uib-tab>
+					<uib-tab index="1" heading="2단계 양자협의" disable="project.dispute.tab === 3 || !project.dispute || project.dispute.tab === 4 " active = 'tabs[1].active'>
+						<div class="col-xs-12 col-md-11 p-mt-lg p-t-lg p-ml-none p-mr-none">
+							<div class="steps-detail p-t-sm p-l-md p-b-sm">
+								<h5 class="p-l-lg"><strong>2단계 양자협의</strong></h5>
+								<ul>
+									<li>아웃소싱 오케이는 문제를 해결하기 위해 상대방과 의사 소통 할 것을 강력히 권고했습니다.</li>
+									<li><span class="text-danger">참고:</span>중재가 제기되었을 때 (프로젝트 제목) 7 일 이내에 답변하는것을 원칙으로 합니다.그러지 않을 경우 불리할 수 있습니다.</li>
+									<li>7 일 이후 어느 한쪽이 중재을 3 단계로 진행하게 되면 대한상사중재원에 중재분쟁으로 중재를 해결합니다. 상대방은 2단계에서 4일안에 중재수수료를 지불하고 양당사자가 증빙자료를 제출하는데 동의하게 됩니다. 중재수수료는 대한상사중재원의 결정에 따라 중재수수료 1/3이 환불이 됩니다.</li>
+								</ul>
+							</div>
+						</div>
+						<div class="col-xs-12 col-md-8 p-mt-lg p-t-lg p-ml-none p-mr-none">
+							<h5><strong>협의단계 :</strong></h5>
+							<span>
+							<div class="row" ng-repeat = "comment in project.dispute.tab2Comments | orderBy: 'date_created'">
+							<div class="col-xs-2 col-md-1">
+								<img class="dispute-img-circle" src="{{comment.image}}">
+							</div>
+							<div class="col-xs-9 col-md-10 m-l-lg p-t-xs p-b-lg">
+								<span ng-if="comment.id === authentication.user._id">
+									<div class="col-xs-12 p-t-sm p-b-md header-div" >
+									
+										<div class="col-xs-7 p-l-none p-ml-none">
+											<span>{{comment.username}}</span>
+										</div>
+										<div class="col-xs-5 text-right">
+											<span>{{comment.date_created | date}}</span>
+										</div>
+									</div>
+									<div class="col-xs-12 p-t-xs p-b-lg descriptn-div">
+										{{comment.comment}}
+									</div>
+									</span>
+
+									<span ng-if="comment.id !== authentication.user._id">
+									<div class="col-xs-12 p-t-sm p-b-md header-div2" >
+									
+										<div class="col-xs-7 p-l-none p-ml-none">
+											<span>{{comment.username}}</span>
+										</div>
+										<div class="col-xs-5 text-right">
+											<span>{{comment.date_created | date}}</span>
+										</div>
+									</div>
+									<div class="col-xs-12 p-t-xs p-b-lg descriptn-div2">
+										{{comment.comment}}
+									</div>
+									</span>
+
+
+									</div>
+								</div>
+							<br>
+							<div class="row">
+								<div class="col-xs-2 col-md-1">
+									<img class="dispute-img-circle" src="modules/users/client/img/profile/default.png">
+								</div>
+								<!-- <div class="col-xs-9 col-md-10 m-l-lg p-t-xs p-b-lg">
+									<div class="col-xs-12 p-t-sm p-b-md header-div2">
+										<div class="col-xs-7 p-l-none p-ml-none">
+											<span>{{comment.username}}</span>
+										</div>
+										<div class="col-xs-5 text-right">
+											<span>{{comment.date_created | date}}</span>
+										</div>
+									</div>
+									<div class="col-xs-12 p-t-xs p-b-lg descriptn-div2">
+										{{comment.comment}}
+									</div>
+							</div> -->
+							<div class="row m-ml-none m-l-none">
+							  <div class="col-xs-12 col-md-11 p-r-none p-mr-none p-l-none p-ml-none">
+									<div class="form-group p-l-md">
+										<b>상대방에게 보낼 내용 작성:</b> <br>
+										<textarea class="form-control" ng-model="comments" rows="10" style="white-space: pre-line; word-wrap: break-word;"></textarea>
+									</div>
+								</div>
+								<div class="col-xs-12 col-md-11 p-r-none p-mr-none p-l-none p-ml-none">
+									<div class="form-group p-t-lg p-l-md p-mt-none">
+										<b class="text-muted">상대방에게 보낼 첨부파일을 보내기 바랍니다.</b> <br>
+										<p class="bg-faded p-l-xs p-t-xs p-b-xs">
+											<label  class="btn btn-default browse-file">
+												<input type="file" nv-file-select uploader="uploader">
+												<i class="glyphicon glyphicon-plus"></i><b>첨부파일..</b>
+											</label>
+										</p>	
+									</div>
+								</div>
+								<div class="col-xs-12 col-md-11 p-r-none p-mr-none p-l-none p-ml-none">
+									<div class="form-group p-t-lg p-l-md p-mt-none pull-right">
+									<button class="btn btn-warning" ng-click = "disputeComments(comments,2)">보내기</button>
+									</div>
+								</div>
+							</div>
+
+								</div>
+							</div>	
+							<div class="col-xs-12 col-md-4 pdtng-top">
+								<div class="bg-faded m-ml-none" style="margin-left: 25px;">
+									<div class="text-center img-responsive p-t-sm">
+									    <div ng_if = "disputeDaysRemaining>=0">
+											<h3 class="m-t-none" style="color:red;"><span ng_if = "disputeDaysRemaining>0">{{disputeDaysRemaining}} 일,</span> <span>{{disputeHoursRemainig}} 시간</span> <span ng_if = "disputeDaysRemaining===0">, {{disputeMinutesRemainig}} minute(s)</span></h3>
+											<span style="color:red;">남은 중재기간안에 요청해야 합니다.</span>
+										</div> 
+										<!-- ng-if="showArbButtonTab2" -->
+								    <div class="btn btn-small border-text" ng-click = "proceedToArbitrationTab2()" >
+								      <p class="m-b-none"><b>중재 진행(중재수수료 1/3)</b></p>
+								    </div> 
+								  </div>
+								<p class="p-l-sm p-t-xs text-center"><strong>총 중재금액: ₩{{project.dispute.totalDisputedAmount}}</strong></p>
+								<hr class="hr-setng">
+								<p class="text-right p-r-lg"><a href="">제안 금액 보기</a></p>
+								<hr class="hr-setng1">
+								<!-- For freelancer --> 
+								<div class="row m-l-xs m-r-xs" ng-if ="awardedProject.userId === authentication.user._id">
+								
+									<div class="col-xs-6 text-center frelncer-section1" ng-if = "project.dispute.disputeCreatedBy === awardedProject.userId">
+										<p class="m-b-none" >프리랜서 제안 금액 </p> <p class="m-b-none"><strong> ₩{{project.dispute.amountOffer}}</strong></p>
+										<p class="m-b-none">의뢰인({{project.dispute.disputeCreatedforUsername}})이 제시한 금액 : </p>
+										<p class="m-b-none"> <strong> ₩{{project.dispute.secondUserAmountOffer}}</strong></p>
+									  </div>
+									  
+									<div class="col-xs-6 frelncer-section" ng-if = "project.dispute.disputeCreatedfor === awardedProject.userId" >
+										<p class="m-b-none" >Freelancer (You) offers to pay:</p><p class="m-b-none"><strong> ${{project.dispute.secondUserAmountOffer}}</strong></p>
+										<p class="m-b-none" >Employeer ({{disputeCreatedByUsername}}) offers to receive:</p>
+										<p class="m-b-none"><strong>₩{{project.dispute.amountOffer}}</strong></p>
+										<button class="btn btn-success btn-xs m-b-md" ng-click="acceptOffer()">Accept Offer</button>
+									</div>
+								</div>
+								<!-- Employeer -->
+								<div class="row m-l-xs m-r-xs" ng-if ="project.user._id === authentication.user._id">
+									  <div class="col-xs-6 text-center frelncer-section1" ng-if = "project.dispute.disputeCreatedBy === project.user._id">
+										<p class="m-b-none" >Employeer (You) wants to receive </p> <p class="m-b-none"><strong> ${{project.dispute.amountOffer}}</strong></p>
+										<p class="m-b-none">Freelancer ({{project.dispute.disputeCreatedforUsername}}) wants to pay: </p>
+										<p class="m-b-none"> <strong> ${{project.dispute.secondUserAmountOffer}}</strong></p><button class="btn btn-success btn-xs m-b-md" ng-click="acceptOffer()">Accept Offer</button>
+									  </div>
+									<div class="col-xs-6 frelncer-section" ng-if = "project.dispute.disputeCreatedfor === project.user._id" >
+										<p class="m-b-none" >Employeer (You) offers to pay:</p><p class="m-b-none"><strong> ${{project.dispute.secondUserAmountOffer}}</strong></p>
+										<p class="m-b-none" >Freelancer ({{project.dispute.disputeCreatedByUsername}}) offers to receive:</p>
+										<p class="m-b-none"><strong>${{project.dispute.amountOffer}}</strong></p>
+										<button class="btn btn-success btn-xs m-b-md" ng-click="acceptOffer()">Accept Offer</button>
+									</div>
+								</div>
+									<p class="text-center" ng-if = "project.dispute.disputeCreatedBy === authentication.user._id">새로운 희망 제시 금액</p>
+									<p class="text-center" ng-if = "project.dispute.disputeCreatedfor === authentication.user._id">New offer you want to pay.</p>
+								<p class="text-center"><b class="p-r-xs p-l-sm">₩</b><input type="text" ng-model="newOffer" class="paymnt-box"><button class="btn btn-xs btn-info paymnt-submit-btn" ng-click="placeNewOffer(newOffer)">제출</button></p>
+								<div class="form-group p-t-lg p-l-sm text-center">
+									<p>₩ 1에서 ₩{{project.dispute.amountOffer}} 사이의 대금 금액을 입력바랍니다.</p>
+								</div>
+								<div class="form-group p-t-lg p-l-sm p-b-lg text-center" >
+									<button class="btn btn-info btn-sm" ng-click = 'cancelDipsute()' ng-if ="currentUserId === project.dispute.disputeCreatedBy">중재취소</button>
+								</div>
+							</div>
+							</div>
+						
+					</uib-tab>
+					<uib-tab index="2" heading="3단계 최종제안/증빙자료" disable="project.dispute.tab === 2 || !project.dispute || project.dispute.tab === 4 ">
+								<div class="col-xs-12 col-md-11 p-mt-lg p-t-lg p-ml-none p-mr-none">
+							<div class="steps-detail p-t-sm p-l-md p-b-sm">
+								<h5 class="p-l-lg"><strong>3단계 최종제안</strong></h5>
+								<ul>
+									<li>2단계 양자협의에서 중재가 합의된 경우 다음단계로 이동합니다.</li>
+									<li>3단계에서 양 당사자는 중재 해결을위한 최종 제안을 제안하고 아웃소싱 오케이 중재 해결 팀은 당사자의 요구에 따라 결정합니다. </li>
+								</ul>
+							</div>
+						</div>
+						<div class="col-xs-12 col-md-8 p-mt-lg p-t-lg p-ml-none p-mr-none">
+							<h5><strong>협의단계 :</strong></h5>
+							<span>
+							<div class="row" ng-repeat = "comment in project.dispute.tab3Comments | orderBy: '-date_created'">
+							<div class="col-xs-2 col-md-1">
+								<img class="dispute-img-circle" src="{{comment.image}}">
+							</div>
+							<div class="col-xs-9 col-md-10 m-l-lg p-t-xs p-b-lg">
+								<span ng-if="comment.id === authentication.user._id">
+									<div class="col-xs-12 p-t-sm p-b-md header-div" >
+									
+										<div class="col-xs-7 p-l-none p-ml-none">
+											<span>{{comment.username}}</span>
+										</div>
+										<div class="col-xs-5 text-right">
+											<span>{{comment.date_created | date}}</span>
+										</div>
+									</div>
+									<div class="col-xs-12 p-t-xs p-b-lg descriptn-div">
+										{{comment.comment}}
+									</div>
+									</span>
+
+									<span ng-if="comment.id !== authentication.user._id">
+									<div class="col-xs-12 p-t-sm p-b-md header-div2" >
+									
+										<div class="col-xs-7 p-l-none p-ml-none">
+											<span>{{comment.username}}</span>
+										</div>
+										<div class="col-xs-5 text-right">
+											<span>{{comment.date_created | date}}</span>
+										</div>
+									</div>
+									<div class="col-xs-12 p-t-xs p-b-lg descriptn-div2">
+										{{comment.comment}}
+									</div>
+									</span>
+
+
+									</div>
+								</div>
+							<br>
+							<div class="row">
+								<!-- <div class="col-xs-2 col-md-1">
+									<img class="dispute-img-circle" src="modules/users/client/img/profile/default.png">
+								</div> -->
+								<div class="col-xs-9 col-md-10 m-l-lg p-t-xs p-b-lg">
+									<!-- <div class="col-xs-12 p-t-sm p-b-md header-div2">
+										<div class="col-xs-7 p-l-none p-ml-none">
+											<span>{{comment.username}}</span>
+										</div>
+										<div class="col-xs-5 text-right">
+											<span>{{comment.date_created | date}}</span>
+										</div>
+									</div> -->
+									<!-- <div class="col-xs-12 p-t-xs p-b-lg descriptn-div2">
+										{{comment.comment}}
+									</div> -->
+							</div>
+							<div class="row m-ml-none m-l-none">
+							  <div class="col-xs-12 col-md-11 p-r-none p-mr-none p-l-none p-ml-none">
+									<div class="form-group p-l-md">
+										<b>상대방에게 보낼 내용 작성:</b> <br>
+										<textarea class="form-control" ng-model="comments" rows="10" style="white-space: pre-line; word-wrap: break-word;"></textarea>
+									</div>
+								</div>
+								<div class="col-xs-12 col-md-11 p-r-none p-mr-none p-l-none p-ml-none" >
+									<div class="form-group p-t-lg p-l-md p-mt-none">
+										<b class="text-muted">상대방에게 보낼 첨부파일을 보내기 바랍니다. </b> <br>
+										<p class="bg-faded p-l-xs p-t-xs p-b-xs" >
+											<label  class="btn btn-default browse-file">
+												<input type="file" nv-file-select = 'muaz' uploader="uploader">
+												<i class="glyphicon glyphicon-plus"></i><b>첨부파일..</b>
+											</label>
+										</p>	
+									</div>
+								</div>
+								<div class="col-xs-12 col-md-11 p-r-none p-mr-none p-l-none p-ml-none">
+									<div class="form-group p-t-lg p-l-md p-mt-none pull-right">
+									<button class="btn btn-warning" ng-click = "disputeComments(comments,3)">보내기</button>
+									</div>
+								</div>
+							</div>
+
+								</div>
+							</div>
+
+
+							<div class="col-xs-12 col-md-4 pdtng-top">
+								<div class="bg-faded m-l-md">
+									<div class="text-center img-responsive p-t-sm" ng-hide = "currentUserId === project.dispute.userPayFirst"> 
+										<div ng_if = "tab3DaysRemaining>=0">
+											<h3 class="m-t-none" style="color:red;"><span ng_if = "tab3DaysRemaining>0">{{tab3DaysRemaining}} 일,</span> <span>{{tab3HoursRemainig}} 시간</span> <span ng_if = "tab3DaysRemaining===0">, {{tab3MinutesRemainig}} minute(s)</span></h3>
+											<span style="color:red;">남은 중재기간안에 요청해야 합니다.</span>
+										</div>
+										<!-- ng-if="showArbButtonTab3" -->
+								    <div class="btn btn-small border-text" ng-click = "proceedToArbitrationTab3()" >
+								      <p class="m-b-none"><b>중재진행 (중재수수료 1/3)</b></p>
+								    </div> 
+								  </div>
+								<p class="p-l-sm p-t-xs text-center"><strong>총 중재금액: ₩{{project.dispute.totalDisputedAmount}}</strong></p>
+								<hr class="hr-setng">
+								<p class="text-right p-r-lg"><a href="">제안 금액 보기</a></p>
+								<hr class="hr-setng1">
+								<!-- Employee -->
+									<div class="row m-l-xs m-r-xs" ng-if ="awardedProject.userId === authentication.user._id">
+								
+									<div class="col-xs-6 text-center frelncer-section1" ng-if = "project.dispute.disputeCreatedBy === awardedProject.userId">
+										<p class="m-b-none" >프리랜서 제안 금액 </p> <p class="m-b-none"><strong> ₩{{project.dispute.amountOffer}}</strong></p>
+										<p class="m-b-none">Employeer ({{project.dispute.disputeCreatedforUsername}}) wants to pay: </p>
+										<p class="m-b-none"> <strong> 										<p class="m-b-none" >Freelancer (You) offers to pay:</p><p class="m-b-none"><strong> ₩{{project.dispute.secondUserAmountOffer}}</strong></p>
+{{project.dispute.secondUserAmountOffer}}</strong></p>
+									  </div>
+									  
+									<div class="col-xs-6 frelncer-section" ng-if = "project.dispute.disputeCreatedfor === awardedProject.userId" >
+										<p class="m-b-none" >Freelancer (You) offers to pay:</p><p class="m-b-none"><strong> ${{project.dispute.secondUserAmountOffer}}</strong></p>
+										<p class="m-b-none" >의뢰인 ({{disputeCreatedByUsername}})이 제시한 금액:</p>
+										<p class="m-b-none"><strong>${{project.dispute.amountOffer}}</strong></p>
+										<button class="btn btn-success btn-xs m-b-md" ng-click="acceptOffer()">제안을 받기</button>
+									</div>
+								</div>
+								<!-- End -->
+								<!-- FreeLancer -->
+								<div class="row m-l-xs m-r-xs" ng-if ="project.user._id === authentication.user._id">
+									  <div class="col-xs-6 text-center frelncer-section1" ng-if = "project.dispute.disputeCreatedBy === project.user._id">
+										<p class="m-b-none" >Employeer (You) wants to receive </p> <p class="m-b-none"><strong> ${{project.dispute.amountOffer}}</strong></p>
+										<p class="m-b-none">Freelancer ({{project.dispute.disputeCreatedforUsername}}) wants to pay: </p>
+										<p class="m-b-none"> <strong> ${{project.dispute.secondUserAmountOffer}}</strong></p><button class="btn btn-success btn-xs m-b-md" ng-click="acceptOffer()">Accept Offer</button>
+									  </div>
+									<div class="col-xs-6 frelncer-section" ng-if = "project.dispute.disputeCreatedfor === project.user._id" >
+										<p class="m-b-none" >Employeer (You) offers to pay:</p><p class="m-b-none"><strong> ${{project.dispute.secondUserAmountOffer}}</strong></p>
+										<p class="m-b-none" >Freelancer ({{project.dispute.disputeCreatedByUsername}}) offers to receive:</p>
+										<p class="m-b-none"><strong>${{project.dispute.amountOffer}}</strong></p>
+										<button class="btn btn-success btn-xs m-b-md" ng-click="acceptOffer()">Accept Offer</button>
+									</div>
+								</div>
+								<!-- End -->
+									<p class="text-center">새로운 희망 제시 금액</p>
+								<p class="text-center"><b class="p-r-xs p-l-sm">$</b><input type="text" ng-model="newOffer" class="paymnt-box"><button class="btn btn-xs btn-info paymnt-submit-btn" ng-click="placeNewOffer(newOffer)">제출</button></p>
+								<div class="form-group p-t-lg p-l-sm text-center">
+									<p ng-if = "!project.dispute.secondUserAmountOffer">₩ 1에서 ₩{{project.dispute.amountOffer}} 사이의 대금 금액을 입력바랍니다..</p>
+									<p ng-if = "project.dispute.secondUserAmountOffer">Enter an amount between ₩{{project.dispute.secondUserAmountOffer}} 에서 ₩{{project.dispute.amountOffer}} 사이의 금액을 입력바랍니다.</p>
+								</div>
+								<div class="form-group p-t-lg p-l-sm p-b-lg text-center">
+									<button class="btn btn-info btn-sm" ng-if ="currentUserId === project.dispute.disputeCreatedBy">중재취소</button>
+								</div>
+							</div>
+							</div>
+					</uib-tab>
+					<uib-tab index="3" heading="4단계 중재" disable="project.dispute.tab === 2 || !project.dispute || project.dispute.tab === 3 ">
+						
+						<div class="col-xs-12 col-md-11 p-mt-lg p-t-lg p-ml-none p-mr-none">
+							<div class="steps-detail p-t-sm p-l-md p-b-sm">
+								<h5 class="p-l-lg"><strong>4단계 중재</strong></h5>
+								<ul>
+									<li>2단계 양자협의에서 중재가 합의된 경우 다음단계로 이동합니다.</li>
+									<li>3단계에서 양 당사자는 중재 해결을위한 최종 제안을 제안하고 아웃소싱 오케이 중재 해결 팀은 당사자의 요구에 따라 결정합니다. </li>
+								</ul>
+							</div>
+						</div>
+
+						콘텐츠 내용 더보기
+					</uib-tab>
+				</uib-tabset>
+			</div>		
+		</div>
+	</div>
+	<div ng-if = 'currentUserId !== project.user._id && currentUserId !== awardedProject.userId'>
+	<h1>이페이는 허용되지 않습니다.</h1>
+	</div>
+</section>

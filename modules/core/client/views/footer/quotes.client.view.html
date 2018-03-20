@@ -1,0 +1,48 @@
+<section ng-controller="ProjectsController">
+<div class="row about-quotes-backgroundimage">
+  <div class="container">
+                    <br><br><br><br>
+      <h1 class="quotes-heading p-t-sm">Investor Centre</h1>
+      <h3 class="quotes-para">
+        Tell us how OutSoucingOK has changed your life today
+      </h3>            <br>
+      <div class="btn btn-xlarge btn-plain-alt quotes-heading-link">
+         <a href="#PageQuotes-form" style="color:white; text-decoration:none;">Celebrate Now</a>
+      </div>
+  </div>
+                        <br><br><br><br><br><br><br>
+</div>
+<br><br>
+
+<!-- part 2 -->
+<div class="PageQuotes-quoteList">
+        <h2 class="PageQuotes-quoteList-title">What our users are saying:</h2><br>
+        <ul class="quotesList"></ul>
+        <p ng-repeat-start="coment in quotesList">{{coment.coment01}}</p><hr ng-repeat-end><br>
+        <button type="button" class="btn btn-default PageQuotes-quoteList-button">Show More Comments</button>
+</div>
+
+<br><br>
+
+<div class="row PageQuotes-form">
+       <form id="quotes-form" method="post" class="fl-form quotesForm">
+           <strong><h1 class="quotesForm-title" style="font-size: 40px;">Leave Your Comment</h1></strong>
+           <p class="quotesForm-description">We would love to hear about your experience on OutSoucingOK.com,<br> please enter your message below.</p><br>
+
+             <input type="text" class="large-input PageQuotes-form-inputes" name="name" placeholder="Name" required=""><br><br>
+
+             <textarea class="large-textarea PageQuotes-form-inputes" style="padding: 17px 62px;" name="comment" placeholder="Comment" required=""></textarea><br><br>
+
+             <button type="submit" class="btn btn-info btn-large" style="padding: 15px 56px;">Send Your Comments</button><br><br><br><br>
+       </form>
+   </div>
+
+    <!-- chatWindow -->
+   <div  ng-show="authentication.user">
+     <footer ng-include="'/modules/core/client/views/chatWindow.html'" ></footer>
+   </div>
+
+</section>
+
+
+

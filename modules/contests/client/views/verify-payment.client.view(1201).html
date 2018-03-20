@@ -1,0 +1,34 @@
+<section ng-controller="ProfilesController">
+	<div class="container-fluid m-ml-none m-mr-none p-ml-none p-mr-none" style="margin-right: 10rem; margin-left: 12rem;">
+		<div class="col-xs-12 padng-top p-ml-none p-mr-none p-mt-none">
+			<h1 class="text-center h1-mobil-privacy"><b>지불방법 추가</b></h1>
+		</div>
+		<div class="col-xs-12 padng-top p-ml-none p-mr-none">
+			<div class="col-xs-12 col-md-4 text-center p-ml-none p-mr-none">
+				<img ng-src="modules/contests/client/img/won.png" class="img-responsive center-block">
+				<h4 class="p-t-lg"><strong>확인된 지불수단 추가</strong></h4>
+				<span>자주사용하는 카드를 등록하시면 사용이 편리해집니다</span>
+			</div>
+			<div class="col-xs-12 col-md-4 text-center p-ml-none p-mr-none">
+				<img ng-src="modules/contests/client/img/nicepay.png" class="img-responsive center-block">
+				<h4 class="p-t-lg"><strong>나이스페이 PG서비스를 지금 신청하십시오.</strong></h4>
+				<span>나이스페이는 사업주들에게 업계 최저수수료를 현재 제공하고 있습니다.</span>
+			</div>
+			<div class="col-xs-12 col-md-4 text-center p-ml-none p-mr-none">
+				<img ng-src="modules/contests/client/img/escrow.png" class="img-responsive center-block">
+				<h4 class="p-t-lg"><strong>에스크로 안심결제로 안전하게 사용할 수 있습니다.</strong></h4>
+				<span>프로젝트를 등록하시고 에스크로 안심결제를 이용하실 수 있습니다. </span>
+			</div>
+		</div>
+		<div class="col-xs-12 p-ml-none p-mr-none">
+			<div class="col-xs-12 col-md-offset-1 col-md-4 card-div p-t-lg text-center p-ml-none p-mr-none m-mt-xs">
+				<img ng-src="modules/contests/client/img/card.png" class="img-responsive paypal-img">
+				<button class="btn btn-success btn-md m-t-lg" ng-click="verifyPayment()">나이스페이 결제</button>
+			</div>
+			<div class="col-xs-12 col-md-offset-1 col-md-4 card-div p-t-lg text-center p-ml-none p-mr-none m-mt-xs">
+				<img ng-src="modules/contests/client/img/pay0.png" class="img-responsive paypal-img">
+				<button class="btn btn-success btn-md m-t-lg" ng-click="verifyPayment()">무통장입금</button>
+			</div>
+		</div>
+	</div>
+</section>	

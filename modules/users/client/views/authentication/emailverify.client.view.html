@@ -1,0 +1,18 @@
+<div ng-controller="EmailVerificationController" >
+  <div class="container-fluid">
+    <!-- Start: First Column -->
+    <div  class="col-xs-12 col-sm-12 col-md-6 col-lg-6 ">
+
+    <br><br>
+    <form name="contactForm" data-ng-submit="sendMail()">
+		<!-- Name: <input type="text" data-ng-model="contact_name"><br> -->
+		이메일: <input type="text" data-ng-model="contact_email"><br>
+		<!-- Message: <input type="text" data-ng-model="contact_msg"><br> -->
+		<button type="submit"> 이메일 인증 받기</button>
+	</form>
+
+  <!-- {{authentication.user}} -->
+    </div>
+  </div>
+</div>
+

@@ -1,0 +1,22 @@
+<div>
+    <!-- START: Profile HEADER -->
+        <div class="hidden-xs" style="padding-top: 3px;padding-bottom: 0px;">
+            <div class="contestheader project-header">
+                <ul class="col-md-offset-1 list-inline user_list contest-header" style="margin-left: 5rem;">                    
+                    <li><a ui-sref="projects.project-list" class="hedr-menu profile-menu">프로젝트 목록</a></li>
+					<li style="margin-left: 30px;"><a ui-sref="contests.contest-list" class="hedr-menu profile-menu">콘테스트 목록</a></li>
+                    <li style="margin-left: 30px;"><a ui-sref="projects.browse-category" class="hedr-menu profile-menu">분야별 프로젝트 검색</a></li>
+					<li style="margin-left: 30px;"><a ui-sref="showcases.list" class="hedr-menu profile-menu">쇼케이스 몰</a></li>
+                    <!-- <li><a ui-sref="#" class="hedr-menu profile-menu">Showcase</a></li> -->
+                    <!-- <li><a ui-sref="#" class="hedr-menu profile-menu">Learn more</a></li> -->
+                    <li>
+                        <ul class="list-inline contest-btn tmp-contst-headr">
+                            <li class="project-li"><a ui-sref="projects.project-post" class="hedr-menu"><button type="button" class="btn post-prjct-btn">무료 프로젝트 등록</button></a></li>
+                        </ul>
+                    </li>    
+                </ul>
+            </div>
+        </div>
+        <!-- End: Profile HEADER -->
+        <div ui-view></div>
+</div>

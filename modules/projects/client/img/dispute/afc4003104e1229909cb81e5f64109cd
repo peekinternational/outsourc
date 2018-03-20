@@ -1,0 +1,257 @@
+ .investor-heading{
+        font-size: 22px !important;
+   }
+   .investor-para{
+        font-size: 15px !important;
+   }
+   .font-mobile{
+        font-size: 25px;
+    }
+    .h3-mobile-font{
+        font-size: 23px;
+    }
+    .h2-mobile-font{
+        font-size: 27px;
+    }
+    .h1-mobil-landing{
+        font-size: 28px;
+    }
+    .h1-mobil-term{
+        font-size: 30px;
+    }
+    .h1-mobil-privacy{
+        font-size: 26px;
+    }
+    .h3-mobile-profile{
+        font-size: 20px;
+    }
+    .h3-mobile-getsupport{
+        font-size: 18px;
+    }
+    .get-supprt-top-mrgn{
+        margin-top: -3.9rem !important;
+    }
+    .part1landing{
+        width: 100% !important;
+    }
+    .view-all-btn{
+        width: 100% !important;
+    }
+    .mobile-width-pix{
+        width: 26% !important;
+    }
+    .prjct-name{
+        width: 100% !important;
+    }
+    .porjct-desp{
+         width: 100% !important;
+    }
+    .price-selector{
+        width: 100% !important;
+    }
+    .mobile-view-prjct{
+        font-size: 14px;
+    }
+    .logo-mobile{
+        width: 81%;
+    }
+     .p-mt-none{
+        padding-top: 0 !important;
+    }
+    .p-mb-none{
+        padding-bottom: 0 !important;
+    }
+    .p-ml-none{
+        padding-left: 0 !important;
+    }
+    .p-mr-none{
+        padding-right: 0 !important;
+    }
+    .p-mall-none{
+        padding: 0 !important;
+    }
+    .m-mt-none{
+        margin-top: 0 !important;
+    }
+    .m-mb-none{
+        margin-bottom: 0 !important;
+    }
+    .m-ml-none{
+        margin-left: 0 !important;
+    }
+    .m-mr-none{
+        margin-right: 0 !important;
+    }
+    .m-mall-none{
+        margin: 0 !important;
+    }
+    .p-mt-sm{
+        padding-top: 10px !important;
+    }
+    .p-mb-sm{
+        padding-bottom: 10px !important;
+    }
+    .p-ml-sm{
+        padding-left: 10px !important;
+    }
+    .p-mr-sm{
+        padding-right: 10px !important;
+    }
+    .p-mall-sm{
+        padding: 10px !important;
+    }
+    .m-mt-sm{
+        margin-top: 10px !important;
+    }
+    .m-mb-sm{
+        margin-bottom: 10px !important;
+    }
+    .m-ml-sm{
+        margin-left: 10px !important;
+    }
+    .m-mr-sm{
+        margin-right: 10px !important;
+    }
+    .m-mall-sm{
+        margin: 10px !important;
+    }
+    .p-mt-xs{
+        padding-top: 5px !important;
+    }
+    .p-mb-xs{
+        padding-bottom: 5px !important;
+    }
+    .p-ml-xs{
+        padding-left: 5px !important;
+    }
+    .p-mr-xs{
+        padding-right: 5px !important;
+    }
+    .p-mall-xs{
+        padding: 5px !important;
+    }
+    .m-mt-xs{
+        margin-top: 5px !important;
+    }
+    .m-mb-xs{
+        margin-bottom: 5px !important;
+    }
+    .m-ml-xs{
+        margin-left: 5px !important;
+    }
+    .m-mr-xs{
+        margin-right: 5px !important;
+    }
+    .m-ml-md{
+        margin-left: 15px !important;
+    }
+    .m-mr-md{
+        margin-left: 15px !important;
+    }
+    .m-ml-lg{
+        margin-left: 20px !important;
+    }
+    .m-mr-lg{
+        margin-left: 20px !important;
+    }
+    .p-ml-md{
+        padding-left: 15px !important;
+    }
+    .p-mr-md{
+        padding-left: 15px !important;
+    }
+    .p-ml-lg{
+        padding-left: 20px !important;
+    }
+    .p-mr-lg{
+        padding-left: 20px !important;
+    }
+    .p-mt-lg{
+        padding-top: 20px !important;
+    }
+    .p-mb-lg{
+        padding-bottom: 20px !important;
+    }
+    .m-negtv-row{
+        margin-left: -15px !important;
+        margin-right: -15px !important;
+    }
+    .advrt-page {
+        padding-top: 2rem !important;
+    }
+    .m-t-md{
+        margin-top: 0;
+        padding: 0;
+    }
+
+
+core
+
+
+
+contest
+@media only screen and (max-width: 768px) {
+  .invoice-div{
+    height: auto;
+  }
+  .payment-tabs{
+    width: auto;
+  }
+  .invoice-div-mobile{
+    height: 15rem;
+  }
+}
+
+
+project
+@media only screen and (max-width: 768px)
+{
+	
+	.btn-width{
+	width: 100%;
+	}
+	.date-btn{
+		width: 100%;
+	}
+	.freelnce-tabs{
+		width: auto;
+	}
+	.fedback-area{
+		width: 100%;
+	}
+	.para-font-mobile{
+		font-size: 12px;
+	}
+	.mobile-align{
+		text-align: right;
+	}
+	.m-l-negtv{
+		margin-left: -15px !important;
+	}
+	.prjct-list-font{
+		font-size: 12px;
+	}
+	.mobile-align{
+		text-align: left;
+	}
+	.date-option {
+    	width: 100%;
+    	text-align: center;
+	}
+	.mobile-view-h2{
+		font-size: 25px;
+		font-weight: 600;
+	}
+	.mobile-btn-location{
+		padding-left: 0;
+	    padding-right: 0;
+	    font-size: 9px;
+	    padding-top: 12px;
+	    padding-bottom: 13px;
+	    font-weight: 600;
+	}
+	.catgry-div{
+		width: 100%;
+		margin-bottom: 20px;
+	}
+}

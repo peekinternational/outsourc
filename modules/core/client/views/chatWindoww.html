@@ -1,0 +1,313 @@
+<div ng-controller="ChatSocketController" ng-init="getUserInfo();">
+
+  <!-- chatwindow1 -->
+  <div id="heightSettingChat1" class="portlet portlet-default positionSetting1 hidden-xs">
+    <div class="portlet-heading">
+      <div class="row window-header">
+        <div class="portlet-title">
+          <h4><b>Chats</b></h4>
+        </div>
+        <div style="float: right; margin-top: 11px;">
+          <a href="#" style="color: black;">
+            <span class="glyphicon glyphicon-cog">
+          </a> 
+          <a href="#" style="color: black;">
+            <span class="glyphicon glyphicon-minus" ng-click="minimChatbox()"></span>
+          </a>
+        </div>
+      </div>
+      <div class="clearfix"></div>
+    </div>
+    <div class="panel-collapse collapse in" ng-show="chat1Display">
+      <!-- //put tabs -->
+      <div class="portlet-body chat-widget p-t-none" style="overflow-y: auto; width: auto; height: 300px;">
+      
+        <div class="row" ng-show="showPillsChats">
+          <!-- <div class="media m-t-md" ng-repeat="conversation in conversations"> -->
+          <div class="media m-t-md" ng-repeat="conversation in conversations | orderBy: 'lastMessageAt' : true">
+            <div>
+              <a class="pull-left" href="#">
+                  <img class="media-object img-circle" style="position: relative; width: 38px; height: 38px;" ng-src="{{conversation.profileImageURL}}" ng-click="openChat2Window(conversation, conversation.cid, conversation.userTwo);" alt="">
+              </a>
+              <span class="media-body p-t-sm p-l-sm" ng-click="openChat2Window(conversation, conversation.cid, conversation.userTwo);">
+                <!-- <h4 class="media-heading">{{conversation.displayName}}</h4> -->
+                <a href="#" style="text-decoration:none; color:black;" >
+                  <div class="media-heading" style="margin-bottom:-4px;">{{conversation.username}}</div>
+                </a>
+              </span>
+              <span ng-show="conversation.status === 'online'" style="margin-left:-10px;"><i class="fa fa-circle text-green" style="color: #00d88a; left: 4.2rem; top: 8.5rem;"></i></span>
+              <span ng-show="conversation.status !== 'online'" style="margin-left:-10px;"><i class="fa fa-circle text-green" style="color: #BEC0C2; left: 4.2rem; top: 8.5rem;"></i></span>
+
+              
+            </div>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- chatwindow1 end -->
+
+  <!-- chatwindow2  -->
+  <div id="heightSettingChat2" class="portlet portlet-default positionSetting2" ng-show="chatwindow2close">
+    <div class="portlet-heading">
+      <div class="row window-header">
+        <div class="portlet-title">
+          <h4><a style="color: #34495e" ui-sref="profile.outsourcer({profileId: userTwo2.profile_id})"><b>{{userTwo2.username}}</b></a> 
+          <span ng-show="userTwo2.status === 'online'"><i class="fa fa-circle text-green" style="color: #00d88a;"></i></span> 
+          <span ng-show="userTwo2.status !== 'online'"><i class="fa fa-circle text-green" style="color: #BEC0C2;"></i></span>
+          </h4>
+        </div>
+        <div style="float: right; margin-top: 11px;">
+         <a href="#" style="text-decoration: none; color: black;"><span class="glyphicon glyphicon-cog"></span></a> 
+          <a href="#" style="text-decoration: none; color: black;">
+            <span class="glyphicon glyphicon-minus" ng-click="minimChatbox2()"></span>
+          </a>
+          <a href="#" style="text-decoration: none; color: black;">
+            <span class="glyphicon glyphicon-remove" ng-click="chatwindow2close=false; counterAndPosition(); undefinedWhenClose(2);"></span>
+          </a>
+        </div>
+      </div>
+      <div class="row" style="border-bottom: gray solid 1px; padding-left: 15px; padding-right: 15px; color:black;">
+          <h4 style="word-break: break-all;"><a style="color: #337ab7" ui-sref="projects.view({projectId: conData2.projectLink})"><b>{{conData2.projectTitle | limitTo: 20}}...</b></a>
+            <div style="float: right;">
+            <!-- <div ng-controller="ChatController" style="float: right;"> -->
+              <a href="#" style="text-decoration: none; color: black;">
+                <i class="fa fa-phone iconSetting" ng-click="makeVideoCall(conversationWith)" aria-hidden="true"></i>
+              </a> &nbsp
+              <a href="#" style="text-decoration: none; color: black;">
+                <i ng-click="makeVideoCall(conversationWith)"class="fa fa-video-camera iconSetting" aria-hidden="true"></i>
+              </a>
+            </div>
+          </h4>
+          <!-- Redirect to Milestone Page -->
+          <!-- <a ng-if="authentication.user.email === userTwo2.email" ui-sref="projects.project-manage({projectId: conData2.projectLink})"><button type="button" class="btn btn-secondary" style="padding: 2px 14px; margin-bottom: 6px; background-color: #00d88a; color: white; border: none;">Milestone</button></a> -->
+
+          <!-- <a ng-if="authentication.user.email !== userTwo2.email" ui-sref="projects.view({projectId: conData2.projectLink})"><button type="button" class="btn btn-secondary" style="padding: 2px 14px; margin-bottom: 6px; background-color: #00d88a; color: white; border: none;">Milestone</button></a> -->
+
+          
+      </div>            
+      <div class="clearfix"></div>
+    </div>
+    <!-- heading end -->
+    <div class="panel-collapse collapse in">
+
+      <div id="scrollBottom0" class="portlet-body chat-widget">
+        <p class="text-center text-muted small"></p>
+        <div class="media m-t-xs" ng-repeat="txt in OpendChat[0].messages track by $index">
+          <div class="media-body" ng-if="txt.sender == currentUserData.username">
+          <!-- sender -->            
+              <div class="senderMessageChatWindow talk-bubble tri-right right-in">
+                <p class="m-b-none">{{txt.message}}</p>
+              </div>
+          </div>
+          <div class="row" ng-if="txt.sender != currentUserData.username">
+          <div class="col-xs-2" style="padding: 1px; margin: 0px 0px 0px 15px;">
+            <img ng-src="{{userTwo2.profileImageURL}}" class="img-circle img-responsive" ng-click="getConversation(conversation); scrollBottom(); conversation.hasUnreadMessages = false" style="width: 98%; height: 36px;">
+          </div>
+          <div class="col-xs-10" style="width: 76%; padding-left: 2px;">
+            <div class="media-heading m-b-none">
+              <div class="receiverMessageChatWindow talk-bubble tri-right left-in">
+                <p class="m-b-none">{{txt.message}} </p>
+              </div>
+            </div>
+          </div>            
+          </div>
+        </div>
+      </div>
+      <div class="portlet-footer">
+        <form role="form" ng-submit="sendMessage(conData2.cid, messages1, 0, conData2.projectLink)">
+          <input type="textarea" class="form-control" ng-model="messages1" rows="1" placeholder="Enter message..." />
+        </form>
+      </div>
+    </div>
+  </div>
+  <!-- chatwindow2 end -->
+
+  <!-- chatwindow3  -->
+  <div id="heightSettingChat3" class="portlet portlet-default positionSetting3" ng-show="chatwindow3close">
+    <div class="portlet-heading">
+      <div class="row window-header">
+        <div class="portlet-title">
+          <h4 ng-show="userTwo3.username"><a style="color: #34495e" ui-sref="profile.outsourcer({profileId: userTwo3.profile_id})"><b>{{userTwo3.username}}</b></a> 
+          <span ng-show="userTwo3.status === 'online'"><i class="fa fa-circle text-green" style="color: #00d88a;"></i></span> 
+          <span ng-show="userTwo3.status !== 'online'"><i class="fa fa-circle text-green" style="color: #BEC0C2;"></i></span>
+          </h4>
+          <h4 ng-show="!userTwo3.username"><a style="color: #34495e" ui-sref="#"><b>username</b></a> <i class="fa fa-circle text-green" style="color: #00d88a;"></i>
+          </h4>
+        </div>
+        <div style="float: right; margin-top: 11px;">
+         
+         <a href="#" style="text-decoration: none; color: black;"><span class="glyphicon glyphicon-cog"></span></a>
+         <a href="#" style="text-decoration: none; color: black;">
+          <span class="glyphicon glyphicon-minus" ng-click="minimChatbox3()"></span></a>
+          <a href="#" style="text-decoration: none; color: black;">
+            <span class="glyphicon glyphicon-remove" ng-click="chatwindow3close=false; counterAndPosition(); undefinedWhenClose(3);"></span>
+          </a>
+          
+        </div>
+      </div>
+      <div class="row" style="border-bottom: gray solid 1px; padding-left: 15px; padding-right: 15px; color:black;">
+        <h4 ng-show="conData3.projectLink" style="word-break: break-all;"><a style="color: #337ab7" ui-sref="projects.view({projectId: conData3.projectLink})"><b>{{conData3.projectTitle | limitTo: 20}}...</b></a>
+          <div style="float: right;">
+          <!-- <div ng-controller="ChatController" style="float: right;"> -->
+            <a href="#" style="text-decoration: none; color: black;">
+              <i class="fa fa-phone iconSetting" ng-click="makeVideoCall(conversationWith)" aria-hidden="true"></i>
+            </a> &nbsp
+            <a href="#" style="text-decoration: none; color: black;">
+              <i ng-click="makeVideoCall(conversationWith)"class="fa fa-video-camera iconSetting" aria-hidden="true"></i>
+            </a>
+          </div>
+        </h4>
+
+        <h4 ng-show="!conData3.projectLink"><a style="color: #337ab7" ui-sref="projects.view({projectId: conData3.projectLink})"><b>Project link here</b></a>
+          <div style="float: right;">
+          <!-- <div ng-controller="ChatController" style="float: right;"> -->
+            <a href="#" style="text-decoration: none; color: black;">
+              <i class="fa fa-phone iconSetting" ng-click="makeVideoCall(conversationWith)" aria-hidden="true"></i>
+            </a> &nbsp
+            <a href="#" style="text-decoration: none; color: black;">
+              <i ng-click="makeVideoCall(conversationWith)"class="fa fa-video-camera iconSetting" aria-hidden="true"></i>
+            </a>
+          </div>
+        </h4>
+
+          <!-- Redirect to Milestone Page -->
+          <!-- <a ng-if="authentication.user.email === userTwo3.email" ui-sref="projects.project-manage({projectId: conData3.projectLink})"><button type="button" class="btn btn-secondary" style="padding: 2px 14px; margin-bottom: 6px; background-color: #00d88a; color: white; border: none;">Milestone</button></a>
+
+          <a ng-if="authentication.user.email !== userTwo3.email" ui-sref="projects.view({projectId: conData3.projectLink})"><button type="button" class="btn btn-secondary" style="padding: 2px 14px; margin-bottom: 6px; background-color: #00d88a; color: white; border: none;">Milestone</button></a> -->
+
+        
+    </div>
+
+      <div class="clearfix"></div>
+    </div>
+    <!-- heading end -->
+    <div class="panel-collapse collapse in" ng-show="chat3Display">
+      <div id="scrollBottom1" class="portlet-body chat-widget">
+        <!--date in below line-->
+        <p class="text-center text-muted small"></p>
+        <div class="media" ng-repeat="txt in OpendChat[1].messages track by $index">
+
+          <div class="media-body" ng-if="txt.sender == currentUserData.username">
+            <div class="senderMessageChatWindow talk-bubble tri-right right-in">
+              <p class="m-b-none">{{txt.message}}</p>
+            </div>            
+          </div>
+          <div class="row" ng-if="txt.sender != currentUserData.username">
+          <div class="col-xs-2" style="padding: 1px; margin: 0px 0px 0px 15px;">
+            <img ng-src="{{userTwo3.profileImageURL}}" class="img-circle img-responsive" ng-click="getConversation(conversation); scrollBottom(); conversation.hasUnreadMessages = false" style="width: 98%; height: 36px;">
+          </div>
+          <div class="col-xs-10" style="width: 76%; padding-left: 2px;">
+            <div class="media-heading m-b-none">
+              <div class="receiverMessageChatWindow talk-bubble tri-right left-in">
+                <p class="m-b-none">{{txt.message}} </p>
+              </div>
+            </div>
+          </div>            
+          </div>
+        </div>
+      </div>
+      <div class="portlet-footer">
+       <form role="form" ng-submit="sendMessage(conData3.cid, messages2, 1, conData3.projectLink)">
+          <input type="textarea" class="form-control" ng-model="messages2" rows="1" placeholder="Enter message..." />
+        </form>
+      </div>
+    </div>
+  </div>
+  <!-- chatwindow3 end -->
+
+  <!-- chatwindow4  -->
+  <div id="heightSettingChat4" class="portlet portlet-default positionSetting4" ng-show="chatwindow4close">
+    <div class="portlet-heading">
+      <div class="row window-header">
+        <div class="portlet-title">
+          <h4 ng-show="userTwo4.username"><a style="color: #34495e" ui-sref="profile.outsourcer({profileId: userTwo4.profile_id})"><b>{{userTwo4.username}}</b></a>
+          <span ng-show="userTwo4.status === 'online'"><i class="fa fa-circle text-green" style="color: #00d88a;"></i></span> 
+          <span ng-show="userTwo4.status !== 'online'"><i class="fa fa-circle text-green" style="color: #BEC0C2;"></i></span>
+          </h4>
+
+          <!-- for test if user is empty -->
+          <h4 ng-show="!userTwo4.username"><a style="color: #34495e" ui-sref="#"><b>username</b></a> <i class="fa fa-circle text-green" style="color: #00d88a;"></i>
+          </h4>
+        </div>
+        <div style="float: right; margin-top: 11px;">          
+           <a href="#" style="text-decoration: none; color: black;"><span class="glyphicon glyphicon-cog"></span></a>
+           <a href="#" style="text-decoration: none; color: black;">
+              <span class="glyphicon glyphicon-minus" ng-click="minimChatbox4()"></span></a>
+           <a href="#" style="text-decoration: none; color: black;">
+             <span class="glyphicon glyphicon-remove" ng-click="chatwindow4close=false; counterAndPosition(); undefinedWhenClose(4);"></span>
+           </a>
+        </div>
+      </div>
+      <div class="row" style="border-bottom: gray solid 1px; padding-left: 15px; padding-right: 15px; color:black;">
+        <h4 ng-show="conData4.projectTitle " style="word-break: break-all;"><a style="color: #337ab7" ui-sref="projects.view({projectId: conData4.projectLink})"><b>{{conData4.projectTitle | limitTo: 20}}...</b></a>
+          <div  style="float: right;">
+          <!-- <div ng-controller="ChatController" style="float: right;"> -->
+            <a href="#" style="text-decoration: none; color: black;"><i class="fa fa-phone iconSetting" ng-click="makeVideoCall(conversationWith)" aria-hidden="true"></i></a>
+            &nbsp
+            <a href="#" style="text-decoration: none; color: black;">
+              <i ng-click="makeVideoCall(conversationWith)"class="fa fa-video-camera iconSetting" aria-hidden="true"></i>
+            </a>
+           </div>
+        </h4>
+
+        <h4 ng-show="!conData4.projectTitle "><a style="color: #337ab7" ui-sref="projects.view({projectId: conData4.projectLink})"><b> Project link here</b></a>
+          <div  style="float: right;">
+          <!-- <div ng-controller="ChatController" style="float: right;"> -->
+            <a href="#" style="text-decoration: none; color: black;"><i class="fa fa-phone iconSetting" ng-click="makeVideoCall(conversationWith)" aria-hidden="true"></i></a>
+            &nbsp
+            <a href="#" style="text-decoration: none; color: black;">
+              <i ng-click="makeVideoCall(conversationWith)"class="fa fa-video-camera iconSetting" aria-hidden="true"></i>
+            </a>
+           </div>
+        </h4>
+
+        <!-- Redirect to Milestone Page -->
+        <!-- <a ng-if="authentication.user.email === userTwo4.email" ui-sref="projects.project-manage({projectId: conData4.projectLink})"><button type="button" class="btn btn-secondary" style="padding: 2px 14px; margin-bottom: 6px; background-color: #00d88a; color: white; border: none;">Milestone</button></a>
+
+        <a ng-if="authentication.user.email !== userTwo4.email" ui-sref="projects.view({projectId: conData4.projectLink})"><button type="button" class="btn btn-secondary" style="padding: 2px 14px; margin-bottom: 6px; background-color: #00d88a; color: white; border: none;">Milestone</button></a> -->
+
+        
+      </div>
+
+      <div class="clearfix"></div>
+    </div>
+    <!-- heading end -->
+    <div class="panel-collapse collapse in" ng-show="chat4Display">
+
+      <div id="scrollBottom2" class="portlet-body chat-widget">
+        <!--date in below line-->
+        <p class="text-center text-muted small"></p>
+        <div class="media" ng-repeat="txt in OpendChat[2].messages track by $index">
+          <!--<a class="pull-left" href="#">
+                                <img class="media-object img-circle" style="width: 32px; height: 32px;" src="{{authentication.user.profileImageURL}}" alt="">
+                            </a>-->
+          <div class="media-body" ng-if="txt.sender == currentUserData.username">
+            <div class="senderMessageChatWindow talk-bubble tri-right right-in">
+              <p class="m-b-none">{{txt.message}}</p>
+            </div>
+          </div>
+         <div class="row" ng-if="txt.sender != currentUserData.username">
+         <div class="col-xs-2" style="padding: 1px; margin: 0px 0px 0px 15px;">
+           <img ng-src="{{userTwo4.profileImageURL}}" class="img-circle img-responsive" ng-click="getConversation(conversation); scrollBottom(); conversation.hasUnreadMessages = false" style="width: 98%; height: 36px;">
+         </div>
+         <div class="col-xs-10" style="width: 76%; padding-left: 2px;">
+           <div class="media-heading m-b-none">
+             <div class="receiverMessageChatWindow talk-bubble tri-right left-in">
+               <p class="m-b-none">{{txt.message}} </p>
+             </div>
+           </div>
+         </div>            
+         </div>
+        </div>
+      </div>
+      <div class="portlet-footer">
+      <form role="form" ng-submit="sendMessage(conData4.cid, messages3, 2, conData4.projectLink)">
+          <input type="textarea" class="form-control" ng-model="messages3" rows="1" placeholder="Enter message..." />
+        </form>
+      </div>
+    </div>
+  </div>
+  <!-- chatwindow4 end -->
+</div>

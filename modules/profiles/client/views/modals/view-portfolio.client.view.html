@@ -1,0 +1,71 @@
+<section>
+ <div class="container-fluid p-r-none p-l-none p-b-lg">
+  <div class="modal-header">
+    <!-- {{profile.portfolio[0].title}} -->
+    <h3 class="modal-title" id="modal-title"><center>{{portfolio.title}}</center></h3>
+  </div>
+    <div class="modal-body " id="modal-body">
+
+      <!-- Start of Modal body -->
+        <div class="col-xs-12 p-r-none p-l-none">
+          <div class="">
+            <div class="col-xs-9" style="border-right:0px solid gray;">
+                <img ng-src="{{portfolio.image}}" style="width:100%">
+            </div>
+            <div class="col-xs-3 p-r-none">
+              <!-- <div class="col-xs-5">
+                <img src="{{profile.userInfo.profileImageURL}}" style="width:100%">
+              </div>
+              <div class="col-xs-7 p-l-none">
+                <h5>{{profile.userInfo.displayName}}</h5>
+                <h6>{{profile.userInfo.country.name}}</h6>
+              </div>
+              <br> -->
+              <div>
+                <h2>
+                  <span style="display: block;" class="label label-primary">포트폴리오 소개</span>
+                </h2>
+              </div>
+              <br>
+              <div>
+                <h4><strong> {{profile.perHourRate || '0' | number:1}} 원/시간당 </strong></h4>
+                <!-- {{profile.perHourRate}} -->
+              </div>
+              <div class="col-xs-7 p-l-none p-r-none star-rankingcolor"> 
+                <span class="label" ng-class="{'label-warning': profile.finalUserRattingBaseOnProjectAwarded<3, 'label-info': profile.finalUserRattingBaseOnProjectAwarded>=3 && profile.finalUserRattingBaseOnProjectAwarded<4, 'label-success': profile.finalUserRattingBaseOnProjectAwarded>=4}">{{profile.finalUserRattingBaseOnProjectAwarded || '0' | number: 1}}
+                </span>
+                <span uib-rating ng-model="profile.finalUserRattingBaseOnProjectAwarded" max="5" read-only="true" titles="['one','two','three']" aria-labelledby="default-rating"> 
+                </span>
+              </div>
+            <div class="col-xs-5 p-r-none p-l-none text-right">
+              <small>{{profile.noOfReviewBaseOnProjectAwarded || '0'}} 리뷰</small>
+            </div>
+            <br>
+            <br>
+            <!-- <div class="">
+              <span><strong>7.2</strong></span>
+              <span style="color: #1ED26C" uib-rating ng-model="rate" max="max" read-only="isReadonly" titles="['one','two','three']" aria-labelledby="default-rating"> </span>
+            </div> -->
+            <hr>
+            <div>
+              <h2>
+                <span style="display: block;" class="label label-info">포트폴리오 설명</span>
+              </h2>
+              <p>{{portfolio.description}}</p>
+            </div>
+            <br>
+            <h4><b> 프로젝트에 사용한 기술</b></h4>
+            <div ng-repeat="skill in portfolio.skills">
+              <!-- <button class="btn btn-sm btn-default" disabled>{{skill}} </button> -->
+              <label class="skill-labell"> {{skill}}</label>
+            </div>
+              </div>
+            </div>
+          </div>
+        </div>  
+      <!-- End of Modal body -->
+
+    </div>
+
+ </div>
+</section>

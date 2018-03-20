@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0 maximum-scale=1">
+  <base href="/">
+  <title>아웃소싱오케이 세계최초국내일등 IT 프로젝트 콘테스트 화상채팅중개전문</title>
+  <meta name="description" content="아웃소싱오케이 세계최초 국내일등 IT 웹 앱프로젝트 디자인 콘테스트 실시간 화상채팅 글로벌 중개전문">
+  <meta name="fragment" content="!">
+  <link rel="canonical" href="http://www.outsourcingok.com">
+
+  <meta name="naver-site-verification" content="4be3faab2de3bc0a175bbd5302c6058258bbafb4"/>
+
+  <!-- Apple META -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+  <!-- Facebook META -->
+  <meta property="fb:app_id" content="{{facebookAppId}}">
+  <meta property="og:site_name" content="{{title}}">
+  <meta property="og:title" content="{{title}}">
+  <meta property="og:description" content="아웃소싱오케이 세계최초 국내일등 IT 웹 앱프로젝트 디자인 콘테스트 실시간 화상채팅 글로벌 중개전문 Outsourcingok">
+  <meta property="og:url" content="{{url}}">
+  <meta property="og:image" content="{{logo}}">
+  <meta property="og:type" content="website">
+
+  <!-- Twitter META -->
+  <meta name="twitter:title" content="{{title}}">
+  <meta name="twitter:description" content="{{description}}">
+  <meta name="twitter:url" content="{{url}}">
+  <meta name="twitter:image" content="{{logo}}">
+
+  <!-- Fav Icon -->
+  <link href="{{favicon}}" rel="shortcut icon" type="image/x-icon">
+
+  <link rel="stylesheet" href="//cdn.rawgit.com/indrimuska/angular-selector/master/dist/angular-selector.css">
+  <link rel="stylesheet" href="https://rawgit.com/Arnoud-B/csscountrycodes/master/flags.css">
+  <link href="https://fonts.googleapis.com/css?family=Jaldi" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Mako" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Anton|Lilita+One" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Allerta|Anton|Lilita+One" rel="stylesheet">
+  <link href="modules/core/client/time/zoomtimeline.css" rel="stylesheet">
+
+  <!-- Application CSS Files -->
+  {% for cssFile in cssFiles %}<link rel="stylesheet" href="{{cssFile}}">{% endfor %}
+</head>
+
+<body class="ng-cloak">
+  <header ng-hide="$state.includes('videochat') || $state.includes('verify')"  ng-include="'/modules/core/client/views/header.client.view.html'" class="navbar navbar-fixed-top navbar-inverse">
+  </header>
+
+  <section class="content">
+    <section class="container-fluid" autscroll="true">
+      {% block content %}{% endblock %}
+    </section>
+  </section>
+
+  <!--Embedding The User Object-->
+  <script type="text/javascript">
+    var user = {{ user | json | safe }};
+  </script>
+
+  <!--Load The Socket.io File-->
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.3.6/socket.io.min.js"></script>
+  <!-- <script type="text/javascript" src="/socket.io/socket.io.js"></script> -->
+
+  <!--Application JavaScript Files-->
+  {% for jsFile in jsFiles %}<script type="text/javascript" src="{{jsFile}}"></script>{% endfor %}
+
+  {% if livereload %}
+  <!--Livereload script rendered -->
+  <!-- <script type="text/javascript" src="{{host}}:35729/livereload.js"></script> -->
+  <script type="text/javascript" src="https://{{request.hostname}}:35729/livereload.js"></script>
+    
+  {% endif %}
+  <footer ng-hide="$state.includes('videochat') || $state.includes('verify')" ng-include="'/modules/core/client/views/footer.client.view.html'" ></footer>
+</body>
+
+</html>

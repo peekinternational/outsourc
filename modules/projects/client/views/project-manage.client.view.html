@@ -1,0 +1,647 @@
+<div class="row project-backgroundimage5 hidden-xs">
+        <div class="container about-investor-title-setting">
+<br>
+            <h3 class="investor-heading p-t-sm" style="font-size:20px;">MY 프로젝트 진행현황</h3>
+            <h3 class="investor-para">
+               
+            </h3>
+            <br><br>
+          </div>
+      </div>
+
+<section ui-view autoscroll="true" class="container-fulid" ng-controller="ProjectsController" ng-init ="findOne();">
+ <!--  <div ng-include="vm.search"></div> -->
+   <center>
+     <h3 class="h3-mobile-font"><label class="label label-success">Project</label> <label class="text-primary" style="word-wrap: break-word;">{{project.name}}</label></h3>
+   </center>
+
+   <uib-tabset class="text-left managemnt-tabs mobileView-managemnt-tabs">
+
+    <uib-tab heading="지원자ㆍ입찰자">
+    <!-- ng-if= "awardedProject.awarded === 'no' || awardedProject.awarded === 'yes' || awardedProject.awarded === 'pending' "  -->
+      <div class="col-xs-12 col-sm-12 col-md-10 col-lg-10 col-md-offset-1 container-fluid p-ml-none p-mr-none p-mt-lg" style="padding-top:5rem;padding-bottom:10rem;">
+          <div>
+              <div class="col-xs-12 col-md-8 p-ml-none p-mr-none">
+              
+                  <br class="hidden-xs">
+                  <div class=" profile_container bordortop_styling p-l-sm p-r-sm" style="background:#fff;">
+                  <div class="row bidder-detail" ng-repeat = "bid in project.bids">
+                      <div class="col-xs-2 col-md-2 p-ml-xs p-mr-none">
+                          <img class="img-responsive mobile-pic-mange" style="width:100%;" ng-src="{{bid.bidderInfo.profileImageURL}}">
+                      </div>
+                      <div class="col-xs-10 col-md-6">
+                        <h4 class="text-primary m-t-none m-mb-xs"> 
+                          <a ui-sref="profile.outsourcer({profileId: bid.bidderInfo.profile_id})" style="text-decoration: none;">
+                            {{bid.bidderInfo.username}} 
+                          </a> 
+                          <!-- country Flag -->
+                          <img ng-if="bid.bidderInfo.country.code" src="https://countryflags.io/{{bid.bidderInfo.country.code || bid.bidderInfo.country.code_lower}}/flat/64.png" title= "{{bid.bidderInfo.country.code}}" style="width: 2rem; height: 2rem;">
+                          <!-- or Country name -->
+                          <span ng-if="!bid.bidderInfo.country.code"><i>From</i> {{bid.bidderInfo.country.name}}</span>
+
+                        </h4>
+                          <strong class="hidden-md hidden-lg mobile-view-prjct" style="color: #222;">{{project.currency.code }}{{project.currency.symbol }} {{bid.yourBid | number: 0}}</strong>
+                        <!-- Mobile View -->
+                          <div class="text-left hidden-md hidden-lg p-b-xs">
+                            <div class="starRating star-rankingcolor">
+                               <span class="label" ng-class="{'label-warning': bid.bidderInfo.finalUserRattingBaseOnProjectAwarded<3, 'label-info': bid.bidderInfo.finalUserRattingBaseOnProjectAwarded>=3 && bid.bidderInfo.finalUserRattingBaseOnProjectAwarded<4, 'label-success': bid.bidderInfo.finalUserRattingBaseOnProjectAwarded>=4}">{{bid.bidderInfo.finalUserRattingBaseOnProjectAwarded || '0' | number:1 }}
+                              </span>
+
+                             <span uib-rating ng-model="bid.bidderInfo.finalUserRattingBaseOnProjectAwarded" max="max" read-only="isReadonly" titles="['one','two','three']" aria-labelledby="default-rating">  
+                             </span>
+                            <span class="text-muted">{{bid.bidderInfo.noOfReviewBaseOnProjectAwarded || '0'}} 리뷰</span>
+                            </div>
+                          </div>
+                        <!-- End -->
+
+                          <p class="prjct-list-font">{{bid.proposal.description}}&nbsp;</p>
+                          <p>{{bid.deliverInDays}}일(Days) 이내에 완료 </p>
+                         <br>
+                         <!--  createConversation(bid, true, project._id, project.name) -->
+                         <div class="text-center p-b-md"> 
+                            <div ng-if="bid.rejected" class="label label-danger" style="padding: .9rem;padding-left: 3rem;padding-right: 4rem;">거절됨</div>
+                            <div class="btn btn-success awardbtn" ng-click = "award($index);" ng-show = "bid.awarded === 'no' && !bid.rejected">프리랜서 선정</div> 
+                            <div class="btn btn-success awardbtn" ng-disabled = "true" ng-show = "bid.awarded === 'pending' ">승인 대기중</div> 
+                            <div class="btn btn-success awardbtn" ng-disabled = "true" ng-show = "bid.awarded === 'yes' " style="background:#008000">승인됨</div> 
+                             <!--below button creates the conversation between bidder and project owner-->
+  						              <span popover-title="채팅" uib-popover="화상채팅을 이용하려면 프로젝트별로 결제를 하셔야합니다. 결제 후 프로젝트 완료까지 이용가능합니다." popover-trigger="'mouseenter'" >
+                            <div class="btn btn-default awardbtn" ng-click="createConversation(bid, false, project._id, project.name)"><i class="fa fa-dot-circle-o verificationcheck" aria-hidden="true" ></i> 화상 채팅</div> 
+                         </div> 
+                      </div>
+                      <div class="col-xs-6 col-md-4 m-mt-md hidden-xs hidden-sm">
+                          <div class="text-left">
+                          <p><strong>{{project.currency.code }}{{project.currency.symbol }} {{bid.yourBid | number: 0}}</strong></p>
+                            <div class="starRating star-rankingcolor">
+                               <span class="label" ng-class="{'label-warning': bid.bidderInfo.finalUserRattingBaseOnProjectAwarded<3, 'label-info': bid.bidderInfo.finalUserRattingBaseOnProjectAwarded>=3 && bid.bidderInfo.finalUserRattingBaseOnProjectAwarded<4, 'label-success': bid.bidderInfo.finalUserRattingBaseOnProjectAwarded>=4}">{{bid.bidderInfo.finalUserRattingBaseOnProjectAwarded || '0' | number:1 }}
+                              </span>
+
+                             <span uib-rating ng-model="bid.bidderInfo.finalUserRattingBaseOnProjectAwarded" max="max" read-only="isReadonly" titles="['one','two','three']" aria-labelledby="default-rating">  
+                             </span>
+                            </div>
+                          </div>
+                          <h5 class="text-muted">{{bid.bidderInfo.noOfReviewBaseOnProjectAwarded || '0'}} 리뷰</h5>
+                      </div>
+                      <!-- <div class="col-xs-6 col-md-2 m-mt-md">
+                          <div class="text-right">
+                          <i class="fa fa-thumbs-up verificationcheck imgcricle p-l-none thunmbsup-down" aria-hidden="true"></i>
+                          <i class="fa fa-thumbs-down verificationcheck imgcricle p-l-none thunmbsup-down" aria-hidden="true"></i>
+                          </div>
+                      </div> -->
+                  </div>
+                  <div ng-hide="project.bids.length > 0" class="text-center">
+                    <h3>프로젝트에 지원/입찰한 프리랜서가 없습니다.</h3>
+                  </div>
+                  <!-- <hr ng-show="project.bids.length > 0"> -->
+               
+                  <!-- <div class="col-xs-12 text-center">
+                      <button class="btn btn-success skillbutn m-t-none">
+                       View More
+                      </button>
+                  </div> -->
+                  <br>
+                  <br>
+              </div>
+              </div>
+              <br class ="hidden-md hidden-lg">
+              <br class ="hidden-md hidden-lg">
+              <br class ="hidden-md hidden-lg">
+              <br>
+              <!-- <div class="col-xs-12 col-md-4 p-ml-none p-mr-none m-mt-md hidden-xs">
+                <div class="col-md-12 profile_container bordortop_styling border-mradus">
+                  <div class="account-setup p-l-sm p-r-sm">
+                    <br>
+                      <div class="skillsTop row">
+                        <div class="col-xs-12">
+                          <div class="btn-group btn-block">
+                            <button class="btn btn-warning btn-block"> 프로젝트 선정</button>
+                          </div> 
+                          <br><br>
+                            
+                            <div class="btn-group btn-block">
+                            <button class="btn btn-default btn-block"> 프로젝트 내용보기</button>
+                          </div>
+                          <br><br>
+                          <div class="btn-group btn-block">
+                            <button class="btn btn-default btn-block"> 화상 채팅</button>
+                          </div>
+                           
+                             <rzslider class="text-warning" rz-slider-model="sliderManage.minValue"
+                                       rz-slider-high="sliderManage.maxValue"
+                                       rz-slider-options="sliderManage.options"></rzslider> 
+                            <div class="row p-mt-none p-t-lg">
+                              <div class="col-xs-6">
+                              <div class="push-left">
+                                <h5><b>필터</b></h5>
+                                </div>
+                                </div>
+                                <div class="col-xs-6 push-right">
+                                <button class="btn btn-default "> 저장</button>
+                                </div>
+                               </div>
+                            </div>
+                        </div>
+                      </div>  
+                       <br>
+                  </div>
+                </div> -->     
+              </div>
+             
+          </div>
+    </uib-tab>
+
+  <uib-tab heading="프로젝트 대금 결제">
+  <div class="col-xs-12 col-sm-12 col-md-10 col-lg-10 col-md-offset-1 container-fluid m-ml-none m-mr-none p-ml-none p-mr-none p-mt-lg" style="padding-top:5rem;padding-bottom:10rem;">
+          <div class="row" ng-if= "awardedProject.awarded === 'yes'">
+              <div class="col-xs-12 col-md-8">
+              
+                  <br class="hidden-xs">
+                  <div class=" profile_container bordortop_styling p-l-sm p-r-sm" style="background:#fff;">
+                  <br>
+                  <div class="row">
+                      <div class="col-xs-2 p-ml-xs p-mr-none">
+                          <img class="img-responsive mobile-pic-mange" style="width:100%;" ng-src="{{awardedProject.bidderImageURl}}">
+                      </div>
+                      <div class="col-xs-10">
+                        <h4 class="text-primary m-t-none">{{awardedProject.bidderName}}</h4>
+                          <p class="prjct-list-font">{{awardedProject.proposal.description}}</p>
+                          
+                         <div class="row hidden-xs">
+                           <div class="col-xs-3">
+                             <p class="text-muted" style="color">승인완료</p>
+                           </div>
+                           <!-- <div class="col-xs-3 ">
+                           <i class="fa fa-circle" aria-hidden="true"></i>
+                            <span class="text-muted">I'm offline</span>
+                            </div> -->
+                           <div class="col-xs-6 ">{{project.currency.code }}{{project.currency.symbol }}<span  class="text-muted"> {{awardedProject.yourBid | number:0}} in {{awardedProject.deliverInDays}} 일(Days) 이내에</span>
+                           </div>
+                           <div class="col-xs-3 ">
+                             <!-- <button class="btn btn-primary">Open cart</button> -->
+                           </div>
+                         </div>
+                      </div>
+                  </div>
+                  
+                  <br class="hidden-xs">
+                  <br class="hidden-xs">
+                  <br>
+                  <uib-tabset class="milestone-mobile">
+                    <uib-tab heading="프로젝트 대금 지급 내역" style="float:left;" class="p-l-sm">
+                    <br class="hidden-xs">
+                    <br class="hidden-md hidden-lg">
+                    <div class="row m-mr-none">
+                      <div class="text-right m-r-md">
+                          <button class="btn btn-success" type="button" ng-click="showMilestone=!showMilestone">프로젝트 대금 결제
+                        </button>
+                        </div>
+                        <div class="" ng-show="showMilestone">
+                            <form name="proposalForm"  class="" novalidate autocomplete="off">
+                              <div ng-show="!mileStoneFeilds" class="col-xs-12 col-md-8">
+                                
+                               <!--  <textarea placeholder="Proposal Description" rows="5" class="form-control" ng-model = "description" required></textarea> -->
+                                <br>
+                                <!-- adding milestones of project bid -->
+                                <div class="row">
+                                    
+                                    <div ng-repeat="milestone in milestones track by $index">
+                                      <div class="col-sm-8 form-group p-r-none">
+                                          <label>프로젝트 대금</label>
+                                          <input type="text" placeholder="프로젝트 대금" class="form-control" ng-model="newMilestone.description" required>
+                                      </div>
+                                      <div class="col-sm-3 form-group  p-r-none">
+                                        <label>금액</label>
+                                          <div class="input-group">
+                                            <span class="input-group-addon">{{project.currency.symbol}}</span>
+                                            <input type="number" class="form-control" ng-model="newMilestone.price" onkeypress="return (event.charCode == 8 || event.charCode == 0) ? null : event.charCode >= 48 && event.charCode <= 57" required>
+                                          </div>
+                                          <div ng-messages="form.input.$error" style="color: #ff0000" role="alert" ng-if=form.input.$dirty>
+                                        <div ng-message="required">This field is required</div>
+                                        <div ng-message="min">This field must be at least {{min}}.</div>
+                                        <div ng-message="max">This field must be at max {{max}}.</div>
+                                        <div ng-message="number">Not a valid number.</div>
+                                      </div>
+                                      </div>
+                                    </div>
+                                    <!-- milestones of project -->  
+                                </div>
+                                <p class="text-danger p-l-md"><!-- Your Milestones must be a minimun of $ 3 USD --></p>
+                               
+                                <button class="btn btn-md btn-primary" ng-disabled = "proposalForm.$invalid" ng-click="addMilestone(awardedProject.bidId, 'Created','employer'); showMilestone=!showMilestone">프로젝트 대금 결제</button>
+                                <a href="#" class="text-primary p-l-md" ng-click="showMilestone=!showMilestone">취소</a>
+                                <br><br>
+                              </div>
+                              </form>
+                    </div>
+                    </div> 
+                    <div class="row" style="padding-top:20px">
+                      <div class="col-xs-4 col-md-3">
+                        <h4><strong>요청금액</strong></h4>
+                      </div>
+                      <div class="col-xs-3 col-md-3 p-ml-none hidden-xs">
+                        <h4><strong>내용</strong></h4>
+                      </div>
+                      <div class="col-xs-4 col-md-3 p-ml-lg">
+                        <h4><strong>상황</strong></h4>
+                      </div>
+                      <div class="col-xs-4 col-md-3">
+                        <h4><strong>작업결과</strong></h4>
+                      </div>
+                    </div>
+                    <br>
+                    <div class="row milestone-detail" ng-repeat = "milestone in awardedProject.proposal.milestones">
+                      <div class="col-xs-4 col-md-3">
+                       <h6 class="m-t-none"> <input type="radio" name="frstradio" class="text-primary hidden-xs">
+                      {{project.currency.symbol}}{{milestone.price}} 
+                      </h6>
+                      </div>
+                      <div class="col-md-3 hidden-xs">
+                       <p class="text-muted">{{milestone.description}}</p> 
+                      </div>
+                      <div class="col-xs-4 col-md-3">
+                         <p class="text-muted">
+							<!-- {{milestone.status}} -->
+						    <span ng-if="milestone.status === 'Requested'">지급요청</span>	
+							<span ng-if="milestone.status === 'Released'">지급완료</span>
+						</p> 
+
+                      </div>
+                      <div class="col-xs-4 col-md-3">
+                        <div class="dropdown">
+                          <!-- <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">Create <span class="caret"></span>
+                          </button> -->
+
+                          <!-- ng-click="addMilestone(milestone, 'Created')" -->
+
+                          <button class="btn btn-info" ng-show="milestone.status == 'Requested' || milestone.status == 'Cancelled' " type="button" data-toggle="dropdown" ng-click="changeMilestonStatus($index, 'Created')">지불하기 </button>
+                          <button class="btn btn-warning" ng-show="milestone.status == 'Created' " type="button" data-toggle="dropdown" ng-click="changeMilestonStatus($index, 'Released')">지급승인 </button>
+                          <button class="btn btn-danger" ng-show="milestone.status == 'Created' " type="button" data-toggle="dropdown" ui-sref="projects.dispute({projectId: project._id, id: $index})">중재 </button>
+                          
+
+                          <ul class="dropdown-menu">
+                            <li><a href="#">HTML</a></li>
+                            <li><a href="#">CSS</a></li>
+                            <li><a href="#">JavaScript</a></li>
+                          </ul>
+                        </div>
+                      </div>
+                    </div>
+              
+                  <div class="total">
+                    <strong>합계: {{project.currency.code }} {{project.currency.symbol }} 
+                    {{(totalAmountOfMilestones | number: 0) || '00'}}</strong>
+                  </div>
+                  <br>
+                    </uib-tab>
+                  </uib-tabset>
+                  
+              </div>
+              </div>
+              <br class ="hidden-md hidden-lg">
+              <br class ="hidden-md hidden-lg">
+              <br class ="hidden-md hidden-lg">
+              <br>
+              <div class="col-xs-12 col-md-4 hidden-xs">
+               <div class="col-md-12 profile_container bordortop_styling border-mradus hidden-xs">
+                  <div class="account-setup p-l-sm p-r-sm">
+                    <br>
+                      <div class="skillsTop row">
+                        <div class="col-xs-12">
+                          <h4><strong>회원님의 예치금을 안전하게 보호하고 관리합니다.</strong></h4> 
+                          <!-- <br><br>
+                           <br><br>
+                            <div class="row">
+                              <div class="col-xs-4">
+                              <p>img 1</p>
+                                </div>
+                                <div class="col-xs-4">
+                                <p> img 2</p>
+                                </div>
+                                <div class="col-xs-4">
+                                <p>img 3</p>
+                                </div>
+                               </div>
+                               <br> --><br>
+                               <h4><strong>예치금 대금 결제:</strong></h4>
+                               <div class="">
+                                  
+                                  <div class="row verificationcolum">
+                                    <div class="col-xs-12">
+                                      <span class="glyphicon glyphicon-ok verificationcheck imgcricle"></span>
+                                      <span > <strong class="verificationcheck">안전과 안심 :</strong> 회원님께서 프로랜서에게 지급승인전까지 안전하게 아웃소싱오케이에서 회원님의 대금을 안전하게 보호하고 있습니다. </span>
+                                    </div>
+                                    <hr>
+                                  </div>
+                                  <div class="row verificationcolum">
+                                    <div class="col-xs-12">
+                                      <span class="glyphicon glyphicon-ok verificationcheck imgcricle"></span>
+                                      <span > <strong class="verificationcheck">대금보류 :</strong> 회원님께서 프로젝트 진행이 만족스럽지 못한경우 대금지급을 회원님께서 직접 보류할 수 있습니다.(대금보류는 의뢰인과 프리랜서 사이에 합의할 상황입니다. 아웃소싱오케이와는 아무런 책임이 없습니다.)</span>
+                                    </div>
+                                    <hr>
+                                  </div>
+                                  <div class="row verificationcolum">
+                                    <div class="col-xs-12">
+                                      <span class="glyphicon glyphicon-ok verificationcheck imgcricle"></span>
+                                      <span > <strong class="verificationcheck">예치금 대금 관리 :</strong> 회원님께서 프로젝트 진행이 100% 만족하실 경우에 대금 지급 승인을 직접 하실 수 있으며 승인 후 프리랜서에게 지급됩니다.</span>
+                                    </div>
+                                    <hr>
+                                  </div>
+
+								                  <div class="row verificationcolum">
+                                    <div class="col-xs-12">
+                                      <span class="glyphicon glyphicon-ok verificationcheck imgcricle" style="border: 1px solid #820923;color:#820923"></span>
+                                      <span > <strong class="verificationcheck">프리랜서로부터 수수료를 회피하기위해 직접대금 송금을 요청할 경우 의뢰인께서는 상당히 위험부담이 있으니 주의바랍니다.</strong> </span>
+                                    </div>
+                                    <hr>
+                                  </div>
+                                 
+                                  <br>
+                                  <br>
+
+                                </div>
+                            </div>
+                        </div>
+                      </div>  
+                       <br>
+                  </div>
+                </div>     
+              </div>
+              <div ng-hide="project.bids.length > 0" class="text-center">
+                <h3>프로젝트 선정된 프리랜서가 없습니다.</h3>
+              </div>
+          </div>
+  </uib-tab>
+
+  <uib-tab heading="프로젝트 수정ㆍ삭제" class="project-detail-tab" >
+
+    <div class="col-xs-12 col-sm-12 col-md-10 col-lg-10 col-md-offset-1 container-fluid p-mr-none p-ml-none text-center" style="margin-top:30px;">
+      <center>
+        <ul class="list-inline text-center upgrade-mobile-tab hidden-md hidden-lg" style="text-align: center;">
+          <li class="btm btn-success">
+            <a href="" class="btn" ng-click ="detail =!detail; upgrade = !upgrade;">프로젝트 내용</a>
+          </li>
+          <li class="btm btn-info">
+            <a href="" class="btn" ng-click="upgrade = !upgrade; detail = !detail;">업그레이드</a>
+          </li>
+        </ul>
+        <div class="col-md-4 p-ml-none p-mr-none p-t-lg btn-group hidden-xs hidden-sm">
+          <button class="btn btn-lg btn-success md-hidden" ng-click ="detail =!detail; upgrade = !upgrade;"> 프로젝트 내용</button>
+          <button class="btn btn-lg btn-info md-hidden" ng-click="upgrade = !upgrade; detail = !detail;"> 업그레이드</button>
+          <!-- <button class="btn btn-lg btn-danger md-hidden" ng-click ="removeProject(); upgrade = !upgrade;"> 삭제</button> -->
+        </div>
+      </center>
+    </div>
+    
+    <div class="col-xs-12 col-sm-12 col-md-10 col-lg-10 col-md-offset-1 container-fluid p-mr-none p-ml-none" style="margin-bottom:70px;">
+      
+      <div>
+        
+        <div class="col-md-8 p-ml-none p-mr-none" ng-if="upgrade" style="margin-top:20px;">
+          <br>
+          <div class=" profile_container bordortop_styling p-l-sm p-r-sm" style="background:#fff;">            
+            <h3 class="h3-mobile-font"> <strong>프로젝트 업그레이드</strong></h3>
+            
+            <hr>
+            <div class="upRow">
+              <br>
+              <div class="row">
+                <div class="col-xs-2 col-md-1">
+                  <!-- <input class="bigCheckBox" type="checkbox" ng-model="project.additionalPakages."> -->
+                  <input ng-disabled="project.additionalPakages.featured" class="bigCheckBox" type="checkbox" value='false' ng-model = "project.additionalPakages.featured" ng-change="checktotalAmount(project.additionalPakages.featured,'pakage_1')">
+                </div>
+                <div class="col-xs-10 col-md-2 p-l-none"> 
+                  <label class="featured label-featured" style="background:#1793b1;color:#fff;">채팅</label>
+                 <!-- Mobile View -->
+                  <strong class="pull-right hidden-md hidden-lg">{{project.currency.symbol_native}}{{latestCurrencyRate[project.currency.code]*pakagePrices.pakage_1 | number: 0}}</strong>
+                 <!-- End -->
+                </div>
+                <div class="col-xs-12 col-md-8 p-l-none p-ml-md">
+                  <h3 class="title prjct-list-font">채팅이용은 프로젝트의 높은 성공의 지표입니다. 등록건별 무제한 채팅이용!</h3>
+			             <p class="prjct-list-font">등록건별로 프로젝트가 완성될때까지 언제 어디서나 무제한 채팅이용할 수 있으며 등록이 다를경우 별도 구매 해야합니다. &nbsp;&nbsp;<span ng-click="chat = !chat" style="font-size:10px;padding-left:20px;background:#6b0816;border-radius: 3px;padding:5px;color:#fff;cursor: pointer; cursor: hand;">주의▶</span></p>
+			            <span ng-show="chat" class="prjct-list-font">
+  			            <p class="prjct-list-font"><span style="color:#920923" ng-show="chat">[보안과 안전성을 이유로 반드시 구글크롬을 이용바랍니다.]</span></p>
+                    <p class="prjct-list-font">아웃소싱오케이 실시간채팅 서비스는 의뢰인과 프리랜서들이 프로젝트 시작부터 완료까지 전체 과정을 실시간으로 확인 할 수 있으며 채팅 서비스 이용 구매시 1:1 화상채팅은 무료로 이용할 수 있습니다.</p>
+  			            <p class="prjct-list-font">무료로 제공하는 1:1 화상 채팅은 프리랜서들과 화상회의가 언제든지 가능하며 안전하게 거래 할 수 있습니다. 대면 미팅을 원할경우 아웃소싱오케이본사 회의실에서 원하는 시간에 맞춰서 대면미팅을 할 수 있습니다.</p>
+                    <p class="prjct-list-font">여러 프리랜서들과 실시간 채팅으로 더 많은 아이디어를 얻을 수 있는 기회가 되며 분쟁이 발생하기 전에 저장된 문자 채팅의 기록물로 양당사자간에 문제를 사전에 예방 할 수 있으며 분쟁을 쉽게 해결 할 수 있습니다.</p>
+  			  
+  			  
+  			            <p style="color:#898989" class="prjct-list-font"><i class="fa fa-exclamation-triangle" aria-hidden="true" style="color:#820923;"></i> 기타 외부 화상채팅[카카오톡, 스카이프등]을 이용시 양 당사자간 분쟁이 발생할 경우 아웃소싱오케이에서는 중재에 도움을 줄 수 없으니 주의 바랍니다.</p>
+  			  
+  			            <p style="color:#898989" class="prjct-list-font"><i class="fa fa-exclamation-triangle" aria-hidden="true" style="color:#820923;"></i> 채팅기록 보관은 ctrl+a후 ctrl+c로 회원님PC 저장파일에 ctrl+v로 별도보관바랍니다. </p>
+			            </span>
+			             <!--
+			             <p style="color:#898989">화상(비디오 동영상)은 저장을 할 수 없는 기능이오니 여기에 관련하여 아웃소싱오케이에서는 일체의 책임을 지지 않으며 안전성을 위해서 구글크롬 사용으로만 최적화되어 있습니다. 만약 IE(인터넷 익스플로러) 사용시에 아웃소싱 오케이는 일체 책임지지 않습니다.</p>			  -->
+                </div>
+                <div class="col-md-1 text-right p-l-none hidden-xs">
+                  <strong>{{project.currency.symbol_native}}{{latestCurrencyRate[project.currency.code]*pakagePrices.pakage_1 | number: 0}}</strong>
+                </div>
+              </div>
+              <hr>
+            </div>
+
+            <div class="upRow">
+              <br>
+              <div class="row">
+                <div class="col-xs-2 col-md-1">
+                  <!-- <input class="bigCheckBox" type="checkbox" ng-model="upgradeProject.sealed"> -->
+                  <input ng-disabled="project.additionalPakages.sealed" class="bigCheckBox" type="checkbox" value='false' ng-model = "project.additionalPakages.sealed" ng-change="checktotalAmount(project.additionalPakages.sealed,'sealed')">
+                </div>
+                <div class="col-xs-10 col-md-2 p-l-none"> 
+                  <label class="sealed label-featured" style="background:#113886;border-color: #113886;"> 비공개 </label>
+                  <!-- Mobile View -->
+                    <strong class="pull-right hidden-md hidden-lg">{{project.currency.symbol_native}}{{latestCurrencyRate[project.currency.code]*pakagePrices.sealed | number: 0}}원</strong> 
+                  <!-- End -->
+                </div>
+                <div class="col-xs-12 col-md-8 p-l-none p-ml-md">
+                  <p class="prjct-list-font">프로젝트 등록을 정확하고 좋은 제안서를 받기위해 비공개로 할 경우 지원한 프리랜서들은 다른 프리랜서들의 지원금액과 내용을 볼 수 없어 최상의 효과를 기대 할 수 있습니다.</p>
+                </div>
+                <div class="col-md-1 text-right p-l-none hidden-xs hidden-sm">
+                  <strong>{{project.currency.symbol_native}}{{latestCurrencyRate[project.currency.code]*pakagePrices.sealed | number: 0}}원</strong>
+                </div>
+              </div>
+              <hr>
+            </div>
+
+            <div class="upRow">
+              <br>
+              <div class="row">
+                <div class="col-xs-2 col-md-1">
+                  <!-- <input class="bigCheckBox" type="checkbox" ng-model="upgradeProject.private"> -->
+                  <input ng-disabled="project.additionalPakages.private" class="bigCheckBox" type="checkbox" value='false' ng-model = "project.additionalPakages.private" ng-change="checktotalAmount(project.additionalPakages.private,'private')" >
+                </div>
+                <div class="col-xs-10 col-md-2 p-l-none"> 
+                  <label class="private label-featured" style="background:#008000;color:#fff;"> 개인서비스 </label>
+                  <!-- Mobile View -->
+                    <strong class="pull-right hidden-md hidden-lg">{{project.currency.symbol_native}}{{latestCurrencyRate[project.currency.code]*pakagePrices.private | number: 0}}원</strong>
+                  <!-- End -->
+                </div>
+                <div class="col-xs-12 col-md-8 p-l-none p-ml-md">
+                  <p class="prjct-list-font">개인 서비스는 보안성이 필요한 핵심적인 프로젝트 개발에 전문 프리랜서를 찾을 때 효과적입니다.<br><span ng-click="service = !service" style="font-size:10px;margin-left:13px;padding-left:20px;background:#2f70a9;border-radius: 3px;padding:5px;color:#fff;cursor: pointer; cursor: hand;">안내▶</span></p>
+			            <p ng-show="service" class="prjct-list-font">아웃소싱 오케이는 회원님께서 등록한 프로젝트 내용들을 재 검토하여 프리랜서들에게 부각될 수 있도록 아웃소싱오케이 담당자가 1:1 서비스로 프로젝트 등록 재검토 및 수정해 드립니다. 본 서비스는 계약전에 회원님께서 원하는 여러프리랜서와 대면미팅을 원할경우 아웃소싱 오케이 담당자가 시간,장소등 모든 일정표를 회원님과 함께 계획하여 대면미팅시 직접 참여해서 계약까지 도와드립니다.</p>
+                </div>
+                <div class="col-md-1 text-right p-l-none hidden-xs hidden-sm">
+                  <strong>{{project.currency.symbol_native}}{{latestCurrencyRate[project.currency.code]*pakagePrices.private | number: 0}}원</strong>
+                </div>
+              </div>
+              <hr>
+            </div>
+
+            <div class="upRow">
+              <br>
+              <div class="row">
+                <div class="col-xs-2 col-md-1">
+                  <!-- <input class="bigCheckBox" type="checkbox" ng-model="upgradeProject.fulltime"> -->
+                  <input  ng-disabled="project.additionalPakages.urgent" class="bigCheckBox" type="checkbox" value='false' ng-model = "project.additionalPakages.urgent" ng-change="checktotalAmount(project.additionalPakages.urgent,'urgent')">
+                </div>
+                <div class="col-xs-10 col-md-2 p-l-none"> 
+                  <label class="fulltime label-featured" style="background:#6b081d;color:#fff;"> 긴급 </label>
+                  <strong class="pull-right hidden-md hidden-lg">{{project.currency.symbol_native}}{{latestCurrencyRate[project.currency.code]*pakagePrices.urgent | number: 0}}원</strong> 
+                </div>
+                <div class="col-xs-12 col-md-8 p-l-none p-ml-md">
+                  <p class="prjct-list-font">본 서비스 기능은 프리랜서들에게 회원님의 프로젝트 빠른 응답과 긴급을 요한 프로젝트, 오류(버그), 변경, 업데이트등 프로젝트를 신속하게 시작할 수 있는 서비스입니다.</p>
+                </div>
+                <div class="col-md-1 text-right p-l-none hidden-sm hidden-xs">
+                  <strong>{{project.currency.symbol_native}}{{latestCurrencyRate[project.currency.code]*pakagePrices.urgent | number: 0}}원</strong>
+                </div>
+              </div>
+              <hr>
+            </div>
+
+<!-- 
+			<div class="upRow">
+              <br>
+              <div class="row">
+                <div class="col-xs-2 col-md-1">
+                  <!-- <input class="bigCheckBox" type="checkbox" ng-model="upgradeProject.private"> -->
+<!-- 
+                  <input ng-disabled="project.additionalPakages.private" class="bigCheckBox" type="checkbox" value='false' ng-model = "project.additionalPakages.private" ng-change="checktotalAmount(private,'private')" >
+                </div>
+                <div class="col-xs-10 col-md-2 p-l-none"> 
+                  <label class="private label-featured"> 하이라이트 <label> 
+                </div>
+                <div class="col-xs-12 col-md-8 p-l-none p-ml-md">
+                  우승자가 선정되어 상금을 수여 할 것임을 프리랜서에게 공지되며 본 서비스 기능은 많은 프리랜서로부터 더 좋은 완성품을 받을 수 있습니다. 본 서비스는 환불 보장이 적용되지 않습니다.
+                </div>
+                <div class="col-md-1 text-right p-l-none">
+                  <strong>{{project.currency.symbol_native}}{{latestCurrencyRate[project.currency.code]*pakagePrices.private | number: 2}}</strong>
+                </div>
+              </div>
+              <hr>
+            </div>
+ -->
+            <div class="upRow">
+              <br>
+              <div class="row">
+                <div class="col-xs-2 col-md-1">
+                  <!-- <input class="bigCheckBox" type="checkbox" ng-model="upgradeProject.nda"> -->
+                  <input ng-disabled="project.additionalPakages.NDA" class="bigCheckBox" type="checkbox" value='false' ng-model = "project.additionalPakages.NDA" ng-change="checktotalAmount(project.additionalPakages.NDA,'NDA')"> 
+                </div>
+                <div class="col-xs-10 col-md-2 p-l-none"> 
+                  <label class="bg-primary label-featured" style="background:#efbf50;color:#fff;border-color: #efbf50;"> 비공개 계약(NDA) </label>
+                  <strong class="pull-right hidden-md hidden-lg">{{project.currency.symbol_native}}{{latestCurrencyRate[project.currency.code]*pakagePrices.NDA | number: 0}}원</strong> 
+                </div>
+                <div class="col-xs-12 col-md-8 p-l-none p-ml-md">
+                  <p class="prjct-list-font">비공개 계약 서비스를 선택하지 않아도 프로젝트 등록하는 모든 회원ㆍ프리랜서 및 아웃소싱 오케이와 함께 비공개 계약은 의무사항입니다.<span ng-click="nda = !nda" style="font-size:10px;margin-left:13px;padding-left:20px;background:#6b0816;border-radius: 3px;padding:5px;color:#fff;cursor: pointer; cursor: hand;">주의▶</span></p>
+			            <span ng-show="nda" class="prjct-list-font">
+			              <p>비공개 계약 서비스를 선택할 경우 하이라이트로 표시되여 프로젝트가 부각될 수 있습니다. 또한 주어진 조건에 따라 프로젝트에 대한 의뢰인과 지원자/프리랜서 및 아웃소싱오케이 제3자간 간의 기밀 ​​합의입니다.</p>
+			              <p style="color:#898989"><i class="fa fa-exclamation-triangle" aria-hidden="true" style="color:#820923;"></i> 계약방법은 등기우편 또는 아웃소싱오케이본사 중 선택해서 계약할 수 있습니다. </p> 
+			            </span>
+                </div>
+                <div class="col-md-1 text-right p-l-none hidden-md hidden-xs">
+                  <strong>{{project.currency.symbol_native}}{{latestCurrencyRate[project.currency.code]*pakagePrices.NDA | number: 0}}원</strong>
+                </div>
+              </div>
+              <hr>
+              <div>
+                <h4>
+                  <strong> 합계: {{totalAmount | number: 0}}원</strong>
+                </h4>
+              </div>  
+            </div>
+
+            <button class="btn btn-md btn-success" ng-disabled="totalAmount==0" ng-click="updateProject();"> 결제</button> <h3>
+            <!-- CHECKED:  {{upgradeProject}}</h3> -->
+            <br>
+          </div>
+        </div>
+
+        <div class="col-md-8 p-ml-none p-mr-none" ng-if="detail">
+          <br><br>
+          <div class=" profile_container bordortop_styling p-l-sm p-r-sm bg-info">
+            <h3 class="col-md-offset-1 h3-mobile-font"> <strong>프로젝트 내용</strong></h3> 
+            <button class="btn btn-danger btn-sm col-md-offset-1" ng-click="edit = !edit"> <i class="glyphicon glyphicon-pencil" ></i>수정</button>
+            <br><br>
+			<div class="col-md-offset-1">
+              <span style="margin-top:30px"><b>프로젝트 제목</b></span> 
+              <span style="margin-top:30px"> <input type="text" name="name" ng-model="project.name" ng-disabled="edit"> </span>
+              <!-- <span> &nbsp {{project.name}} </span> -->
+              <br><br>
+              <span style="margin-top:30px"><b>프로젝트 카테고리 :</b></span>
+              <span style="margin-top:30px">{{project.workRequire.name}}</span> 
+              <br><br>
+              <span><b>프로젝트 2차 카테고리 :</b></span>
+              <span>{{project.subcat.cat}} > {{project.subcat.name}}</span>
+              <br><br>
+              <span><b>프로젝트 통화 :</b></span>
+              <span>{{project.currency.code}}</span>
+              <br><br>
+              <span><b>프로젝트 예산 금액 :</b></span>
+              <span>{{project.minRange}} - {{project.maxRange}}</span>
+
+              <br><br>
+              <span><b>프로젝트 내용 :</b></span><br><br>
+              <!-- <span>{{project.description}}</span> -->
+              <!-- <span><textarea ng-disabled="edit" class="form-control" ng-model="project.description"></textarea></span> -->
+
+              <div  ng-focus="edit=true;" text-angular ng-model="project.description" ta-disabled='disabled' ta-text-editor-class="form-control myform1-height" ta-html-editor-class="form-control myform1-height"></div>
+
+              <br><br>
+              <div class="pull-right" ng-show="edit">
+                <button class="btn btn-default" ng-click="edit = !edit">취소</button>
+                <button class="btn btn-primary" ng-click="updateProject(); edit = !edit">저장</button> 
+              </div><br><br><br>
+            </div>
+          </div>
+        </div>
+
+        <br class ="hidden-md hidden-lg">
+        <br class ="hidden-md hidden-lg hidden-xs">
+        <br class ="hidden-md hidden-lg hidden-xs">
+        <br>
+
+
+        <div class="col-xs-12 col-md-3 p-ml-none p-mr-none hidden-xs hidden-sm" style="margin-top:20px">
+          <div class="col-md-12 profile_container bordortop_styling border-mradus" style="background:#fff;">
+            <div class="account-setup p-l-sm p-r-sm">
+                <div class="skillsTop row">
+                  <div class="col-xs-12">
+                    <h3 class="text-center"> <a href="" ng-click ="detail =!detail; upgrade = !upgrade;"><strong style="color:#000">프로젝트 업그레이드</strong></a></h3> 
+                    <hr>
+                    <br><br>
+                    <p class="text-justify">
+                      <a href="" ng-click ="detail =!detail; upgrade = !upgrade;"><span style="color:#000">프로젝트를 업그레이드하면 프리랜서들에게 더 많은 지원을 받을 수 있습니다.</span></a>
+                      </p>
+                      <br><br>
+                    <!-- <p class="text-center">
+                      <a ui-sref="#"> 프로젝트 내용보기로 이동</a>
+                      </p> -->
+                  </div>
+                  </div>
+            </div>  
+            <br>
+          </div>
+        </div>     
+     </div>
+    </div>
+
+  </uib-tab>
+
+</uib-tabset>
+
+<br><br>
+
+<!-- chatWindow -->
+<div  ng-show="authentication.user">
+  <footer ng-include="'/modules/core/client/views/chatWindow.html'" ></footer>
+</div>
+
+</section>
