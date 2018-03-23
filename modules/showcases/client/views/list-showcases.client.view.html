@@ -39,25 +39,25 @@
 
     <ul class="nav nav-pills nav-showcase-tabs m-mt-lg" style="padding-top:50px;text-align: left !important;">
           <li>
-            <a ng-click="tab=1; searchByType('');" ng-init="tab=1" ng-class="{'active':tab==1}" href="#">전체</a>
+            <a ng-click="tab=1; searchByType('');" ng-init="tab=1" ng-class="{'active':tab==1}" href="javascript:void(0)">전체</a>
           </li>
           <li>
-            <a ng-click="tab=2; searchByType('Logos');" ng-class="{'active':tab==2}" href="#">로고</a>
+            <a ng-click="tab=2; searchByType('Logos');" ng-class="{'active':tab==2}" href="javascript:void(0)">로고</a>
           </li>
           <li>
-            <a ng-click="tab=3; searchByType('Websites');" ng-class="{'active':tab==3}" href="#">웹사이트</a>
+            <a ng-click="tab=3; searchByType('Websites');" ng-class="{'active':tab==3}" href="javascript:void(0)">웹사이트</a>
           </li>
           <li>
-            <a ng-click="tab=4; searchByType('Mobile App');" ng-class="{'active':tab==4}" href="#">모바일 앱</a>
+            <a ng-click="tab=4; searchByType('Mobile App');" ng-class="{'active':tab==4}" href="javascript:void(0)">모바일 앱</a>
           </li>
           <li>
-            <a ng-click="tab=5; searchByType('Graphic Design');" ng-class="{'active':tab==5}" href="#">그래픽 디자인</a>
+            <a ng-click="tab=5; searchByType('Graphic Design');" ng-class="{'active':tab==5}" href="javascript:void(0)">그래픽 디자인</a>
           </li>
           <li>
-            <a ng-click="tab=6; searchByType('Illustration');" ng-class="{'active':tab==6}" href="#">일러스트레이션</a>
+            <a ng-click="tab=6; searchByType('Illustration');" ng-class="{'active':tab==6}" href="javascript:void(0)">일러스트레이션</a>
           </li>
           <li>
-            <a ng-click="tab=7; searchByType('3D Models');" ng-class="{'active':tab==7}" href="#">3D 모델</a>
+            <a ng-click="tab=7; searchByType('3D Models');" ng-class="{'active':tab==7}" href="javascript:void(0)">3D 모델</a>
           </li>
           <!-- <li class="pull-right m-mt-xs m-mb-xs">
             <button class="btn btn-warning"><a href="showcases/create">쇼케이스 등록</a></button>
@@ -76,7 +76,7 @@
                 <div class="cols">
                   <div class="item showcase-card" ng-repeat="sc in showcases | filter: searchString as filtered">
                      <div class="card">
-                       <div class="showcase-overlay" ng-click="viewShowcase($index)" data-toggle="modal">
+                       <div class="showcase-overlay" ng-click="viewShowcase(sc._id)" data-toggle="modal">
                          <div class="showcase-content">
                            <button class="btn btn-info" >상세보기 </button>
                          </div>
@@ -120,7 +120,7 @@
                 <div class="cols">
                   <div class="item showcase-card" ng-repeat="sc in showcases | filter: searchString as filtered">
                      <div class="card">
-                       <div class="showcase-overlay" ng-click="viewShowcase($index)" data-toggle="modal">
+                       <div class="showcase-overlay" ng-click="viewShowcase(sc._id)" data-toggle="modal">
                          <div class="showcase-content">
                            <button class="btn btn-info" >상세보기 </button>
                          </div>
@@ -160,10 +160,10 @@
           <div ng-show="tab==3">
             <div class="showAll">
               <div class="row">
-                <div class="cols">
+              <div class="cols">
                   <div class="item showcase-card" ng-repeat="sc in showcases | filter: searchString as filtered">
                      <div class="card">
-                       <div class="showcase-overlay" ng-click="viewShowcase($index)" data-toggle="modal">
+                       <div class="showcase-overlay" ng-click="viewShowcase(sc._id)" data-toggle="modal">
                          <div class="showcase-content">
                            <button class="btn btn-info" >상세보기 </button>
                          </div>
@@ -206,7 +206,7 @@
                 <div class="cols">
                   <div class="item showcase-card" ng-repeat="sc in showcases | filter: searchString as filtered">
                      <div class="card">
-                       <div class="showcase-overlay" ng-click="viewShowcase($index)" data-toggle="modal">
+                       <div class="showcase-overlay" ng-click="viewShowcase(sc._id)" data-toggle="modal">
                          <div class="showcase-content">
                            <button class="btn btn-info" >상세보기 </button>
                          </div>
@@ -249,7 +249,7 @@
                 <div class="cols">
                   <div class="item showcase-card" ng-repeat="sc in showcases | filter: searchString as filtered">
                      <div class="card">
-                       <div class="showcase-overlay" ng-click="viewShowcase($index)" data-toggle="modal">
+                       <div class="showcase-overlay" ng-click="viewShowcase(sc._id)" data-toggle="modal">
                          <div class="showcase-content">
                            <button class="btn btn-info" >상세보기 </button>
                          </div>
@@ -292,7 +292,7 @@
                 <div class="cols">
                   <div class="item showcase-card" ng-repeat="sc in showcases | filter: searchString as filtered">
                      <div class="card">
-                       <div class="showcase-overlay" ng-click="viewShowcase($index)" data-toggle="modal">
+                       <div class="showcase-overlay" ng-click="viewShowcase(sc._id)" data-toggle="modal">
                          <div class="showcase-content">
                            <button class="btn btn-info" >상세보기 </button>
                          </div>
@@ -335,7 +335,7 @@
                 <div class="cols">
                   <div class="item showcase-card" ng-repeat="sc in showcases | filter: searchString as filtered">
                      <div class="card">
-                       <div class="showcase-overlay" ng-click="viewShowcase($index)" data-toggle="modal">
+                       <div class="showcase-overlay" ng-click="viewShowcase(sc._id)" data-toggle="modal">
                          <div class="showcase-content">
                            <button class="btn btn-info" >상세보기 </button>
                          </div>

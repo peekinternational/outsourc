@@ -318,7 +318,28 @@
     margin-right: -15px;
 }
 
-
+.redLabel{
+    color:red;
+    font-size:15px;
+    cursor:pointer
+}
+.height_3rem{
+    height: 3rem;
+}
+.margina_100{
+    margin:auto; 
+    width: 100%;
+}
+.width_height_4rem{
+    max-width:12rem; 
+    height: 4rem;
+}
+.like-icons .fa-heart{
+    color:#e10400;
+}
+.fontSize15{
+    font-size: 15px;
+}
 @media only screen and (max-width: 768px){
 
    .banner_section{

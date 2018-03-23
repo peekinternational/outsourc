@@ -2,22 +2,27 @@
 
   <div class="row p-l-none p-b-sm p-ml-none">
     <!-- outsourcingok Logo -->
-    <div uib-carousel active="index" interval="0" no-wrap="false">
-      <div uib-slide ng-repeat="slide in slides track by $index" index="$index">
+    <div uib-carousel active="index" interval="0" no-wrap="false"> 
         <div class="col-xs-7 showImg-section">
           <div class="showcase-slider">
-            <img ng-src="{{slide.file.link}}" style="margin:auto; width: 100%;">
+            <img ng-src="{{slide.file.link}}" class='margina_100'/>
           </div>
         </div>
         <div class="col-xs-5 showuser-section p-l-lg">
           <div class="row p-t-md">
            <div class="col-xs-8 p-l-none">
-             <img src="modules/core/client/img/landing/outsoucing.png" style="width:100%">
+             <img src="modules/core/client/img/landing/outsoucing.png" class='margina_100'>
            </div>
            <div class="col-xs-4 text-right">
-             <span style="font-size:17px"><a ui-sref="#"><i class="fa fa-times" aria-hidden="true" ng-click="closeShowcaseModel()" style="color:red;font-size:15px;cursor:pointer;"></i></a>
+              <span style="font-size:17px">
+                <a href='javascript:void(0)'>
+                  <i class="fa fa-times redLabel" aria-hidden="true" ng-click="closeShowcaseModel()">
+                  </i>
+                </a>
+              </span>
            </div>
           </div>
+
           <div class="row">
             <div class="col-md-12 col-xs-12 p-l-none">
               <h3><b>{{slide.title}}</b></h3>
@@ -27,14 +32,17 @@
           <div class="row">
             <h5><b>프리랜서</b></h5>
             <div class="col-xs-4 p-l-none p-ml-none">
-              <img src="{{slide.userInfo.img}}" style="width:4rem; height: 4rem;">
+              <img ng-src="{{slide.userInfo.img}}" class='width_height_4rem'>
             </div>
 
             <div class="col-xs-7 p-l-none p-ml-none">
               <b class="text-info">{{slide.userInfo.username}}</b><br>
-              <span><img src="https://countryflags.io/{{slide.userInfo.country.code}}/flat/64.png" title = "{{slide.userInfo.country.code}}" style="height: 3rem;"> </span>
+              <span>
+                <img class='height_3rem' ng-src="https://countryflags.io/{{slide.userInfo.country.code}}/flat/64.png" title = "{{slide.userInfo.country.code}}" > 
+              </span>
             </div>
           </div>
+
           <br>
           <div class="row">
             <div class="col-md-12 p-l-none">
@@ -47,17 +55,15 @@
           <br>
           <div class="row">
             <div class="col-xs-12 p-l-none p-ml-none">
-              
               <a href="" style="text-decoration: none" ng-click="likeShowcase(slide)">
                 <div class="like-icons"> 
-                  <span class="text-danger"><i class="fa fa-heart" style="color:#e10400"></i></span>
+                  <span class="text-danger"><i class="fa fa-heart"></i></span>
                 </div>
               </a>
-              
               <span class="p-l-md">{{slide.likes.length}} 좋아요</span>
-
             </div>
-          </div><br>
+          </div>
+          <br>
 
           <div class="row">
             <!-- <h5><b>Review left by the employer</b></h5> -->
@@ -65,37 +71,18 @@
             <div class="col-xs-12">
               <p style="word-wrap: break-word;"> {{slide.description}}.</p>
             </div>
-			<div class="col-xs-12 text-right">
-             <span style="font-size:15px"><a ui-sref="#"><i class="fa fa-times" aria-hidden="true" ng-click="closeShowcaseModel()" style="color:red;font-size:15px;cursor:pointer"> 닫기</i></a>
-           </div>
-            <!-- <div class="col-xs-2 p-l-none p-ml-none">
-              <img src="{{authentication.user.profileImageURL}}" style="width:4rem; height: 4rem;">
-            </div>
-            <div class="col-xs-9 p-l-none p-ml-none">
-              <b class="text-info">Zeeshan</b><br>
-              <span class="label" ng-class="{'label-warning': percent<30, 'label-info': percent>=30 && percent<70, 'label-success': percent>=70}">{{percent}}%</span>
-              <span uib-rating ng-model="rate" max="max" read-only="isReadonly" titles="['one','two','three']" aria-labelledby="default-rating"> </span>
-              <p style="word-wrap: break-word;"> Sajid's designs were out of the box and very professional. I picked his designs in a contest of over 350 entries. Edits were made in a timely manner and were exactly what I asked for. I would work with him again.</p>
-            </div> -->
+            <div class="col-xs-12 text-right">
+              <span class='fontSize15'>
+                <a href='javascript:void(0)'>
+                  <i class="fa fa-times redLabel" aria-hidden="true" ng-click="closeShowcaseModel()"> 
+                    닫기
+                  </i>
+                </a>
+              </span>
+            </div> 
           </div>
-          <hr class="m-t-sm m-b-xs">
-          <!-- <h6>This job was completed for {{slide.budget.amount | currency: slide.budget.cur +' ':1}} on outsourcingok.com</h6> -->
-          <!-- <button class="btn btn-block showcse-btn">Post a Contest Like This</button>
-          <br>
-          <div>
-            <button class="btn btn-default btn-sm m-b-sm">Adobe illustrator</button>
-            <button class="btn btn-default btn-sm m-b-sm">Business Cards</button>
-            <button class="btn btn-default btn-sm m-b-sm">Graphic Design</button>
-            <button class="btn btn-default btn-sm m-b-sm">Photoshop</button>
-            <button class="btn btn-default btn-sm m-b-sm">Photoshop Design</button>
-          </div> -->
-        </div>
-      </div>
-    </div>
-
-
-    <!-- right side of modal -->
-    
-
+          <hr class="m-t-sm m-b-xs"> 
+        </div> 
+    </div> 
   </div>
 </section>

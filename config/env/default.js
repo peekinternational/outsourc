@@ -7,7 +7,7 @@ module.exports = {
     keywords: 'outsource, outsourcing, , free, freelancer, freelancing, outsok, out, source, korea, outsourcing, job, jobcallme, mongodb, express, angularjs, node.js, mongoose, passport',
     googleAnalyticsTrackingID: process.env.GOOGLE_ANALYTICS_TRACKING_ID || 'GOOGLE_ANALYTICS_TRACKING_ID'
   },
-  port: 3000,
+  port: 3001,
   // port: process.env.PORT || 3000,
   templateEngine: 'swig',
   // Session Cookie settings

@@ -13,6 +13,7 @@
     $scope.searchString = {};
 
     $scope.searchByType = function(label){
+      console.log('searchByType: ',label);
       $scope.searchString.showcaseType = label;  
     };
 
@@ -49,17 +50,18 @@
     //View ShowCase
     $scope.viewShowcase = function (index) {
       var obj = {};
-
+       
       var modalInstance = $uibModal.open({
         animation: true,
         ariaLabelledBy: 'modal-title',
         ariaDescribedBy: 'modal-body',
         templateUrl: 'modules/showcases/client/views/modals/showcase-modal.client.view.html',
         controller: function($scope, $uibModalInstance, $location,$window, obj, ShowcasesService, Notification){
-          $scope.user = Authentication.user;
-          $scope.slides = obj.showcases;
+          $scope.user = Authentication.user;  
           $scope.index = obj.index;
-
+          $scope.slide = obj.showcases.filter(function(item) {
+            return item._id === $scope.index;
+          })[0]; 
           // likeShowcase 
           $scope.likeShowcase = function(selectedSc){
             var copy = selectedSc;
@@ -78,7 +80,8 @@
             
             if(liked === false){
               selectedSc.likes.push(Authentication.user._id);
-            }else{
+            }
+            else{
               selectedSc.likes.splice(index, 1);
             }
 
@@ -88,38 +91,38 @@
               selectedSc = res;
             });
 
-        };
-
-        // Hire freelancer
-        $scope.hireFreelancer = function(slide){
-          $uibModalInstance.dismiss();
-
-          var detail = {
-            projectMsg: "안녕하세요, 쇼케이스에 등록된 상품에 대해서 상담을 원합니다. ",
-            projectTitle: "쇼케이스 상품등록 아이디 "+slide.userInfo.username,
-            projectDesc: "안녕하세요, 쇼케이스에 등록된 상품에 대해서 상담을 원합니다. ",
-            selectedCurrency: slide.budget.cur,
-            fixedPrice: slide.budget.amount
           };
-          $http.get('/api/profiles/'+slide.userInfo.profileId).then(function(res){
-            var profile = res.data.profile;
-            $rootScope.hireMe('md', profile, detail);
-          });
-        };
 
-        // Close 
-        $scope.closeShowcaseModel=function(){
-          $uibModalInstance.dismiss();
-        };
-    },
-      size: 'lg',
-      resolve: {
-        obj: function() {
-          obj.showcases = $scope.showcases;
-          obj.index = index;
-          return obj;
+          // Hire freelancer
+          $scope.hireFreelancer = function(slide){
+            $uibModalInstance.dismiss();
+
+            var detail = {
+              projectMsg: "안녕하세요, 쇼케이스에 등록된 상품에 대해서 상담을 원합니다. ",
+              projectTitle: "쇼케이스 상품등록 아이디 "+slide.userInfo.username,
+              projectDesc: "안녕하세요, 쇼케이스에 등록된 상품에 대해서 상담을 원합니다. ",
+              selectedCurrency: slide.budget.cur,
+              fixedPrice: slide.budget.amount
+            };
+            $http.get('/api/profiles/'+slide.userInfo.profileId).then(function(res){
+              var profile = res.data.profile;
+              $rootScope.hireMe('md', profile, detail);
+            });
+          };
+
+          // Close 
+          $scope.closeShowcaseModel=function(){
+            $uibModalInstance.dismiss();
+          };
+        },
+        size: 'lg',
+        resolve: {
+          obj: function() {
+            obj.showcases = $scope.showcases;
+            obj.index = index;
+            return obj;
+          }
         }
-      }
     });
   };
   //View ShowCase end
