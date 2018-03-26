@@ -255,7 +255,7 @@
       </div>
     </section> 
 
-     <section ng-repeat= "project in filteredProjects" ng-if="!projListLoading">
+    <section ng-repeat= "project in filteredProjects" ng-if="!projListLoading">
       <!-- Project title, description, trophy, flag etc -->
       <div class="col-xs-12 col-md-5 p-t-sm">
         <div class="row">
@@ -270,9 +270,13 @@
             </div> -->
           </div>
           <div class="col-xs-12 col-md-11 p-t-sm p-ml-none p-mt-none">	
-		    <!-- <a ng-click="ndaAccept(project._id);" ng-show="project.additionalPakages.NDA"><h4 class="text-info mobile-view-prjct m-t-none"><strong style="cursor: pointer; cursor: hand;">{{project.name}}</strong></h4></a>
+		        <!-- <a ng-click="ndaAccept(project._id);" ng-show="project.additionalPakages.NDA"><h4 class="text-info mobile-view-prjct m-t-none"><strong style="cursor: pointer; cursor: hand;">{{project.name}}</strong></h4></a>
             <a ui-sref="projects.view({projectId: project._id})" ng-show="!project.additionalPakages.NDA"><h4 class="text-info mobile-view-prjct m-t-none"><strong>{{project.name}}</strong></h4></a> -->
-			<a ui-sref="projects.view({projectId: project._id})"><h4 class="text-info prjct-list-font m-t-none"><strong>{{project.name}}</strong></h4></a>
+			      <a ui-sref="projects.view({projectId: project._id})">
+              <h4 class="text-info prjct-list-font m-t-none">
+                <strong>{{project.name}}</strong>
+              </h4>
+            </a>
             <!-- <p class="prjct-list-font" style="display:block; word-wrap:break-word;">{{project.description | limitTo : 100}} ...</p> -->
             <p class="prjct-list-font" style="display:block; word-wrap:break-word;"> {{ project.description | htmlToPlainText| limitTo: 150}}</p>
             <div class="text-info list-inline prjct-list-font p-l-xs p-r-md" ng-repeat="skill in project.skills" style="display: inline-block;">
@@ -284,7 +288,10 @@
 
       <!-- Bids -->
       <div class="col-xs-6 col-md-1 p-t-sm p-ml-none">
-        <h5 class="text-center mobile-align">{{project.bids.length}}<span class="hidden-md hidden-lg">명 지원</span></h5>
+        <h5 class="text-center mobile-align">
+          {{project.bids.length}}
+          <span class="hidden-md hidden-lg">명 지원</span>
+        </h5>
       </div>
 
       <!-- started -->
@@ -317,12 +324,12 @@
             <i class="glyphicon glyphicon-envelope text-muted p-r-xs"></i> 
             <i class="glyphicon glyphicon-time text-muted p-r-xs"></i> 
             <i class="glyphicon glyphicon-print text-muted "></i> -->  			
-			<img src="modules/core/client/img/customimages/list_icon2.png">&nbsp;
-			<img src="modules/core/client/img/customimages/list_icon3.png">&nbsp;
-			<img src="modules/core/client/img/customimages/list_icon1.png">&nbsp;
-			<img src="modules/core/client/img/customimages/list_icon4.png">&nbsp;
-			<img src="modules/core/client/img/customimages/list_icon5.png">&nbsp;
-			<img src="modules/core/client/img/customimages/list_icon6.png">&nbsp;
+            <img src="modules/core/client/img/customimages/list_icon2.png">&nbsp;
+            <img src="modules/core/client/img/customimages/list_icon3.png">&nbsp;
+            <img src="modules/core/client/img/customimages/list_icon1.png">&nbsp;
+            <img src="modules/core/client/img/customimages/list_icon4.png">&nbsp;
+            <img src="modules/core/client/img/customimages/list_icon5.png">&nbsp;
+            <img src="modules/core/client/img/customimages/list_icon6.png">&nbsp;
           </div>
         </div>
         <div class="row">
@@ -357,18 +364,16 @@
     		  <button ng-show="project.additionalPakages.gaurantee" class="ittu-sa btn btn-xs btn-info" style="background:#886513;border: 1px solid #886513;">상금보장</button>
     		  <button ng-show="project.additionalPakages.featured" class="ittu-sa btn btn-xs btn-info" style="background:#1793b1;border: 1px solid #1793b1;">채팅</button>
 
-<!-- 
+          <!-- 
           <button class="ittu-sa btn btn-xs btn-danger" ng-show="project.additionalPakages.urgent">긴급</button>
           <button class="ittu-sa btn btn-xs  btn-warning" ng-show="project.additionalPakages.sealed">비공개</button>
           <button class="ittu-sa btn btn-xs btn-info" ng-show="project.additionalPakages.private">개인서비스</button>
- -->          
+          -->          
 	      </div>
         <br class="hidden-xs">
-      <hr class="m-mb-xs">
+        <hr class="m-mb-xs">
       </div>
     </section>
-
-
     
     <!-- pagination -->
     <div class="row">

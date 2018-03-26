@@ -8,6 +8,7 @@ var projectsPolicy = require('../policies/projects.server.policy'),
 
 module.exports = function (app) {
   // Projects collection routes
+  app.route('/api/totalProjects').get(projects.totalProjects);
   app.route('/api/projects/:size/:page_num').get(projects.list);
 
   app.route('/api/projects').all(projectsPolicy.isAllowed)

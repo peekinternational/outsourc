@@ -774,7 +774,23 @@ exports.delete = function (req, res) {
     }
   });
 };
-
+/**
+ * Total Projects
+ */
+exports.totalProjects = function (req, res) {
+  Project.count({}, function(err, count){
+    if(err){
+      return res.status(400).send({
+        message: err
+      });
+    }else{
+      var data ={
+        count: count, 
+      };
+      res.json(data);
+    }
+  });
+};
 /**
  * List of Projects
  */
@@ -782,28 +798,24 @@ exports.list = function (req, res) {
   var skip = parseInt(req.params.size * (req.params.page_num-1));
   var limit = parseInt(req.params.size);
 
-  Project.find({},function (err, projects) {
+  Project.find({},'_id name description skills bids.bidId created currency.symbol_native minRange maxRange projectRate user status additionalPakages')
+  .skip(skip)
+  .limit(limit)
+  .sort('-created')
+  .lean()
+  .exec(function(err, projects) {
     if (err) {
       return res.status(400).send({
         message: err
       });
-    } else {
-      Project.count({}, function(err, count){
-        if(err){
-          return res.status(400).send({
-            message: err
-          });
-        }else{
-          var data ={
-            count: count,
-            projects: projects
-          };
-          res.json(data);
-        }
-      });
-      
+    } else { 
+      var data ={
+        count: projects.length,
+        projects: projects
+      };
+      res.json(data); 
     }
-  }).sort('-created').skip(skip).limit(limit);
+  });
 };
 
 exports.placeBid = function (req, res) {

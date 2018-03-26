@@ -1890,63 +1890,45 @@ angular.module('projects').controller('ProjectsController', ['$scope', '$rootSco
       });
     };
 
-        // Find a list of Projects
-            $scope.find = function (pageNo) {
-              $scope.projListLoading = true;
-              var size = 10;
-              // $scope.projects = Projects.query().$promise.then(function (data) {
-              $http.get('/api/projects/'+size+'/'+pageNo).then(function(proj){
-                $scope.view_processing = false;
-                $scope.projListLoading = false;
-                $scope.promiseResolved = true;
-                $scope.projects = proj.data.projects;
-                $scope.allProjects = proj.data.projects;
+    //Get total count at once
+    $http.get('/api/totalProjects/').then(function(totalProjects){
+      $scope.totalCount = totalProjects.data.count;
+      console.log('total count: ',$scope.totalCount);
+    });
+    // Find a list of Projects
+    $scope.find = function (pageNo) {
+      $scope.projListLoading = true;
+      var size = 5;
+      // $scope.projects = Projects.query().$promise.then(function (data) {
+      $http.get('/api/projects/'+size+'/'+pageNo).then(function(proj){
+        console.log(proj.data.count);
+        $scope.view_processing = false;
+        $scope.projListLoading = false;
+        $scope.promiseResolved = true;
+        $scope.projects = proj.data.projects;
+        $scope.allProjects = proj.data.projects;
 
-                $scope.totalCount = proj.data.count;
+        $scope.oldData = $scope.projects;
+        $scope.filteredProjects = $scope.projects;
+      });
+    };
 
-                $scope.oldData = $scope.projects;
-                $scope.filteredProjects = $scope.projects;
-
-                //start code for pagination
-                // var begin = (($scope.currentPage - 1) * $scope.numPerPage);
-                // var end = begin + $scope.numPerPage;
-                // $scope.filteredProjects = $scope.projects.slice(begin, end);
-                //end code for pagination
-                // $scope.skills = [];
-                // $scope.getSkillsAndCat();
-                // $scope.projectsLength = $scope.projects.length;
-
-                // Check if there is any skill in parameters
-                // $timeout(function() {
-                  // if($state.params.skills){
-                  //   $scope.skills = [{ 'name': $state.params.skills }];
-                  //   $scope.searchSkills= [{ 'name': $state.params.skills }];
-                  //   if(!$scope.$$phase) {
-                  //     $scope.$apply();
-                  //   }
-                  // }
-                // }, 50);
-
-              });
-            };
-
-        // getSkillsAndCat
-        $scope.getSkillsAndCat = function(){
-          if(!$scope.skills.length){
-            $scope.view_processing = true;
-            // Categories.find({}, function(res){
-              // $scope.typeOfWork = res;
-              Skills.find({filter:{limit: 300}}, function(res){
-                $scope.skills = res;
-                $scope.view_processing = false;
-              });
-            // });
-          }
-        };
+    // getSkillsAndCat
+    $scope.getSkillsAndCat = function(){
+      if(!$scope.skills.length){
+        $scope.view_processing = true;
+        // Categories.find({}, function(res){
+          // $scope.typeOfWork = res;
+          Skills.find({filter:{limit: 300}}, function(res){
+            $scope.skills = res;
+            $scope.view_processing = false;
+          });
+        // });
+      }
+    };
 
     // Find existing Project
     $scope.findOne = function () {
-
       // show loader
       $scope.projViewProcess = true;
 
@@ -2189,7 +2171,6 @@ angular.module('projects').controller('ProjectsController', ['$scope', '$rootSco
     // });
 
     $scope.updateValues = function (paidYours) {
-
       $timeout(function () {
         //console.log('paid yours', paidYours);
         $scope.paidYours  = paidYours;
@@ -2197,8 +2178,6 @@ angular.module('projects').controller('ProjectsController', ['$scope', '$rootSco
         $scope.yourBid = parseInt($scope.projectFee) + parseInt(paidYours);
 
       }, 100);
-
-
     };
 
     $scope.getMinMaxValue = function () {
@@ -2219,9 +2198,6 @@ angular.module('projects').controller('ProjectsController', ['$scope', '$rootSco
       }, 100);
 
     };
-
-
-
 
     $scope.$watch('currentPage + numPerPage', function () {
 
