@@ -1891,7 +1891,7 @@ angular.module('projects').controller('ProjectsController', ['$scope', '$rootSco
     };
 
     //Get total count at once
-    $http.get('/api/totalProjects/').then(function(totalProjects){
+    $http.get('/api/totalProjects').then(function(totalProjects){
       $scope.totalCount = totalProjects.data.count;
       console.log('total count: ',$scope.totalCount);
     });

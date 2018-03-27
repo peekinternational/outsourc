@@ -26,7 +26,12 @@ exports.invokeRolesPolicies = function () {
     allows: [{
       resources: '/api/projects',
       permissions: ['get', 'post']
-    }, {
+    },
+    {
+      resources: '/api/totalProjects',
+      permissions: ['get']
+    }, 
+    {
       resources: '/api/projects/:projectId',
       permissions: ['get', 'put', 'delete']
     }]
@@ -63,7 +68,12 @@ exports.invokeRolesPolicies = function () {
     allows: [{
       resources: '/api/projects',
       permissions: ['get']
-    }, {
+    },
+    {
+      resources: '/api/totalProjects',
+      permissions: ['get']
+    }, 
+    {
       resources: '/api/projects/:projectId',
       permissions: ['get']
     }]

@@ -801,7 +801,7 @@ exports.list = function (req, res) {
   Project.find({},'_id name description skills bids.bidId created currency.symbol_native minRange maxRange projectRate user status additionalPakages')
   .skip(skip)
   .limit(limit)
-  .sort('-created')
+  .sort({_id:-1})
   .lean()
   .exec(function(err, projects) {
     if (err) {
