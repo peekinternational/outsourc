@@ -164,7 +164,7 @@ var sendEmail = function (receiverEmail, username, verifUrl, req, res) {
    user.companyExt = req.body.companyExt;
    user.mobileNumber = req.body.mobileNumber;
    user.userRole = req.body.userRole;
-
+   user.username= req.body.username;
    var roles = [req.body.userType];
 
    user.roles = roles;
@@ -181,35 +181,42 @@ var sendEmail = function (receiverEmail, username, verifUrl, req, res) {
    user.displayName = user.firstName + ' ' + user.lastName;
 
    // restricted usernames
-   if(user.username.toLowerCase() === 'admin' || user.username.toLowerCase() === 'outsok'|| user.username.toLowerCase() === 'null'|| user.username.toLowerCase() === 'unknown'|| user.username.toLowerCase() === 'user'|| user.username.toLowerCase() === 'undefined'|| user.username.toLowerCase() === 'api'|| user.username.toLowerCase() === 'password'|| user.username.toLowerCase() === 'anonymous'){
-     return res.status(400).send({
-       message: 'Given username is not allowed',
-       user: req.body
-     });
-   }
-   
+    var protUserName=['admin','outsok','null','unknown','user','undefined','api','password','anonymous']; 
+    if(protUserName.indexOf(req.body.username)>=0){
+      return res.status(400).send({
+        message: 'Given username is not allowed',
+        user: req.body
+      });
+    }
+    
+    
    // Check for existing username and email (its unique in model but not working on live server)
    User.findOne({
-     $or: [{username: user.username}, {email: user.email}]
+     $or: [{username: req.body.username}, {email: req.body.email}]
    }, function(err, exist){
-     if(err){
-       return res.status(400).send({
-         message: errorHandler.getErrorMessage(err),
-         user: req.body
-       });
-     }
-     if(exist){
-       var msg;
-       if(user.email === exist.email){
-         msg = 'Email already exists';
-       }else if(user.username === exist.username){
-         msg = 'Username already exists';
-       }
-       return res.status(400).send({
-         message: msg,
-         user: req.body
-       });
-     }
+      if(err){
+        return res.status(400).send({
+          message: errorHandler.getErrorMessage(err),
+          user: req.body
+        });
+      }
+     
+      if(exist){
+        var msg;
+        if(user.email == exist.email && user.username == exist.username){
+          msg = 'Username and email already exists';
+        }
+        else if(user.email == exist.email){
+          msg = 'Email already exists';
+        }
+        else if(user.username == exist.username){
+          msg = 'Username already exists';
+        }
+        return res.status(400).send({
+          message: msg,
+          user: req.body
+        });
+      }
      if(!exist){
        // Then save the user
        user.save(function (err) {

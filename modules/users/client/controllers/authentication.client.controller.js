@@ -29,14 +29,14 @@ angular.module('users').controller('AuthenticationController', ['$scope', '$root
                 // //console.log($scope.coords);
                 var url = 'https://maps.googleapis.com/maps/api/geocode/json?latlng=' + $scope.coords.lat + ',' + $scope.coords.long + '&sensor=true';
                 $http.get(url)
-                .then(function(result) {
-                  // console.log('google result:', result);
-                  $scope.countryName  = result.data.results[0].address_components[4].long_name;
-                  $scope.countryCod  = result.data.results[0].address_components[4].short_name;
-                  $scope.city  = result.data.results[0].address_components[1].long_name;
-                  $scope.credentials.individual.country.city = result.data.results[0].address_components[1].long_name;
-                  // console.log('google countryName:', $scope.countryName);
-                  // console.log('google countryCode:', $scope.countryCode);
+                .then(function(result) { 
+                  if(result.data.results.length>0 && result.data.results[0].address_components.length>0){
+                    $scope.countryName  = result.data.results[0].address_components[4].long_name;
+                    $scope.countryCod  = result.data.results[0].address_components[4].short_name;
+                    $scope.city  = result.data.results[0].address_components[1].long_name;
+                    $scope.credentials.individual.country.city = result.data.results[0].address_components[1].long_name;
+                  }
+                   
                 });
               });
               return;
@@ -125,7 +125,6 @@ angular.module('users').controller('AuthenticationController', ['$scope', '$root
     };
 
     $scope.callSearch = function(num) {
-      //console.log(num);
       $scope.countrycode = num;
       
     };
@@ -141,20 +140,16 @@ angular.module('users').controller('AuthenticationController', ['$scope', '$root
     }
 
     $scope.status = 'online';
-    //console.log('$scope.status', $scope.status);
     $scope.signup = function (isValid, userType) {
 
       $scope.error = null;
       if (!isValid) {
-        //console.log('Incomplete/Invalid Form ');
         $scope.$broadcast('show-errors-check-validity', 'userForm');
 
         return false;
       }
       
-      // //console.log('userType', userType);
       if(userType==='individual') {
-
         $scope.identify = 'individual';
 
         if(!$scope.credentials.individual.hasOwnProperty('userRole')) {
@@ -162,11 +157,6 @@ angular.module('users').controller('AuthenticationController', ['$scope', '$root
           return false;
         }
   
-        // if(!($scope.credentials.individual.hasOwnProperty('interest')) || $scope.credentials.individual.interest==='') {
-        //   $scope.error = 'Please select one of the interest';
-        //   return false;
-        // }
-        // console.log($scope.credentials.individual.country);
         $scope.credentials = {
           'firstName' : $scope.credentials.individual.firstName,
           'lastName' : $scope.credentials.individual.lastName,
@@ -180,13 +170,11 @@ angular.module('users').controller('AuthenticationController', ['$scope', '$root
           'userType' : userType,
           'mobileNumber' : $scope.credentials.individual.mobileNumber,
           'userRole' : $scope.credentials.individual.userRole,
-          // 'interest' : $scope.credentials.individual.interest,
           'subscribe' : $scope.credentials.individual.subscribe,
           'password' : $scope.credentials.individual.password,
           'status' : $scope.status
         };
 
-        //console.log('individual $scope.credentials:', $scope.credentials );
       }
       if(userType==='company') {
         $scope.identify = 'company';
@@ -195,11 +183,6 @@ angular.module('users').controller('AuthenticationController', ['$scope', '$root
           $scope.error = 'Please select one of the role';
           return false;
         }
-  
-        // if(!($scope.credentials.company.hasOwnProperty('interest')) || $scope.credentials.company.interest==='') {
-        //   $scope.error = 'Please select one of the interest';
-        //   return false;
-        // }
 
         $scope.credentials = {
           'companyName' : $scope.credentials.company.companyName,

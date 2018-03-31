@@ -232,7 +232,7 @@
 
 .showcase-overlay .my-showcase {
     position: absolute;
-    width: 100%;
+    width: 59%;
     height: 20px;
     font-size: 20px;
     text-align: right;
@@ -255,7 +255,7 @@
     padding-left: 7px;
 }
 .showcase-overlay .my-showcase .fa-pencil{
-    color: #353434;
+    color: red;
 }
 
 .m-negtve-row{

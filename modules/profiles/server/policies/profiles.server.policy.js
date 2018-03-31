@@ -65,8 +65,7 @@ exports.isAllowed = function (req, res, next) {
       return res.status(500).send('Unexpected authorization error');
     } else {
       if (isAllowed) {
-        // Access granted! Invoke next middleware
-        console.log('asdasdasdadsa');
+        // Access granted! Invoke next middleware 
         return next();
       } else {
         return res.status(403).json({
