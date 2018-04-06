@@ -82,8 +82,11 @@ exports.delete = function(req, res) {
 /**
  * List of Showcases
  */
-exports.list = function(req, res) {
-  Showcase.find().sort('-created').populate('user', 'displayName').exec(function(err, showcases) {
+exports.list = function(req, res) { 
+  Showcase.find({'status':'active'})
+  .sort({_id:-1})
+  .populate('user', 'displayName country profile_id profileImageURL username')
+  .lean().exec(function(err, showcases) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)

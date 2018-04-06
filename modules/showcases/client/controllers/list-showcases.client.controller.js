@@ -10,21 +10,22 @@
   function ShowcasesListController($scope, Authentication, ShowcasesService, $http, $uibModal, $rootScope) {
     $scope.authentication = Authentication;
     $scope.showcases = [];
-    $scope.searchString = {};
-
+    $scope.searchString = {}; 
     $scope.searchByType = function(label){
       console.log('searchByType: ',label);
       $scope.searchString.showcaseType = label;  
     };
 
     var getAllShowCases = function(){
-      $scope.isLoading = true;
-
+      $scope.isLoading = true; 
       // ShowcasesService.query().$promise.then(function (data) {
-    	ShowcasesService.query().$promise.then(function (data) {
-        var showcases = data;
-        $http.get('/api/users').then(function(res, err){
-          var users = res.data;
+    	$http.get('/api/showcases').then(function (data) {
+        $scope.showcases = data.data; 
+        console.log($scope.showcases[0].user);
+        $scope.isLoading = false; 
+        /*$http.get('/api/users').then(function(res, err){
+          $scope.showcases = res.data;
+          console.log($scope.showcases);
           showcases.forEach(function(val1, key){
             users.forEach(function(val2, key2){
              if(angular.equals(val1.user._id, val2._id) && angular.equals(val1.status, 'active')){
@@ -33,14 +34,14 @@
                 user.country = val2.country;
                 user.profileId = val2.profile_id;
                 user.img = val2.profileImageURL;
-                val1.userInfo = user; 
+                val1.user = user; 
                 $scope.showcases.push(val1);
               }
             });
           });
 
-          $scope.isLoading = false;
-        });
+          
+        });*/
       }, function(err){
         $scope.isLoading = false;
       });
@@ -99,12 +100,12 @@
 
             var detail = {
               projectMsg: "안녕하세요, 쇼케이스에 등록된 상품에 대해서 상담을 원합니다. ",
-              projectTitle: "쇼케이스 상품등록 아이디 "+slide.userInfo.username,
+              projectTitle: "쇼케이스 상품등록 아이디 "+slide.user.username,
               projectDesc: "안녕하세요, 쇼케이스에 등록된 상품에 대해서 상담을 원합니다. ",
               selectedCurrency: slide.budget.cur,
               fixedPrice: slide.budget.amount
             };
-            $http.get('/api/profiles/'+slide.userInfo.profileId).then(function(res){
+            $http.get('/api/profiles/'+slide.user.profileId).then(function(res){
               var profile = res.data.profile;
               $rootScope.hireMe('md', profile, detail);
             });
@@ -123,11 +124,11 @@
             return obj;
           }
         }
-    });
-  };
-  //View ShowCase end
-
-  getAllShowCases();
+      });
+    };
+    //View ShowCase end
+    
+    getAllShowCases();
   
   }
 }());
