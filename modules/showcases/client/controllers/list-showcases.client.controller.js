@@ -21,7 +21,7 @@
       // ShowcasesService.query().$promise.then(function (data) {
     	$http.get('/api/showcases').then(function (data) {
         $scope.showcases = data.data; 
-        console.log($scope.showcases[0].user);
+        /*console.log($scope.showcases[0].user);*/
         $scope.isLoading = false; 
         /*$http.get('/api/users').then(function(res, err){
           $scope.showcases = res.data;
