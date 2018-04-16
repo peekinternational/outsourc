@@ -3753,24 +3753,26 @@ angular.module('projects').controller('ProjectsController', ['$scope', '$rootSco
           url: '/api/users/findActivePostedProjects/' + $scope.authentication.user._id,
           method: 'GET'
         }).then(function (response) {
-          console.log('findActivePostedProjects');
+          console.log('findActivePostedProjects ',response.data.length);
           $scope.activeProjects = response.data;
 
           $scope.projInProgress = [];
           $scope.pastProjects = [];
-          for (var i = 0; i < $scope.activeProjects.length; i++) {
+          var i = 0;
+          for (i; i < $scope.activeProjects.length; i++) {
             var temp;
             var j;
-            for(var m =0; m< Authentication.user.myProjects.length; m++){
-              
-              if(Authentication.user.myProjects[m].proj_id === $scope.activeProjects[i]._id && Authentication.user.myProjects[m].feedback){
-                
+            //for(var m =0; m< Authentication.user.myProjects.length; m++){
+              //console.log('here 1');
+              //console.log(Authentication.user.myProjects[m].proj_id,' and ',$scope.activeProjects[i]._id,' feedback ',Authentication.user.myProjects[m].feedback)
+              //if(Authentication.user.myProjects[m].proj_id === $scope.activeProjects[i]._id && Authentication.user.myProjects[m].feedback){
+              if($scope.activeProjects[i].status=='completed'){
                 temp = {};
                 temp.id = $scope.activeProjects[i]._id;
                 temp.name = $scope.activeProjects[i].name;
                 temp.created = $scope.activeProjects[i].created;
 
-                temp.bids = $scope.activeProjects[i].bids.length;
+                temp.bids = $scope.activeProjects[i].bids.length; 
                 for (j = 0; j < $scope.activeProjects[i].bids.length; j++) {
                   temp.freelancer = $scope.activeProjects[i].bids[j].bidderInfo.username;
                   temp.awardedBid = $scope.activeProjects[i].bids[j].yourBid;
@@ -3783,8 +3785,8 @@ angular.module('projects').controller('ProjectsController', ['$scope', '$rootSco
                 temp.currency = $scope.activeProjects[i].currency;
                 $scope.pastProjects.push(temp);
               }
-              else if(Authentication.user.myProjects[m].proj_id === $scope.activeProjects[i]._id && !Authentication.user.myProjects[m].feedback){
-                
+              //else if(Authentication.user.myProjects[m].proj_id === $scope.activeProjects[i]._id && !Authentication.user.myProjects[m].feedback){
+              else{ 
                 for (j = 0; j < $scope.activeProjects[i].bids.length; j++) {
                   temp = {};
                   temp.id = $scope.activeProjects[i]._id;
@@ -3802,7 +3804,7 @@ angular.module('projects').controller('ProjectsController', ['$scope', '$rootSco
                   temp = {};
                 }
               }
-            }
+            //}
           }
           $scope.isLoading = false;
         }, function(err){

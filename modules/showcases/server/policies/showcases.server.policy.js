@@ -32,6 +32,10 @@ exports.invokeRolesPolicies = function () {
     }, {
       resources: '/api/showcases/:showcaseId',
       permissions: ['get', 'put', 'delete']
+    },
+    {
+      resources: '/api/showcasesType',
+      permissions: ['post']
     }, {
       resources: '/api/myshowcases',
       permissions: ['get']

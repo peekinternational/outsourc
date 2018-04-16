@@ -1,13 +1,11 @@
 <div class="row project-backgroundimage5 hidden-xs">
-        <div class="container about-investor-title-setting">
-<br>
-            <h3 class="investor-heading p-t-sm" style="font-size:20px;">분야별 프로젝트 검색</h3>
-            <h3 class="investor-para">
-               
-            </h3>
-            <br><br>
-          </div>
-      </div>
+	<div class="container about-investor-title-setting">
+			<br>
+			<h3 class="investor-heading p-t-sm" style="font-size:20px;">분야별 프로젝트 검색</h3>
+			<h3 class="investor-para">  </h3>
+			<br><br>
+	</div>
+</div>
 
 <section class="container-fulid" ng-controller="BrowseCatCtrl">	
 	<div class="col-xs-12 col-sm-12 col-md-10 col-lg-10 col-md-offset-1 p-ml-none p-mr-none m-mt-none" style="margin-top:60px">
@@ -40,40 +38,30 @@
 					</a>
 					<!-- show related skills start -->
 					<div class="row" ng-hide="showSkills">
-						<center ng-if="!sc.Skills.length"> <span class="fa fa-spinner fa-spin"> </span></center>
-			        	<div class="col-xs-6 col-sm-6 col-md-4 p-t-sm p-mr-none p-ml-sm" ng-repeat="skill in sc.Skills | filter: search.name">
-				        	<a ui-sref="projects.browse-category-detail" class="catgry-span">
-				        		<a ui-sref="projects.project-list({skills: skill.name})">
-				        			<span class="catgry-span">
-				        				<i class="fa fa-caret-right p-r-sm ctrgy-icon" aria-hidden="true"></i>{{skill.name}} <span class="badge">{{skill.count}}</span>
-				        			</span>
-				        		</a>
-				        	</a>
-				        	<br>
-			        	</div>
+						<center ng-if="!sc.Skills.length"> 
+							<span class="fa fa-spinner fa-spin"> </span>
+						</center>
+						<div class="col-xs-6 col-sm-6 col-md-4 p-t-sm p-mr-none p-ml-sm" ng-repeat="skill in sc.Skills | filter: search.name">
+							<a ui-sref="projects.browse-category-detail" class="catgry-span">
+								<a ui-sref="projects.project-list({skills: skill.name})">
+									<span class="catgry-span">
+										<i class="fa fa-caret-right p-r-sm ctrgy-icon" aria-hidden="true"></i>{{skill.name}} <span class="badge">{{skill.count}}</span>
+									</span>
+								</a>
+							</a>
+							<br>
+						</div>
 					</div>
-			        <hr>
+			    <hr>
 					<!-- show related skills end -->
 				</div>
-
-				<!-- <div class="row m-t-lg"> -->
-				<!-- <div class="row m-t-lg" ng-show="showSkills"> -->
-		        	<!-- <div class="col-xs-6 col-sm-6 col-md-4 p-t-sm p-mr-none p-ml-sm" ng-repeat="skill in skills track by $index">
-			        	<a ui-sref="projects.browse-category-detail" class="catgry-span">
-			        		<a ui-sref="projects.project-list({skills: skill.name})">
-			        			<span class="catgry-span">
-			        				<i class="fa fa-caret-right p-r-sm ctrgy-icon" aria-hidden="true"></i>{{skill.name}} <span class="badge">{{skill.count}}</span>
-			        			</span>
-			        		</a>
-			        	</a>
-		        	</div> -->
-	      		<!-- </div>   -->
+ 
 			</div>
 
 		</div>
 	</div>
 	<!-- chatWindow -->
-	<div  ng-show="authentication.user">
+	<!--<div  ng-show="authentication.user">
 	  <footer ng-include="'/modules/core/client/views/chatWindow.html'" ></footer>
-	</div>
+	</div>-->
 </section>			

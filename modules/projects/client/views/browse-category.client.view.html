@@ -1,98 +1,84 @@
 <div class="row project-backgroundimage5 hidden-xs">
-        <div class="container about-investor-title-setting">
-<br>
-            <h3 class="investor-heading p-t-sm" style="font-size:20px;">분야별 프로젝트 검색</h3>
-            <h3 class="investor-para">
-               
-            </h3>
-            <br><br>
-          </div>
-      </div>
+    <div class="container about-investor-title-setting">
+        <br>
+        <h3 class="investor-heading p-t-sm" style="font-size:20px;">분야별 프로젝트 검색</h3>
+        <h3 class="investor-para"> </h3>
+        <br><br>
+    </div>
+</div>
 
 <section class="container-fulid p-mt-lg" ng-controller="BrowseCatCtrl">
-<div class="col-xs-12 col-sm-12 col-md-10 col-lg-10 col-md-offset-1 m-ml-none m-mr-none m-mt-none" style="margin-top:80px">
-    
+    <div class="col-xs-12 col-sm-12 col-md-10 col-lg-10 col-md-offset-1 m-ml-none m-mr-none m-mt-none" style="margin-top:80px">
         <div class=" profile_container bordortop_styling p-l-sm p-r-sm mrgn-botm p-b-lg" style="background:#fff;">
             <h3><strong>분야별 프로젝트 검색</strong></h3>
             <br>
             <div class="input-group">
-          <div class="input-group-btn">
-          <button type="submit" class="btn btn-info"><span class="glyphicon glyphicon-search"></span></button>
-          </div>
-          <input type="text" class="form-control" placeholder="분야별 카테고리 검색">    
-        </div>
-        <hr>
-
-        <center>
-            <!-- show loader -->
-            <div ng-if="    ">
-                <img class="img-responsive" src="/modules/core/client/img/landing/outsoucing.png"> <br>
-              <i class="fa fa-spinner fa-spin fa-4x fa-fw"></i> 
-            </div>
-        </center>
-        
-        <div class="row m-t-lg">
-          <div class="col-xs-12 col-sm-12 col-md-10 col-lg-10 col-md-offset-1 m-ml-none m-mr-none" style="margin-top:20px">
-            <a  ui-sref="projects.browse-category-detail({categoryId: cat.id})" style="color: #333;" ng-repeat="cat in categories">
-                <div class="col-xs-12 col-sm-6 col-md-4" style="margin-top:20px">
-                    <div class="catgry-div">
-                        <span ng-if="cat.name == '웹사이트 · 정보 · 소프트웨어｜Websites · IT · Software'">
-                            <img src="/modules/projects/client/img/category_icon1.png"><br><br>
-                        </span>
-                        <span ng-if="cat.name == '휴대 전화 · 컴퓨팅｜Mobile Phones · Computing'">
-                            <img src="/modules/projects/client/img/category_icon2.png"><br><br>
-                        </span>
-                        <span ng-if="cat.name == '디자인 · 미디어 · 건축｜Design · Media · Architecture'">
-                            <img src="/modules/projects/client/img/category_icon3.png"><br><br>
-                        </span>
-                        <span ng-if="cat.name == '작문 · 콘텐츠｜Writing · Content'">
-                            <img src="/modules/projects/client/img/category_icon4.png"><br><br>
-                        </span>
-                        <span ng-if="cat.name == '데이터 입력 · 관리｜Data Entry · Admin'">
-                            <img src="/modules/projects/client/img/category_icon5.png"><br><br>
-                        </span>
-                        <span ng-if="cat.name == '제품 소싱 · 제조｜Product Sourcing · Manufacturing'">
-                            <img src="/modules/projects/client/img/category_icon6.png"><br><br>
-                        </span>
-                        <span ng-if="cat.name == '영업 및 마케팅/Sales & Marketing'">
-                            <img src="/modules/projects/client/img/category_icon7.png"><br><br>
-                        </span>
-                        <span ng-if="cat.name == '비즈니스 · 회계 · 인사 · 법률｜Business · Accounting · Human Resources · Legal'">
-                            <img src="/modules/projects/client/img/category_icon8.png"><br><br>
-                        </span>
-                        <span ng-if="cat.name == '지역 채용 및 서비스/Local Jobs and Services'">
-                            <img src="/modules/projects/client/img/category_icon9.png"><br><br>
-                        </span>
-                        <span ng-if="cat.name == '공학 · 과학｜Engineering · Science'">
-                            <img src="/modules/projects/client/img/category_icon10.png"><br><br>
-                        </span>
-                        <span ng-if="cat.name == '번역 · 언어｜Translation · Languages'">
-                            <img src="/modules/projects/client/img/category_icon11.png"><br><br>
-                        </span>
-                        <span ng-if="cat.name == 'Select Category of Work (Optional)'">
-                            <img src="/modules/projects/client/img/category_icon12.png"><br><br>
-                        </span>
-
-                    <span>&nbsp;{{cat.name}}&nbsp;</span>
-                    <!-- <span>Construction, Architecture Interior & Design</span> -->
-                    </div>  
+                <div class="input-group-btn">
+                    <button type="submit" class="btn btn-info">
+                        <span class="glyphicon glyphicon-search"></span>
+                    </button>
                 </div>
-            </a>
-
-            <!-- <a  ui-sref="projects.browse-category-detail" style="color: #333;">
-            <div class="col-xs-12 col-sm-6 col-md-3">
-                <div class="catgry-div">
-                    <i class="fa fa-university img-circle icon-back" aria-hidden="true"></i><br><br>
-                <span>Head Office Adminstration Data Processing & Offices</span>
-                </div>  
+                <input type="text" class="form-control" placeholder="분야별 카테고리 검색">    
             </div>
-            </a> -->
-          </div>
-        </div>
-    </div>
-    <!-- chatWindow -->
-    <div  ng-show="authentication.user">
-      <!-- <footer ng-include="'/modules/core/client/views/chatWindow.html'" ></footer> -->
-    </div>
+            <hr>
 
+            <center>
+                <!-- show loader -->
+                <div ng-if="    ">
+                    <img class="img-responsive" src="/modules/core/client/img/landing/outsoucing.png"> <br>
+                <i class="fa fa-spinner fa-spin fa-4x fa-fw"></i> 
+                </div>
+            </center>
+        
+            <div class="row m-t-lg">
+                <div class="col-xs-12 col-sm-12 col-md-10 col-lg-10 col-md-offset-1 m-ml-none m-mr-none" style="margin-top:20px">
+                    <a  ui-sref="projects.browse-category-detail({categoryId: cat.id})" style="color: #333;" ng-repeat="cat in categories">
+                        <div class="col-xs-12 col-sm-6 col-md-4" style="margin-top:20px">
+                            <div class="catgry-div">
+                                <!--Select image-->
+                                <span ng-if="cat.name == '웹사이트 · 정보 · 소프트웨어｜Websites · IT · Software'">
+                                    <img src="/modules/projects/client/img/category_icon1.png"><br><br>
+                                </span>
+                                <span ng-if="cat.name == '휴대 전화 · 컴퓨팅｜Mobile Phones · Computing'">
+                                    <img src="/modules/projects/client/img/category_icon2.png"><br><br>
+                                </span>
+                                <span ng-if="cat.name == '디자인 · 미디어 · 건축｜Design · Media · Architecture'">
+                                    <img src="/modules/projects/client/img/category_icon3.png"><br><br>
+                                </span>
+                                <span ng-if="cat.name == '작문 · 콘텐츠｜Writing · Content'">
+                                    <img src="/modules/projects/client/img/category_icon4.png"><br><br>
+                                </span>
+                                <span ng-if="cat.name == '데이터 입력 · 관리｜Data Entry · Admin'">
+                                    <img src="/modules/projects/client/img/category_icon5.png"><br><br>
+                                </span>
+                                <span ng-if="cat.name == '제품 소싱 · 제조｜Product Sourcing · Manufacturing'">
+                                    <img src="/modules/projects/client/img/category_icon6.png"><br><br>
+                                </span>
+                                <span ng-if="cat.name == '영업 및 마케팅/Sales & Marketing'">
+                                    <img src="/modules/projects/client/img/category_icon7.png"><br><br>
+                                </span>
+                                <span ng-if="cat.name == '비즈니스 · 회계 · 인사 · 법률｜Business · Accounting · Human Resources · Legal'">
+                                    <img src="/modules/projects/client/img/category_icon8.png"><br><br>
+                                </span>
+                                <span ng-if="cat.name == '지역 채용 및 서비스/Local Jobs and Services'">
+                                    <img src="/modules/projects/client/img/category_icon9.png"><br><br>
+                                </span>
+                                <span ng-if="cat.name == '공학 · 과학｜Engineering · Science'">
+                                    <img src="/modules/projects/client/img/category_icon10.png"><br><br>
+                                </span>
+                                <span ng-if="cat.name == '번역 · 언어｜Translation · Languages'">
+                                    <img src="/modules/projects/client/img/category_icon11.png"><br><br>
+                                </span>
+                                <span ng-if="cat.name == 'Select Category of Work (Optional)'">
+                                    <img src="/modules/projects/client/img/category_icon12.png"><br><br>
+                                </span>
+                                <!--Select cat name-->
+                                <span>&nbsp;{{cat.name}}&nbsp;</span> 
+                            </div>  
+                        </div>
+                    </a> 
+                </div>
+            </div>
+        </div> 
+    </div>
 </section>

@@ -818,6 +818,53 @@ exports.list = function (req, res) {
   });
 };
 
+/**
+ * Project active list
+ */
+ 
+exports.activeProjects = function (req, res) {  
+  //req.params.size
+  Project.find({$and:[{'status':'active'},{'workRequire.id':req.params.catId}]},'_id name skills workRequire.name') 
+  .lean()
+  .exec(function(err, projects) {
+    if (err) {
+      return res.status(400).send({
+        message: err
+      });
+    } else { 
+      var data ={
+        count: projects.length,
+        projects: projects
+      };
+      res.json(data); 
+    }
+  });
+};
+
+/**
+ * Project againts category
+ */
+/*
+exports.projCatList = function (req, res) { 
+  console.log('in projCatList: ',req.params.catId);
+  Project.find({'workRequire.id':req.params.catId},'_id name')
+  .sort({_id:-1})
+  .lean()
+  .exec(function(err, projects) {
+    if (err) {
+      return res.status(400).send({
+        message: err
+      });
+    } else { 
+      var data ={
+        count: projects.length,
+        projects: projects
+      };
+      res.json(data); 
+    }
+  });
+};*/
+
 exports.placeBid = function (req, res) {
   console.log('place bid');
   if (req.user.remainingBids > 0) {

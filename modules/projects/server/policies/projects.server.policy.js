@@ -31,6 +31,10 @@ exports.invokeRolesPolicies = function () {
       resources: '/api/totalProjects',
       permissions: ['get']
     }, 
+    /*{
+      resources: '/api/projectsCat/:catId',
+      permissions: ['get']
+    },*/ 
     {
       resources: '/api/projects/:projectId',
       permissions: ['get', 'put', 'delete']
@@ -73,6 +77,10 @@ exports.invokeRolesPolicies = function () {
       resources: '/api/totalProjects',
       permissions: ['get']
     }, 
+    /*{
+      resources: '/api/projectsCat/:catId',
+      permissions: ['get']
+    },*/ 
     {
       resources: '/api/projects/:projectId',
       permissions: ['get']

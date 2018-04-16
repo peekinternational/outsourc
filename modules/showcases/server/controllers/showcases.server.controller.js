@@ -30,6 +30,30 @@ exports.create = function(req, res) {
 };
 
 /**
+ * Get by type
+ */
+exports.getByType = function(req, res) { 
+ var andCond={};
+  if(req.body.type && req.body.type!=0){
+    andCond={'showcaseType':req.body.type};
+  }
+  
+  Showcase.find({$and:[{'status':'active'},andCond,{'created': {$lte:req.body.paginationDate}}]})
+  .limit(req.body.limit)
+  .sort({_id:-1})
+  .populate('user', 'displayName country profile_id profileImageURL username')
+  .lean().exec(function(err, showcases) {
+    if (err) {
+      return res.status(400).send({
+        message: errorHandler.getErrorMessage(err)
+      });
+    } else {
+      res.jsonp(showcases);
+    }
+  });
+};
+ 
+/**
  * Show the current Showcase
  */
 exports.read = function(req, res) {
@@ -156,8 +180,7 @@ exports.uploadShowCaseFile = function (req, res) {
           message: 'Error occurred while uploading profile picture'
         });
       } else {
-        var imageURL = config.uploads.showCaseFileUpload.dest + req.file.filename;
-        console.log('uploaded:', imageURL);
+        var imageURL = config.uploads.showCaseFileUpload.dest + req.file.filename; 
         return res.json(imageURL);
       }
     });

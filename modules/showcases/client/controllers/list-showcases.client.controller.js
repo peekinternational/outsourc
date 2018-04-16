@@ -11,43 +11,78 @@
     $scope.authentication = Authentication;
     $scope.showcases = [];
     $scope.searchString = {}; 
-    $scope.searchByType = function(label){
-      console.log('searchByType: ',label);
+    $scope.searchByType = function(label){ 
       $scope.searchString.showcaseType = label;  
+      $scope.showCaseType=label; 
+      $scope.paginationDate=new Date();
+      $scope.getAllShowCases();
     };
-
-    var getAllShowCases = function(){
-      $scope.isLoading = true; 
-      // ShowcasesService.query().$promise.then(function (data) {
-    	$http.get('/api/showcases').then(function (data) {
-        $scope.showcases = data.data; 
-        /*console.log($scope.showcases[0].user);*/
-        $scope.isLoading = false; 
-        /*$http.get('/api/users').then(function(res, err){
-          $scope.showcases = res.data;
-          console.log($scope.showcases);
-          showcases.forEach(function(val1, key){
-            users.forEach(function(val2, key2){
-             if(angular.equals(val1.user._id, val2._id) && angular.equals(val1.status, 'active')){
-                var user = {};
-                user.username = val2.username;
-                user.country = val2.country;
-                user.profileId = val2.profile_id;
-                user.img = val2.profileImageURL;
-                val1.user = user; 
-                $scope.showcases.push(val1);
+    $scope.paginationDate=new Date();
+    $scope.showCaseType=0;
+    $scope.showCaseExist=true;
+    $scope.getAllShowCases = function(){ 
+      $scope.isLoading = true;   
+     
+      $http.post('/api/showcasesType', {'type':$scope.showCaseType,'paginationDate':$scope.paginationDate,'limit':50})
+      .success(function (data) { 
+        if(data.length<=0){
+          $scope.showCaseExist=false;
+        } 
+        else{
+          $scope.showCaseExist=true; 
+          if(data.length>0){
+            $scope.paginationDate=data[data.length-1].created;  
+          }
+          var i=0;
+          var j=0;
+          for (i; i<data.length; i++){
+              j=0;
+              var checkShowLen=0;
+              for (j; j<$scope.showcases.length; j++){
+                if(data[i]._id==$scope.showcases[j]._id){
+                  checkShowLen=1;
+                } 
               }
-            });
-          });
-
-          
-        });*/
-      }, function(err){
-        $scope.isLoading = false;
+              if(checkShowLen==0){
+                $scope.showcases.push(data[i]);
+              } 
+          }
+           
+          $scope.isLoading = false;   
+        } 
+      }).error(function (response) {
+         $scope.isLoading = false;
       });
       
     };
+    $scope.getScrollXY=function() {
+      var scrOfX = 0, scrOfY = 0;
+      if( typeof( window.pageYOffset ) == 'number' ) {
+          //Netscape compliant
+          scrOfY = window.pageYOffset;
+          scrOfX = window.pageXOffset;
+      } else if( document.body && ( document.body.scrollLeft || document.body.scrollTop ) ) {
+          //DOM compliant
+          scrOfY = document.body.scrollTop;
+          scrOfX = document.body.scrollLeft;
+      } else if( document.documentElement && ( document.documentElement.scrollLeft || document.documentElement.scrollTop ) ) {
+          //IE6 standards compliant mode
+          scrOfY = document.documentElement.scrollTop;
+          scrOfX = document.documentElement.scrollLeft;
+      }
+      return [ scrOfX, scrOfY ];
+    }
+ 
+  $scope.getDocHeight=function() {
+      var D = document;
+      return Math.max(
+          D.body.scrollHeight, D.documentElement.scrollHeight,
+          D.body.offsetHeight, D.documentElement.offsetHeight,
+          D.body.clientHeight, D.documentElement.clientHeight
+      );
+  }
 
+ 
     //View ShowCase
     $scope.viewShowcase = function (index) {
       var obj = {};
@@ -105,8 +140,9 @@
               selectedCurrency: slide.budget.cur,
               fixedPrice: slide.budget.amount
             };
-            $http.get('/api/profiles/'+slide.user.profileId).then(function(res){
+            $http.get('/api/profiles/'+slide.user.profile_id).then(function(res){
               var profile = res.data.profile;
+              
               $rootScope.hireMe('md', profile, detail);
             });
           };
@@ -128,7 +164,7 @@
     };
     //View ShowCase end
     
-    getAllShowCases();
+    $scope.getAllShowCases();
   
   }
 }());

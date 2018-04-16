@@ -10,6 +10,8 @@ module.exports = function (app) {
   // Projects collection routes
   app.route('/api/totalProjects').get(projects.totalProjects);
   app.route('/api/projects/:size/:page_num').get(projects.list);
+  /*app.route('/api/projectsCat/:catId').get(projects.projectsCat);*/
+  app.route('/api/activeProjects/:catId').get(projects.activeProjects);
 
   app.route('/api/projects').all(projectsPolicy.isAllowed)
     .post(projects.create);
