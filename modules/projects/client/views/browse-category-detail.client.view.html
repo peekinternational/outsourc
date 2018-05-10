@@ -30,25 +30,26 @@
 			</div>
 			
 			<div>
-				<div ng-repeat="sc in subCategories"> 
-					<a href="#" style="text-decoration: none" ng-click="showSkills = !showSkills; getSkills(sc.skills);">
+				<div ng-repeat="sc in subCatSkills"> 
+					<a href="javascript:void(0)" style="text-decoration: none" ng-click="showSkills = !showSkills; getSkills(sc.skills);">
 						<h2 class="mobile-view-prjct" style="font-size:15px; color: #35abc8">
 							<strong>{{sc.name}}</strong>
 						</h2>
 					</a>
 					<!-- show related skills start -->
 					<div class="row" ng-hide="showSkills">
-						<center ng-if="!sc.Skills.length"> 
-							<span class="fa fa-spinner fa-spin"> </span>
+						<center ng-if="!sc.skills.length">  
+							<p>No data found</p>
 						</center>
-						<div class="col-xs-6 col-sm-6 col-md-4 p-t-sm p-mr-none p-ml-sm" ng-repeat="skill in sc.Skills | filter: search.name">
-							<a ui-sref="projects.browse-category-detail" class="catgry-span">
-								<a ui-sref="projects.project-list({skills: skill.name})">
+						<div class="col-xs-6 col-sm-6 col-md-4 p-t-sm p-mr-none p-ml-sm" ng-repeat="skill in sc.skills | filter: search.name">
+							<!--<a ui-sref="projects.browse-category-detail" class="catgry-span">-->
+								<a ui-sref="projects.project-list({skills: skill._id})">
 									<span class="catgry-span">
-										<i class="fa fa-caret-right p-r-sm ctrgy-icon" aria-hidden="true"></i>{{skill.name}} <span class="badge">{{skill.count}}</span>
+										<i class="fa fa-caret-right p-r-sm ctrgy-icon" aria-hidden="true"></i>
+										{{skill.name}} 
+										<span class="badge">{{skill.count?skill.count:0}}</span>
 									</span>
-								</a>
-							</a>
+								</a> 
 							<br>
 						</div>
 					</div>
@@ -59,9 +60,5 @@
 			</div>
 
 		</div>
-	</div>
-	<!-- chatWindow -->
-	<!--<div  ng-show="authentication.user">
-	  <footer ng-include="'/modules/core/client/views/chatWindow.html'" ></footer>
-	</div>-->
+	</div> 
 </section>			

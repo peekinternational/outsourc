@@ -1,40 +1,26 @@
 'use strict';
 
 // Projects controller
-angular.module('projects').controller('ProjectsController', ['$scope', '$rootScope', '$filter', 'Socket', 'Notification', '$state', 'toastr', '$stateParams', '$location', '$http', '$timeout', '$window', 'Authentication', 'Projects', 'geolocation', 'FileUploader', 'UniversalData', 'Account', 'Transactions', 'SweetAlert', 'Conversation', 'usSpinnerService', 'uuid2', 'Notifications', 'ProjectFeed', 'Categories', 'SubCategories', 'Skills', 'Contests',
+angular.module('projects')
+.controller('ProjectsController', ['$scope', '$rootScope', '$filter', 'Socket', 'Notification', '$state', 'toastr', '$stateParams', '$location', '$http', '$timeout', '$window', 'Authentication', 'Projects', 'geolocation', 'FileUploader', 'UniversalData', 'Account', 'Transactions', 'SweetAlert', 'Conversation', 'usSpinnerService', 'uuid2', 'Notifications', 'ProjectFeed', 'Categories', 'SubCategories', 'Skills', 'Contests',
   function ($scope, $rootScope, $filter, Socket, Notification, $state, toastr, $stateParams, $location, $http, $timeout, $window, Authentication, Projects, geolocation, FileUploader, UniversalData, Account, Transactions, SweetAlert, Conversation, usSpinnerService, uuid2, Notifications, ProjectFeed, Categories, SubCategories, Skills, Contests){
-    $scope.authentication = Authentication;
+    
+    console.log('$state.params.projectId ',$state.params.projectId);
 
+
+    $scope.authentication = Authentication;
     if (!Socket.socket) {
         Socket.connect();
     }
 
     $scope.view_processing = true;
-
     // Currency rate is being hardcoded here instead of getting the latest rate
     // 1 USD = 1000 KRW
     $rootScope.latestCurrencyRate = { 'USD': 1, 'KRW': 1000 };
-
-    // if(typeof(JSON.parse(localStorage.getItem('latestCurrencyRate'))) === 'undefined' ){
-    //   $http.get('https://api.fixer.io/latest?base=USD').then(function(res){
-    //     $rootScope.latestCurrencyRate = res.data.rates;
-    //     $rootScope.latestCurrencyRate.USD = 1;
-    //     localStorage.setItem('latestCurrencyRate', JSON.stringify($rootScope.latestCurrencyRate));
-    //     // console.log('rate 1:', $rootScope.latestCurrencyRate);
-    //   });
-    // }else{
-    //   $rootScope.latestCurrencyRate = JSON.parse(localStorage.getItem('latestCurrencyRate'));      
-    // }
-
+    
+    //inner called
     $scope.getLatestRate = function(){
-
       $rootScope.latestCurrencyRate = { 'USD': 1, 'KRW': 1000 };
-
-      // $http.get('https://api.fixer.io/latest?base=USD').then(function(res){
-      //   $rootScope.latestCurrencyRate = res.data.rates;
-      //   $rootScope.latestCurrencyRate.USD = 1;
-      //   localStorage.setItem('latestCurrencyRate', JSON.stringify($rootScope.latestCurrencyRate));
-      // });
     };
 
     // Add an event listener when freelancer requests milestone
@@ -52,22 +38,11 @@ angular.module('projects').controller('ProjectsController', ['$scope', '$rootSco
         $scope.awardedProject.proposal.milestones.push(message.text.data);
       }
     }); 
-    
-    //console.log('$scope.mainCat', $scope.mainCat);
-    //console.log('$scope.subCat', $scope.subCat);
-    // $timeout(function() {
-    //   usSpinnerService.spin('similarProjectLoader');
-    // }, 0);
-
-    // $timeout(function() {
-    //   usSpinnerService.stop('similarProjectLoader');
-    // }, 1500);
-
+     
     $scope.detail = true;
     $scope.edit = true;
-    
     /*update project information from project-mange*/
-    $scope.updateProject = function(){
+    $scope.updateProject = function(){ 
       $scope.totalAmount = parseInt($scope.totalAmount);
       if($scope.totalAmount>0){
         SweetAlert.swal({
@@ -97,24 +72,6 @@ angular.module('projects').controller('ProjectsController', ['$scope', '$rootSco
 
               if(convertedAmount>= $scope.totalAmount){
                 // updateAccount
-
-                // var updatedAcc = {
-                //   "ownerId": account.ownerId,  
-                //   "creationDate": account.creationDate,
-                //   "accountBalance" :{
-                //     "USD": account.accountBalance.USD+5,
-                //     "KRW": account.accountBalance.KRW + 5
-                //   }  
-                // };
-
-                // Account.update({
-                //   where: {
-                //     id: account.id
-                //   }
-                // }, updatedAcc, function (updAcc) {
-                //   console.log('account updated:', updAcc);  
-                // });
-
                 Account.updateAccount({
                   ownerId: Authentication.user.username,
                   currency: $scope.project.currency.code,
@@ -151,6 +108,7 @@ angular.module('projects').controller('ProjectsController', ['$scope', '$rootSco
         var project = $scope.project;
         project.$update(function (response) {
           $scope.project = response;
+          console.log('$scope.project 1 ',$scope.project);
           $scope.totalAmount = 0;
           SweetAlert.swal('업그레이드 완료!', '프로젝트가 성공적으로 업그레이트 되었습니다.', 'success');
         }, function (fail) {
@@ -159,7 +117,7 @@ angular.module('projects').controller('ProjectsController', ['$scope', '$rootSco
       }
     };
 
-    // Upgrade the project 
+    // Upgrade the project , inner called
     function upgradeProject(){
       Transactions.transfer({
         Sid:$rootScope.userAccountBalance.id,
@@ -175,7 +133,7 @@ angular.module('projects').controller('ProjectsController', ['$scope', '$rootSco
         var project = $scope.project;
         project.$update(function (response) {
           $scope.project = response;
-          
+          console.log('$scope.project 19 ',$scope.project);
           //Create service transaction
           Transactions.create({
             accountId: $rootScope.userAccountBalance.id,
@@ -223,58 +181,31 @@ angular.module('projects').controller('ProjectsController', ['$scope', '$rootSco
     }
 
     //check the project is simple or similar
-    if($scope.mainCat !== null && $scope.subCat !== null)
-    { 
+    if($scope.mainCat !== null && $scope.subCat !== null){ 
       $scope.similarProjectPost = 1;
     }
-    else
-    {
+    else{
       $scope.similarProjectPost = 0;
     }
+ 
+    $scope.reloadRoute = function() {
+      $window.location.reload();
+    };
 
-  //console.log('$scope.similarProjectPost', $scope.similarProjectPost);
-  $scope.reloadRoute = function() {
-     $window.location.reload();
-  };
-  $scope.images = [1, 2, 3, 4, 5, 6, 7, 8];
+    $scope.images = [1, 2, 3, 4, 5, 6, 7, 8];
 
-  $scope.loadMore = function() {
-    var last = $scope.images[$scope.images.length - 1];
-    for(var i = 1; i <= 8; i++) {
-      $scope.images.push(last + i);
-    }
-  };
+    $scope.loadMore = function() {
+      var last = $scope.images[$scope.images.length - 1];
+      for(var i = 1; i <= 8; i++) {
+        $scope.images.push(last + i);
+      }
+    };
     
-   $scope.universalData = function () {
-    $scope.isLoading = true;
+    $scope.universalData = function () {
+      $scope.isLoading = true;
 
-    if($rootScope.univesral){
-      $scope.records = $rootScope.univesral;
-      $scope.typeOfWork = $scope.records.typeOfWork;
-      $scope.fixedRate = $scope.records.fixedRate;
-      $scope.hourlyRate = $scope.records.hourlyRate;
-      $scope.skills = $scope.records.skills;
-      // $scope.project.currency = 'USD';
-      $scope.subcatweb = $scope.records.subcatweb;
-      $scope.subcatmobile = $scope.records.subcatmobile;
-      $scope.subcatwriting = $scope.records.subcatwriting;
-      $scope.subcatdesign = $scope.records.subcatdesign;
-      $scope.subcatdataentry = $scope.records.subcatdataentry;
-      $scope.subcatmanufact = $scope.records.subcatmanufact;
-      $scope.subcatsalemarket = $scope.records.subcatsalemarket;
-      $scope.subcatlocaljob = $scope.records.subcatlocaljob;
-
-      //Project-post project budget selector
-      $scope.rateList = $scope.fixedRate;
-      $scope.project.price = $scope.rateList[0];
-      $scope.commonCurrency = $rootScope.univesral.currency;
-      $scope.isLoading = false;
-      $scope.getCommonCurrency();
-
-      return $scope.records;
-    }else{
-      $scope.universal = UniversalData.query().$promise.then(function (data) {
-        $scope.records = data[0];
+      if($rootScope.univesral){
+        $scope.records = $rootScope.univesral;
         $scope.typeOfWork = $scope.records.typeOfWork;
         $scope.fixedRate = $scope.records.fixedRate;
         $scope.hourlyRate = $scope.records.hourlyRate;
@@ -292,14 +223,39 @@ angular.module('projects').controller('ProjectsController', ['$scope', '$rootSco
         //Project-post project budget selector
         $scope.rateList = $scope.fixedRate;
         $scope.project.price = $scope.rateList[0];
-        $scope.commonCurrency = data[0].currency;
+        $scope.commonCurrency = $rootScope.univesral.currency;
         $scope.isLoading = false;
         $scope.getCommonCurrency();
 
         return $scope.records;
-      });
-    }
-   };
+      }else{
+          $scope.universal = UniversalData.query().$promise.then(function (data) {
+          $scope.records = data[0];
+          $scope.typeOfWork = $scope.records.typeOfWork;
+          $scope.fixedRate = $scope.records.fixedRate;
+          $scope.hourlyRate = $scope.records.hourlyRate;
+          $scope.skills = $scope.records.skills;
+    
+          $scope.subcatweb = $scope.records.subcatweb;
+          $scope.subcatmobile = $scope.records.subcatmobile;
+          $scope.subcatwriting = $scope.records.subcatwriting;
+          $scope.subcatdesign = $scope.records.subcatdesign;
+          $scope.subcatdataentry = $scope.records.subcatdataentry;
+          $scope.subcatmanufact = $scope.records.subcatmanufact;
+          $scope.subcatsalemarket = $scope.records.subcatsalemarket;
+          $scope.subcatlocaljob = $scope.records.subcatlocaljob;
+
+          //Project-post project budget selector
+          $scope.rateList = $scope.fixedRate;
+          $scope.project.price = $scope.rateList[0];
+          $scope.commonCurrency = data[0].currency;
+          $scope.isLoading = false;
+          $scope.getCommonCurrency();
+
+          return $scope.records;
+        });
+      }
+    };
 
     //integration of chat module
     $scope.createConversation = function (bid, bool, projectId, projectName) {
@@ -402,10 +358,7 @@ angular.module('projects').controller('ProjectsController', ['$scope', '$rootSco
       });
     };
 
-
     //end integration of chat module
-
-
     // Freelancer Options on myProjects
     $scope.freelancSelected = '';
     $scope.freelancOption = function(id){
@@ -433,21 +386,14 @@ angular.module('projects').controller('ProjectsController', ['$scope', '$rootSco
         };
       }
     };
-
-    // Search bar partial    $scope.search = '/modules/projects/client/views/search-project.client.view.html';
-
+ 
     $scope.project = {};
-
-    $scope.upgradeProject = {};
-    // $scope.project.rate = 'hourly';
-    // $scope.rateList = [];
-
+    $scope.upgradeProject = {}; 
     $scope.deliverDays = 3;
     $scope.projectFee = 0;
     $scope.yourBid = 0;
     $scope.totalAmount = 0;
-    $scope.project.projectRate = 'fixed';
-    // $scope.rateList = $scope.fixedRate;
+    $scope.project.projectRate = 'fixed'; 
     $scope.customizeProjectBudget = false;
     $scope.min = 3;
     $scope.newMilestone = {};
@@ -523,219 +469,139 @@ angular.module('projects').controller('ProjectsController', ['$scope', '$rootSco
 
       }, 10);
     };
-    // To add subcategory based on main category 
-   /*$scope.subCatSelect = function () {
-     $timeout(function () {
-       if ($scope.project.workRequire.name.includes('Websites')) {
-       // if ($scope.project.workRequire.name === 'Websites IT and Software') {
-         $scope.optSub = $scope.subcatweb;
-       }
-       else if ($scope.project.workRequire.name.includes('Mobile')) {
-       // else if ($scope.project.workRequire.name === 'Mobile') {
-         $scope.optSub = $scope.subcatmobile;
-       }
-       else if ($scope.project.workRequire.name.includes('Design')) {     
-       // else if ($scope.project.workRequire.name === 'Design') {     
-         $scope.optSub = $scope.subcatdesign;          
-       }
-       else if ($scope.project.workRequire.name.includes('Writing')) {
-       // else if ($scope.project.workRequire.name === 'Writing') {
-         $scope.optSub = $scope.subcatwriting;
-       }
-       else if ($scope.project.workRequire.name.includes('Entry')) {
-       // else if ($scope.project.workRequire.name === 'Data Entry') {
-         $scope.optSub = $scope.subcatdataentry;
-       }
-       else if ($scope.project.workRequire.name.includes('Manufacturing')) {
-       // else if ($scope.project.workRequire.name === 'Product Sourcing and Manufacuturing') {
-         $scope.optSub = $scope.subcatmanufact;
-       }
-       else if ($scope.project.workRequire.name.includes('Accounting')) {
-       // else if ($scope.contest.workRequire.name === 'Sales and Marketing') {
-         $scope.optSub = $scope.records.subcatbusinessaccount;               
-       }
-       else if ($scope.project.workRequire.name.includes('Marketing')) {
-       // else if ($scope.project.workRequire.name === 'Sales and Marketing') {
-         $scope.optSub = $scope.subcatsalemarket;               
-       }
-       else if ($scope.project.workRequire.name.includes('Services')) {
-       // else if ($scope.project.workRequire.name === 'Local Jobs and Services') {
-         $scope.optSub = $scope.subcatlocaljob;         
-       }else if ($scope.project.workRequire.name.includes('Translation')) {
-       // else if ($scope.project.workRequire.name === 'Local Jobs and Services') {
-         $scope.optSub = $scope.records.subcatLangTranslation;         
-       }else if ($scope.project.workRequire.name.includes('Engineering')) {
-       // else if ($scope.project.workRequire.name === 'Local Jobs and Services') {
-         $scope.optSub = $scope.records.subcatEngScience;         
-       }
-       else if ($scope.project.workRequire.name.includes('Customized')) { 
-       // else if ($scope.project.workRequire.name === 'Customized Skills(Select manually)') { 
-         $scope.optSub = '';          
-       }
-       else if ($scope.project.workRequire.name.includes('Category')) {
-       // else if ($scope.project.workRequire.name === 'Select Category of Work (Optional))') {
-         $scope.optSub = '';         
-       }
-     
-     }, 10);
-   };*/
+   
+    /*
+    * Get common currency data
+    */
+    $scope.currency = [];
+    //inner called
+    $scope.getCommonCurrency = function(){
+        var c;
+      if($scope.commonCurrency.KRW){
+        c = $scope.commonCurrency.KRW;
+        $scope.commonCurrency.KRW.cur = $scope.commonCurrency.KRW.name + ' ' + $scope.commonCurrency.KRW.code +' '+$scope.commonCurrency.KRW.symbol_native;
+        $scope.currency.push($scope.commonCurrency.KRW);
+      }if($scope.commonCurrency.USD){
+        c = $scope.commonCurrency.USD;
+        $scope.commonCurrency.USD.cur = $scope.commonCurrency.USD.name + ' ' + $scope.commonCurrency.USD.code +' '+$scope.commonCurrency.USD.symbol_native;
+        $scope.currency.push($scope.commonCurrency.USD);
+      }
+      $scope.project.currency = $scope.currency[0];
+    };
 
-   /*
-   * Get common currency data
-   */
-   $scope.currency = [];
-   $scope.getCommonCurrency = function(){
-      var c;
-    if($scope.commonCurrency.KRW){
-      c = $scope.commonCurrency.KRW;
-      $scope.commonCurrency.KRW.cur = $scope.commonCurrency.KRW.name + ' ' + $scope.commonCurrency.KRW.code +' '+$scope.commonCurrency.KRW.symbol_native;
-      $scope.currency.push($scope.commonCurrency.KRW);
-    }if($scope.commonCurrency.USD){
-      c = $scope.commonCurrency.USD;
-      $scope.commonCurrency.USD.cur = $scope.commonCurrency.USD.name + ' ' + $scope.commonCurrency.USD.code +' '+$scope.commonCurrency.USD.symbol_native;
-      $scope.currency.push($scope.commonCurrency.USD);
-    }
-    // if($scope.commonCurrency.JPY){
-    //   c = $scope.commonCurrency.JPY;
-    //   $scope.commonCurrency.JPY.cur = $scope.commonCurrency.JPY.name + ' ' + $scope.commonCurrency.JPY.code +' '+$scope.commonCurrency.JPY.symbol_native;
-    //   $scope.currency.push($scope.commonCurrency.JPY);
-    // }if($scope.commonCurrency.CNY){
-    //   c = $scope.commonCurrency.CNY;
-    //   $scope.commonCurrency.CNY.cur = $scope.commonCurrency.CNY.name + ' ' + $scope.commonCurrency.CNY.code +' '+$scope.commonCurrency.CNY.symbol_native;
-    //   $scope.currency.push($scope.commonCurrency.CNY);
-    // }
-    $scope.project.currency = $scope.currency[0];
-   };
+    /*
+    * When currency is changed
+    */
+    $scope.currencyChange = function(){
 
-   /*
-   * When currency is changed
-   */
-   $scope.currencyChange = function(){
+      if(!$rootScope.latestCurrencyRate){
+        $timeout(function() {
+          $scope.getLatestRate();
+        }, 100);
+      }
+      
+      // Change the total amount to zero and uncheck all additional features 
+      $scope.totalAmount = 0;
+      $scope.urgent = false;
+      $scope.NDA = false;
+      $scope.sealed = false;
+      $scope.private = false;
+      $scope.pakage_2 = false;
+      $scope.pakage_3 = false;
+      $scope.pakage_1 = false;
 
-    if(!$rootScope.latestCurrencyRate){
-      $timeout(function() {
-        $scope.getLatestRate();
-      }, 100);
-    }
-    
-    // Change the total amount to zero and uncheck all additional features 
-    $scope.totalAmount = 0;
-    $scope.urgent = false;
-    $scope.NDA = false;
-    $scope.sealed = false;
-    $scope.private = false;
-    $scope.pakage_2 = false;
-    $scope.pakage_3 = false;
-    $scope.pakage_1 = false;
+      UniversalData.query().$promise.then(function (data) {
+        $scope.fixedRate = data[0].fixedRate;
+        $scope.hourlyRate = data[0].hourlyRate;
+      });
 
-    UniversalData.query().$promise.then(function (data) {
-      $scope.fixedRate = data[0].fixedRate;
-      $scope.hourlyRate = data[0].hourlyRate;
-    });
-
-    $scope.tempRate = [];
-    $scope.rateListt = [];
-
-    $timeout(function() {
-      if($scope.project.projectRate === 'fixed')
-        $scope.tempRate = $scope.fixedRate;
-      if($scope.project.projectRate === 'hourly')
-        $scope.tempRate = $scope.hourlyRate;
-
+      $scope.tempRate = [];
       $scope.rateListt = [];
 
-      $scope.project.price = $scope.tempRate[0];
-      
-      // $http.get('https://api.fixer.io/latest?base=USD').then(function(res){
-        var i =0; 
-        var name;
-        var curCode;
-
-        if($scope.project.currency){
-          curCode = $scope.project.currency.code; 
-        }
+      $timeout(function() {
+        if($scope.project.projectRate === 'fixed')
+          $scope.tempRate = $scope.fixedRate;
+        if($scope.project.projectRate === 'hourly')
+          $scope.tempRate = $scope.hourlyRate;
+          $scope.rateListt = [];
+          $scope.project.price = $scope.tempRate[0];
         
-        if(curCode === 'USD'){
-          for(i=0; i<$scope.tempRate.length; i++){  
-            name = $scope.tempRate[i].name.split('(')[0];
+          var i =0; 
+          var name;
+          var curCode;
 
-            if(typeof $scope.tempRate[i].value === 'undefined'){
-              $scope.max = '';
-              $scope.min = '';
-
-            }else{
-              $scope.min = $scope.tempRate[i].value.min;
-              $scope.max = $scope.tempRate[i].value.max;
-
-              $scope.tempRate[i].value.min = $scope.min;
-              $scope.tempRate[i].value.max = $scope.max;
-            }
-            $scope.optCharg = 1; 
-            $scope.tempRate[i].name = name+'('+$scope.project.currency.symbol_native+$scope.min+ '-'+$scope.project.currency.symbol_native+$scope.max+')';
-            $scope.rateListt.push($scope.tempRate[i]);
+          if($scope.project.currency){
+            curCode = $scope.project.currency.code; 
           }
-        }
-        else{
-          for(i=0; i<$scope.tempRate.length; i++){
-            name = $scope.tempRate[i].name.split('(')[0];
-            if(typeof $scope.tempRate[i].value === 'undefined'){
-              $scope.max = '';
-              $scope.min = '';
-              // $scope.tempRate[i].value.min = $scope.min;
-              // $scope.tempRate[i].value.max = $scope.max;
-            }else{
-              if(curCode === 'KRW'){
-                $scope.optCharg = $rootScope.latestCurrencyRate.KRW; 
-                $scope.max = Math.round(parseFloat($scope.tempRate[i].value.max)*$rootScope.latestCurrencyRate.KRW);
-        if($scope.tempRate[i].value.min === 7.5){
-          $scope.min = Math.round(parseFloat($scope.tempRate[i].value.min)*$rootScope.latestCurrencyRate.KRW)+30;
-        }else{
-          $scope.min = Math.round(parseFloat($scope.tempRate[i].value.min)*$rootScope.latestCurrencyRate.KRW);
-        }
-                $scope.tempRate[i].value.min = $scope.min;
-                $scope.tempRate[i].value.max = $scope.max;
-              }
+          
+          if(curCode === 'USD'){
+            for(i=0; i<$scope.tempRate.length; i++){  
+              name = $scope.tempRate[i].name.split('(')[0];
 
-              if(curCode === 'JPY'){
-                $scope.optCharg = $rootScope.latestCurrencyRate.JPY;
-                $scope.max = Math.round(parseFloat($scope.tempRate[i].value.max)*$rootScope.latestCurrencyRate.JPY);
-                $scope.min = Math.round(parseFloat($scope.tempRate[i].value.min)*$rootScope.latestCurrencyRate.JPY);
-                $scope.tempRate[i].value.min = $scope.min;
-                $scope.tempRate[i].value.max = $scope.max;
-              }
+              if(typeof $scope.tempRate[i].value === 'undefined'){
+                $scope.max = '';
+                $scope.min = '';
 
-              if(curCode === 'CNY'){
-                $scope.optCharg = $rootScope.latestCurrencyRate.JPY;
-                $scope.max = Math.round(parseFloat($scope.tempRate[i].value.max)*$rootScope.latestCurrencyRate.CNY);
-                $scope.min = Math.round(parseFloat($scope.tempRate[i].value.min)*$rootScope.latestCurrencyRate.CNY);
+              }else{
+                $scope.min = $scope.tempRate[i].value.min;
+                $scope.max = $scope.tempRate[i].value.max;
+
                 $scope.tempRate[i].value.min = $scope.min;
                 $scope.tempRate[i].value.max = $scope.max;
               }
-            }
-            // console.log('tempRate[',+i+'] :', $scope.tempRate[i].value);
-            
-            if($scope.project.currency){
+              $scope.optCharg = 1; 
               $scope.tempRate[i].name = name+'('+$scope.project.currency.symbol_native+$scope.min+ '-'+$scope.project.currency.symbol_native+$scope.max+')';
               $scope.rateListt.push($scope.tempRate[i]);
             }
           }
-        }
+          else{
+            for(i=0; i<$scope.tempRate.length; i++){
+              name = $scope.tempRate[i].name.split('(')[0];
+              if(typeof $scope.tempRate[i].value === 'undefined'){
+                $scope.max = '';
+                $scope.min = '';
+                // $scope.tempRate[i].value.min = $scope.min;
+                // $scope.tempRate[i].value.max = $scope.max;
+              }else{
+                if(curCode === 'KRW'){
+                  $scope.optCharg = $rootScope.latestCurrencyRate.KRW; 
+                  $scope.max = Math.round(parseFloat($scope.tempRate[i].value.max)*$rootScope.latestCurrencyRate.KRW);
+                  if($scope.tempRate[i].value.min === 7.5){
+                    $scope.min = Math.round(parseFloat($scope.tempRate[i].value.min)*$rootScope.latestCurrencyRate.KRW)+30;
+                  }else{
+                    $scope.min = Math.round(parseFloat($scope.tempRate[i].value.min)*$rootScope.latestCurrencyRate.KRW);
+                  }
+                  $scope.tempRate[i].value.min = $scope.min;
+                  $scope.tempRate[i].value.max = $scope.max;
+                }
 
-      // });
+                if(curCode === 'JPY'){
+                  $scope.optCharg = $rootScope.latestCurrencyRate.JPY;
+                  $scope.max = Math.round(parseFloat($scope.tempRate[i].value.max)*$rootScope.latestCurrencyRate.JPY);
+                  $scope.min = Math.round(parseFloat($scope.tempRate[i].value.min)*$rootScope.latestCurrencyRate.JPY);
+                  $scope.tempRate[i].value.min = $scope.min;
+                  $scope.tempRate[i].value.max = $scope.max;
+                }
 
-    }, 100);
-   };
+                if(curCode === 'CNY'){
+                  $scope.optCharg = $rootScope.latestCurrencyRate.JPY;
+                  $scope.max = Math.round(parseFloat($scope.tempRate[i].value.max)*$rootScope.latestCurrencyRate.CNY);
+                  $scope.min = Math.round(parseFloat($scope.tempRate[i].value.min)*$rootScope.latestCurrencyRate.CNY);
+                  $scope.tempRate[i].value.min = $scope.min;
+                  $scope.tempRate[i].value.max = $scope.max;
+                }
+              } 
+              
+              if($scope.project.currency){
+                $scope.tempRate[i].name = name+'('+$scope.project.currency.symbol_native+$scope.min+ '-'+$scope.project.currency.symbol_native+$scope.max+')';
+                $scope.rateListt.push($scope.tempRate[i]);
+              }
+            }
+          }
+      }, 100);
+    };
    
-
     $scope.project.isLocal = false;
-    // $scope.priceList = [{
-    //   id: 1,
-    //   price: '$250 - $750'
-    // }, {
-    //   id: 2,
-    //   price: 'Custom price'
-    // }];
-
     $scope.pakagePrices = {
       'pakage_1': 0,
       'pakage_2': 3,
@@ -777,9 +643,7 @@ angular.module('projects').controller('ProjectsController', ['$scope', '$rootSco
       },
     ];
 
-
     //Calculate Average of Rating stars
-
     $scope.specifiction = 0;
     $scope.communication = 0;
     $scope.payment = 0;
@@ -789,7 +653,6 @@ angular.module('projects').controller('ProjectsController', ['$scope', '$rootSco
     $scope.calculteAvg = function () {
       var sum = $scope.specifiction + $scope.communication + $scope.payment + $scope.professionl + $scope.overall;
       var Avg = sum / 5;
-      //console.log(Avg);
     };
 
     $scope.checkLocal = function () {
@@ -807,6 +670,7 @@ angular.module('projects').controller('ProjectsController', ['$scope', '$rootSco
       $scope.project.minRange = '';
       $scope.project.maxRange = '';
     };
+
     $scope.rateToHourly = function () {
       $scope.rateList = $scope.hourlyRate;
       $scope.project.price = $scope.rateList[2];
@@ -815,8 +679,7 @@ angular.module('projects').controller('ProjectsController', ['$scope', '$rootSco
     };
 
     // to hide button, bid on this project
-    $scope.btnBTP = function () {
-      ////console.log('really');
+    $scope.btnBTP = function () { 
       $scope.btnBidThisPro = true;
     };
 
@@ -834,8 +697,7 @@ angular.module('projects').controller('ProjectsController', ['$scope', '$rootSco
             $scope.totalAmount = $scope.totalAmount - ($scope.pakagePrices.pakage_3*$rootScope.latestCurrencyRate[$scope.project.currency.code]);
           }
 
-        } else {
-          console.log('$scope.totalAmount:', $scope.totalAmount);
+        } else { 
           $scope.totalAmount = $scope.totalAmount - ($scope.pakagePrices.pakage_1*$rootScope.latestCurrencyRate[$scope.project.currency.code]);
         }
 
@@ -889,7 +751,6 @@ angular.module('projects').controller('ProjectsController', ['$scope', '$rootSco
 
     };
 
-
     $scope.detectMyLocation = function () {
 
       geolocation.getLocation().then(function(data){
@@ -916,52 +777,40 @@ angular.module('projects').controller('ProjectsController', ['$scope', '$rootSco
 
     };
 
-    // File Uploader
+    // File Uploader start
     $scope.uploader = new FileUploader({
       url: '/api/project/uploadProjectFile',
       alias: 'newProjectFile'
     });
-
-    // console.log('$scope.uploader', $scope.uploader);
-
+ 
     $scope.uploader.onWhenAddingFileFailed = function(item /*{File|FileLikeObject}*/, filter, options) {
       // console.info('onWhenAddingFileFailed', item, filter, options);
-     };
-    // $scope.uploader.onAfterAddingFile = function(fileItem) {
-    //   // console.info('onAfterAddingFile', fileItem);
-    //   $scope.item = fileItem;
-    // };
-    // $scope.uploader.onAfterAddingAll = function(addedFileItems) {
-    //   console.info('onAfterAddingAll', addedFileItems);
-    // };
+    };
+ 
     $scope.uploader.onBeforeUploadItem = function(item) {
       // console.info('onBeforeUploadItem', item);
     };
+    
     $scope.uploader.onProgressItem = function(fileItem, progress) {
       // console.info('onProgressItem', fileItem, progress);
     };
-    // $scope.uploader.onProgressAll = function(progress) {
-    //   console.info('onProgressAll', progress);
-    // };
+
     var uploadedFileLink;
     var uploadedFileName;
     $scope.uploader.onSuccessItem = function(fileItem, response, status, headers) {
-      // console.info('onSuccessItem', fileItem, response, status, headers);
       uploadedFileLink = response;
       uploadedFileName = fileItem.file.name;
       $scope.sucMsg = '파일이 성공적으로 업로드 되었습니다.'  ;
       $scope.errMsg = '';
     };
+
     $scope.uploader.onErrorItem = function(fileItem, response, status, headers) {
       SweetAlert.swal("File upload failed", "Error in file uploading.", "error");
       $scope.errMsg = response.message;
       $scope.sucMsg = '';
     };
-    // $scope.uploader.onCancelItem = function(fileItem, response, status, headers) {
-    //   console.info('onCancelItem', fileItem, response, status, headers);
-    // };
-    $scope.uploader.onCompleteItem = function(fileItem, response, status, headers) {
-      // console.info('onCompleteItem', fileItem, response, status, headers);
+ 
+    $scope.uploader.onCompleteItem = function(fileItem, response, status, headers) { 
       if(fileItem.progress === 0){
         $scope.errMsg = response.message;
         $scope.sucMsg = '';
@@ -971,10 +820,7 @@ angular.module('projects').controller('ProjectsController', ['$scope', '$rootSco
         $scope.errMsg = '';
       }
     };
-    // $scope.uploader.onCompleteAll = function() {
-    //   console.info('onCompleteAll');
-    // };
-
+   
     $scope.uploader.onAfterAddingFile = function (fileItem) {
       $scope.item = fileItem;
 
@@ -989,7 +835,6 @@ angular.module('projects').controller('ProjectsController', ['$scope', '$rootSco
         return;
       }
 
-
       if ($window.FileReader) {
         var fileReader = new FileReader();
         fileReader.readAsDataURL(fileItem._file);
@@ -1003,6 +848,7 @@ angular.module('projects').controller('ProjectsController', ['$scope', '$rootSco
       }
     };
 
+    // File Uploader end
     // Get users location
     geolocation.getLocation().then(function(data){
       $scope.coords = { lat:data.coords.latitude, long:data.coords.longitude };
@@ -1016,8 +862,7 @@ angular.module('projects').controller('ProjectsController', ['$scope', '$rootSco
       });
     });
 
-
-    // Create new Project
+    /** Create new Project*/ 
     $scope.create = function (isValid) {
       $scope.error = null;
       var project = new Projects($scope.project);
@@ -1076,15 +921,7 @@ angular.module('projects').controller('ProjectsController', ['$scope', '$rootSco
           'notifications': $scope.authentication.user.notificationsOnOff
         };
       }
-      // else if(typeof $scope.authentication.user.country.name === 'undefined' && !$scope.countryName){
-      //   SweetAlert.swal({
-      //     title: 'Oops!',
-      //     text: "Turn your browser location to post project, select your country from settings page to avoid this message in future.",
-      //     type: 'warning'
-      //   });
-      //   return;
-      // }
-      
+       
       var Pakages = {
         'featured': $scope.pakage_1,
         'pakage_2': $scope.pakage_2,
@@ -1094,10 +931,7 @@ angular.module('projects').controller('ProjectsController', ['$scope', '$rootSco
         'NDA': $scope.NDA,
         'urgent': $scope.urgent
       };
-      project.additionalPakages = Pakages;
-
-      console.log('project:');
-
+      project.additionalPakages = Pakages; 
       if($scope.totalAmount > 0){ /*when additional feature is selected*/
 
         $scope.totalAmount = parseFloat($scope.totalAmount).toFixed(0);
@@ -1237,7 +1071,7 @@ angular.module('projects').controller('ProjectsController', ['$scope', '$rootSco
         }
       }
 
-  };
+    };
 
     // Post the project when there is enough money if additonal features are selected
     $scope.postNewProject  = function (){
@@ -1448,11 +1282,8 @@ angular.module('projects').controller('ProjectsController', ['$scope', '$rootSco
     };
 
     // Edit bid once bidded
-    $scope.editBid = function (description, deliverDays) {
-      //console.log('deliverDays', deliverDays);
-
+    $scope.editBid = function (description, deliverDays) { 
       $scope.currentBidId = $stateParams.bidId;
-
       var bidData = {
         'userId': $scope.authentication.user._id,
         'bidderName': $scope.authentication.user.displayName,
@@ -1483,8 +1314,9 @@ angular.module('projects').controller('ProjectsController', ['$scope', '$rootSco
           method: 'PUT',
           data: obj
         }).then(function (response) {
-          // success
+          // success 
           $scope.project = response.data;
+          console.log('$scope.project 2 ',$scope.project);
           $timeout(function () {
             $scope.findAvgBid();
           }, 100);
@@ -1497,7 +1329,6 @@ angular.module('projects').controller('ProjectsController', ['$scope', '$rootSco
       }
 
     };
-
 
     $scope.submitBid = function (deliverDays) {
 
@@ -1540,6 +1371,7 @@ angular.module('projects').controller('ProjectsController', ['$scope', '$rootSco
           $scope.milstoneTotal = $scope.yourBid;
           $scope.totalBidAmount = parseInt($scope.yourBid);
           $scope.project = response.data.project;
+          console.log('$scope.project 3 ',$scope.project);
           $scope.authentication.user = response.data.user;
           $timeout(function () {
             $scope.findAvgBid();
@@ -1576,23 +1408,17 @@ angular.module('projects').controller('ProjectsController', ['$scope', '$rootSco
 
     $scope.onTime = true;
     $scope.onBudget =true;
-
-    
     //feedback
     $scope.submitFeedBack = function () {
-
-
+      $timeout(function() {
+        usSpinnerService.spin('feedbackLoader');
+      }, 100);
 
       $timeout(function() {
-          usSpinnerService.spin('feedbackLoader');
-        }, 100);
-
-      $timeout(function() {
-          usSpinnerService.stop('feedbackLoader');
-          $location.path('/thankyou');
-        }, 100);
+        usSpinnerService.stop('feedbackLoader');
+        $location.path('/thankyou');
+      }, 100);
       
-
       if (!$scope.project.bids) {
         alert('Projec isn\'t assigned to anyone yet!');
         return;
@@ -1604,15 +1430,9 @@ angular.module('projects').controller('ProjectsController', ['$scope', '$rootSco
           $scope.bidderId = $scope.project.bids[i].userId;
           break;
         }
-      }
-
-      // //console.log('index is', $scope.bidIndex);      
-      // //console.log('db pid is', user.projectsAwarded[$scope.bidIndex].projectId);
-      // //console.log('my pid is', $scope.project._id);
-
+      } 
       var sum = $scope.specifiction + $scope.communication + $scope.payment + $scope.professionl + $scope.overall;
-      var avgRating = sum / 5;
-      // //console.log('avgRating', avgRating);
+      var avgRating = sum / 5; 
 
       var feedbackData = {
         'userId': $scope.authentication.user._id,
@@ -1626,10 +1446,7 @@ angular.module('projects').controller('ProjectsController', ['$scope', '$rootSco
         'onTime': $scope.onTime,
         'onBudget': $scope.onBudget,
         'proj_name': $scope.project.name
-      };
-      // //console.log('feedbackdata is', feedbackData);
-
-      // user.projectsAwarded[$scope.bidIndex].feedback = feedbackData;
+      }; 
 
       var obj = {
         'bids': feedbackData,
@@ -1639,17 +1456,15 @@ angular.module('projects').controller('ProjectsController', ['$scope', '$rootSco
         'currentUserIdd': $scope.authentication.user._id,
         'projectId': $scope.project._id,
         'ratedDate': Date.now()
-      };
-
-      //console.log('Final Obj to sent', obj);
+      }; 
 
       return $http({
         url: '/api/project/placeFeedBack/' + $scope.project._id,
         method: 'PUT',
         data: obj
-      }).then(function (response) {
+      }).then(function (response) { 
         $scope.project = response.data;
-
+        console.log('$scope.project 4 ',$scope.project);
         $timeout(function() {
           usSpinnerService.stop('feedbackLoader');
           $location.path('/thankyou');
@@ -1659,11 +1474,9 @@ angular.module('projects').controller('ProjectsController', ['$scope', '$rootSco
       }, function (err) {
         $timeout(function() {
           usSpinnerService.stop('feedbackLoader');
-        }, 100);
-        //console.log(err);
+        }, 100); 
         toastr.error('죄송합니다.문제가 발생했습니다.다시 시도하십시오.', 'Error');
       });
-
     };
 
     $scope.submitProposal = function (bidDescription, status) {
@@ -1691,47 +1504,32 @@ angular.module('projects').controller('ProjectsController', ['$scope', '$rootSco
         method: 'PUT',
         data: obj
       }).then(function (response) {
-        $scope.isLoading = false;
+        $scope.isLoading = false; 
         $scope.project = response.data;
-        // console.log('Proposal:',response);
+        console.log('$scope.project 5 ',$scope.project); 
       }, function (response) {
         $scope.isLoading = false;
       });
-
     };
 
     $scope.award = function (index) {
       var bidData = $scope.project.bids[index];
       bidData.awarded = 'pending';
-
-
       var object = {
         'data': bidData,
         'index': index
       };
 
-      $scope.findAwardedProject();
-      //console.log("$scope.awardedProject.bidderInfo.username", $scope.awardedProject);
+      $scope.findAwardedProject(); 
 
       return $http({
         url: '/api/project/projectAwarded/' + $scope.project._id,
         method: 'PUT',
         data: object
-      }).then(function (response) {
-        //console.log(response);
+      }).then(function (response) { 
         $scope.project = response.data;
+        console.log('$scope.project 6 ',$scope.project);
         $scope.project.bids = response.data.bids;
-
-        // Find the owner of project
-        // UserSchema.findOne({
-        //   filter:{
-        //     where:{
-        //       username: $scope.project.userInfo.username
-        //     }
-        //   }
-        // }, function(suc){
-        //   $scope.projectOwner = suc;
-        // });
 
         // Notify the user
         Notifications.create({  
@@ -1753,20 +1551,10 @@ angular.module('projects').controller('ProjectsController', ['$scope', '$rootSco
         });
 
       });
-
-
     };
 
     $scope.acceptProject = function () {
-
-      var bidData = $scope.awardedProject;
-
-      // if proj is re-awarded by employer to freelancer who rejected it first
-      // if(bidData.rejected){
-      //   delete bidData.rejected;
-      //   delete bidData.projectRejectDate;
-      // }
-
+      var bidData = $scope.awardedProject; 
       bidData.awarded = 'yes';
       bidData.projectAcceptDate = Date.now();
 
@@ -1774,15 +1562,13 @@ angular.module('projects').controller('ProjectsController', ['$scope', '$rootSco
         'data': bidData,
         'index': $scope.awardedProjectIndex
       };
-
-
       return $http({
         url: '/api/project/acceptProject/' + $scope.project._id,
         method: 'PUT',
         data: object
       }).then(function (response) {
-
         $scope.project = response.data;
+        console.log('$scope.project 7 ',$scope.project);
         $scope.project.bids = response.data.bids;
 
         // Notify the user
@@ -1805,8 +1591,6 @@ angular.module('projects').controller('ProjectsController', ['$scope', '$rootSco
         });
 
       });
-
-
     };
 
     // Reject the awarded project
@@ -1816,14 +1600,10 @@ angular.module('projects').controller('ProjectsController', ['$scope', '$rootSco
       bidData.awarded = 'no';
       bidData.rejected = true;
       bidData.projectRejectDate = Date.now();
-
-
       var object = {
         'data': bidData,
         'index': $scope.awardedProjectIndex
       };
-
-
       return $http({
         url: '/api/project/acceptProject/' + $scope.project._id,
         method: 'PUT',
@@ -1890,18 +1670,17 @@ angular.module('projects').controller('ProjectsController', ['$scope', '$rootSco
       });
     };
 
+    var skills=($state.params.skills)?$state.params.skills:0;
     //Get total count at once
-    $http.get('/api/totalProjects').then(function(totalProjects){
-      $scope.totalCount = totalProjects.data.count;
-      console.log('total count: ',$scope.totalCount);
+    $http.get('/api/totalProjects/'+skills).then(function(totalProjects){
+      $scope.totalCount = totalProjects.data.count; 
     });
     // Find a list of Projects
     $scope.find = function (pageNo) {
       $scope.projListLoading = true;
       var size = 5;
-      // $scope.projects = Projects.query().$promise.then(function (data) {
-      $http.get('/api/projects/'+size+'/'+pageNo).then(function(proj){
-        console.log(proj.data.count);
+      var skills=($state.params.skills)?$state.params.skills:0;
+      $http.get('/api/projects/'+size+'/'+pageNo+'/'+skills).then(function(proj){ 
         $scope.view_processing = false;
         $scope.projListLoading = false;
         $scope.promiseResolved = true;
@@ -1931,14 +1710,13 @@ angular.module('projects').controller('ProjectsController', ['$scope', '$rootSco
     $scope.findOne = function () {
       // show loader
       $scope.projViewProcess = true;
-
       $scope.curBidId = $stateParams.bidId;
       $scope.project = Projects.get({
         projectId: $stateParams.projectId
       }).$promise.then(function (data) {
         $scope.projViewProcess = false;
         $scope.project = data;
-
+        console.log('$scope.project 8 ',$scope.project,' $scope ',$scope.totalAmount);
         $scope.projectCur = $scope.project.currency; 
 
         $scope.getremainingDaysAndHours();
@@ -1968,23 +1746,20 @@ angular.module('projects').controller('ProjectsController', ['$scope', '$rootSco
           $scope.findAvgBid();
           $scope.projectUserInfo();
         }
-        // if($scope.bidId) {
-        //   $scope.getBidInfo();
-        // }
-
-        if ($scope.project.bids) {
-          // //console.log('getBidInfo');
+      
+        if ($scope.project.bids) { 
           $scope.getBidInfo();
           $scope.projectUserInfo();
         } else if ($location.path().includes('edit-bid')) {
-          
           $scope.paidYours = '';
           $scope.projectFee = '';
           $scope.yourBid = '';
           $scope.deliverDays = '';
           $scope.milestones = '';
-
         }
+        
+        console.log(' $scope.totalAmount ',$scope.totalAmount);
+
       }, function (error) {
         $scope.projViewProcess = false;
       });
@@ -2057,34 +1832,26 @@ angular.module('projects').controller('ProjectsController', ['$scope', '$rootSco
     };
     
     $scope.findAwardedProject = function () {
-
       $scope.awardedProjectArray = [];
-
       for (var j = 0; j < $scope.project.bids.length; j++) {
-
         if ($scope.project.bids[j].awarded === 'yes' || $scope.project.bids[j].awarded === 'pending') {
           $scope.awardedProject = $scope.project.bids[j];
           $scope.awardedProjectIndex = j;
-
           // If project is awarded to more than one freelancer 
           $scope.awardedProjectArray.push($scope.project.bids[j]);
         }
-
       }
+
       if ($scope.awardedProject) {
         if ($scope.awardedProject.proposal) {
           $scope.totalAmountOfMilestones = 0.0;
           for (var i = 0; i < $scope.awardedProject.proposal.milestones.length; i++) {
-            // //console.log( $scope.awardedProject.proposal.milestones[i].status, ':' , $scope.awardedProject.proposal.milestones[i].status === 'Created' || $scope.awardedProject.proposal.milestones[i].status === 'Released');
-            // //console.log( $scope.awardedProject.proposal.milestones[i].status, ':', $scope.awardedProject.proposal.milestones[i].status !== 'Cancelled');
-
+   
             if ($scope.awardedProject.proposal.milestones[i].status === 'Created' || $scope.awardedProject.proposal.milestones[i].status === 'Released') {
               $scope.totalAmountOfMilestones = $scope.totalAmountOfMilestones + $scope.awardedProject.proposal.milestones[i].price;
-              // //console.log('proposal.milestones.status', $scope.awardedProject.proposal.milestones[i].status);
             }
           }
         }
-
       }
 
       if($location.absUrl().includes('projects/dispute')) {
@@ -2163,13 +1930,6 @@ angular.module('projects').controller('ProjectsController', ['$scope', '$rootSco
 
     };
 
-    // Calculate % of bid on budget
-
-    // $scope.$watch('paidYours',function(newValue,oldValue){
-    //   //console.log(newValue);
-    //   //console.log(oldValue);
-    // });
-
     $scope.updateValues = function (paidYours) {
       $timeout(function () {
         //console.log('paid yours', paidYours);
@@ -2200,31 +1960,12 @@ angular.module('projects').controller('ProjectsController', ['$scope', '$rootSco
     };
 
     $scope.$watch('currentPage + numPerPage', function () {
-
-      $scope.find($scope.currentPage);
-
-      // var begin = (($scope.currentPage - 1) * $scope.numPerPage);
-      // var end = begin + $scope.numPerPage;
-
-      // if ($scope.promiseResolved) {
-      //   $scope.filteredProjects = $scope.projects.slice(begin, end);
-      // }
+      $scope.find($scope.currentPage); 
     });
 
     $scope.maxSize = 10;
     $scope.numPerPage = 10;
     $scope.currentPage = 1;
-
-    // $scope.totalItems = 64;
-    // $scope.currentPage = 4;
-
-    // $scope.setPage = function (pageNo) {
-    //  $scope.currentPage = pageNo;
-    // };
-
-    // $scope.pageChanged = function() {
-    // $scope.log('Page changed to: ' + $scope.currentPage);
-    // };
 
     $scope.bigTotalItems = 175;
     $scope.bigCurrentPage = 1;
@@ -2266,6 +2007,7 @@ angular.module('projects').controller('ProjectsController', ['$scope', '$rootSco
         showSelectionBar: true
       }
     };
+
     $scope.sliderHourly = {
       minValue: 10,
       maxValue: 1000,
@@ -2276,6 +2018,7 @@ angular.module('projects').controller('ProjectsController', ['$scope', '$rootSco
         showSelectionBar: true
       }
     };
+
     $scope.sliderContractor = {
       minValue: 50,
       maxValue: 1000,
@@ -2329,10 +2072,7 @@ angular.module('projects').controller('ProjectsController', ['$scope', '$rootSco
         label: 'SEALED'
       }
     ];
-
-
     // Adding milestones of project bid
-
     $scope.$watch('milestones', function (newValue) {
 
       if (typeof (newValue) !== 'undefined') {
@@ -2354,9 +2094,7 @@ angular.module('projects').controller('ProjectsController', ['$scope', '$rootSco
     }, true);
 
 
-    $scope.remov = function (index) {
-
-      //console.log($scope.milestones[index].price);
+    $scope.remov = function (index) { 
       if ($scope.milestones[index].price > $scope.totalBidAmount || $scope.milestones[index].price === null || typeof ($scope.milestones[index].price) === 'undefined') {
         $scope.milestones[index - 1].price = $scope.milestones[index - 1].price + $scope.totalBidAmount;
       } else {
@@ -2367,16 +2105,13 @@ angular.module('projects').controller('ProjectsController', ['$scope', '$rootSco
       $scope.milestones.splice(index, 1);
     };
 
-    $scope.editBidremov = function (index) {
-
-      //console.log($scope.milestones[index].price);
+    $scope.editBidremov = function (index) { 
       if ($scope.milestones[index].price > $scope.totalBidAmount || $scope.milestones[index].price === null || typeof ($scope.milestones[index].price) === 'undefined') {
         $scope.milestones[index - 1].price = $scope.milestones[index - 1].price + $scope.totalBidAmount;
       } else {
         $scope.milestones[index - 1].price = $scope.milestones[index - 1].price + $scope.milestones[index].price;
       }
-
-      //$scope.totalBidAmount = $scope.milestones[index - 1].price;
+ 
       $scope.milestones.splice(index, 1);
     };
 
@@ -2386,37 +2121,28 @@ angular.module('projects').controller('ProjectsController', ['$scope', '$rootSco
 
         for (var k = 0; k < $scope.milestones.length; k++) {
           $scope.amountCalculated = $scope.amountCalculated + parseInt($scope.milestones[k].price);
-        }
+        } 
 
-        //console.log('total amount',$scope.totalBidAmount);
-        //console.log('amount calculated' , $scope.amountCalculated);
-
-        $scope.amountCalculated = $scope.totalBidAmount - parseInt($scope.amountCalculated);
-        //console.log($scope.amountCalculated);
+        $scope.amountCalculated = $scope.totalBidAmount - parseInt($scope.amountCalculated); 
         if ($scope.amountCalculated !== 0 && $scope.amountCalculated > 0 && $scope.amountCalculated < $scope.totalBidAmount) {
           $scope.milestones.push({
             description: '',
             price: $scope.amountCalculated,
             status: 'Requested'
-          });
-          //$scope.totalBidAmount = $scope.amountCalculated;
+          }); 
         }
         for (var j = 0; j < $scope.milestones; j++) {
           $scope.milstoneTotal = $scope.milstoneTotal + $scope.milestones[j].price;
         }
-      }
-      //console.log('check' , $scope.totalBidAmount);
+      } 
     };
 
     $scope.add = function (name) {
-
-      if ($scope.milestones.length < 5) {
-        //console.log('total amount : ' , $scope.totalBidAmount);
-        //console.log('milestone amount : ' , $scope.milestones[$scope.milestones.length - 1].price);
+      if ($scope.milestones.length < 5) { 
         $scope.amountCalculated = parseInt($scope.totalBidAmount) - parseInt($scope.milestones[$scope.milestones.length - 1].price);
-        //console.log('calculated' ,$scope.amountCalculated );
+       
         if ($scope.amountCalculated !== 0 && $scope.milestones[$scope.milestones.length - 1].price >= 3 && $scope.milestones[$scope.milestones.length - 1].price <= parseInt($scope.totalBidAmount)) {
-          //console.log($scope.amountCalculated);
+           
           $scope.milestones.push({
             description: '',
             price: $scope.amountCalculated,
@@ -2426,8 +2152,7 @@ angular.module('projects').controller('ProjectsController', ['$scope', '$rootSco
         }
         for (var j = 0; j < $scope.milestones; j++) {
           $scope.milstoneTotal = $scope.milstoneTotal + $scope.milestones[j].price;
-        }
-        //console.log($scope.milstoneTotal);
+        } 
       }
     };
 
@@ -2435,23 +2160,17 @@ angular.module('projects').controller('ProjectsController', ['$scope', '$rootSco
     $scope.employee = true;
     $scope.freelancer = false;
     $scope.showEmployee = function (label) {
-
-
       if (label === 'employee') {
-        $scope.findPostedProjects();
-        // $scope.findPostedContests();
+        $scope.findPostedProjects(); 
         $scope.freelancer = true;
         $scope.employee = false;
-      } else if (label === 'freelancer') {
-        //console.log('freelancer');
+      } else if (label === 'freelancer') { 
         $scope.employee = true;
         $scope.freelancer = false;
       } else {
         $scope.employee = true;
       }
     };
-
-
 
     $scope.paginateSearchResults = function (key) {
 
@@ -2515,9 +2234,6 @@ angular.module('projects').controller('ProjectsController', ['$scope', '$rootSco
     };
 
     $scope.addMilestone = function (bidId, status, identifier) {
-      // When Milestone is being created, check account balance of user and if req amount is there, only
-      // then allow the user to create milestone
-
       // If created
       if (status === 'Created') {
         // Confirm user wether to Create Milestone
@@ -2554,8 +2270,7 @@ angular.module('projects').controller('ProjectsController', ['$scope', '$rootSco
               SweetAlert.close();
             }
           });
-      }
-
+      } 
       // If Requested
       else if (status === 'Requested') {
         // Confirm user wether to Create Milestone
@@ -2592,6 +2307,7 @@ angular.module('projects').controller('ProjectsController', ['$scope', '$rootSco
                 // //console.log(response);
                 SweetAlert.swal("대금요청이 완료되었습니다.!", " ", "success");
                 $scope.project = response.data;
+                console.log('$scope.project 9 ',$scope.project);
                 $scope.findAwardedProject();
 
                 // Milestone request event emit
@@ -2671,6 +2387,7 @@ angular.module('projects').controller('ProjectsController', ['$scope', '$rootSco
           data: object
         }).then(function (response) {
           $scope.project = response.data;
+          console.log('$scope.project 10 ',$scope.project);
           $scope.findAwardedProject();
 
           Account.findOne({
@@ -2768,6 +2485,7 @@ angular.module('projects').controller('ProjectsController', ['$scope', '$rootSco
           data: obj
         }).then(function (response) {
           $scope.project = response.data;
+          console.log('$scope.project 11 ',$scope.project);
 
           $scope.awardedProject.proposal.milestones[index].status = label;
           $scope.milestonePrice = $scope.awardedProject.proposal.milestones[index].price;
@@ -2838,7 +2556,6 @@ angular.module('projects').controller('ProjectsController', ['$scope', '$rootSco
     };
 
     $scope.deleteBid = function (bidId) {
-
       SweetAlert.swal({
         title: "프로젝트 삭제를 원하시나요?",
         type: "warning",
@@ -2875,77 +2592,68 @@ angular.module('projects').controller('ProjectsController', ['$scope', '$rootSco
 
     // get user projects
     $scope.getUserProjects = function (label) {
-      $scope.items = [];
-      // console.log(' !$scope.getUserProjects:',  !$scope.UserProjects);
-      // console.log(' !$scope.getUserProjects:',  typeof (label) !== 'undefined');
-      // if ( label=== 'CurrentWork' || label=== 'pastWork' || label=== 'activeBids') {
-      // if (typeof (label) !== 'undefined' && !$scope.UserProjects) {
-        $scope.isLoading = true;
-        return $http({
-          url: '/api/users/userBid/' + Authentication.user._id,
-          method: 'PUT',
-          data:{
-            'username': Authentication.user.username
+      $scope.items = []; 
+      $scope.isLoading = true;
+      return $http({
+        url: '/api/users/userBid/' + Authentication.user._id,
+        method: 'PUT',
+        data:{
+          'username': Authentication.user.username
+        }
+      }).then(function (response) {
+        $scope.UserProjects = response; 
+          $scope.freelancerActiveProjects = [];
+          for (var k = 0; k < response.data.length; k++) {
+            if (response.data[k].projectStatus === 'no' || response.data[k].projectStatus === 'pending') {
+              $scope.freelancerActiveProjects.push(response.data[k]); 
+            }
           }
-        }).then(function (response) {
-          $scope.UserProjects = response;
-          // console.log('resp:', response);
 
-          // if (label === 'activeBids') {
-            $scope.freelancerActiveProjects = [];
-            for (var k = 0; k < response.data.length; k++) {
-              if (response.data[k].projectStatus === 'no' || response.data[k].projectStatus === 'pending') {
-                $scope.freelancerActiveProjects.push(response.data[k]);
-                // $scope.items.push(response.data[k]);
-              }
+        // } 
+        // else if (label === 'CurrentWork') {
+          $scope.freelancerCurrentProjects = [];
+          for (var i = 0; i < response.data.length; i++) {
+            if (response.data[i].projectStatus === 'awarded') {
+              $scope.freelancerCurrentProjects.push(response.data[i]);
+              // $scope.items.push(response.data[i]);
             }
+          }
+        // } 
+        // else if (label === 'pastWork') {
+          $scope.freelancerPastProjects = [];
+          $scope.items = [];
+          for (var j = 0; j < response.data.length; j++) {
+            if (response.data[j].projectStatus === 'complete') {
+              $scope.freelancerPastProjects.push(response.data[j]);
+              // $scope.items.push(response.data[j]);
+            }
+          }
 
-          // } 
-          // else if (label === 'CurrentWork') {
-            $scope.freelancerCurrentProjects = [];
-            for (var i = 0; i < response.data.length; i++) {
-              if (response.data[i].projectStatus === 'awarded') {
-                $scope.freelancerCurrentProjects.push(response.data[i]);
-                // $scope.items.push(response.data[i]);
-              }
-            }
-          // } 
-          // else if (label === 'pastWork') {
-            $scope.freelancerPastProjects = [];
-            $scope.items = [];
-            for (var j = 0; j < response.data.length; j++) {
-              if (response.data[j].projectStatus === 'complete') {
-                $scope.freelancerPastProjects.push(response.data[j]);
-                // $scope.items.push(response.data[j]);
-              }
-            }
-
-            // console.log('freelancerPastProjects', $scope.freelancerPastProjects);
-            // // }
-            // // var obj = {
-            // //   'key' : 'its working' 
-                
-            // // };
-            // //console.log($scope.authentication);
-            // return $http({
-            //   url: '/api/hiddenUserUpdate/5969eae5e8d01ffe15d60023',
-            //   method: 'PUT',
-            //   data: $scope.authentication.user.projectsAwarded
-            // }).then(function (response) {
-            //   //console.log('findPostedContests', response);
+          // console.log('freelancerPastProjects', $scope.freelancerPastProjects);
+          // // }
+          // // var obj = {
+          // //   'key' : 'its working' 
               
-            // },  function (error) {
-            //   //console.log('error', response);
-             
-          //console.log($scope.items);
-            // });
-          // }
-          $scope.isLoading = false;
-          $scope.searchh();
-        }, function (response) {
-          $scope.isLoading = false;
-        });
-      // }
+          // // };
+          // //console.log($scope.authentication);
+          // return $http({
+          //   url: '/api/hiddenUserUpdate/5969eae5e8d01ffe15d60023',
+          //   method: 'PUT',
+          //   data: $scope.authentication.user.projectsAwarded
+          // }).then(function (response) {
+          //   //console.log('findPostedContests', response);
+            
+          // },  function (error) {
+          //   //console.log('error', response);
+            
+        //console.log($scope.items);
+          // });
+        // }
+        $scope.isLoading = false;
+        $scope.searchh();
+      }, function (response) {
+        $scope.isLoading = false;
+      }); 
     };
 
     // /////////////////////////////////
@@ -2979,8 +2687,6 @@ angular.module('projects').controller('ProjectsController', ['$scope', '$rootSco
     $scope.myCurrentPage = 0;
     $scope.query = '';
 
-    //$scope.items = generateData();
-
     var searchMatch = function (haystack, needle) {
 
       if (!needle) {
@@ -2994,12 +2700,9 @@ angular.module('projects').controller('ProjectsController', ['$scope', '$rootSco
       $scope.query = query;
       $scope.filteredItems = [];
       $scope.filteredItems = $filter('filter')($scope.items, function (item) {
-
         if (searchMatch(item.projectName, $scope.query)) {
-
           return true;
         }
-        //}
         return false;
       });
       // take care of the sorting order
@@ -3061,9 +2764,6 @@ angular.module('projects').controller('ProjectsController', ['$scope', '$rootSco
     };
 
     // functions have been describe process the data for display
-
-
-
     // change sorting order
     $scope.sort_by = function (newSortingOrder) {
       if ($scope.sortingOrder === newSortingOrder)
@@ -3074,8 +2774,7 @@ angular.module('projects').controller('ProjectsController', ['$scope', '$rootSco
     // /////////////////////////////////   
 
 
-    $scope.projectUserInfo = function () {
-      //console.log($scope.project.user._id);
+    $scope.projectUserInfo = function () { 
       return $http({
         url: '/api/hiddenUser/' + $scope.project.user._id,
         method: 'GET'
@@ -3085,19 +2784,11 @@ angular.module('projects').controller('ProjectsController', ['$scope', '$rootSco
         //console.log(response);
       });
     };
-
-    // $scope.hello = function(id) {
-    //   $timeout(function () {
-    //         //console.log(id);
-    //       }, 220);
-
-    // };
+ 
       //Financial Dashboard
     $scope.financialMilstoneIncoming = true;
     $scope.financialMilstoneOutgoing = false;
     $scope.showMilestoneDetails = function (label) {
-
-
       if (label === 'incoming') {
         $scope.financialMilstoneOutgoing = true;
         $scope.financialMilstoneIncoming = false;
@@ -3153,7 +2844,6 @@ angular.module('projects').controller('ProjectsController', ['$scope', '$rootSco
         $scope.milestone = true;
       }
     };
-
 
     //Create Mile Stone
     $scope.createMileStone = false;
@@ -3280,45 +2970,22 @@ angular.module('projects').controller('ProjectsController', ['$scope', '$rootSco
         $scope.payments = false;
       }
     };
+    
     $scope.isActive = true;
     $scope.outgoingActive = false;
     $scope.toggleActive = function() {
       $scope.isActive = !$scope.isActive;
       $scope.outgoingActive = !$scope.outgoingActive;
     };
+    
     $scope.isEmployee = true;
     $scope.freelancerActive = false;
+
     $scope.toggleActiveStates = function() {
       $scope.isEmployee = !$scope.isEmployee;
       $scope.freelancerActive = !$scope.freelancerActive;
-    };
-    //li lists active values
-    // $scope.MilestoneActive = true;
-    // $scope.MilestoneRequestsActive;
-    // $scope.invoiceActive;
-    // $scope.transferFundsActive;
-    // $scope.withdrawalActive;
-    // $scope.historyActive;
-    // $scope.earningActive;
-    
-    // $scope.toggleMilestone = function() {
-    //   $scope.MilestoneActive = !$scope.MilestoneActive;
-    //   $scope.MilestoneRequestsActive = !$scope.MilestoneRequestsActive;
-    //   $scope.invoiceActive = !$scope.invoiceActive;
-    //   $scope.transferFundsActive = !$scope.transferFundsActive;
-    //   $scope.withdrawalActive = !$scope.withdrawalActive;
-    //   $scope.historyActive = !$scope.historyActive;
-    //   $scope.earningActive = !$scope.earningActive;
-
-    // };
-    // $scope.MilestoneActive = true;
-    // $scope.MilestoneRequestsActive;
-    // $scope.invoiceActive;
-    // $scope.toggleMilestone = function() {
-    //   $scope.MilestoneActive = !$scope.MilestoneActive;
-    //   $scope.MilestoneRequestsActive = !$scope.MilestoneRequestsActive;
-    //   $scope.invoiceActive = !$scope.invoiceActive;
-    // //
+    }; 
+ 
     $scope.isEmployeeProject = false;
     $scope.freelancerProject = true;
     $scope.toggleMyProject = function() {
@@ -3334,8 +3001,7 @@ angular.module('projects').controller('ProjectsController', ['$scope', '$rootSco
         if ($scope.awardedProject.proposal.milestones[i].status === 'Released') {
           $scope.totalAmountOfMilestones = $scope.totalAmountOfMilestones + $scope.awardedProject.proposal.milestones[i].price;
         }
-      }
-      //console.log($scope.totalAmountOfMilestones);
+      } 
       if ($scope.totalAmountOfMilestones >= $scope.awardedProject.yourBid) {
         return true;
       } else {
@@ -3450,7 +3116,7 @@ angular.module('projects').controller('ProjectsController', ['$scope', '$rootSco
                         }).then(function (response) {
                           SweetAlert.swal("대금결제가 완료되었습니다!", " ", "success");
                           $scope.project = response.data;
-
+                          console.log('$scope.project 11a ',$scope.project);
                           //Create service transaction
                           Transactions.create({
                             accountId: $rootScope.userAccountBalance.id,
@@ -3590,6 +3256,7 @@ angular.module('projects').controller('ProjectsController', ['$scope', '$rootSco
                   data: obj
                 }).then(function (response) {
                   $scope.project = response.data;
+                  console.log('$scope.project 12 ',$scope.project);
                   SweetAlert.swal("예치금이 취소 되었습니다!", " ", "success");
                   $location.path('/projects/view/'+$scope.project._id);
                 });
@@ -3699,20 +3366,16 @@ angular.module('projects').controller('ProjectsController', ['$scope', '$rootSco
     };
 
     // find posted projects findPostedProjects
-    $scope.findPostedProjects = function () {
-      // if(!$scope.postedProjects){
+    $scope.findPostedProjects = function () { 
         $scope.isLoading = true;
-
         return $http({
           url: '/api/users/findPostedProjects/' + $scope.authentication.user._id,
           method: 'GET'
-        }).then(function (response) {
-          // console.log('findPostedProjects');
+        }).then(function (response) { 
           $scope.myProjects = response.data;
           var avgBid = 0;
           $scope.postedProjects = [];
-          for (var i = 0; i < $scope.myProjects.length; i++) {
-            // console.log('$scope.myProjects[i]', $scope.myProjects[i]);
+          for (var i = 0; i < $scope.myProjects.length; i++) { 
             var temp = {};
             temp.id = $scope.myProjects[i]._id;
             temp.name = $scope.myProjects[i].name;
@@ -3745,15 +3408,13 @@ angular.module('projects').controller('ProjectsController', ['$scope', '$rootSco
     };
 
     // get all projects which are in progress as employer
-    $scope.findActivePostedProjects = function(label){
-      // if(!$scope.activeProjects){
+    $scope.findActivePostedProjects = function(label){ 
         $scope.isLoading = true;
 
         return $http({
           url: '/api/users/findActivePostedProjects/' + $scope.authentication.user._id,
           method: 'GET'
-        }).then(function (response) {
-          console.log('findActivePostedProjects ',response.data.length);
+        }).then(function (response) { 
           $scope.activeProjects = response.data;
 
           $scope.projInProgress = [];
@@ -3819,40 +3480,9 @@ angular.module('projects').controller('ProjectsController', ['$scope', '$rootSco
       return $http({
         url: '/api/users/findPostedContests/' + $scope.authentication.user._id,
         method: 'GET'
-      }).then(function (response) {
-        //console.log('findPostedContests', response);
+      }).then(function (response) { 
         $scope.myContests = response.data;
-
-
-        // var avgBid = 0;
-        // $scope.postedContests = [];
-        // for (var i = 0; i < $scope.myContests.length; i++) {
-        //   // //console.log('$scope.myContests[i]', $scope.myContests[i]._id);
-        //   var temp = {};
-        //   temp.id = $scope.myContests[i]._id;
-        //   temp.name = $scope.myContests[i].name;
-        //   if ($scope.myContests[i].bids.length > 0) {
-        //     temp.bids = $scope.myContests[i].bids.length;
-        //     for (var j = 0; j < $scope.myContests[i].bids.length; j++) {
-        //       avgBid = avgBid + $scope.myContests[i].bids[j].yourBid;
-        //     }
-        //     temp.avgBid = avgBid / temp.bids;
-        //     //console.log('temp.avgBid', temp.avgBid);
-        //   } else {
-        //     temp.bids = 0;
-        //     temp.avgBid = 0;
-        //     //console.log('temp.avgBid', temp.avgBid);
-        //   }
-
-        //   temp.bidEndDate = new Date($scope.myContests[i].created);
-        //   temp.bidEndDate.setDate(temp.bidEndDate.getDate() + 7);
-        //   $scope.postedContests.push(temp);
-        // }
-
-
-      }, function (response) {
-        // failed
-        // SweetAlert.swal("Error", "Sorry, something went wrong, try again! ", "warning");
+      }, function (response) { 
       });
     };
 
@@ -3888,14 +3518,11 @@ angular.module('projects').controller('ProjectsController', ['$scope', '$rootSco
 
     // redirect to dispute page
     $scope.goToDispute = function(index){
-      $scope.disputeMilestoneIndex = index;
-      //console.log('disputeMilestoneIndex',$scope.disputeMilestoneIndex);
-      //console.log('disputeMilestoneIndex',$scope.awardedProject);
+      $scope.disputeMilestoneIndex = index; 
       $location.path('projects/dispute/'+$stateParams.projectId);
     };
 
     $scope.submitDispute = function(index){
-
       $scope.commentUploader = new FileUploader({
         url: 'api/project/DisputeCommentFile',
         alias: 'newProjectDisputeCommentFile'
@@ -3904,9 +3531,7 @@ angular.module('projects').controller('ProjectsController', ['$scope', '$rootSco
       if ($scope.uploader.queue.length) {
         $scope.commentFileName = $scope.uploader.queue[0].upload();
       }
-
-      //console.log($scope.dispute);
-      //console.log($scope.disputedMilestones);
+ 
       $scope.dispute.disputeCreatedBy = $scope.authentication.user._id;
       $scope.dispute.disputeCreatedByUsername = $scope.authentication.user.username;
 
@@ -3929,9 +3554,7 @@ angular.module('projects').controller('ProjectsController', ['$scope', '$rootSco
       $scope.dispute.totalDisputedAmount = $scope.selectedMilestoneTotal;
       $scope.project.dispute = {};
       $scope.dispute.milestones = [];
-
-      //console.log($scope.disputedMilestones.length);
-      //console.log($scope.awardedProject.milestones);
+ 
       for(var i =0; i<$scope.disputedMilestones.length;i++) {
         $scope.dispute.milestones.push($scope.awardedProject.proposal.milestones[i]);
       }
@@ -3953,8 +3576,8 @@ angular.module('projects').controller('ProjectsController', ['$scope', '$rootSco
           method: 'PUT',
           data: obj
         }).then(function (response) {
-
           $scope.project = response.data;
+          console.log('$scope.project 13 ',$scope.project);
           $timeout(function () {
             $state.reload();
           }, 1000);
@@ -3972,8 +3595,8 @@ angular.module('projects').controller('ProjectsController', ['$scope', '$rootSco
           method: 'PUT',
           data: obj
         }).then(function (response) {
-
           $scope.project = response.data;
+          console.log('$scope.project 14 ',$scope.project);
           $timeout(function () {
             $state.reload();
           }, 1000);
@@ -3984,8 +3607,7 @@ angular.module('projects').controller('ProjectsController', ['$scope', '$rootSco
         });
       }
     };
-
-    // $scope.selectedProducts = [];
+ 
     $scope.selectedMilestoneTotal = 0;
     $scope.disputedMilestones = [];
     $scope.initializeMilestoneTotal = function(){
@@ -3997,7 +3619,6 @@ angular.module('projects').controller('ProjectsController', ['$scope', '$rootSco
     };
 
     $scope.checking = function(prod,index){
-      
       if(prod.selected === true) {
         $scope.selectedMilestoneTotal = $scope.selectedMilestoneTotal + parseFloat(prod.price);
         $scope.disputedMilestones.push({
@@ -4005,8 +3626,7 @@ angular.module('projects').controller('ProjectsController', ['$scope', '$rootSco
       });
       }
       else {
-        $scope.selectedMilestoneTotal = $scope.selectedMilestoneTotal - parseFloat(prod.price);
-        //$scope.disputedMilestones.splice(index,1);
+        $scope.selectedMilestoneTotal = $scope.selectedMilestoneTotal - parseFloat(prod.price); 
         angular.forEach($scope.disputedMilestones, function(i, el){
           if (el.index === index){
               $scope.disputedMilestones.splice(i, 1);
@@ -4017,43 +3637,16 @@ angular.module('projects').controller('ProjectsController', ['$scope', '$rootSco
       //console.log($scope.disputedMilestones);
     };
 
-
-      // $scope.commentUploader = new FileUploader({
-      //   url: 'api/project/DisputeCommentFile',
-      //   alias: 'newProjectDisputeCommentFile'
-      // });
-
-
-
-      // $scope.commentUploader.onAfterAddingFile = function (fileItem) {
-      //   if ($window.FileReader) {
-      //     var fileReader = new FileReader();
-      //     fileReader.readAsDataURL(fileItem._file);
-      //     var extension = fileItem.file.name.split('.').pop().toLowerCase();
-      //     //console.log('extension', extension);
-      //     fileReader.onload = function (fileReaderEvent) {
-      //       $timeout(function () {
-      //         $scope.commentFile = fileReaderEvent.target.result;
-      //         //console.log('$scope.commentFile', $scope.commentFile);
-      //       }, 0);
-      //     };
-      //   }
-      // };
-
     $scope.disputeComments = function(comment ,tab) {
-
       $scope.commentUploader = new FileUploader({
         url: 'api/project/DisputeCommentFile',
         alias: 'newProjectDisputeCommentFile'
       });
-
       if ($scope.uploader.queue.length) {
         $scope.commentFileName = $scope.uploader.queue[0].upload();
       }
-
       $scope.uploader.onSuccessItem = function (fileItem, response, status, headers) {
         // Show success message
-
         $scope.success = true;
 
         var data = {
@@ -4135,23 +3728,21 @@ angular.module('projects').controller('ProjectsController', ['$scope', '$rootSco
         alias: 'newProjectDisputeFileUploade'
       });
 
-
-
-    $scope.uploader.onAfterAddingFile = function (fileItem) {
-      if ($window.FileReader) {
-        var fileReader = new FileReader();
-        fileReader.readAsDataURL(fileItem._file);
-        // $scope.disputeFilename = fileItem.file.name.split('.').pop().toLowerCase();
-        $scope.disputeFilename = fileItem.file.name;
-        //console.log('extension', fileItem.file.name);
-        fileReader.onload = function (fileReaderEvent) {
-          $timeout(function () {
-            $scope.imageURL = fileReaderEvent.target.result;
-            //console.log('$scope.sdffsdfsd', $scope.imageURL);
-          }, 0);
-        };
-      }
-    };
+      $scope.uploader.onAfterAddingFile = function (fileItem) {
+        if ($window.FileReader) {
+          var fileReader = new FileReader();
+          fileReader.readAsDataURL(fileItem._file);
+          // $scope.disputeFilename = fileItem.file.name.split('.').pop().toLowerCase();
+          $scope.disputeFilename = fileItem.file.name;
+          //console.log('extension', fileItem.file.name);
+          fileReader.onload = function (fileReaderEvent) {
+            $timeout(function () {
+              $scope.imageURL = fileReaderEvent.target.result;
+              //console.log('$scope.sdffsdfsd', $scope.imageURL);
+            }, 0);
+          };
+        }
+      };
 
     };
 
@@ -4159,21 +3750,18 @@ angular.module('projects').controller('ProjectsController', ['$scope', '$rootSco
       if(offer < $scope.project.dispute.amountOffer)
       {
         var obj = null;
-        
         if($scope.project.dispute.disputeCreatedBy === $scope.currentUserId) {
           obj = {
             'dispute.amountOffer' : offer
           };
         }
         
-        if($scope.project.dispute.disputeCreatedfor === $scope.currentUserId) {
- 
+        if($scope.project.dispute.disputeCreatedfor === $scope.currentUserId) { 
           obj = {
             'dispute.secondUserAmountOffer' : offer
           };
         }
 
-        //console.log(obj);
         return $http({
           url: '/api/project/updateField/' + $scope.project._id,
           method: 'PUT',
@@ -4193,7 +3781,6 @@ angular.module('projects').controller('ProjectsController', ['$scope', '$rootSco
     };
 
     $scope.proceedToArbitrationTab2 = function() {
-
       SweetAlert.swal({
         title: "수수료 지불에 동의합니까?",
         text: "동의할 경우 대한상사중재원의 결정전까지 예치금액은 지급 및 인출이 보류됩니다.",
@@ -4203,71 +3790,67 @@ angular.module('projects').controller('ProjectsController', ['$scope', '$rootSco
         cancelButtonText: "아니오, 취소합니다!",
         closeOnConfirm: false,
         closeOnCancel: false }, 
-      function(isConfirm){ 
-
-        if (isConfirm) {
-          SweetAlert.close();
-          Account.findOne({
-            filter: {
-              where: {
-                ownerId: $scope.authentication.user.username
+        function(isConfirm){ 
+          if (isConfirm) {
+            SweetAlert.close();
+            Account.findOne({
+              filter: {
+                where: {
+                  ownerId: $scope.authentication.user.username
+                }
               }
-            }
-          }, function (suc) {
+            }, function (suc) {
 
-            $scope.outsourcingFee = parseFloat($scope.project.dispute.amountOffer) * 0.07;
+              $scope.outsourcingFee = parseFloat($scope.project.dispute.amountOffer) * 0.07;
 
-            Transactions.transfer({
-              Sid: suc.id,
-              Rid: $rootScope.adminEWalletId,
-              amount: $scope.outsourcingFee,
-              currency: $scope.project.currency.code,
-              referenceId: $scope.project._id,
-              description: {
-                'detail': 'Disputed project'
-              }
-            }, function (tranSucc) {
-              //console.log('wah g wah');
-              $scope.dispute = $scope.project.dispute;
-              $scope.dispute.tab = 3;
-              $scope.dispute.tab2ArbitrationCreatedDate = Date.now();
-              var date = new Date(Date.now());
-              $scope.dispute.tab2ArbitrationCreatedDateExpire = date.setDate(date.getDate()+4);
-              $scope.dispute.userPayFirst = $scope.authentication.user._id;
-              $scope.dispute.tab3Comments = [];
+              Transactions.transfer({
+                Sid: suc.id,
+                Rid: $rootScope.adminEWalletId,
+                amount: $scope.outsourcingFee,
+                currency: $scope.project.currency.code,
+                referenceId: $scope.project._id,
+                description: {
+                  'detail': 'Disputed project'
+                }
+              }, function (tranSucc) {
+                //console.log('wah g wah');
+                $scope.dispute = $scope.project.dispute;
+                $scope.dispute.tab = 3;
+                $scope.dispute.tab2ArbitrationCreatedDate = Date.now();
+                var date = new Date(Date.now());
+                $scope.dispute.tab2ArbitrationCreatedDateExpire = date.setDate(date.getDate()+4);
+                $scope.dispute.userPayFirst = $scope.authentication.user._id;
+                $scope.dispute.tab3Comments = [];
 
-              var obj = {
-                'dispute': $scope.dispute,
-                'status' : 'ProceedToTab3'
-              };
+                var obj = {
+                  'dispute': $scope.dispute,
+                  'status' : 'ProceedToTab3'
+                };
 
-              return $http({
-                url: '/api/project/manageDispute/' + $scope.project._id,
-                method: 'PUT',
-                data: obj
-              }).then(function (response) {
-
-                $scope.project = response.data;
-                // $location.path('projects/dispute/' + $scope.project._id);
-               $state.reload();
-                SweetAlert.swal("보냈습니다!", "금액을 보냈습니다.", "success");
+                return $http({
+                  url: '/api/project/manageDispute/' + $scope.project._id,
+                  method: 'PUT',
+                  data: obj
+                }).then(function (response) {
+                  $scope.project = response.data;
+                  console.log('$scope.project 15 ',$scope.project); 
+                $state.reload();
+                  SweetAlert.swal("보냈습니다!", "금액을 보냈습니다.", "success");
+                }, function (response) {
+                  //console.log(response);
+                });
                 
 
-              }, function (response) {
-                //console.log(response);
+              }, function(err){
+                //console.log('ahhhhhhhhh');
               });
-              
-
             }, function(err){
-               //console.log('ahhhhhhhhh');
+                //console.log('ohhh no');
             });
-          }, function(err){
-              //console.log('ohhh no');
-          });
-          
-        } else {
-          SweetAlert.swal("취소 되었습니다.", "중재가 취소되었습니다.", "error");
-        }
+            
+          } else {
+            SweetAlert.swal("취소 되었습니다.", "중재가 취소되었습니다.", "error");
+          }
       });
     };
 
@@ -4322,18 +3905,13 @@ angular.module('projects').controller('ProjectsController', ['$scope', '$rootSco
                 method: 'PUT',
                 data: obj
               }).then(function (response) {
-
                 $scope.project = response.data;
-                // $location.path('projects/dispute/' + $scope.project._id);
-               $state.reload();
+                console.log('$scope.project 16 ',$scope.project);
+                $state.reload();
                 SweetAlert.swal("보냈습니다!", "금액을 보냈습니다.", "success");
-                
-
               }, function (response) {
                 //console.log(response);
-              });
-              
-
+              }); 
             }, function(err){
                //console.log('ahhhhhhhhh');
             });
@@ -4428,12 +4006,10 @@ angular.module('projects').controller('ProjectsController', ['$scope', '$rootSco
                     }).then(function (response) {
 
                       $scope.project = response.data;
-                      
-                      
+                      console.log('$scope.project 17 ',$scope.project); 
                       $location.path('projects/view/' + $scope.project._id);
                       SweetAlert.swal("보냈습니다!", "금액을 보냈습니다.", "success");
                       
-
                     }, function (response) {
                       //console.log(response);
                     }); 
@@ -4533,7 +4109,7 @@ angular.module('projects').controller('ProjectsController', ['$scope', '$rootSco
                     }).then(function (response) {
 
                       $scope.project = response.data;
-
+                      console.log('$scope.project 18 ',$scope.project);
                       var obj = {
                         'deductedAmount' : $scope.outsourcingFee,
                         'data' :  $scope.awardedProject,
@@ -4711,8 +4287,6 @@ angular.module('projects').controller('ProjectsController', ['$scope', '$rootSco
       }
 
       if(totalConvertedAmount>0){
-    //alert("예치금 잔액이 부족합니다.\n결제 페이지로 이동합니다.");
-        // alert(totalConvertedAmount);
         //Withdraw amount from all accounts
         $timeout(function() {
           for(var key in actualWallet){
@@ -4746,7 +4320,6 @@ angular.module('projects').controller('ProjectsController', ['$scope', '$rootSco
 
       $scope.totalConverted = totalConvertedAmount;
     };
-
 
     //purchaseBid
     $scope.purchaseBid = function (){
@@ -4826,32 +4399,27 @@ angular.module('projects').controller('ProjectsController', ['$scope', '$rootSco
             $scope.bidPurchase = false;
             SweetAlert.close();
           }
-        });
+      });
     }; 
 
     /*
     *  To get all the My Contests 
     */
     $scope.getAllMyContests = function(){
-      
-      // if(!$scope.awardedContests){
-        $scope.awardedContests = [];
-        $scope.isLoading = true;
-
-        $http({
-          url: '/api/contest/getAllMyContests',
-          method: 'PUT',
-          data: {
-            'userId': Authentication.user._id
-          }
-        }).then( function(suc){
-          $scope.awardedContests = suc.data;
-          $scope.isLoading = false;
-        }, function(err){
-          $scope.isLoading = false;
-        });
-        
-      // }
+      $scope.awardedContests = [];
+      $scope.isLoading = true;
+      $http({
+        url: '/api/contest/getAllMyContests',
+        method: 'PUT',
+        data: {
+          'userId': Authentication.user._id
+        }
+      }).then( function(suc){
+        $scope.awardedContests = suc.data;
+        $scope.isLoading = false;
+      }, function(err){
+        $scope.isLoading = false;
+      }); 
     };
 
     /*
@@ -4860,58 +4428,42 @@ angular.module('projects').controller('ProjectsController', ['$scope', '$rootSco
     $scope.getContestInProgress = function(){
       var contests = {};
       $scope.awardedContests = [];
-      $scope.contestsWithEntry = [];
-
-      // Contests.query().$promise.then(function(data) {
-      //   if(data){
-      //     for(var i=0; i< data.length; i++){
-      //       if(data[i].user._id === Authentication.user._id){
-      //         $scope.awardedContests.push(data[i]); 
-      //       }
-      //     }
-      //   }
-      // });
-
-      // if(!$scope.contestsWithEntry){
-        $scope.isLoading = true;
-
-        $http({
-          url: '/api/contest/getAllContestsAwarded',
-          method: 'PUT',
-          data: {
-            'userId': Authentication.user._id
-          }
-        }).then( function(suc){
-          $scope.awardedContests = suc.data;
-          //Get the entry makers
-          if($scope.awardedContests){
-            var awarded = $scope.awardedContests;
-            for(var j=0; j<awarded.length; j++){
-              if(awarded[j].entries.length>0){
-                // console.log('inside:', awarded[j]);
-                for(var k=0; k<awarded[j].entries.length; k++){
-                  //Push only awarded entry
-                  if(awarded[j].entries[k].youWinner === 'yes'){
-                    contests.id = awarded[j]._id;
-                    contests.name = awarded[j].name;
-                    contests.created = awarded[j].created;
-                    contests.freelancer = awarded[j].entries[k].entryPersonUsername;
-                    contests.entryName = awarded[j].entries[k].entryName;
-                    contests.entryPrize = awarded[j].entries[k].entrySellPrice;
-                    contests.freelancerId = awarded[j].entries[k].entryPersonProfId;
-                    $scope.contestsWithEntry.push(contests);
-                    contests = {};
-                  }
+      $scope.contestsWithEntry = []; 
+      $scope.isLoading = true;
+      $http({
+        url: '/api/contest/getAllContestsAwarded',
+        method: 'PUT',
+        data: {
+          'userId': Authentication.user._id
+        }
+      }).then( function(suc){
+        $scope.awardedContests = suc.data;
+        //Get the entry makers
+        if($scope.awardedContests){
+          var awarded = $scope.awardedContests;
+          for(var j=0; j<awarded.length; j++){
+            if(awarded[j].entries.length>0){ 
+              for(var k=0; k<awarded[j].entries.length; k++){
+                //Push only awarded entry
+                if(awarded[j].entries[k].youWinner === 'yes'){
+                  contests.id = awarded[j]._id;
+                  contests.name = awarded[j].name;
+                  contests.created = awarded[j].created;
+                  contests.freelancer = awarded[j].entries[k].entryPersonUsername;
+                  contests.entryName = awarded[j].entries[k].entryName;
+                  contests.entryPrize = awarded[j].entries[k].entrySellPrice;
+                  contests.freelancerId = awarded[j].entries[k].entryPersonProfId;
+                  $scope.contestsWithEntry.push(contests);
+                  contests = {};
                 }
               }
             }
           }
-          $scope.isLoading = false;
-        }, function(err){
-          $scope.isLoading = false;
-        });
-      // }
-
+        }
+        $scope.isLoading = false;
+      }, function(err){
+        $scope.isLoading = false;
+      }); 
     };
 
     /*
@@ -4919,33 +4471,27 @@ angular.module('projects').controller('ProjectsController', ['$scope', '$rootSco
     */
 
     $scope.getAllActiveContests = function (){
-      $scope.activeContests = [];
-      
-      // if(!$scope.activeContests){
-        $scope.isLoading = true;
-        $http({
-          url: '/api/contest/getAllActiveContests',
-          method: 'PUT',
-          data: {
-            'userId': Authentication.user._id
-          }
-        }).then( function(suc){
-          $scope.activeContests = suc.data;
-          $scope.isLoading = false;
-        }, function(err){
-          $scope.isLoading = false;
-        });
-      // }
-
+      $scope.activeContests = []; 
+      $scope.isLoading = true;
+      $http({
+        url: '/api/contest/getAllActiveContests',
+        method: 'PUT',
+        data: {
+          'userId': Authentication.user._id
+        }
+      }).then( function(suc){
+        $scope.activeContests = suc.data;
+        $scope.isLoading = false;
+      }, function(err){
+        $scope.isLoading = false;
+      }); 
     };
 
     /*
     * getAllPastContests freelancer side
     */
     $scope.getAllPastContests = function (){
-      $scope.pastContests = [];
-      
-      // if(!$scope.pastContests){
+      $scope.pastContests = []; 
         $scope.isLoading = true;
         $http({
           url: '/api/contest/getAllPastContests',
@@ -4958,8 +4504,7 @@ angular.module('projects').controller('ProjectsController', ['$scope', '$rootSco
           $scope.isLoading = false;
         }, function(err){
           $scope.isLoading = false;
-        });
-      // }
+        }); 
     };
 
     /*
@@ -5190,7 +4735,5 @@ angular.module('projects').controller('ProjectsController', ['$scope', '$rootSco
           }
       }
     };
-
-
   }
 ]);

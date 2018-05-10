@@ -4,11 +4,7 @@
 angular.module('contests').controller('ContestsController', ['$scope', '$rootScope', 'Conversation', 'uuid2', '$uibModal', '$stateParams', '$location','$http', '$timeout', '$window', 'Authentication', 'Contests','geolocation', 'FileUploader', 'UniversalData', 'Account', 'Transactions', 'toastr', 'SweetAlert', 'usSpinnerService', 'Notifications', 'Notification', 'ProjectSchema', 'Projects', 'Excel', 'Socket','Categories', 'SubCategories', 'Skills',
   function ($scope, $rootScope, Conversation, uuid2, $uibModal, $stateParams, $location, $http, $timeout, $window, Authentication, Contests, geolocation, FileUploader, UniversalData, Account, Transactions, toastr, SweetAlert, usSpinnerService, Notifications, Notification, ProjectSchema, Projects, Excel, Socket, Categories, SubCategories, Skills) {
     $scope.authentication = Authentication;
-
-    // Search bar partial    $scope.search = '/modules/contests/client/views/search-contest.client.view.html';
-
-    $scope.contest = {};
-    // $scope.contest.rate = 'hourly';
+    $scope.contest = {}; 
     $scope.rateList = [];
 
     $scope.deliverDays = 3;
@@ -17,23 +13,8 @@ angular.module('contests').controller('ContestsController', ['$scope', '$rootSco
     $scope.totalEntryAmount = 0;
     $scope.contest.sliderContestBudg = 1000;
     $scope.totalAmount = $scope.contest.sliderContestBudg;
-    // $scope.entDesc = true;
-    // $scope.entries = false;
-
-    // $scope.entryName = '';
-    // $scope.entryDescription = '';
-    // $scope.entrySellPrice = '';
-    // $scope.entryName = '';
-
-    // $scope.contest.currency = '';
-    
-    // Rating
-    //$scope.rate = 0;
-    //$scope.max = 5;
-    //$scope.isReadonly = true;
-
-
-  $scope.rate = 5;
+  
+    $scope.rate = 5;
     $scope.max = 5;
     $scope.isReadonly = true;
     $scope.percent = 100;
@@ -54,29 +35,11 @@ angular.module('contests').controller('ContestsController', ['$scope', '$rootSco
     // Currency rate is being hardcoded here instead of getting the latest rate
     // 1 USD = 1000 KRW
     $rootScope.latestCurrencyRate = { 'USD': 1, 'KRW': 1000 };
-
-    // if(typeof(JSON.parse(localStorage.getItem('latestCurrencyRate'))) === 'undefined' ){
-    //   $http.get('https://api.fixer.io/latest?base=USD').then(function(res){
-    //     $rootScope.latestCurrencyRate = res.data.rates;
-    //     $rootScope.latestCurrencyRate.USD = 1;
-    //     localStorage.setItem('latestCurrencyRate', JSON.stringify($rootScope.latestCurrencyRate));
-    //     // console.log('rate 1:', $rootScope.latestCurrencyRate);
-    //   });
-    // }else{
-    //   $rootScope.latestCurrencyRate = JSON.parse(localStorage.getItem('latestCurrencyRate'));      
-    // }
-
     $scope.getLatestRate = function(){
 
       // Currency rate is being hardcoded here instead of getting the latest rate
       // 1 USD = 1000 KRW
       $rootScope.latestCurrencyRate = { 'USD': 1, 'KRW': 1000 };
-      
-      // $http.get('https://api.fixer.io/latest?base=USD').then(function(res){
-      //   $rootScope.latestCurrencyRate = res.data.rates;
-      //   $rootScope.latestCurrencyRate.USD = 1;
-      //   localStorage.setItem('latestCurrencyRate', JSON.stringify($rootScope.latestCurrencyRate));
-      // });
     };
 
 
@@ -143,6 +106,8 @@ angular.module('contests').controller('ContestsController', ['$scope', '$rootSco
 
     $scope.upgradeContest = function(){
       $scope.copyy = angular.copy($scope.thisContest);
+      console.log(' $scope.thisContest ',$scope.thisContest);
+      $scope.upgradeTotal=$scope.thisContest.sliderContestBudg;
     };
 
     $scope.cancelUpgrade = function(){
@@ -370,29 +335,7 @@ angular.module('contests').controller('ContestsController', ['$scope', '$rootSco
           $location.path('chat/inbox/'+suc.id);
       }, function(err){
         // When Freelancer starts convo
-        // if( Authentication.user.username !== contest.userInfo.username){
-        //   Conversation.create({
-        //     "userOne": contest.userInfo.username,
-        //     "userTwo": Authentication.user.username,
-        //     "projectTitle": contestName +' '+ entry.entryName,
-        //     "projectLink": contestId,
-        //     "projectId": contestId,
-        //     "isAwarded": bool,
-        //     "cid": uuid2.newuuid(),
-        //     "hasUnreadMessages": true
-        //   }, function(_resp){
-        //     console.log("Conversation Created", _resp);
-        //     $rootScope.convToOpen = _resp;
-        //     $rootScope.convToOpenFromProjects = 1;
-        //     //console.log('$rootScope.convToOpen in projects', $rootScope.convToOpen);
-        //     $location.path('chat/inbox');
-        //   }, function(err){
-        //     // $location.path('chat/inbox')
-        //     toastr.error("Sorry, something went wrong");
-        //   });
-        // }
-        // when employer starts convo
-        // else{
+        
           Conversation.create({
             "userOne": Authentication.user.username,
             "userTwo": entry.entryPersonUsername,
@@ -403,10 +346,10 @@ angular.module('contests').controller('ContestsController', ['$scope', '$rootSco
             "cid": uuid2.newuuid(),
             "hasUnreadMessages": true
           }, function(_resp){
-            // console.log("Conversation Created", _resp);
+        
             $rootScope.convToOpen = _resp;
             $rootScope.convToOpenFromProjects = 1;
-            //console.log('$rootScope.convToOpen in projects', $rootScope.convToOpen);
+        
             Conversation.findOne({
               filter:{
                 where:{
@@ -422,11 +365,9 @@ angular.module('contests').controller('ContestsController', ['$scope', '$rootSco
                  $location.path('chat/inbox/'+suc.id);
             });
           }, function(err){
-            // $location.path('chat/inbox')
+            
             toastr.error("죄송합니다, 문제가 발생했습니다.");
           });
-        // }
-
       });
     };
 
@@ -494,77 +435,6 @@ angular.module('contests').controller('ContestsController', ['$scope', '$rootSco
       }, 10);
     };
     
-    /*$scope.subCatSelect = function(){
-      $timeout(function () {
-        if ($scope.contest.workRequire.name.includes('Websites')) {
-        // if ($scope.contest.workRequire.name === 'Websites IT and Software') {
-          $scope.optSub = $scope.subcatweb;
-        }
-        else if ($scope.contest.workRequire.name.includes('Mobile')) {
-        // else if ($scope.contest.workRequire.name === 'Mobile') {
-          $scope.optSub = $scope.subcatmobile;
-        }
-        else if ($scope.contest.workRequire.name.includes('Design')) {     
-        // else if ($scope.contest.workRequire.name === 'Design') {     
-          $scope.optSub = $scope.subcatdesign;          
-        }
-        else if ($scope.contest.workRequire.name.includes('Writing')) {
-        // else if ($scope.contest.workRequire.name === 'Writing') {
-          $scope.optSub = $scope.subcatwriting;
-        }
-        else if ($scope.contest.workRequire.name.includes('Entry')) {
-        // else if ($scope.contest.workRequire.name === 'Data Entry') {
-          $scope.optSub = $scope.subcatdataentry;
-        }
-        else if ($scope.contest.workRequire.name.includes('Manufacturing')) {
-        // else if ($scope.contest.workRequire.name === 'Product Sourcing and Manufacuturing') {
-          $scope.optSub = $scope.subcatmanufact;
-        }
-        else if ($scope.contest.workRequire.name.includes('Marketing')) {
-        // else if ($scope.contest.workRequire.name === 'Sales and Marketing') {
-          $scope.optSub = $scope.subcatsalemarket;               
-        }
-       else if ($scope.contest.workRequire.name.includes('Accounting')) {
-       // else if ($scope.contest.workRequire.name === 'Sales and Marketing') {
-         $scope.optSub = $scope.records.subcatbusinessaccount;               
-       }
-        else if ($scope.contest.workRequire.name.includes('Services')) {
-        // else if ($scope.contest.workRequire.name === 'Local Jobs and Services') {
-          $scope.optSub = $scope.subcatlocaljob;         
-        }else if ($scope.contest.workRequire.name.includes('Translation')) {
-       // else if ($scope.contest.workRequire.name === 'Local Jobs and Services') {
-         $scope.optSub = $scope.records.subcatLangTranslation;         
-       }else if ($scope.contest.workRequire.name.includes('Engineering')) {
-       // else if ($scope.contest.workRequire.name === 'Local Jobs and Services') {
-         $scope.optSub = $scope.records.subcatEngScience;         
-       }
-        else if ($scope.contest.workRequire.name.includes('Customized')) { 
-        // else if ($scope.contest.workRequire.name === 'Customized Skills(Select manually)') { 
-          $scope.optSub = '';          
-        }
-        else if ($scope.contest.workRequire.name.includes('Category')) {
-        // else if ($scope.contest.workRequire.name === 'Select Category of Work (Optional))') {
-          $scope.optSub = '';         
-        }
-    
-      }, 10);
-    };*/
-
-    // $scope.currency = [
-    //   { 'name' : 'KRW' },
-    //   { 'name' : 'USD' }
-    //   { 'name' : 'AUD' },
-    //   { 'name' : 'EUP' },
-    //   { 'name' : 'NZD' },
-    //   { 'name' : 'MXN' },
-    //   { 'name' : 'CAD' },
-    //   { 'name' : 'PLN' },
-    //   { 'name' : 'ZAR' },
-    //   { 'name' : 'MYR' },
-    //   { 'name' : 'HKD' },
-    //   { 'name' : 'JMD' },
-    //   { 'name' : 'CLP' }
-    // ];
     
     $scope.contest.isLocal = false;
     $scope.priceList = [{
@@ -732,14 +602,13 @@ angular.module('contests').controller('ContestsController', ['$scope', '$rootSco
         else {
           $scope.totalAmount = $scope.totalAmount - ($scope.pakagePrices.gaurantee*$rootScope.latestCurrencyRate[$scope.contest.currency.code]);
         }
-        
+        // $scope.$apply();
       }
     };
 
     $scope.upgradeTotal = 0;
     $scope.calculateUpgradeAmount = function (value,pakage_name) {
-      console.log('value:', value);
-      console.log('package:', pakage_name);
+      $scope.upgradeTotal=parseInt($scope.upgradeTotal);
       if(pakage_name === 'pakage_1') {  
         if(value){
           $scope.upgradeTotal = $scope.upgradeTotal + ($scope.pakagePrices.pakage_1*$rootScope.latestCurrencyRate[$scope.thisContest.currency.code]);
@@ -756,7 +625,6 @@ angular.module('contests').controller('ContestsController', ['$scope', '$rootSco
           $scope.upgradeTotal = $scope.upgradeTotal - ($scope.pakagePrices.pakage_1*$rootScope.latestCurrencyRate[$scope.thisContest.currency.code]);
         }
       }
-      
       else if(pakage_name === 'pakage_2' && $scope.pakage_1 === false) {  
         if(value){
           $scope.upgradeTotal = $scope.upgradeTotal + ($scope.pakagePrices.pakage_2*$rootScope.latestCurrencyRate[$scope.thisContest.currency.code]);   
@@ -794,13 +662,13 @@ angular.module('contests').controller('ContestsController', ['$scope', '$rootSco
         
       }
       else if(pakage_name === 'pakage_6') {  
+        
         if(value){
           $scope.upgradeTotal = $scope.upgradeTotal + ($scope.pakagePrices.pakage_6*$rootScope.latestCurrencyRate[$scope.thisContest.currency.code]);   
         }
         else {
           $scope.upgradeTotal = $scope.upgradeTotal - ($scope.pakagePrices.pakage_6*$rootScope.latestCurrencyRate[$scope.thisContest.currency.code]);
         }
-        
       }
       else if(pakage_name === 'pakage_7') {  
         if(value){
@@ -953,8 +821,7 @@ angular.module('contests').controller('ContestsController', ['$scope', '$rootSco
         }, 100);
       }
 
-      $scope.error = null;
-      // var contest = new Contests($scope.contest);
+      $scope.error = null; 
       var contest = $scope.contest;
 
       var Pakages = {
@@ -1046,9 +913,7 @@ angular.module('contests').controller('ContestsController', ['$scope', '$rootSco
 
     };
 
-    $scope.postContest = function(){
-
-      // var contest = new Contests($scope.contest);
+    $scope.postContest = function(){ 
       var contest = $scope.contest;
 
       var Pakages = {
@@ -1160,58 +1025,7 @@ angular.module('contests').controller('ContestsController', ['$scope', '$rootSco
               });
               $scope.error = errorResponse.data.message;
             });
-          // };
-
-          // if(!$scope.uploader.queue.length) {
-
-          //   // var contest = $scope.contest;
-          //   contest.additionalPakages = Pakages;
-          //   contest.userInfo = $scope.authentication.user;
-          //   contest.file = 'modules/contests/client/img/default.png';
-
-          //   delete contest.$promise;
-          //   delete contest.$resolved;
-            
-          //   $scope.isLoading = true;
-
-          //   return $http({
-          //      url: '/api/contest/create',
-          //      method: 'POST',
-          //      data: contest
-          //    }).then(function (response) {
-          //   // contest.$save(function (response) {
-          //     SweetAlert.swal("등록완료!", "콘테스트가 등록 되었습니다.", "success");
-          //     // $location.path('contests/view/' + response.data._id);
-          //     $location.path('contests/view/' + response.data._id);
-          //     $scope.isLoading = false;
-
-          //   }, function (errorResponse) {
-
-          //     $scope.isLoading = false;
-          //     $scope.error = errorResponse.data.message;
-          //     SweetAlert.swal("Oops",'죄송합니다. 콘테스트 등록이 실패했습니다. 다시 한번 등록 하시길 바랍니다.', "error");
-          //     // Reverse the transaction
-          //     Transactions.transfer({
-          //       Sid : $rootScope.adminEWalletId,
-          //       Rid : $rootScope.userAccountBalance.id,
-          //       amount : parseFloat($scope.totalAmount),
-          //       currency : $scope.contest.currency.code
-          //     }, function(res){
-          //       Account.findOne({ 
-          //         filter: {
-          //           where: {
-          //             ownerId: $scope.authentication.user.username
-          //           }
-          //         }
-          //       }, function(res){
-          //         $rootScope.userAccountBalance = res;
-          //       });
-          //     });
-
-          //   });
-          // }
-
-          // return;
+          
         }, function(err){
           SweetAlert.swal("콘테스트 오류", "죄송합니다! 문제가 발생했습니다.다시 시도하십시오!", "error");
           $scope.isLoading = false;
@@ -1248,11 +1062,7 @@ angular.module('contests').controller('ContestsController', ['$scope', '$rootSco
       }).then(function(response) {
         // success
         $scope.contest = response.data;
-        // $timeout(function () {
-        //   $scope.findAvgBid();
-        // }, 100);
-        
-        //console.log(response);
+     
       },function(response){
         // failed
         //console.log(response);
@@ -1359,14 +1169,7 @@ angular.module('contests').controller('ContestsController', ['$scope', '$rootSco
         usSpinnerService.stop('contLoader');
       }, 100);
       });
-
-      // $http.get('/api/contests').then(function(data){
-      //   $scope.promiseResolved = true;
-      //   $scope.contest = data.data;
-      //   $scope.allContests = data.data;
-      //   $scope.oldData = data.data;
-      //   console.log('data:', data.data);
-      // });
+ 
     };
 
 
@@ -1476,15 +1279,12 @@ angular.module('contests').controller('ContestsController', ['$scope', '$rootSco
       };
 
       $scope.uploader.onErrorItem = function (fileItem, response, status, headers) {
-      
-        //console.log(response);
         $scope.contest = {};
         // Show error message
         $scope.error = response.message;
       };
 
       if(!$scope.uploader.queue.length) {
-
         toastr.info('파일을 먼저 업로드하십시오.');
       } 
       // file uploader end 
@@ -1498,9 +1298,6 @@ angular.module('contests').controller('ContestsController', ['$scope', '$rootSco
 
 
     $scope.checktotalEntryAmount = function (value, pakage_name) {
-
-      // //console.log('value', value);
-      // //console.log('pakage_name', pakage_name);
 
       if(pakage_name === 'entry_pakage_1'){
         if(value){
@@ -1575,40 +1372,17 @@ angular.module('contests').controller('ContestsController', ['$scope', '$rootSco
 
       $http({
         url:'/api/contest/similarcontest',
-        method:'GET'
-        // data:{
-        //   'cat': $scope.thisContest.workRequire.name,
-        //   'subCat': $scope.thisContest.subcat.name
-        // }
+        method:'GET' 
       }).then( function(suc){
         $scope.similarcontest = suc.data.similar;
         $scope.completedContest = suc.data.completed;
       });
     };
-
-
-    // $scope.checkEntryExists = function() {
-
-    //   $scope.entryExists = false;
-    //   // //console.log('Entry exists:', $scope.thisContest.entries );
-    //   if($scope.thisContest.entries){
-    //     for(var j =0; j< $scope.thisContest.entries.length;j++) {
-          
-    //       if($scope.contest.entries[j].userId === $scope.authentication.user._id) {
-    //         $scope.entryExists = true;
-    //         break;
-    //       }
-
-    //     }
-    //   }
-    // };
-
     // Calculate % of bid on budget
     $scope.updateValues = function() {
       $scope.contestFee = parseInt($scope.paidYours)*0.05;
       $scope.yourBid = parseInt($scope.contestFee) + parseInt($scope.paidYours);
     };
-
 
     $scope.$watch('currentPage + numPerPage', function() {
       var begin = (($scope.currentPage - 1) * $scope.numPerPage);
@@ -1622,18 +1396,7 @@ angular.module('contests').controller('ContestsController', ['$scope', '$rootSco
     $scope.maxSize = 5;
     $scope.numPerPage = 10;
     $scope.currentPage = 1;
-
-    // $scope.totalItems = 64;
-    // $scope.currentPage = 4;
-
-    // $scope.setPage = function (pageNo) {
-    //  $scope.currentPage = pageNo;
-    // };
-
-    // $scope.pageChanged = function() {
-    // $scope.log('Page changed to: ' + $scope.currentPage);
-    // };
-
+ 
     $scope.maxSize = 5;
     $scope.bigTotalItems = 175;
     $scope.bigCurrentPage = 1;
@@ -1787,15 +1550,7 @@ angular.module('contests').controller('ContestsController', ['$scope', '$rootSco
        $scope.commonCurrency.USD.cur = $scope.commonCurrency.USD.name + ' ' + $scope.commonCurrency.USD.code +' '+$scope.commonCurrency.USD.symbol_native;
        $scope.currency.push($scope.commonCurrency.USD);
      }
-     // if($scope.commonCurrency.JPY){
-     //   c = $scope.commonCurrency.JPY;
-     //   $scope.commonCurrency.JPY.cur = $scope.commonCurrency.JPY.name + ' ' + $scope.commonCurrency.JPY.code +' '+$scope.commonCurrency.JPY.symbol_native;
-     //   $scope.currency.push($scope.commonCurrency.JPY);
-     // }if($scope.commonCurrency.CNY){
-     //   c = $scope.commonCurrency.CNY;
-     //   $scope.commonCurrency.CNY.cur = $scope.commonCurrency.CNY.name + ' ' + $scope.commonCurrency.CNY.code +' '+$scope.commonCurrency.CNY.symbol_native;
-     //   $scope.currency.push($scope.commonCurrency.CNY);
-     // }
+ 
      if($scope.contest)
       $scope.contest.currency = $scope.currency[0];
     };
@@ -1831,28 +1586,9 @@ angular.module('contests').controller('ContestsController', ['$scope', '$rootSco
         });  
 
         $scope.paginateSearchResults();
-       
-        // return $http({
-        //   url: '/api/searchBySkills',
-        //   method: 'PUT',
-        //   data: newValue
-        // }).then(function(response) {
-        //   //console.log($scope.contests);
-        //   angular.copy($scope.contests,$scope.previousData);
-        //   $scope.contests = response.data;
-        //   $scope.paginateSearchResults();
-        //   // success
-        //   //console.log($scope.previousData);
-        //   //$scope.profiles = response;
-        // },function(response){
-        //     // failed
-        //   //console.log(response);
-        // });
+        
       }
-      // else if(!newValue && !oldValue){
-      //   $scope.contest = $scope.oldData;
-      //   $scope.paginateSearchResults();
-      // }
+ 
       else if(typeof newValue !== 'undefined' && newValue.length === 0) {
         $scope.contest = $scope.previousData;
         $scope.contest = $scope.oldData;
@@ -2262,12 +1998,42 @@ angular.module('contests').controller('ContestsController', ['$scope', '$rootSco
     };
     // end withdraw money
 
-    // export the transactions history to excel sheet
+    // export the transactions history to excel sheet  //; exportToExcel('#tableToExport')
     $scope.exportToExcel=function(tableId){ // ex: '#my-table'
         var exportHref=Excel.tableToExcel(tableId,'trasactinHistory');
         $timeout(function(){location.href=exportHref;},100); // trigger download
     };
+    /** Work by Saad For download file   start....*/
+    $scope.downloadFile=function(startDate,endDate,downloadType){  
+      var i=0;
+      $scope.printArr=[];
+      var dateIs;
+      for(i;i<$scope.transactions.length;i++){
+        dateIs=new Date($scope.transactions[i].transactionDate); 
+        if(dateIs>=startDate && dateIs<=endDate){ 
+          $scope.printArr.push($scope.transactions[i]);
+        }
+      }
+      console.log($scope.printArr);
+    };
+     
+    $scope.popup = { opened: false };
+    $scope.popup2 = { opened: false };
 
+    $scope.dateOptions = {
+      formatYear: 'yy',
+      maxDate: new Date(),
+      minDate: new Date(1970, 1, 1),
+      startingDay: 1
+    };
+    $scope.open = function() {
+      $scope.popup.opened = true; 
+    };
+    $scope.open2 = function() {
+      $scope.popup2.opened = true;
+    }; 
+    
+    /** end */
     // Show Incoming and Outgoin Milestones
     $scope.showMileStones = function(){
 
@@ -2344,13 +2110,9 @@ angular.module('contests').controller('ContestsController', ['$scope', '$rootSco
     //upload handover file
     $scope.uploadHandOverFile = function (){
       $scope.item.upload();
-      $scope.uploader.onSuccessItem = function(fileItem, response, status, headers) {
-        // console.info('onSuccessItem', fileItem, response, status, headers);
+      $scope.uploader.onSuccessItem = function(fileItem, response, status, headers) { 
         $scope.sucMsg = '파일이 성공적으로 업로드되었습니다'  ;
-        $scope.errMsg = '';
-
-        console.log('uploadHandOverFile Sucess');
-        // update the contest 
+        $scope.errMsg = ''; 
         $http({
           url:'/api/contest/updateForHandOver',
           method:'POST',
@@ -2359,8 +2121,7 @@ angular.module('contests').controller('ContestsController', ['$scope', '$rootSco
             'handOverFileLink': response,
             'handOverFileName': fileItem.file.name
           }
-        }).then(function(suc){
-          console.log('suc:', suc);
+        }).then(function(suc){ 
           $scope.item = '';
         }, function(fail){
           console.log('fail:', fail);

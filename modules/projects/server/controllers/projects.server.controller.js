@@ -7,7 +7,11 @@ var path = require('path'),
   mongoose = require('mongoose'),
   schedule = require('node-schedule'),
   Project = mongoose.model('Project'),
+  Category = mongoose.model('Categories'),
+  SubCategory = mongoose.model('SubCategories'),
+  Skills = mongoose.model('Skills'),
   AsyncLock = require('node-async-locks').AsyncLock,
+  async = require("async"),
   Users = mongoose.model('User'),
   Profiles = mongoose.model('Profiles'),
   ObjectID = require('mongodb').ObjectID,
@@ -777,8 +781,13 @@ exports.delete = function (req, res) {
 /**
  * Total Projects
  */
-exports.totalProjects = function (req, res) {
-  Project.count({}, function(err, count){
+exports.totalProjects = function (req, res) { 
+  var find={};
+  if(req.params.skills && req.params.skills!=0){
+    find={'skills.id':req.params.skills,'status':'active'};
+  }
+   
+  Project.count(find, function(err, count){
     if(err){
       return res.status(400).send({
         message: err
@@ -797,8 +806,11 @@ exports.totalProjects = function (req, res) {
 exports.list = function (req, res) {
   var skip = parseInt(req.params.size * (req.params.page_num-1));
   var limit = parseInt(req.params.size);
-
-  Project.find({},'_id name description skills bids.bidId created currency.symbol_native minRange maxRange projectRate user status additionalPakages')
+  var find={};
+  if(req.params.skills && req.params.skills!=0){
+    find={'skills.id':req.params.skills,'status':'active'};
+  }
+  Project.find(find,'_id name description skills bids.bidId created currency.symbol_native minRange maxRange projectRate user status additionalPakages')
   .skip(skip)
   .limit(limit)
   .sort({_id:-1})
@@ -842,28 +854,77 @@ exports.activeProjects = function (req, res) {
 };
 
 /**
- * Project againts category
+ * subCatSkills
  */
-/*
-exports.projCatList = function (req, res) { 
-  console.log('in projCatList: ',req.params.catId);
-  Project.find({'workRequire.id':req.params.catId},'_id name')
-  .sort({_id:-1})
+ 
+exports.subCatSkills = function (req, res) { 
+  var subCatArr=[];
+  Category.findOne({_id:mongoose.Types.ObjectId(req.params.catId)},'subCategories') 
   .lean()
-  .exec(function(err, projects) {
+  .exec(function(err, category) {
     if (err) {
       return res.status(400).send({
         message: err
       });
-    } else { 
-      var data ={
-        count: projects.length,
-        projects: projects
-      };
-      res.json(data); 
+    } else {  
+      var currInd=0;
+      async.each(category.subCategories, function(item, callback) { 
+        SubCategory.findOne({ _id: mongoose.Types.ObjectId(item) }) //Find one 1
+        .lean() .exec(function(err, subCatData) { 
+            if (err) { 
+              callback();
+            }
+            if (subCatData != null) {  
+                if(subCatData.skills.length>0){
+                  async.each(subCatData.skills, function(skillsEach, callbacks) { 
+                    Skills.findOne({ _id: mongoose.Types.ObjectId(skillsEach) }) //Find one 2
+                    .lean() .exec(function(err, skillsData) {  
+                      if (err) {
+                        callbacks();
+                      }  
+                      var i=0;
+                      for(i;i<subCatData.skills.length;i++){
+                        if(subCatData.skills[i]==skillsEach){
+                          subCatData.skills[i]=skillsData;
+                          break;
+                        }
+                      } 
+                      callbacks();
+                    }); 
+                  }, function(err) {
+                    currInd++; 
+                    subCatArr.push(subCatData);   
+                    callback();
+                  });
+                }
+                else{
+                  callback();
+                }     
+            } 
+            else {  
+              callback();
+            }
+        });
+      }, function(err) {
+          if (err) {
+            res.json({
+                status: true,
+                resCode: 200,
+                message: 'Erro in getting data',
+                data: subCatArr
+            });  
+          } else {
+            res.json({
+                status: true,
+                resCode: 200,
+                message: 'Success Finding Data',
+                data: subCatArr
+            });    
+          }
+      }); 
     }
   });
-};*/
+};
 
 exports.placeBid = function (req, res) {
   console.log('place bid');

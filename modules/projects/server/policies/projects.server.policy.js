@@ -28,7 +28,7 @@ exports.invokeRolesPolicies = function () {
       permissions: ['get', 'post']
     },
     {
-      resources: '/api/totalProjects',
+      resources: '/api/totalProjects/:skills?',
       permissions: ['get']
     }, 
     /*{
@@ -74,7 +74,7 @@ exports.invokeRolesPolicies = function () {
       permissions: ['get']
     },
     {
-      resources: '/api/totalProjects',
+      resources: '/api/totalProjects/:skills?',
       permissions: ['get']
     }, 
     /*{

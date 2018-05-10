@@ -84,3 +84,52 @@ var ProjectSchema = new Schema({
 });
 
 mongoose.model('Project', ProjectSchema);
+
+var CategorySchema = new Schema({
+  description: {
+    type: String,
+    trim: true
+  },
+  name: {
+    type: String,
+    default: '',
+    trim: true
+  },
+  subCategories: {
+    type: Array
+  },
+},{ collection: 'Categories' });
+
+mongoose.model('Categories', CategorySchema);
+
+
+var subCatSchema = new Schema({
+  description: {
+    type: String,
+    trim: true
+  },
+  name: {
+    type: String,
+    default: '',
+    trim: true
+  },
+  skills: {
+    type: Array
+  }
+},{ collection: 'SubCategories' });
+
+mongoose.model('SubCategories', subCatSchema);
+
+var skillsSchema = new Schema({
+  description: {
+    type: String,
+    trim: true
+  },
+  name: {
+    type: String,
+    default: '',
+    trim: true
+  }
+},{ collection: 'Skills' });
+
+mongoose.model('Skills', skillsSchema);

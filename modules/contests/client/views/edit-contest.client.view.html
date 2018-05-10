@@ -1,13 +1,11 @@
 <div class="row project-backgroundimage5 hidden-xs">
-        <div class="container about-investor-title-setting">
-<br>
-            <h3 class="investor-heading p-t-sm" style="font-size:20px;">콘테스트 편집 및 삭제</h3>
-            <h3 class="investor-para">
-               
-            </h3>
-            <br><br>
-          </div>
-      </div>
+	<div class="container about-investor-title-setting">
+			<br>
+			<h3 class="investor-heading p-t-sm" style="font-size:20px;">콘테스트 편집 및 삭제</h3>
+			<h3 class="investor-para"> </h3>
+			<br><br>
+		</div>
+</div>
 
 <section ng-controller="ContestsController" ng-init="findOne();" class="container">
 
@@ -40,8 +38,8 @@
 		<div ng-if="!isLoading" class="col-md-offset-2 col-xs-12 col-md-8" style="border: 1px #5bc0de solid; border-radius: 1rem;padding: 2rem;">
 			<div class="form-group">
 				<h4>제목:
-				<span ng-show="!editName" ng-click="editName = true" style="word-break: break-word">{{thisContest.name}}</span> 
-				<input type="text" ng-model="thisContest.name" ng-show="editName" class="form-control">
+					<span ng-show="!editName" ng-click="editName = true" style="word-break: break-word">{{thisContest.name}}</span> 
+					<input type="text" ng-model="thisContest.name" ng-show="editName" class="form-control">
 				</h4>
 			</div>
 			<div class="form-group">
@@ -71,7 +69,6 @@
 			<br>
 			<div>
 				<div ng-if="editName || editDesc">
-
 					<button class="btn btn-md btn-danger" ng-click="cancelEdit()">취소</button>
 					<button class="btn btn-md btn-success" ng-disbaled="isLoading" ng-click="updateContest();" >
 						완료  <span ng-if="isLoading"> <i class="fa fa-spinner fa-spin fa-1x fa-fw" ></i>  </span>
