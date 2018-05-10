@@ -1,0 +1,22 @@
+{
+  "name": "pagination-directive",
+  "authors": [
+    "Dev Team Inc."
+  ],
+  "description": "AngulaJS pagination directive",
+  "main": "dist/pagination-directive.js",
+  "keywords": [
+    "angularJS",
+    "pagination",
+    "directive"
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/DevTeamHub/pagination-directive",
+  "repository": {
+  "type": "git",
+  "url": "https://github.com/DevTeamHub/pagination-directive"
+  },
+   "dependencies": {
+    "angular": ">=1.3.0-beta.10"
+  }
+}

@@ -1,0 +1,89 @@
+{
+  "_args": [
+    [
+      "ng-country-flags",
+      "/home/zeeshan/jobcallme"
+    ]
+  ],
+  "_from": "ng-country-flags@latest",
+  "_id": "ng-country-flags@1.0.5",
+  "_inCache": true,
+  "_installable": true,
+  "_location": "/ng-country-flags",
+  "_nodeVersion": "4.6.0",
+  "_npmOperationalInternal": {
+    "host": "packages-18-east.internal.npmjs.com",
+    "tmp": "tmp/ng-country-flags-1.0.5.tgz_1480482612273_0.0243597193621099"
+  },
+  "_npmUser": {
+    "email": "oscaryuen@gmail.com",
+    "name": "oscaryuen"
+  },
+  "_npmVersion": "2.15.9",
+  "_phantomChildren": {},
+  "_requested": {
+    "name": "ng-country-flags",
+    "raw": "ng-country-flags",
+    "rawSpec": "",
+    "scope": null,
+    "spec": "latest",
+    "type": "tag"
+  },
+  "_requiredBy": [
+    "#USER"
+  ],
+  "_resolved": "https://registry.npmjs.org/ng-country-flags/-/ng-country-flags-1.0.5.tgz",
+  "_shasum": "a5a9ea739ba9a694e480a44325476e553644e3e6",
+  "_shrinkwrap": null,
+  "_spec": "ng-country-flags",
+  "_where": "/home/zeeshan/jobcallme",
+  "author": {
+    "name": "Oscar Yuen"
+  },
+  "bugs": {
+    "url": "https://github.com/OscarYuen/angular-countryflags-directive/issues"
+  },
+  "dependencies": {
+    "angular": "1.5.8"
+  },
+  "description": "AngularJS directive to embed country flags by using flag-icon-css library",
+  "devDependencies": {
+    "flag-icon-css": "2.4.0",
+    "grunt": "1.0.1",
+    "grunt-contrib-concat": "1.0.0",
+    "grunt-contrib-copy": "1.0.0",
+    "grunt-contrib-cssmin": "1.0.1",
+    "grunt-contrib-less": "1.4.0",
+    "grunt-contrib-uglify": "2.0.0"
+  },
+  "directories": {},
+  "dist": {
+    "shasum": "a5a9ea739ba9a694e480a44325476e553644e3e6",
+    "tarball": "https://registry.npmjs.org/ng-country-flags/-/ng-country-flags-1.0.5.tgz"
+  },
+  "gitHead": "f453fff82e34ef0b5e45afc4588596bbbd8f85d0",
+  "homepage": "https://github.com/OscarYuen/angular-countryflags-directive#readme",
+  "keywords": [
+    "angular",
+    "countryflags"
+  ],
+  "license": "MIT",
+  "main": "Gruntfile.js",
+  "maintainers": [
+    {
+      "name": "oscaryuen",
+      "email": "oscaryuen@gmail.com"
+    }
+  ],
+  "name": "ng-country-flags",
+  "optionalDependencies": {},
+  "readme": "ERROR: No README data found!",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/OscarYuen/angular-countryflags-directive.git"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "version": "1.0.5"
+}
