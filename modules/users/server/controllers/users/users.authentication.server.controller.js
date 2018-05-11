@@ -252,6 +252,7 @@ var sendEmail = function (receiverEmail, username, verifUrl, req, res) {
  * Signin after passport authentication
  */
 exports.signin = function (req, res, next) {
+  
   passport.authenticate('local', function (err, user, info) {
     if (err || !user) {
       res.status(400).send(info);
@@ -275,8 +276,11 @@ exports.signin = function (req, res, next) {
  * Signout
  */
 exports.signout = function (req, res) {
-  req.logout();
-  res.redirect('/');
+  //req.logout(); not working this line of code 
+  req.session.destroy(function (err) {
+    res.redirect('/'); //Inside a callback… bulletproof!
+  });
+  
 };
 
 /**
