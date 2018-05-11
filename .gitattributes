@@ -1,1 +1,4 @@
-*.rb linguist-language=MEAN
+modules/* linguist-vendored=true
+public/* linguist-vendored=true
+*.rb linguist-language=MEAN Stack
+*.rb linguist-vendored=MEAN Stack
