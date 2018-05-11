@@ -1,4 +1,6 @@
 modules/* linguist-vendored=true
 public/* linguist-vendored=true
+node_modules/* linguist-vendored=true
+scripts/* linguist-vendored=true
 *.rb linguist-language=MEAN Stack
 *.rb linguist-vendored=MEAN Stack
