@@ -283,7 +283,7 @@ angular.module('users').controller('AuthenticationController', ['$scope', '$root
 
         return false;
       }
-
+     
       $http.post('/api/auth/signin', $scope.credentials).success(function (response) {
         
         var welcomeText = '환영합니다! '+response.username;
