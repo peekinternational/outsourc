@@ -514,6 +514,13 @@ exports.create = function (req, res) {
 exports.read = function (req, res) {
   res.json(req.project);
 };
+exports.projectdetail = function(req,res){
+  ;
+  Project.findById(req.params.projectId,function(err,project){
+    if(err) throw err;
+    res.json(project);
+  })
+}
 
 /**
  * Update a project

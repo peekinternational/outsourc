@@ -8,6 +8,7 @@ var projectsPolicy = require('../policies/projects.server.policy'),
 
 module.exports = function (app) {
   // Projects collection routes
+  app.route('/api/packageProjects/:projectId').post(projects.projectdetail);
   app.route('/api/totalProjects/:skills?').get(projects.totalProjects);
   app.route('/api/projects/:size/:page_num/:skills?').get(projects.list);
   app.route('/api/subCatSkills/:catId').get(projects.subCatSkills);

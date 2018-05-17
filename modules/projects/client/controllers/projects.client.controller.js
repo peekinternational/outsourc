@@ -6,8 +6,11 @@ angular.module('projects')
   function ($scope, $rootScope, $filter, Socket, Notification, $state, toastr, $stateParams, $location, $http, $timeout, $window, Authentication, Projects, geolocation, FileUploader, UniversalData, Account, Transactions, SweetAlert, Conversation, usSpinnerService, uuid2, Notifications, ProjectFeed, Categories, SubCategories, Skills, Contests){
     
     console.log('$state.params.projectId ',$state.params.projectId);
-
-
+  $http.post('/api/packageProjects/'+$state.params.projectId)
+      .then(function(response) {
+       $scope.checkPackage = response.data;
+  });
+    
     $scope.authentication = Authentication;
     if (!Socket.socket) {
         Socket.connect();
