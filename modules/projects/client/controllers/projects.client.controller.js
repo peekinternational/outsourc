@@ -4,17 +4,119 @@
 angular.module('projects')
 .controller('ProjectsController', ['$scope', '$rootScope', '$filter', 'Socket', 'Notification', '$state', 'toastr', '$stateParams', '$location', '$http', '$timeout', '$window', 'Authentication', 'Projects', 'geolocation', 'FileUploader', 'UniversalData', 'Account', 'Transactions', 'SweetAlert', 'Conversation', 'usSpinnerService', 'uuid2', 'Notifications', 'ProjectFeed', 'Categories', 'SubCategories', 'Skills', 'Contests',
   function ($scope, $rootScope, $filter, Socket, Notification, $state, toastr, $stateParams, $location, $http, $timeout, $window, Authentication, Projects, geolocation, FileUploader, UniversalData, Account, Transactions, SweetAlert, Conversation, usSpinnerService, uuid2, Notifications, ProjectFeed, Categories, SubCategories, Skills, Contests){
-   /* 
-    
-    $http.post('/api/packageProjects/'+$state.params.projectId)
+    var checkAgreement = {
+      userId:Authentication.user._id,
+      projectId:$stateParams.projectId
+    }
+    $http({
+        url:"/api/agreement/get",
+        method:"post",
+        data:checkAgreement
+       })
         .then(function(response) {
-         $scope.checkPackage = response.data;
-    });*/
+        /*SweetAlert.swal('Agreement', 'Done Successfully.', 'success');*/
+        $rootScope.checkPackage = response.data;
+        if(response.data.agreement == true){
+          $location.path('projects/view/'+$stateParams.projectId);
+        }
+    });
+
+    $scope.downloadAgreement =function(){
+      $http.post("/api/packageProjects/"+$stateParams.projectId).then(function(res){
+
+      /*download Agreemnt PDF code*/
+      var docDefinition = { content: [
+          {
+            text:"Non-Disclosure Agreement",
+            style:"header",
+            margin: [ 0, 10, 0, 10 ]
+          },
+          {text:"This non-disclosure agreement (“Agreement”), dated as of the submission time in the electronic form below is made between the user of the freelancer.com site who is the provider of the professional services (“Freelancer”) and the user of such professional services (“Employer”)."},
+          {text:"For the purposes of enabling the Freelancer to provide the professional services to the Employer, the Employer has agreed to provide the Freelancer with written and oral information (“Confidential Information”) concerning the project which the Freelancer is to complete (“Project”) subject to the terms of this Agreement.",margin:[0,5,0,5]},
+          {text:"The parties agree as follows:",margin:[0,0,0,5]},
+          {text:"1. The Confidential Information shall be kept in strict confidence by the Freelancer and shall not be used, without the Employer’s prior written consent, for any purpose other than in connection with the completion of the Project. The Confidential Information shall not be disclosed to any persons other than those Representatives (as defined below) who have a need to know. “Representatives” shall mean the affiliates, directors, officers, employees, professional advisers and agents of the Freelancer. The Freelancer shall inform its Representatives of the confidential nature of the Confidential Information and shall direct its Representatives to hold the Confidential Information in strict confidence.",margin:[0,0,0,5]},
+          {text:"2. The restrictions in paragraph 1 shall not apply to any information which: (a) is or becomes generally available to the public through no violation of this Agreement; (b) was available to the Freelancer on a non-confidential basis prior to its disclosure to the Freelancer by the Employer; (c) becomes available to the Freelancer on a non-confidential basis from a source other than the Employer provided that such source is not bound by an Agreement with the Employer; or (iv) is required to be disclosed to any court, regulatory authority, other governmental authority or pursuant to any requirement of law.",margin:[0,0,0,5]},
+          {text:"3. At the request of the Employer, the Freelancer shall return all Confidential Information received from the Employer and shall not retain any copies of, or other reproductions or extracts of, the Confidential Information, except as it may retain in accordance with prudent business practices (any retained material shall remain subject to the provisions of this Agreement without any time limit).",margin:[0,0,0,5]},
+          {text:"4. The Freelancer acknowledges and agrees that the Employer is not making any representation or warranty, express or implied, as to the accuracy, correctness or completeness of the Confidential Information. The Freelancer agrees that neither the Employer nor any of its affiliates, directors, officers, employees, professional advisors or agents shall have liability to the Freelancer resulting from the use of the Confidential Information by the Freelancer or the Representatives.",margin:[0,0,0,5]},
+          {text:"5. Notwithstanding any other remedies which may be available to the Employer, the Freelancer indemnifies and must keep the Employer indemnified against any loss or expense suffered or incurred by the Employer directly or indirectly in connection with or arising out of or as a result of the breach by the Freelancer or its Representatives of any of the terms of this Agreement.",margin:[0,0,0,5]},
+          {text:"6. This Agreement is governed by and shall be construed in accordance with the laws of the State of New South Wales, Australia and the parties irrevocably submit to the non-exclusive jurisdiction of the courts of the State of New South Wales, Australia. The duration of this Agreement is 12 (twelve) months from the date of this Agreement.",margin:[0,0,0,5],pageBreak: 'after'},
+          {text:"7. This Agreement shall not be amended or modified, and none of the provisions shall be waived, except in writing signed on behalf of the parties or, in the case of a waiver, on behalf of the party making the waiver.",margin:[0,0,0,5]},
+          {text:"----------------------------------------------------------------------------------------------------------------------------------------------------------",margin:[0,10,0,10]},
+          {text:"This Agreement relates to the confidentiality agreed upon for the project:",margin:[0,0,0,5]},
+          {text:res.data.name+"  listed "+res.data.created,margin:[0,0,0,5]},
+          {
+            columns: [
+            {
+              
+              width: '*',
+              text: 'Agreed to by the Freelancer'
+            },
+            {
+              
+              width: '*',
+              text: 'Agreed to by the Employer '
+            },
+            ],
+            margin:[0,0,0,5]
+          },
+          {
+            columns: [
+            {
+              
+              width: '*',
+              text: Authentication.user.username+' , '+ moment().format('MMMM Do YYYY, h:mm:ss a')
+            },
+            {
+              
+              width: '*',
+              text: res.data.userInfo.name+' , '+ moment().format('MMMM Do YYYY, h:mm:ss a')
+            }
+            ]
+          }
+          
+        ],
+        styles:{
+          header:{
+            fontSize:25,
+            color:"skyblue",
+          }
+        } };
+      pdfMake.createPdf(docDefinition).download();
+      })
+    }
+    
+    
+    $scope.company = Authentication.user.username;
+    $scope.readagrement = false;
     $scope.model = {upgrade:false};
     $scope.model = {detail:true};
     $scope.authentication = Authentication;
     if (!Socket.socket) {
         Socket.connect();
+    }
+    $scope.Agreementsubmit = function(){
+      var agreementObject = {
+        userId:Authentication.user._id,
+        projectId:$stateParams.projectId,
+        companyName: this.company,
+        phone:this.phone,
+        address:this.address,
+        country:this.country,
+        state:this.state,
+        city:this.city,
+        agreement:true
+
+      }
+       $http({
+        url:"/api/agreement/save",
+        method:"post",
+        data:agreementObject
+       })
+        .then(function(response) {
+        /*SweetAlert.swal('Agreement', 'Done Successfully.', 'success');*/
+        $rootScope.checkPackage = response.data;
+       $location.path('projects/view/'+$stateParams.projectId);
+    });
     }
 
     $scope.view_processing = true;

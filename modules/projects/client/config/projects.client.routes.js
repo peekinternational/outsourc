@@ -88,6 +88,15 @@ angular.module('projects').config(['$stateProvider',
         roles: ['individual', 'company']
       }
     })
+    // NDA link 
+    .state('projects.NDA', {
+      url: '/NDA/:projectId',
+      templateUrl: 'modules/projects/client/views/project-NDA.client.view.html',
+      autoscroll : true,
+      data: {
+        roles: ['individual', 'company']
+      }
+    })
       
     //Editproject description
     .state('projects.editproject-bid', {

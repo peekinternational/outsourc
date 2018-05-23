@@ -8,6 +8,7 @@ var path = require('path'),
   schedule = require('node-schedule'),
   Project = mongoose.model('Project'),
   Category = mongoose.model('Categories'),
+  Agreement = mongoose.model('Agreement'),
   SubCategory = mongoose.model('SubCategories'),
   Skills = mongoose.model('Skills'),
   AsyncLock = require('node-async-locks').AsyncLock,
@@ -515,7 +516,7 @@ exports.read = function (req, res) {
   res.json(req.project);
 };
 exports.projectdetail = function(req,res){
-  ;
+  
   Project.findById(req.params.projectId,function(err,project){
     if(err) throw err;
     res.json(project);
@@ -2146,3 +2147,21 @@ exports.allIncominglMilestones = function(req, res){
     }
   });
 };
+
+exports.agreementSave = function(req,res){
+  /*res.send(req.body);*/
+  var agreement = new Agreement(req.body);
+  agreement.save(function(err,data){
+    if(err) throw err;
+    res.json(data);
+  });
+}
+
+exports.getAgreement = function(req,res){
+
+  var query = Agreement.where({userId:req.body.userId,projectId:req.body.projectId});
+  query.findOne(function(err,data){
+    if(err) throw err;
+    res.json(data);
+  });
+}

@@ -133,3 +133,44 @@ var skillsSchema = new Schema({
 },{ collection: 'Skills' });
 
 mongoose.model('Skills', skillsSchema);
+
+var NDASchema = new Schema({
+  userId: {
+    type: String,
+    trim: true
+  },
+  projectId: {
+    type: String,
+    trim: true
+  },
+  agreement: {
+    type: Boolean,
+    default:false
+  },
+  companyName:{
+    type:String,
+    trim:true
+  },
+  phone:{
+    type:Number,
+    trim:true
+  },
+  address:{
+    type:String,
+    trim:true
+  },
+  country:{
+    type:String,
+    trim:true
+  },
+  state:{
+    type:String,
+    trim:true
+  },
+  city:{
+    type:String,
+    trim:true
+  }
+},{ collection: 'Agreement' });
+
+mongoose.model('Agreement', NDASchema);
