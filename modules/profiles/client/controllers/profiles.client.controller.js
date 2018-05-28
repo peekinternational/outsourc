@@ -1962,17 +1962,21 @@ angular.module('profiles').controller('ProfilesController', ['$window','$scope',
     $scope.$watch('searchByCountry',function(newValue,oldValue){
       
       if(typeof newValue !== 'undefined' && newValue.length>0) {
-        angular.copy($scope.profile, $scope.previousData);
+       
+        $scope.profile = $scope.oldData;
+       
         $scope.profile = $scope.profile.filter(function (obj) {
          
-          if(obj.hasOwnProperty('userInfo')){
-               
+          if(obj.userInfo.country.name){
             for(var i = 0;i < newValue.length; i++) {
-              
+              console.log(newValue[i].name);
+              console.log(obj.userInfo.country.name);
               if(obj.userInfo.country.name == newValue[i].name){
                 return obj;
               }
+
             }
+
           }
 
         });  

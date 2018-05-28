@@ -122,7 +122,8 @@ var ProfilesSchema = new Schema({
     type: Array
   },
   userInfo: {
-    type: Object
+    type: Object,
+    default: {country:{name:null}}
   },
   created: {
     type: Date,
