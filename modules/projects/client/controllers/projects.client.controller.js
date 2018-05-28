@@ -1,9 +1,12 @@
 'use strict';
 
 // Projects controller
-angular.module('projects')
-.controller('ProjectsController', ['$scope', '$rootScope', '$filter', 'Socket', 'Notification', '$state', 'toastr', '$stateParams', '$location', '$http', '$timeout', '$window', 'Authentication', 'Projects', 'geolocation', 'FileUploader', 'UniversalData', 'Account', 'Transactions', 'SweetAlert', 'Conversation', 'usSpinnerService', 'uuid2', 'Notifications', 'ProjectFeed', 'Categories', 'SubCategories', 'Skills', 'Contests',
+var app = angular.module('projects');
+
+app.controller('ProjectsController', ['$scope', '$rootScope', '$filter', 'Socket', 'Notification', '$state', 'toastr', '$stateParams', '$location', '$http', '$timeout', '$window', 'Authentication', 'Projects', 'geolocation', 'FileUploader', 'UniversalData', 'Account', 'Transactions', 'SweetAlert', 'Conversation', 'usSpinnerService', 'uuid2', 'Notifications', 'ProjectFeed', 'Categories', 'SubCategories', 'Skills', 'Contests',
   function ($scope, $rootScope, $filter, Socket, Notification, $state, toastr, $stateParams, $location, $http, $timeout, $window, Authentication, Projects, geolocation, FileUploader, UniversalData, Account, Transactions, SweetAlert, Conversation, usSpinnerService, uuid2, Notifications, ProjectFeed, Categories, SubCategories, Skills, Contests){
+    
+
     var checkAgreement = {
       userId:Authentication.user._id,
       projectId:$stateParams.projectId

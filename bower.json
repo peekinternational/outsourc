@@ -24,10 +24,14 @@
     "angular-ui-notification": "^0.3.6",
     "angular-emoji-picker": "^0.3.0",
     "angular-strap": "^2.3.12",
-    "angular-ui-bootstrap": "master"
+    "angular-ui-bootstrap": "master",
+    "angular-translate-loader-static-files": "^2.18.1"
   },
   "resolutions": {
     "angular": "~1.5.8",
     "bootstrap": ">=5.0.5"
+  },
+  "devDependencies": {
+    "angular-translate": "^2.18.1"
   }
 }

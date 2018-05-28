@@ -1,9 +1,9 @@
 'use strict';
 
 // Setting up route
-angular.module('projects').config(['$stateProvider',
-  function ($stateProvider) {
-
+angular.module('projects').config(['$translateProvider','$stateProvider',
+  function ($translateProvider,$stateProvider) {
+  
     
     // Projects state routing 
     // for header file

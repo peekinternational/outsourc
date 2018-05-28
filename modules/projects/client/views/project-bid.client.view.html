@@ -16,6 +16,7 @@
   <!-- contest top information -->
  <!-- col-md-offset-1 col-md-10  -->
   <br><br>
+  
   <div ng-hide="project.name == null" class="col-xs-12 col-sm-12 col-md-10 col-lg-10 col-md-offset-1 container-fulid m-ml-none m-mr-none">
     <div>
      <div class="col-md-12 bordortop_styling">
@@ -26,11 +27,11 @@
         <div class="text-center">
           <ul class="list-inline bidding-list  m-t-sm m-l-sm  m-mr-sm" style="background:#f2f2f2;">
             <li class="bidding-li">
-            <h4><strong>지원자수</strong></h4>
+            <h4><strong translate="applicants"></strong></h4>
             <h3 class="text-primary text-center m-t-none mobile-view-prjct"><strong>{{project.bids.length}}</strong></h3>
             </li>
             <li class="bidding-li">
-             <h4><strong>평균 지원/입찰 금액</strong></h4>
+             <h4><strong translate="bidamount"></strong></h4>
              <h3 class="text-primary text-center m-t-none mobile-view-prjct">
               <strong>{{projectCur.symbol_native}} {{avgBid | number:0}}</strong>
             </h3>

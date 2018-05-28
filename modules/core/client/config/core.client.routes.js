@@ -1,9 +1,24 @@
   'use strict';
 
 // Setting up route
-angular.module('core').config(['$stateProvider', '$urlRouterProvider',
-  function ($stateProvider, $urlRouterProvider) {
+angular.module('core').config(['$translateProvider','$stateProvider', '$urlRouterProvider',
+  function ($translateProvider,$stateProvider, $urlRouterProvider) {
+    $translateProvider.translations('en', {
+    applicants: 'Applicants',
+    bidamount: 'Average support / bid amount',
+    
+  });
+  $translateProvider.translations('kr', {
+    applicants: '지원자수',
+    bidamount: '평균 지원/입찰 금액',
+    
+  });
 
+ /* $translateProvider.useStaticFilesLoader({
+    prefix: 'public/lib/lang/local-',
+    suffix: '.json'
+  });*/
+  $translateProvider.preferredLanguage('kr');
     // Redirect to 404 when route not found
     // $urlRouterProvider.otherwise(function ($injector, $location) {
     //   $injector.get('$state').transitionTo('not-found', null, {

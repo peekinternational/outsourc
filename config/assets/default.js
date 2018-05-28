@@ -25,6 +25,8 @@ module.exports = {
         'public/lib/angular/angular.js',
         'public/lib/angular-resource/angular-resource.js',
         'public/lib/angular-animate/angular-animate.js',
+        'public/lib/angular-translate/angular-translate.min.js',
+        'public/lib/angular-translate-loader-static-files/angular-translate-loader-static-files.min.js',
 
         //Angulaar sweet-alert
         'public/lib/sweetalert/dist/sweetalert.min.js',

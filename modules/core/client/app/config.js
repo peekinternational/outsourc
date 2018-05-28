@@ -28,6 +28,7 @@ var ApplicationConfiguration = (function () {
   'ngAudio',
   'ui-notification',
   'angularMoment',
+  'pascalprecht.translate',
   'textAngular'];
 
   // Add a new vertical module

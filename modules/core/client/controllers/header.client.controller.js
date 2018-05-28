@@ -1,7 +1,7 @@
 'use strict';
 
-angular.module('core').controller('HeaderController', ['$scope', '$http', '$rootScope', '$location', '$anchorScroll', 'SweetAlert', '$state', 'Authentication', 'logOutService', 'Account', 'toastr', 'ChatMessages','UserSchema', 'Conversation', 'Notifications', 'AdminSocket', 'Notification', 'ProjectFeed', 'MessengerSocket', 'ngAudio', 'Socket', 'UniversalData',
-  function ($scope, $http, $rootScope, $location, $anchorScroll, SweetAlert, $state, Authentication, logOutService, Account, toastr, ChatMessages,UserSchema, Conversation, Notifications, AdminSocket, Notification, ProjectFeed, MessengerSocket, ngAudio, Socket, UniversalData) {
+angular.module('core').controller('HeaderController', ['$translate','$scope', '$http', '$rootScope', '$location', '$anchorScroll', 'SweetAlert', '$state', 'Authentication', 'logOutService', 'Account', 'toastr', 'ChatMessages','UserSchema', 'Conversation', 'Notifications', 'AdminSocket', 'Notification', 'ProjectFeed', 'MessengerSocket', 'ngAudio', 'Socket', 'UniversalData',
+  function ($translate,$scope, $http, $rootScope, $location, $anchorScroll, SweetAlert, $state, Authentication, logOutService, Account, toastr, ChatMessages,UserSchema, Conversation, Notifications, AdminSocket, Notification, ProjectFeed, MessengerSocket, ngAudio, Socket, UniversalData) {
     // Expose view variables
     $scope.$state = $state;
     $rootScope.$state = $state;
@@ -11,7 +11,9 @@ angular.module('core').controller('HeaderController', ['$scope', '$http', '$root
     if(Authentication.user && !Authentication.user.verEmail){
       $location.path('/verify');
     }
-
+    $scope.changeLanguage = function (key) {
+      $translate.use(key);
+    };
 
     // TEST 
     // function updateAccount (){

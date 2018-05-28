@@ -1560,16 +1560,13 @@ angular.module('profiles').controller('ProfilesController', ['$window','$scope',
           method: 'GET' 
         }).then(function(response) {
 
-          // console.log('response:', response.data);
-          // console.log('response:', response.data.skillsArray);
-
-          $scope.profile = response.data.profile;
-          $scope.profile.certifications = response.data.certArray;
+          $scope.profile = response.data;
+          $scope.profile.certifications = response.data.certifications;
           // $scope.profile.skills = response.data.skillsArray;
-
-          $scope.certifications = response.data.certArray;
-          $scope.skillls = response.data.skillsArray;
-          $scope.profile.skills = $scope.skillls;
+         
+          $scope.certifications = response.data.certifications;
+          $scope.skillls = response.data.skills;
+          $scope.profile.skills = $scope.skills;
 
           // $scope.inayat = {};
           // $scope.inayat.muaz = response.data.skillsArray;
@@ -1932,17 +1929,19 @@ angular.module('profiles').controller('ProfilesController', ['$window','$scope',
 
     // search by skills
     $scope.$watch('searchBySkill',function(newValue,oldValue){
+      
       if(typeof newValue !== 'undefined' && newValue.length>0) {
         angular.copy($scope.profile, $scope.previousData);
         $scope.profile = $scope.profile.filter(function (obj) {
-          
-          // if skills are there
-          for(var i =0;i<obj.skills.length;i++) {
-            console.log('Profile:', obj.skills[i]);
-            console.log('Selector:', newValue[newValue.length-1].name);
-            if(obj.skills[i].includes(newValue[newValue.length-1].name))
-              return obj;
-          }
+            
+            for(var i = 0;i < obj.skills.length;i++) {
+                for(var j = 0;j < newValue.length;j++) {
+                    
+                    if(obj.skills[i].name == newValue[j].name){
+                      return obj;
+                    }
+                }
+            }
 
         });  
         $scope.paginateSearchResults();
@@ -1961,12 +1960,19 @@ angular.module('profiles').controller('ProfilesController', ['$window','$scope',
 
     // search by Country
     $scope.$watch('searchByCountry',function(newValue,oldValue){
+      
       if(typeof newValue !== 'undefined' && newValue.length>0) {
         angular.copy($scope.profile, $scope.previousData);
         $scope.profile = $scope.profile.filter(function (obj) {
-          if(obj.userInfo.country){
-            if(obj.userInfo.country.name.includes(newValue[newValue.length-1].name))
-            return obj;
+         
+          if(obj.hasOwnProperty('userInfo')){
+               
+            for(var i = 0;i < newValue.length; i++) {
+              
+              if(obj.userInfo.country.name == newValue[i].name){
+                return obj;
+              }
+            }
           }
 
         });  

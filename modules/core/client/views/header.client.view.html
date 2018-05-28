@@ -24,6 +24,7 @@
             <li ui-sref-active="active" class="post-project">
                <a ui-sref="projects.project-post" class="post-prjcts">프로젝트등록</a>
             </li>
+
          </ul>
       </div>
      
@@ -414,6 +415,7 @@
                <div class="input-group-btn">
                    <button class="btn btn-default srch-btn" type="submit"><i class="glyphicon glyphicon-search" style="color: white;"></i></button>
                </div>
+
                <div ng-if="focus" class="showSearch">
                   <div class="row m-ml-none  m-r-none m-l-none" ng-repeat="user in foundUser">
                      <div class="col-md-2 p-l-none">
@@ -669,14 +671,14 @@
             
          <!-- for user log out and profile dropdown -->
             <li>
-               <div class="p-t-sm" uib-dropdown is-open="status.isopen">
+               <div class="p-t-sm" uib-dropdown>
                  <a style="text-decoration: none; color: white;" href="" class="panel-anchr" id="single-button" uib-dropdown-toggle ng-disabled="disabled"><span class="caret pull-right" style="margin-top:12px;"></span>
                    <img  ng-disabled="disabled" ng-src="{{authentication.user.profileImageURL}}" alt="{{authentication.user.displayName}}" class="header-profile-image" /><span class="panel-anchr" ng-bind="authentication.user.username | limitTo : 10">
                    <span class="caret"></span>
                  </a>
                  <!-- <button ng-click="logOut();">xxlogOut</button> -->
                   <ul class="dropdown-menu panel-menu" uib-dropdown-menu role="menu" aria-labelledby="single-button">
-                    <div class="bordortop_styling border-mradus toggel-top" style="width:85%; margin-top:-14px; overflow: auto; height:62rem;">
+                    <div class="bordortop_styling border-mradus toggel-top" style="width:85%; margin-top:-14px; overflow: auto; height:auto">
                        <i class="fa fa-times-circle-o cross-butn p-t-xs text-right p-l-sm" aria-hidden="true" ng-click="collapsed=!collapsed"></i>
                        <div class="img-wrapper text-center">
                           <img class="profile-img-circle" ng-src="{{authentication.user.profileImageURL}}" alt="{{authentication.user.displayName}}">
@@ -716,6 +718,33 @@
                     </div>
                   </ul>
                </div>
+
+            </li>
+            <li>
+               <div class="p-t-sm" uib-dropdown style="padding-top: 13px !important;padding-left: 5px;">
+                 <a style="text-decoration: none; color: white;" href="" class="panel-anchr" id="lang" uib-dropdown-toggle><span class="caret pull-right" style="margin-top:12px;"></span>
+                   lang
+                 </a>
+                 <!-- <button ng-click="logOut();">xxlogOut</button> -->
+                  <ul class="dropdown-menu panel-menu" uib-dropdown-menu role="menu" aria-labelledby="lang">
+                    <div class="bordortop_styling border-mradus toggel-top" style="width:85%; margin-top:-14px; overflow: auto; height:auto">
+                       <i class="fa fa-times-circle-o cross-butn p-t-xs text-right p-l-sm" aria-hidden="true" ng-click="collapsed=!collapsed"></i>
+                       <ul class="list-group"  >
+                          <li class="list-group-item toggel-top-list">
+                             <i class="fa fa-user p-r-xs" aria-hidden="true">&nbsp;</i>
+                             <a ng-click="changeLanguage('en')" style="cursor:pointer;">English</a>
+                          </li>
+                          
+                          <li class="list-group-item toggel-top-list">
+                             <i class="fa fa-cog fa-cog p-r-xs" aria-hidden="true">&nbsp;</i>
+                             <a ng-click="changeLanguage('kr')" style="cursor:pointer;">Korean</a>
+                          </li>
+                          
+                       </ul>
+                    </div>
+                  </ul>
+               </div>
+               
             </li>
   
             <!-- <div class="dropdown-hire">

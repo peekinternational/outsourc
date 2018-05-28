@@ -59,16 +59,11 @@ exports.create = function (req, res) {
  * Show the current profiles
  */
 exports.read = function (req, res) {
-  // //console.log('------------------------sjfhkdsjh');
-  var profile = req.profiles;
-  profile.skills = req.profiles.skills;
-  var obj = {
-    'profile' :  profile,
-    'skillsArray' : profile.skills
-  };
-
-  res.json(obj);
-
+  
+  Profiles.findById(req.params.profilesId,function(err,project){
+    if(err) throw err;
+    res.json(project);
+  })
 };
 
 exports.getUserProfile = function (req, res) {
