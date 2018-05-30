@@ -1969,8 +1969,7 @@ angular.module('profiles').controller('ProfilesController', ['$window','$scope',
          
           if(obj.userInfo.country.name){
             for(var i = 0;i < newValue.length; i++) {
-              console.log(newValue[i].name);
-              console.log(obj.userInfo.country.name);
+              
               if(obj.userInfo.country.name == newValue[i].name){
                 return obj;
               }

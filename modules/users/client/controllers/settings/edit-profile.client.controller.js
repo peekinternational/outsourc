@@ -16,9 +16,12 @@ angular.module('users').controller('EditProfileController', ['$scope', '$uibModa
           return false;
         }
 
-        var user = new Users($scope.user);
-
+        //user service provider $resource located client/services/user-client.service.js
+        console.log($scope.user);
+        var user = new Users($scope.user); //create new object of the service User
+        console.log(user);
         user.$update(function (response) {
+          
           $scope.$broadcast('show-errors-reset', 'userForm');
           Notification.success({ 
             message: '<i class="glyphicon glyphicon-ok"></i> 프로필 수정 완료!',
@@ -30,6 +33,7 @@ angular.module('users').controller('EditProfileController', ['$scope', '$uibModa
           Authentication.user = response;
           $scope.user = response;
         }, function (response) {
+          
           $scope.error = response.data.message;
           Notification.error({ 
             message: response.data.message, title: '<i class="glyphicon glyphicon-remove"></i> 프로필 수정 실패!',

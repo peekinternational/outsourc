@@ -264,9 +264,9 @@
             </div>
             <div class="col-xs-12 col-md-4 btn-tool text-right p-t-xs hidden-xs">
               <span ng-show="authentication.user.remainingBids === 0" class="bidEnd"><center>회원님은 지원가능횟수를 모두사용하셨습니다. 지원횟수 추가요청을 하시기 바랍니다.</center></span>
-              <button  class="btn btn-md btn-info" ng-disabled="authentication.user.remainingBids === 0"  ng-click="showMe=!showMe; btnBidThisPro=!btnBidThisPro"  ng-show = " project.user._id !== authentication.user._id && !btnBidThisPro && !bidExists && !awardedProject && days > 0 && checkPackage.agreement == true" style="background:#688686;border: 1px solid #688686; margin-bottom: 5px"><a style="text-decoration:none; color:white;">프로젝트 지원/입찰</a></button>
-            <a ng-if="!checkPackage.agreement" class="btn btn-success" ui-sref="projects.NDA({projectId:project._id})" style="margin-bottom: 5px">Sign Agreement </a>
-            <button class="btn btn-success" ng-click="downloadAgreement()">download agreement</button>
+              <button  class="btn btn-md btn-info" ng-disabled="authentication.user.remainingBids === 0"  ng-click="showMe=!showMe; btnBidThisPro=!btnBidThisPro"  ng-show = " project.user._id !== authentication.user._id && !btnBidThisPro && !bidExists && !awardedProject && days > 0 && checkPackage.agreement == true || project.additionalPakages.NDA == false" style="background:#688686;border: 1px solid #688686; margin-bottom: 5px"><a style="text-decoration:none; color:white;">프로젝트 지원/입찰</a></button>
+            <a ng-if="!checkPackage.agreement && project.additionalPakages.NDA == true" class="btn btn-success" ui-sref="projects.NDA({projectId:project._id})" style="margin-bottom: 5px">Sign Agreement </a>
+            <button ng-if="project.additionalPakages.NDA == true" class="btn btn-success" ng-click="downloadAgreement()">download agreement</button>
             </div>
             
             <!-- Mobile View Bid Button -->    

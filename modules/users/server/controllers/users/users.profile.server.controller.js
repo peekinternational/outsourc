@@ -236,6 +236,7 @@ exports.getByUsername = function (req, res) {
  * Update user details
  */
 exports.update = function (req, res) {
+
   // Init Variables
   var user = req.user;
 
@@ -257,7 +258,7 @@ exports.update = function (req, res) {
         }
       }
     }
-
+    
     user.save(function (err) {
       if (err) {
         return res.status(400).send({
