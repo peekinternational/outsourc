@@ -29,6 +29,7 @@ var transporter = nodemailer.createTransport({
   }
 });
 
+
 // URLs for which user can't be redirected on signin
 var noReturnUrls = [
   '/authentication/signin',
@@ -57,12 +58,11 @@ var sendEmail = function (receiverEmail, username, verifUrl, req, res) {
       }, function(err, suc){
         if (err){
           //res.json(err);
-	  console.log('err email');
+	       console.log('err email');
         }else
          console.log('email succ');
          //res.json(suc);
       });
-
     }
   });
 };
@@ -70,7 +70,7 @@ var sendEmail = function (receiverEmail, username, verifUrl, req, res) {
 /**
  * Signup
  */
- 
+
  //status offline
  exports.signOutServer = function (req, res){
   
