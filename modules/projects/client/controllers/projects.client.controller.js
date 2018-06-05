@@ -1783,6 +1783,7 @@ app.controller('ProjectsController', ['$scope', '$rootScope', '$filter', 'Socket
     //Get total count at once
     $http.get('/api/totalProjects/'+skills).then(function(totalProjects){
       $scope.totalCount = totalProjects.data.count; 
+      $scope.totalprojects = totalProjects.data.count; 
     });
     // Find a list of Projects
     $scope.find = function (pageNo) {
@@ -1795,7 +1796,6 @@ app.controller('ProjectsController', ['$scope', '$rootScope', '$filter', 'Socket
         $scope.promiseResolved = true;
         $scope.projects = proj.data.projects;
         $scope.allProjects = proj.data.projects;
-
         $scope.oldData = $scope.projects;
         $scope.filteredProjects = $scope.projects;
       });
@@ -2287,6 +2287,7 @@ app.controller('ProjectsController', ['$scope', '$rootScope', '$filter', 'Socket
       var begin = (($scope.currentPage - 1) * $scope.numPerPage);
       var end = begin + $scope.numPerPage;
       if($scope.projects){
+        
         $scope.filteredProjects = $scope.projects.slice(begin, end);
         $scope.projectsLength = $scope.projects.length + 1;
       }
@@ -2295,15 +2296,34 @@ app.controller('ProjectsController', ['$scope', '$rootScope', '$filter', 'Socket
     $scope.$watch('searchSkills', function (newValue, oldValue) {
        if (typeof newValue !== 'undefined' && newValue.length > 0) {
         angular.copy($scope.projects, $scope.previousData);
-        $scope.projects = $scope.projects.filter(function (obj) {
+         /*make array of object to pass find or query*/
+        var array = [];
+        for (var i = 0;i < newValue.length; i++) {
+            array.push({
+             "skills.name": newValue[i].name
+            });
+        }
+        /*send http post request to get All data that matches the array*/
+        $http({
+          method: 'POST',
+          url: '/api/Allprojects',
+          data:array
+        }).then(function(res){
+          $scope.filteredProjects = res.data;
+          $scope.totalCount = 9;
+          
+        })
+        /*$scope.projects = $scope.projects.filter(function (obj) {
           for (var i = 0; i < obj.skills.length; i++) {
-            if (obj.skills[i].name.includes(newValue[newValue.length - 1].name)) {
-              return obj.skills[i].name.includes(newValue[newValue.length - 1].name);
+            for (var j = 0; j < newValue.length; j++) {
+              if (obj.skills[i].name.includes(newValue[newValue.length - 1].name)) {
+                return obj.skills[i].name.includes(newValue[newValue.length - 1].name);
+              }
             }
           }
 
-        });
-        $scope.paginateSearchResults();
+        });*/
+        //$scope.paginateSearchResults();
       } 
       else if(!newValue && !oldValue){
         $scope.projects = $scope.oldData;
@@ -2313,6 +2333,7 @@ app.controller('ProjectsController', ['$scope', '$rootScope', '$filter', 'Socket
         //console.log($scope.previousData);
         $scope.projects = $scope.previousData;
         $scope.projects = $scope.oldData;
+        $scope.totalCount = $scope.totalprojects;
         $scope.previousData = [];
         $scope.paginateSearchResults();
       }
@@ -2320,18 +2341,32 @@ app.controller('ProjectsController', ['$scope', '$rootScope', '$filter', 'Socket
 
     $scope.search = function (key) {
       if (key === 'byDescription') {
-        if($scope.searchProject){
-          $scope.projects = $scope.oldData;
+        if($scope.searchProject != ''){
+          $http({
+            method: 'POST',
+            url: '/api/searchproject',
+            data:{name:$scope.searchProject}
+          }).then(function(res){
+            $scope.filteredProjects = res.data;
+            $scope.totalCount = 9;
+            
+          })
+         /* $scope.projects = $scope.oldData;
           $scope.projects = $scope.projects.filter(function (obj) {
             if(obj.description.toUpperCase().includes($scope.searchProject.toUpperCase()) || obj.name.toUpperCase().includes($scope.searchProject.toUpperCase())){
               return obj;
               // return obj.description.includes($scope.searchProject);
             }
           });
+          $scope.totalCount = $scope.projects.length;*/
+        }else if($scope.searchProject == ''){
+          $scope.totalCount = $scope.totalprojects;
         }else{
           $scope.projects = $scope.oldData;
+          $scope.totalCount = $scope.totalprojects;
         }
       }
+      
       $scope.paginateSearchResults();
     };
 

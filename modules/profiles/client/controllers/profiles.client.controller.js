@@ -1713,13 +1713,13 @@ angular.module('profiles').controller('ProfilesController', ['$window','$scope',
         url: '/api/profiles/' + $stateParams.profileId,
         method: 'GET' 
       }).then(function(response) {
-        //console.log(response);
-        $scope.profile = response.data.profile; 
-        $scope.bhindi = response.data.profile.skills;  
-        $scope.certifications = response.data.profile.certifications;  
+        console.log(response);
+        $scope.profile = response.data; 
+        $scope.bhindi = response.data.skills;  
+        $scope.certifications = response.data.certifications;  
 
         // As Freelancer
-        if($scope.profile.finalUserRattingBaseOnProjectAwarded)
+        if($scope.profile.userInfo.finalUserRattingBaseOnProjectAwarded)
         {
           $scope.finalUserRattingBaseOnProjectAwarded = $scope.profile.finalUserRattingBaseOnProjectAwarded;
         }
@@ -2740,7 +2740,7 @@ angular.module('profiles').controller('ProfilesController', ['$window','$scope',
           });
           // console.log('repeatCount:', repeatCount);
           var totalNoEmp = Object.keys(result).length;
-          $scope.repeatRate = (repeatCount/totalNoEmp)*100;
+          $scope.repeatRate = Math.round((repeatCount/totalNoEmp)*100);
           $scope.onTime = (compOnTime/$scope.employers.length)*100;
           $scope.onBudget = (compOnBudg/$scope.employers.length)*100;
 

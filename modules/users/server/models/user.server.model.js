@@ -252,6 +252,10 @@ var UserSchema = new Schema({
     hireMeForProjects:{
       type: Boolean,
       default: true
+    },
+    allowFollowMe:{
+      type: Boolean,
+      default: true
     }
   },
 

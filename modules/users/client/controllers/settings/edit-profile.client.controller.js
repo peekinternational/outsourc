@@ -17,9 +17,9 @@ angular.module('users').controller('EditProfileController', ['$scope', '$uibModa
         }
 
         //user service provider $resource located client/services/user-client.service.js
-        console.log($scope.user);
+        
         var user = new Users($scope.user); //create new object of the service User
-        console.log(user);
+        
         user.$update(function (response) {
           
           $scope.$broadcast('show-errors-reset', 'userForm');

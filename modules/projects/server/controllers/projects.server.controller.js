@@ -447,7 +447,19 @@ var emailSending = function (objs, receiverEmail, message, req, res) {
   
 
 };
+exports.Allprojects =function(req,res){
+  Project.find({$or:req.body}, function (err, data) {
+    res.json(data);
 
+  });
+}
+exports.searchprojectbyname = function(req,res){
+  
+  Project.find({name:new RegExp(req.body.name, 'i')}, function (err, data) {
+    res.json(data);
+
+  });
+}
 exports.create = function (req, res) {
   var project = new Project(req.body);
   project.user = req.user;
