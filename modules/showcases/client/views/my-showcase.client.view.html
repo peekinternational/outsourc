@@ -4,8 +4,9 @@
   <div class="banner_section">
     <div class="container">
 		<br class="hidden-xs"><br class="hidden-xs"><br class="hidden-xs"><br class="hidden-xs"><br class="hidden-xs"><br class="hidden-xs"><br class="hidden-xs">
-        <h1 class="title"><span  style="color:#090037">아웃소싱 오케이</span> 쇼케이스</h1>
-        <h4 class="subTitle"><b  style="color:#090037">견적ㆍ작업물</b>을 화상채팅을 통해서 <b  style="color:#090037">실시간</b> 확인할 수 있습니다.</h4>
+		<h1 class="title"><span  style="color:#090037" translate="OutsourcingOk"></span> <span translate="Showcase"></h1>		
+		<!-- <h1 class="title"><span  style="color:#090037">아웃소싱 오케이</span> 쇼케이스</h1> -->
+        <h4 class="subTitle"><b  style="color:#090037" translate="Quotation"></b><b translate="CheckWork"></b> <b  style="color:#090037" translate="RealTime"></b> <b translate="VideoChat"></b></h4>
 		<br class="hidden-xs"><br class="hidden-xs"><br class="hidden-xs"><br class="hidden-xs"><br class="hidden-xs"><br class="hidden-xs"><br class="hidden-xs"><br class="hidden-xs">
     </div>
   </div>
@@ -17,12 +18,12 @@
 	<div>
 		<div class="col-xs-12 col-sm-12 col-md-8 col-lg-8 col-md-offset-2">
 			<div class="main_content m-mb-lg">
-			 	<h3 class="h3-mobile-font" style="padding-top:10px;padding-right:70px;"><span class="pull-right"><button class="btn btn-success" ui-sref="showcases.list" style="background:#5f5b56;border-color: #5f5b56;">쇼케이스 홈</button>&nbsp;&nbsp;&nbsp;<button class="btn btn-success" ui-sref="showcases.create" style="background:#5f5b56;border-color: #5f5b56;">쇼케이스 등록</button></span></h3>
+			 	<h3 class="h3-mobile-font" style="padding-top:10px;padding-right:70px;"><span class="pull-right"><button class="btn btn-success" ui-sref="showcases.list" style="background:#5f5b56;border-color: #5f5b56;"><b translate="ShowcaseHome"></b></button>&nbsp;&nbsp;&nbsp;<button class="btn btn-success" ui-sref="showcases.create" style="background:#5f5b56;border-color: #5f5b56;"><b translate="ShowcaseReg"></b></button></span></h3>
 
 				
 
 
-				<h2 class="h3-mobile-font" style="padding-top:30px;"><b>MY 쇼케이스</b></h2>
+				<h2 class="h3-mobile-font" style="padding-top:30px;"><b translate="MyShowcase"></b></h2>
 			 	<!-- <hr> -->
 
 
@@ -74,7 +75,7 @@
 
 			 		<uib-tab index="1" >
 			 			<uib-tab-heading>
-			 				<i class="fa fa-spinner"></i> 승인중
+			 				<i class="fa fa-spinner"></i> <b translate="Approving"></b>
 			 			</uib-tab-heading>
 
 			 			<div class="row">
@@ -106,7 +107,7 @@
 			 			
 						<div class="text-center content-myShow" ng-if="!pendingShowcases.length">
 							<h1><i class="fa fa-smile-o" aria-hidden="true"></i></h1>
-			 				<h2 class="h3-mobile-font"><strong>쇼케이스에 승인 중인 상품이 현재 없습니다.</strong></h2>			 				
+			 				<h2 class="h3-mobile-font"><strong translate="NoApproveToshow"></strong></h2>			 				
 			 			</div>	
 
 			 			
@@ -114,7 +115,7 @@
 
 			 		<uib-tab index="2" >
 			 			<uib-tab-heading>
-			 				<i class="fa fa-times"></i> 미승인현황
+			 				<i class="fa fa-times"></i> <b translate="Unapproved"></b>
 			 			</uib-tab-heading>
 			 			
 			 			<div class="row">
@@ -146,7 +147,7 @@
 
 						<div class="text-center content-myShow" ng-if="!rejectedShowcases.length">
 							<h1><i class="fa fa-hand-spock-o" aria-hidden="true"></i></h1>
-			 				<h2 class="h3-mobile-font"><strong>미승인된 쇼케이스 상품이 현재 없습니다.</strong></h2>			 				
+			 				<h2 class="h3-mobile-font"><strong translate="NoUnApprovedToshow"></strong></h2>			 				
 			 			</div>	
 
 			 			
