@@ -4,15 +4,15 @@
   <div class="banner_section">
     <div class="container">
     <br><br class="hidden-xs"><br class="hidden-xs"><br class="hidden-xs"><br class="hidden-xs">
-        <h1 class="title"><span  style="color:#090037">아웃소싱 오케이</span> 쇼케이스</h1>
-        <h4 class="subTitle" style="padding-top:15px;">비즈니스의 완성 · 창의력인 디자인 · 자신만의 아이디어</h4>
+        <h1 class="title"><span  style="color:#090037" translate="OutsourcingOk"></span> <span translate="Showcase"></h1>
+        <h4 class="subTitle" style="padding-top:15px;"><span translate="CompletionCreativeOwnIdeas"></span></h4>
         <form class="col-md-offset-2 col-md-8 hidden-xs">
           <div class="row" style="padding-top:10px;">
             <div class="col-md-12">
               <div class="inner-addons">
                 <i class="fa fa-search"></i>
                 <input type="text" model="" class="form-control" ng-model="searchString.title" placeholder="전문 개발자ㆍ사진가ㆍ일러스트레이터ㆍ제작자를 검색하고 실시간으로 구매및상담 하십시오!">
-                <button class="btn btn-info btn-lg">검색</button>
+                <button class="btn btn-info btn-lg"><span translate="Search"></span></button>
               </div><br><br><br><br><br><br>
             </div>
             <!-- <div class="col-md-3 select-box-showcase">
@@ -35,29 +35,29 @@
     <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8 col-md-offset-2">
       <div class="main_content m-mb-lg" style="padding-top:20px">
         
-    <h3 class="h3-mobile-font"><span class="pull-right"><button class="btn btn-success" ui-sref="showcases.myshowcases" style="background:#5f5b56;border-color: #5f5b56;">MY 쇼케이스</button>&nbsp;&nbsp;&nbsp;<button class="btn btn-success" ui-sref="showcases.create" style="background:#5f5b56;border-color: #5f5b56;">쇼케이스 등록</button></span></h3>
+    <h3 class="h3-mobile-font"><span class="pull-right"><button class="btn btn-success" ui-sref="showcases.myshowcases" style="background:#5f5b56;border-color: #5f5b56;"><span translate="MyShowcase"></span></button>&nbsp;&nbsp;&nbsp;<button class="btn btn-success" ui-sref="showcases.create" style="background:#5f5b56;border-color: #5f5b56;"><span translate="ShowcaseReg"></span></button></span></h3>
 
     <ul class="nav nav-pills nav-showcase-tabs m-mt-lg" style="padding-top:50px;text-align: left !important;">
           <li>
-            <a ng-click="tab=1; searchByType('0');" ng-init="tab=1" ng-class="{'active':tab==1}" href="javascript:void(0)">전체</a>
+            <a ng-click="tab=1; searchByType('0');" ng-init="tab=1" ng-class="{'active':tab==1}" href="javascript:void(0)"><span translate="All"></span></a>
           </li>
           <li>
-            <a ng-click="tab=2; searchByType('Logos');" ng-class="{'active':tab==2}" href="javascript:void(0)">로고</a>
+            <a ng-click="tab=2; searchByType('Logos');" ng-class="{'active':tab==2}" href="javascript:void(0)"><span translate="Logo"></span></a>
           </li>
           <li>
-            <a ng-click="tab=3; searchByType('Websites');" ng-class="{'active':tab==3}" href="javascript:void(0)">웹사이트</a>
+            <a ng-click="tab=3; searchByType('Websites');" ng-class="{'active':tab==3}" href="javascript:void(0)"><span translate="Web"></span></a>
           </li>
           <li>
-            <a ng-click="tab=4; searchByType('Mobile App');" ng-class="{'active':tab==4}" href="javascript:void(0)">모바일 앱</a>
+            <a ng-click="tab=4; searchByType('Mobile App');" ng-class="{'active':tab==4}" href="javascript:void(0)"><span translate="MobApps"></span></a>
           </li>
           <li>
-            <a ng-click="tab=5; searchByType('Graphic Design');" ng-class="{'active':tab==5}" href="javascript:void(0)">그래픽 디자인</a>
+            <a ng-click="tab=5; searchByType('Graphic Design');" ng-class="{'active':tab==5}" href="javascript:void(0)"><span translate="GraphicDesign"></span></a>
           </li>
           <li>
-            <a ng-click="tab=6; searchByType('Illustration');" ng-class="{'active':tab==6}" href="javascript:void(0)">일러스트레이션</a>
+            <a ng-click="tab=6; searchByType('Illustration');" ng-class="{'active':tab==6}" href="javascript:void(0)"><span translate="Illustration"></span></a>
           </li>
           <li>
-            <a ng-click="tab=7; searchByType('3D Models');" ng-class="{'active':tab==7}" href="javascript:void(0)">3D 모델</a>
+            <a ng-click="tab=7; searchByType('3D Models');" ng-class="{'active':tab==7}" href="javascript:void(0)"><span translate="model3D"></span></a>
           </li>
           <!-- <li class="pull-right m-mt-xs m-mb-xs">
             <button class="btn btn-warning"><a href="showcases/create">쇼케이스 등록</a></button>
@@ -78,7 +78,7 @@
                      <div class="card">
                        <div class="showcase-overlay" ng-click="viewShowcase(sc._id)" data-toggle="modal">
                          <div class="showcase-content">
-                           <button class="btn btn-info" >상세보기 </button>
+                           <button class="btn btn-info" ><span translate="ViewDetails"></span> </button>
                          </div>
                        </div>
                        <img src="{{sc.file.link}}" alt="Avatar" style="width:100%">
@@ -147,7 +147,7 @@
                 </div>
 
                 <center ng-if="isLoading">
-                  <h3 class="danub-font"> <span class="fa fa-spinner fa-spin fa-2x fa-fw"></span> 로딩중...</h3>
+                  <h3 class="danub-font"> <span class="fa fa-spinner fa-spin fa-2x fa-fw"></span> <span translate="Loading"></span></h3>
                 </center>
                 <center ng-if="!filtered.length && !isLoading">
                   <img src="modules/showcases/client/img/no_search_results.png" width="10%">
@@ -190,7 +190,7 @@
                 </div>
 
                 <center ng-if="isLoading">
-                  <h3 class="danub-font"> <span class="fa fa-spinner fa-spin fa-2x fa-fw"></span> 로딩중...</h3>
+                  <h3 class="danub-font"> <span class="fa fa-spinner fa-spin fa-2x fa-fw"></span> <span translate="Loading"></span></h3>
                 </center>
                 <center ng-if="!filtered.length && !isLoading">
                   <img src="modules/showcases/client/img/no_search_results.png" width="10%">
