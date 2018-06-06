@@ -26,9 +26,33 @@ app.controller('ProjectsController', ['$scope', '$rootScope', '$filter', 'Socket
 
     $scope.downloadAgreement =function(){
       $http.post("/api/packageProjects/"+$stateParams.projectId).then(function(res){
-
+        var printWindow = window.open('', '', 'height=1000,width=1500');
+        //var printWindow = window.open('', '', 'height=1000,width=1500');
+        printWindow.document.write('<html><head><title>Non-Disclosure Agreement</title>');
+        printWindow.document.write('</head><body >');
+        printWindow.document.write('<h1 style="color:#00CED1">Non-Disclosure Agreement</h1>');
+        printWindow.document.write('This non-disclosure agreement (“Agreement”), dated as of the submission time in the electronic form below is made between the user of the freelancer.com site who is the provider of the professional services (“Freelancer”) and the user of such professional services (“Employer”).<br/><br/>');
+        printWindow.document.write('For the purposes of enabling the Freelancer to provide the professional services to the Employer, the Employer has agreed to provide the Freelancer with written and oral information (“Confidential Information”) concerning the project which the Freelancer is to complete (“Project”) subject to the terms of this Agreement.<br/><br/>');
+        printWindow.document.write('The parties agree as follows:<br/><br/>');
+        printWindow.document.write('1. The Confidential Information shall be kept in strict confidence by the Freelancer and shall not be used, without the Employer’s prior written consent, for any purpose other than in connection with the completion of the Project. The Confidential Information shall not be disclosed to any persons other than those Representatives (as defined below) who have a need to know. “Representatives” shall mean the affiliates, directors, officers, employees, professional advisers and agents of the Freelancer. The Freelancer shall inform its Representatives of the confidential nature of the Confidential Information and shall direct its Representatives to hold the Confidential Information in strict confidence.<br/><br/>');
+        printWindow.document.write('2. The restrictions in paragraph 1 shall not apply to any information which: (a) is or becomes generally available to the public through no violation of this Agreement; (b) was available to the Freelancer on a non-confidential basis prior to its disclosure to the Freelancer by the Employer; (c) becomes available to the Freelancer on a non-confidential basis from a source other than the Employer provided that such source is not bound by an Agreement with the Employer; or (iv) is required to be disclosed to any court, regulatory authority, other governmental authority or pursuant to any requirement of law.<br/><br/>');
+        printWindow.document.write('3. At the request of the Employer, the Freelancer shall return all Confidential Information received from the Employer and shall not retain any copies of, or other reproductions or extracts of, the Confidential Information, except as it may retain in accordance with prudent business practices (any retained material shall remain subject to the provisions of this Agreement without any time limit).<br/><br/>');
+        printWindow.document.write('4. The Freelancer acknowledges and agrees that the Employer is not making any representation or warranty, express or implied, as to the accuracy, correctness or completeness of the Confidential Information. The Freelancer agrees that neither the Employer nor any of its affiliates, directors, officers, employees, professional advisors or agents shall have liability to the Freelancer resulting from the use of the Confidential Information by the Freelancer or the Representatives.<br/><br/>');
+        printWindow.document.write('5. Notwithstanding any other remedies which may be available to the Employer, the Freelancer indemnifies and must keep the Employer indemnified against any loss or expense suffered or incurred by the Employer directly or indirectly in connection with or arising out of or as a result of the breach by the Freelancer or its Representatives of any of the terms of this Agreement.<br/><br/>');
+        printWindow.document.write('6. This Agreement is governed by and shall be construed in accordance with the laws of the State of New South Wales, Australia and the parties irrevocably submit to the non-exclusive jurisdiction of the courts of the State of New South Wales, Australia. The duration of this Agreement is 12 (twelve) months from the date of this Agreement.<br/><br/>');
+        printWindow.document.write('<span style="page-break-before:always;">7. This Agreement shall not be amended or modified, and none of the provisions shall be waived, except in writing signed on behalf of the parties or, in the case of a waiver, on behalf of the party making the waiver.<span><br/><br/>');
+        printWindow.document.write('---------------------------------------------------------------------------------------------------------------------------------------');
+        printWindow.document.write('This Agreement relates to the confidentiality agreed upon for the project:<br/><br/>');
+        printWindow.document.write(res.data.name+' listed '+res.data.created);
+        printWindow.document.write('<br/><br/><span style="margin-right:150px">Agreed to by the Freelancer</span> ');
+        printWindow.document.write('<span style="margin-left:150px">Agreed to by the Employer</span><br/>');
+        printWindow.document.write('<span style="margin-right:100px">'+Authentication.user.username+' , '+ moment().format('MMMM Do YYYY, h:mm:ss a')+' </span>');
+        printWindow.document.write('<span style="margin-left:100px">'+res.data.userInfo.name+' , '+ moment().format('MMMM Do YYYY, h:mm:ss a')+' </span>');
+        printWindow.document.write('</body></html>');
+        printWindow.document.close();
+        printWindow.print();
       /*download Agreemnt PDF code*/
-      var docDefinition = { content: [
+     /*  var docDefinition = { content: [
           {
             text:"Non-Disclosure Agreement",
             style:"header",
@@ -84,7 +108,7 @@ app.controller('ProjectsController', ['$scope', '$rootScope', '$filter', 'Socket
             color:"skyblue",
           }
         } };
-      pdfMake.createPdf(docDefinition).download();
+      pdfMake.createPdf(docDefinition).download(); */
       })
     }
     
