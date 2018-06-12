@@ -1,7 +1,7 @@
 <div class="row project-backgroundimage5 hidden-xs">
         <div class="container about-investor-title-setting">
 <br>
-            <h3 class="investor-heading p-t-sm" style="font-size:20px;">프로젝트 리스트</h3>
+            <h3 class="investor-heading p-t-sm" style="font-size:20px;" translate="projectList"></h3>
             <h3 class="investor-para">
                
             </h3>
@@ -15,7 +15,7 @@
     <div ng-if="view_processing">
     <!-- <div id="page-overlay" ng-if="view_processing"> -->
         <section class="logo">
-            <span style="font-size:27px;color:#734912;"><b>아웃소싱 오케이 로딩중...</b></span>
+            <span style="font-size:27px;color:#734912;"><b translate="outsourcingOkLoading">...</b></span>
         </section>
         <br>
         <section class="spinner">
@@ -42,7 +42,7 @@
   <!-- form to filter the contest -->
 
   <div class="row thumbnail bordortop_styling p-l-sm p-r-sm ">
-    <h4 class="hidden-xs" style="padding-top:20px;padding-bottom:20px"><strong>프로젝트 검색</strong></h4>
+    <h4 class="hidden-xs" style="padding-top:20px;padding-bottom:20px"><strong translate="LookingForProjects"></strong></h4>
     <!-- <h4 class="hidden-xs"><strong></strong></h4> -->
 
     <!-- form for the contest filter starts here -->
@@ -60,11 +60,11 @@
 
       <div cg-busy="projects"></div>
       
-      <h4><strong>MY 전문기술</strong></h4>
+      <h4><strong translate="mySkills"></strong></h4>
       
 
 
-	  <div>
+    <div>
         <div>
           <!-- <select selector model="searchSkills" multi="true" options="skills" label-attr="name" placeholder="지원자/프리랜서께서 보유하고 있는 전문 기술로 등록된 프로젝트 목록을 찾을 수 있습니다." ></select> -->
           <select ng-click="getSkillsAndCat()" selector model="searchSkills" multi="true" options="skills" label-attr="name" closeAfterSelection="true" placeholder="지원자/프리랜서께서 보유하고 있는 전문 기술로 등록된 프로젝트 목록을 찾을 수 있습니다." ></select>
@@ -72,7 +72,7 @@
       </div>
 
 
-	  <!-- <h4><strong>분야 검색</strong></h4>
+    <!-- <h4><strong>분야 검색</strong></h4>
         <div>
           <div>
             <select model="project.workRequire" change="subCatSelect()" selector options="typeOfWork" label-attr="name" placeholder="분야 선택">
@@ -80,7 +80,7 @@
           </div>
         </div>
 
-		<hr> -->
+    <hr> -->
 
 
       <!-- <div>
@@ -224,23 +224,23 @@
     <!-- contest view -->
     <div class="col-xs-12 col-md-12">
       <div class="row hidden-md hidden-lg" style="background: #222;">
-        <h4 class="p-ml-sm" style="color: white;">프로젝트 리스트</h4>
+        <h4 class="p-ml-sm" style="color: white;" translate="projectList"></h4>
       </div>
       <div class="row navbar-inverse  hidden-xs" style="color: white;">
         <div class="col-xs-4 col-md-5">
-          <h4 class="pull-left prjct-list-font"><strong>프로젝트 제목</strong></h4>
+          <h4 class="pull-left prjct-list-font"><strong translate="titlePro"></strong></h4>
         </div>
         <div class="col-xs-2 col-md-1">
-          <h4 class="text-center prjct-list-font"><strong>지원</strong></h4>
+          <h4 class="text-center prjct-list-font"><strong translate="bids"></strong></h4>
         </div>
         <div class="col-xs-2 col-md-1 p-ml-xs">
-          <h4 class="text-center prjct-list-font"><strong>등록일</strong></h4>
+          <h4 class="text-center prjct-list-font"><strong translate="started"></strong></h4>
         </div>
         <div class="col-xs-3 col-md-3 p-l-none p-r-none">
-          <h4 class="text-center prjct-list-font p-l-lg"><strong>예산규모 <!-- <span class="caret"></span> --></strong></h4>
+          <h4 class="text-center prjct-list-font p-l-lg"><strong translate="budget"> <!-- <span class="caret"></span> --></strong></h4>
         </div>
         <div class="col-md-2 hidden-xs p-l-none p-r-none">
-          <h4 class="text-center prjct-list-font"><strong>지원여부 <!-- <span class="caret"> --></strong></h4>
+          <h4 class="text-center prjct-list-font"><strong translate="AvailableInterview"> <!-- <span class="caret"> --></strong></h4>
         </div>
       </div>
     </div>
@@ -269,10 +269,10 @@
               <i class="ittu-sa-icons glyphicon glyphicon-map-marker text-info p-r-xs"></i> 
             </div> -->
           </div>
-          <div class="col-xs-12 col-md-11 p-t-sm p-ml-none p-mt-none">	
-		        <!-- <a ng-click="ndaAccept(project._id);" ng-show="project.additionalPakages.NDA"><h4 class="text-info mobile-view-prjct m-t-none"><strong style="cursor: pointer; cursor: hand;">{{project.name}}</strong></h4></a>
+          <div class="col-xs-12 col-md-11 p-t-sm p-ml-none p-mt-none">  
+            <!-- <a ng-click="ndaAccept(project._id);" ng-show="project.additionalPakages.NDA"><h4 class="text-info mobile-view-prjct m-t-none"><strong style="cursor: pointer; cursor: hand;">{{project.name}}</strong></h4></a>
             <a ui-sref="projects.view({projectId: project._id})" ng-show="!project.additionalPakages.NDA"><h4 class="text-info mobile-view-prjct m-t-none"><strong>{{project.name}}</strong></h4></a> -->
-			      <a ui-sref="projects.view({projectId: project._id})">
+            <a ui-sref="projects.view({projectId: project._id})">
               <h4 class="text-info prjct-list-font m-t-none">
                 <strong>{{project.name}}</strong>
               </h4>
@@ -305,10 +305,10 @@
       <div class="col-xs-12 col-md-3 p-t-sm p-ml-none">
         <h5 class="text-center mobile-align">
           <div class="parent">
-              {{project.currency.symbol_native}} {{project.minRange|number:0}} - {{project.currency.symbol_native}} {{project.maxRange|number:0}}<span ng-show="project.projectRate === 'hourly'">/<sup>시간제</sup></span> <br>
+              {{project.currency.symbol_native}} {{project.minRange|number:0}} - {{project.currency.symbol_native}} {{project.maxRange|number:0}}<span ng-show="project.projectRate === 'hourly'">/<sup translate="hourly"></sup></span> <br>
             <div class="hover-content">
-              <button class="ittu-sa btn btn-xs btn-success" style="background: #5f5b56;border: 1px solid #5f5b56"> 지출예산규모</button> <br> <br>
-              <button class="ittu-sa btn btn-xs btn-warning" ui-sref = "projects.project-post" style="background: #5f5b56;border: 1px solid #5f5b56"> 유사 프로젝트등록</button>
+              <button class="ittu-sa btn btn-xs btn-success" style="background: #5f5b56;border: 1px solid #5f5b56" translate="Guaranteed"> </button> <br> <br>
+              <button class="ittu-sa btn btn-xs btn-warning" ui-sref = "projects.project-post" style="background: #5f5b56;border: 1px solid #5f5b56" translate="postProjectLikeThis"></button>
             </div>
           </div>
         </h5>
@@ -323,7 +323,7 @@
             <i class="glyphicon glyphicon-phone-alt text-muted p-r-xs"></i> 
             <i class="glyphicon glyphicon-envelope text-muted p-r-xs"></i> 
             <i class="glyphicon glyphicon-time text-muted p-r-xs"></i> 
-            <i class="glyphicon glyphicon-print text-muted "></i> -->  			
+            <i class="glyphicon glyphicon-print text-muted "></i> -->       
             <img src="modules/core/client/img/customimages/list_icon2.png">&nbsp;
             <img src="modules/core/client/img/customimages/list_icon3.png">&nbsp;
             <img src="modules/core/client/img/customimages/list_icon1.png">&nbsp;
@@ -336,15 +336,14 @@
           <div class="btn-tool text-center p-r-xs p-l-xs"> 
             <br>
             <a ng-if="project.user !== authentication.user._id && project.status !== 'completed'" ui-sref="projects.view({projectId: project._id})">
-              <button class="btn btn-md btn-primary" style="background: #688686;border: 1px solid #688686"> 프로젝트 지원</button> 
+              <button class="btn btn-md btn-primary" style="background: #688686;border: 1px solid #688686" translate="bidNow"></button> 
             </a>
             <a ng-if="project.user === authentication.user._id && project.status !== 'completed'" ui-sref="projects.project-manage({projectId: project._id})">
-              <button class="btn btn-md btn-success" style="background: #37526a;border: 1px solid #37526a"> MY 프로젝트</button>
+              <button class="btn btn-md btn-success" style="background: #37526a;border: 1px solid #37526a" translate="YourProject"></button>
             </a>
             
             <h3 ng-if="project.status === 'completed'">
-              <span class="btn btn-medium label-danger" style="background:#5f4119;border: 1px solid #5f4119;color:#fff;">
-                프로젝트 종료
+              <span class="btn btn-medium label-danger" style="background:#5f4119;border: 1px solid #5f4119;color:#fff;" translate="projectCompleted">
               </span>
             </h3>
 
@@ -357,19 +356,19 @@
         <!-- button tags -->
         <div class="row btn-tool m-ml-none">
 
-		      <button ng-show="project.additionalPakages.urgent" class="ittu-sa btn btn-xs btn-danger" style="background:#6b081d;border: 1px solid #6b081d;">긴급</button>
-          <button ng-show="project.additionalPakages.sealed" class="ittu-sa btn btn-xs  btn-warning" style="background:#113886;border: 1px solid #113886;">비공개</button>
-          <button ng-show="project.additionalPakages.private" class="ittu-sa btn btn-xs btn-info" style="background:#008000;border: 1px solid #008000;">개인서비스</button>
-          <button ng-show="project.additionalPakages.NDA" class="ittu-sa btn btn-xs btn-info" style="background:#efbf50;border: 1px solid #efbf50;">계약(NDA)</button>
-    		  <button ng-show="project.additionalPakages.gaurantee" class="ittu-sa btn btn-xs btn-info" style="background:#886513;border: 1px solid #886513;">상금보장</button>
-    		  <button ng-show="project.additionalPakages.featured" class="ittu-sa btn btn-xs btn-info" style="background:#1793b1;border: 1px solid #1793b1;">채팅</button>
+          <button ng-show="project.additionalPakages.urgent" class="ittu-sa btn btn-xs btn-danger" style="background:#6b081d;border: 1px solid #6b081d;" translate="urgent"></button>
+          <button ng-show="project.additionalPakages.sealed" class="ittu-sa btn btn-xs  btn-warning" style="background:#113886;border: 1px solid #113886;" translate="sealed"></button>
+          <button ng-show="project.additionalPakages.private" class="ittu-sa btn btn-xs btn-info" style="background:#008000;border: 1px solid #008000;" translate="private"></button>
+          <button ng-show="project.additionalPakages.NDA" class="ittu-sa btn btn-xs btn-info" style="background:#efbf50;border: 1px solid #efbf50;" translate="NDA"></button>
+          <button ng-show="project.additionalPakages.gaurantee" class="ittu-sa btn btn-xs btn-info" style="background:#886513;border: 1px solid #886513;" translate="gaurantee"></button>
+          <button ng-show="project.additionalPakages.featured" class="ittu-sa btn btn-xs btn-info" style="background:#1793b1;border: 1px solid #1793b1;" translate="featured"></button>
 
           <!-- 
           <button class="ittu-sa btn btn-xs btn-danger" ng-show="project.additionalPakages.urgent">긴급</button>
           <button class="ittu-sa btn btn-xs  btn-warning" ng-show="project.additionalPakages.sealed">비공개</button>
           <button class="ittu-sa btn btn-xs btn-info" ng-show="project.additionalPakages.private">개인서비스</button>
           -->          
-	      </div>
+        </div>
         <br class="hidden-xs">
         <hr class="m-mb-xs">
       </div>
@@ -380,7 +379,7 @@
       <div class="col-xs-12">
         <!-- <ul uib-pagination total-items="projectsLength" ng-model="currentPage" max-size="maxSize" class="pagination-sm " boundary-links="true" num-pages="numPages"></ul> -->
         <ul uib-pagination total-items="totalCount" ng-model="currentPage" max-size="maxSize" class=" pull-right pagination-sm m-mt-xs" boundary-links="true" num-pages="numPages"></ul>
-        
+
       </div>
     </div>
 
