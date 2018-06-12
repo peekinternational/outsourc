@@ -1,7 +1,7 @@
 <div class="row project-backgroundimage5 hidden-xs">
         <div class="container about-investor-title-setting">
 <br>
-            <h3 class="investor-heading p-t-sm" style="font-size:20px;">글로벌 프리랜서 리스트</h3>
+            <h3 class="investor-heading p-t-sm" style="font-size:20px;" translate="GlobalFreelanceList"></h3>
             <h3 class="investor-para">
                
             </h3>
@@ -41,7 +41,7 @@
 			
 			  <div class="text-center img-responsive hidden-lg"> 
 				<div class="btn btn-small border-wla" style="border: 1px solid #35abc8;padding:10px 50px;background:#fff;">
-				  <h4><b>글로벌 프리랜서 리스트</b></h4>
+				  <h4><b  translate="GlobalFreelanceList"></b></h4>
 				</div>  
 			  </div>
 <div class="col-xs-12 p-mr-none p-ml-none text-right">
@@ -82,7 +82,7 @@
 						</div> -->
 						<br>
 						<div class="form-group">
-							<label for="skill">전문기술</label>
+							<label for="skill"><span translate="ExpertiesSkills"></span></label>
 							<div>
 							  <div >
 							    <select selector model="searchBySkill" multi="true" options="skills" label-attr="name" placeholder="전문기술 검색" ></select>
@@ -102,7 +102,7 @@
 							<select  class="form-control" ng-model="bidding.education" ></select>
 						</div> -->
 						<div class="form-group">
-							<label for="countries">국가</label>							
+							<label for="countries"><span translate="Country"></span></label>							
 							<div >
 							  <select selector model="searchByCountry" multi="true" options="countryData" label-attr="name" placeholder="국가별로 검색" ></select>
 							</div>							
@@ -214,10 +214,10 @@
 							<span  style="color: #000" uib-rating ng-model="rateingStars" ng-init="rateingStars = prof.finalUserRattingBaseOnProjectAwarded" max="max" read-only="isReadonly" titles="['one','two','three']" aria-labelledby="default-rating"> </span>
 						</div>
 						<span ng-if="prof.noOfReviewBaseOnProjectAwarded">
-							<small>{{prof.noOfReviewBaseOnProjectAwarded}} 리뷰</small>
+							<small>{{prof.noOfReviewBaseOnProjectAwarded}} <span translate="Review"></span></small>
 						</span>
 						<span ng-if="!prof.noOfReviewBaseOnProjectAwarded">
-							<small>0 리뷰</small>
+							<small>0 <span translate="Review"></span></small>
 						</span>
 						<!-- <div class="col-xs-12 col-md-4 p-ml-none p-mt-sm">
 							<span class="hidden-xs"><strong>0.0</strong></span>

@@ -334,7 +334,38 @@
         "ChooseUSDorKRW":"미화 또는 원화 선택",
         "FixedAmountNegotiationPossible":"(프리랜서에게 고정금액을 제시하면 협의 가능합니다.)",
         "Freelancejob":"프리랜서 채용",
-        "":""
+        
+        "ServiceFee":"서비스 이용료",
+        "SelectPaymentMethod":"결제방법선택",
+        "CashPayment":"현금결제",
+        "Creditcard" :"신용카드",
+        "Paypal":"페이팔",
+        "ProductName" : "상품명",
+        "Projectandcontestfees":"프로젝트 및 컨테스트 대금",
+        "Amountofpayment": "결제금액",
+        "Fees": "수수료",
+        "FinalAmount" :"최종결제금액",
+        "Paidserviceguide":"아웃소싱 오케이 유료서비스 안내",
+        "Unlimitedchat" : "등록 건별 30일간 무제한 채팅이용!",
+        "VideoChat1to1":"구매시 1 : 1 화상 채팅 무료",
+        "Won" :"원",
+        "EachCannotSee" : "각프리랜서들이 지원내용을 볼수없습니다.",
+        "FastResponsiveurgent" : "빠른 응답과 긴급을 요한 서비스입니다.",
+        "NameofBank":"은행명",
+        "IndustrialBank": "기업은행",
+        "Accountholder":"예금주",
+        "JobColmiCo":"주식회사 잡콜미",
+        "AccountNumber":"계좌번호",
+        "CreditcardPayment": "신용카드결제",
+        "Name":"이름",
+        "Email":"이메일",
+        "VAT":"부가세",
+        "TotalAmount":"총 합계금액[원화]",
+        "payment": "결제",
+        "Chatting":"채팅",
+        "GlobalFreelanceList":"글로벌 프리랜서 리스트",
+        "ExpertiesSkills":"전문기술"
+
 
 
 

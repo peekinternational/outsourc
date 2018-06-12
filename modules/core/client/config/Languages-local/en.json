@@ -336,7 +336,40 @@
     "ChooseUSDorKRW":"Choose USD or KRW",
     "FixedAmountNegotiationPossible":"(If a fixed amount is presented to a freelancer, negotiation is possible.)",
     "Freelancejob":"Freelance job",
-    "":""
+
+    "ServiceFee":"Service Fee",
+    "SelectPaymentMethod":"Select Payment Method",
+    "CashPayment":"Cash Payment",
+    "Creditcard" :"Credit card",
+    "Paypal":"Paypal",
+    "ProductName" : "Product Name",
+    "Projectandcontestfees" : "Project and contest fees",
+    "Amountofpayment": "Amount of payment",
+    "Fees": "Fees",
+    "FinalAmount":"Final Amount",
+    "Paidserviceguide" : "OutsourcingOk Paid service guide",
+    "Unlimitedchat":"Unlimited chat for 30 days!",
+    "VideoChat1to1":"Free 1: 1 video chat on purchase",
+    "Won":"won",
+    "EachCannotSee": "Each freelancer can not see the support contents.",
+    "FastResponsiveurgent":"Fast response and urgent service.",
+    "NameofBank": "Name of Bank",
+    "IndustrialBank" : "Industrial Bank",
+    "Accountholder":"Account Holder",
+    "JobColmiCo":"Job Colmi Co., Ltd.",
+    "AccountNumber" :"Account Number",
+    "CreditcardPayment":"Credit card Payment",
+    "Name":"Name",
+    "Email": "e-mail",
+    "VAT":"VAT",
+    "TotalAmount":"Total amount [KRW]",
+    "payment": "payment",
+    "Chatting":"Chatting",
+    "GlobalFreelanceList":"Global freelance list",
+    "ExpertiesSkills":"Expertise"
+
+
+
 
 
 

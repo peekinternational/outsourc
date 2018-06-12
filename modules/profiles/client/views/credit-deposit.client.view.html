@@ -1,7 +1,7 @@
 <div class="row project-backgroundimage5 hidden-xs">
         <div class="container about-investor-title-setting">
 <br>
-            <h3 class="investor-heading p-t-sm" style="font-size:20px;">서비스 이용료</h3>
+            <h3 class="investor-heading p-t-sm" style="font-size:20px;" translate="ServiceFee"></h3>
             <h3 class="investor-para">
                
             </h3>
@@ -20,9 +20,9 @@
 		<br>
 		<div class="p-ml-none p-mr-none" >
 			<div class="panel panel-primary" style="border:1px solid #5b1b29;">
-			<div class="panel-heading" style="background:#5b1b29;font-size: 15px;border:1px solid #5b1b29;">결제방법선택</div>
+			<div class="panel-heading" style="background:#5b1b29;font-size: 15px;border:1px solid #5b1b29;"><span translate="SelectPaymentMethod"></span></div>
 			<div class="panel-body" style="height:40%; text-align:center;" >
-			<a ui-sref="credit-deposit"><button class="btn btn-primary btn-lg" style="margin-right:50px;"> 신용카드</button> </a><a ui-sref="cash-deposit"><button class="btn btn-primary btn-lg" style="margin-right:20px;background:#d0a620;border:1px solid #d0a620;"> 현금결제</button></a>&nbsp;&nbsp;&nbsp;<a ui-sref="paypal-deposit"><button class="btn btn-primary btn-lg" style="background:#009cde;margin-left:20px;">&nbsp;&nbsp;페이팔&nbsp;&nbsp;</button> </a>
+			<a ui-sref="credit-deposit"><button class="btn btn-primary btn-lg" style="margin-right:50px;"> <span translate="Creditcard"></span></button> </a><a ui-sref="cash-deposit"><button class="btn btn-primary btn-lg" style="margin-right:20px;background:#d0a620;border:1px solid #d0a620;"> <span translate="CashPayment"></span></button></a>&nbsp;&nbsp;&nbsp;<a ui-sref="paypal-deposit"><button class="btn btn-primary btn-lg" style="background:#009cde;margin-left:20px;">&nbsp;&nbsp;<span translate="Paypal"></span>&nbsp;&nbsp;</button> </a>
 			   
 			</div>
 			</div>
@@ -31,7 +31,7 @@
 		<!-- For Desktop only -->
 		<div class="p-ml-none p-mr-none hidden-xs hidden-sm " >
 			<div class="panel panel-primary">
-			<div class="panel-heading" style="background-color:#2c456c;font-size: 15px;">신용카드결제</div>
+			<div class="panel-heading" style="background-color:#2c456c;font-size: 15px;"><span translate="CreditcardPayment"></span></div>
 			<div class="panel-body" style="height:40%; text-align:center;" >
 			<p class="bg-info" id="msg"></p>
 			   <form action="https://nicepay.outsourcingok.com/nicepay/payRequest_utf.php" method="post" class="form-horizontal" role="form" name="paymentForm" method="post">
@@ -46,21 +46,21 @@
 			   	</div>
 
 			   	<div class="form-group hidden">
-			   	    <label class="control-label col-sm-3" for="username">이름:</label>
+			   	    <label class="control-label col-sm-3" for="username"><span translate="Name"></span>:</label>
 			   	    <div class="col-sm-9"> 
 			   	      <input type="text" name="buyerName" ng-model="authentication.user.username" class="form-control"/>
 			   	    </div>
 			   	</div>
 
 			   	<div class="form-group hidden">
-			   	    <label class="control-label col-sm-3" for="email">이메일:</label>
+			   	    <label class="control-label col-sm-3" for="email"><span translate="Email"></span> :</label>
 			   	    <div class="col-sm-9">
 			   	      <input type="email" name="Email" ng-model="authentication.user.email" class="form-control"/>
 			   	    </div>
 			   	</div>
 
 			   	<div class="form-group">
-			   	    <label class="control-label col-sm-3" for="mobile">핸드폰번호:</label>
+			   	    <label class="control-label col-sm-3" for="mobile"><span translate="MobilePhoneNumber"></span> :</label>
 			   	    <div class="col-sm-9">
 			   	      <input type="number" name="tel" ng-model="authentication.user.mobile" placeholder="핸드폰 번호를 입력바랍니다" class="form-control" required/>
 			   	    </div>
@@ -74,14 +74,14 @@
 
 	            <hr>
 	            <div class="form-group">
-	                <label class="control-label col-sm-3" for="email">부가세[+10%]:</label>
+	                <label class="control-label col-sm-3" for="email"><span translate="VAT"></span>[+10%]:</label>
 	                <div class="col-sm-9 text-right">
 	                	<label class="control-label"><i class="fa fa-krw" aria-hidden="true"></i>{{vat | number: 0}}</label>
 	                </div>
 	            </div>
 
 	            <div class="form-group">
-	                <label class="control-label col-sm-3">총 합계금액[원화]:</label>
+	                <label class="control-label col-sm-3"><span translate="TotalAmount"></span> :</label>
 	                <div class="col-sm-9 text-right">
 	                	<label class="control-label" ><i class="fa fa-krw" aria-hidden="true"></i>{{totalPricee | number: 0}}</label>
 	                </div>
@@ -89,7 +89,7 @@
 			    <div class="form-group">
 			      <div class=" col-sm-12">
 			        <button id="send" value="submit" class="btn btn-primary btn-lg" type="submit" >
-			           <span class="glyphicon glyphicon-send" ></span> 결제 
+			           <span class="glyphicon glyphicon-send" ></span> <span translate="payment"></span>
 			           <i class="fa fa-krw" aria-hidden="true"></i> {{totalPricee | number: 0}}
 			        </button>
 			      </div>
@@ -108,14 +108,14 @@
 			<!-- For Mobile and Tabs -->
 			<div class="col-md-7 p-ml-none p-mr-none hidden-md hidden-lg" >
 				<div class="panel panel-primary">
-				<div class="panel-heading" style="background-color:#2c456c;font-size: 15px;">신용카드결제</div>
+				<div class="panel-heading" style="background-color:#2c456c;font-size: 15px;"><span translate="CreditcardPayment"></span></div>
 				<div class="panel-body" style="height:40%; text-align:center;" >
 				<p class="bg-info" id="msg"></p>
 				   <form action="https://nicepay.outsourcingok.com/nicepay_mobile/MOBILE_TX_PHP/payRequest_utf.php" method="post" class="form-horizontal" role="form" name="paymentForm" method="post">
 
 				   	<div class="form-group">
 				   	    <label class="control-label col-sm-2" for="pricee">
-				   	    	결제금액:
+				   	    	<span translate="Amountofpayment"></span> :
 				   	    </label>
 				   	    <div class="col-sm-10">
 				   	      <input type="number" ng-model="pricee" class="form-control" placeholder="Enter amount of minimum KRW1,000" min="1000" ng-change="priceeChange()" required />
@@ -137,7 +137,7 @@
 				   	</div>
 
 				   	<div class="form-group">
-				   	    <label class="control-label col-sm-2" for="mobile">핸드폰번호:</label>
+				   	    <label class="control-label col-sm-2" for="mobile"><span translate="MobilePhoneNumber"></span>: </label>
 				   	    <div class="col-sm-10">
 				   	      <input type="number" name="tel" ng-model="authentication.user.mobile" placeholder="핸드폰 번호를 입력바랍니다" class="form-control" required/>
 				   	    </div>
@@ -151,14 +151,14 @@
 
 		            <hr>
 		            <div class="form-group">
-		                <label class="col-sm-2 text-left" for="email">부가세(+10%):</label>
+		                <label class="col-sm-2 text-left" for="email"><span translate="VAT"></span> (+10%):</label>
 		                <div class="col-sm-10 text-right">
 		                	<label class="control-label"><i class="fa fa-krw" aria-hidden="true"></i>{{vat | number: 0}}</label>
 		                </div>
 		            </div>
 
 		            <div class="form-group">
-		                <label class="col-sm-2 text-left">총 합계금액[원화]:</label>
+		                <label class="col-sm-2 text-left"><span translate="TotalAmount"></span> :</label>
 		                <div class="col-sm-10 text-right">
 		                	<label class="control-label" ><i class="fa fa-krw" aria-hidden="true"></i>{{totalPricee | number: 0}}</label>
 		                </div>
@@ -166,7 +166,7 @@
 				    <div class="form-group">
 				      <div class=" col-sm-12">
 				        <button id="send" value="submit" class="btn btn-primary btn-lg" type="submit" >
-				           <span class="glyphicon glyphicon-send" ></span> 결제 
+				           <span class="glyphicon glyphicon-send" ></span> <span translate="payment"></span> 
 				           <i class="fa fa-krw" aria-hidden="true"></i> {{totalPricee | number: 0}}
 				        </button>
 				      </div>
@@ -182,24 +182,24 @@
 		<div class="col-xs-12 col-sm-4 col-md-4 col-lg-4 p-mr-none p-ml-none hidden-xs">
 	  <br>
         <div class="panel panel-primary" style="border:1px solid #656a72;">
-			<div class="panel-heading text-center" style="background:#656a72;font-size: 15px;border:1px solid #656a72;">아웃소싱 오케이 유료서비스 안내</div>
+			<div class="panel-heading text-center" style="background:#656a72;font-size: 15px;border:1px solid #656a72;"><span translate="Paidserviceguide"></span></div>
 				<div class="panel-body form-horizontal" style="height:40%; text-align:center;" >
 					
 
 					<div class="form-group" style="margin-top:20px">
 						<div class="col-sm-4">
 							  <div class="btn-container">
-								<label class="btn btn-info btn-block" style="background:#1793b1;color:#fff;">채팅</label>								 
+								<label class="btn btn-info btn-block" style="background:#1793b1;color:#fff;"><span translate="Chatting"></span></label>								 
 							  </div>
 						</div>
 
 						<div class="col-sm-6" style="font-size:15px">
-						  <h3 class="title">등록 건별 30일간 무제한 채팅이용!</h3>
-						  <p>구매시 1:1 화상채팅은 무료</p>
+						  <h3 class="title" translate="Unlimitedchat"></h3>
+						  <p><span translate="VideoChat1to1"></span></p>
 			 
 						</div>
 						<div class="col-sm-2" style="font-size:15px">
-						  5,000원
+						  5,000<span translate="Won"></span>
 						</div>
 					</div>
 
@@ -240,12 +240,12 @@
 
             </div>
 						<div class="col-sm-6" style="font-size:15px">
-						  <h3 class="title">각프리랜서들이 지원내용을 볼수없습니다.</h3>
+						  <h3 class="title" translate="EachCannotSee"></h3>
 						  <p>&nbsp;</p>
 			 
 						</div>
 						<div class="col-sm-2" style="font-size:15px">
-						  1,000원
+						  1,000<span translate="EachCannotSee"></span>
 						</div>
 					</div>
 					<div class="form-group" style="margin-top:20px">
@@ -254,18 +254,18 @@
               
 
               <div class="btn-container">
-                <label class="btn btn-danger btn-block" style="background:#6b081d;color:#fff;">긴급</label>
+                <label class="btn btn-danger btn-block" style="background:#6b081d;color:#fff;"><span translate="urgent"></span></label>
               </div>
 
 
             </div>
 						<div class="col-sm-6" style="font-size:15px">
-						  <h3 class="title">빠른 응답과 긴급을 요한 서비스입니다.</h3>
+						  <h3 class="title" translate="FastResponsiveurgent"></h3>
 						 
 			 
 						</div>
 						<div class="col-sm-2" style="font-size:15px">
-						  1,000원
+						  1,000<span translate="Won"></span>
 						</div>
 					</div>
 					
