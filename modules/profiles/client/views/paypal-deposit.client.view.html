@@ -1,7 +1,7 @@
 <div class="row project-backgroundimage5 hidden-xs">
         <div class="container about-investor-title-setting">
 <br>
-            <h3 class="investor-heading p-t-sm" style="font-size:20px;">서비스 이용료</h3>
+            <h3 class="investor-heading p-t-sm" style="font-size:20px;" translate="ServiceFee"></h3>
             <h3 class="investor-para">
                
             </h3>
@@ -25,9 +25,9 @@
 			<!-- paypal payment -->
 			<!-- style="width:50%;margin:0 auto; margin-top:45%" -->
 			<div class="panel panel-primary" style="border:1px solid #5b1b29;">
-			<div class="panel-heading" style="background:#5b1b29;font-size: 15px;border:1px solid #5b1b29;">결제방법선택</div>
+			<div class="panel-heading" style="background:#5b1b29;font-size: 15px;border:1px solid #5b1b29;"><span translate="SelectPaymentMethod"></span></div>
 			<div class="panel-body" style="height:40%; text-align:center;" >
-			<a ui-sref="credit-deposit"><button class="btn btn-primary btn-lg" style="margin-right:50px;"> 신용카드</button> </a><a ui-sref="cash-deposit"><button class="btn btn-primary btn-lg" style="margin-right:20px;background:#d0a620;border:1px solid #d0a620;"> 현금결제</button></a>&nbsp;&nbsp;&nbsp;<a ui-sref="paypal-deposit"><button class="btn btn-primary btn-lg" style="background:#009cde;margin-left:20px;">&nbsp;&nbsp;페이팔&nbsp;&nbsp;</button> </a>
+			<a ui-sref="credit-deposit"><button class="btn btn-primary btn-lg" style="margin-right:50px;"><span translate="Creditcard"></span></button> </a><a ui-sref="cash-deposit"><button class="btn btn-primary btn-lg" style="margin-right:20px;background:#d0a620;border:1px solid #d0a620;"> <span translate="CashPayment"></span></button></a>&nbsp;&nbsp;&nbsp;<a ui-sref="paypal-deposit"><button class="btn btn-primary btn-lg" style="background:#009cde;margin-left:20px;">&nbsp;&nbsp;<span translate="Paypal"></span>&nbsp;&nbsp;</button> </a>
 			   
 			</div>
 			</div>
@@ -42,13 +42,13 @@
 			<p class="bg-info" id="msg"></p>
 			   <form class="form-horizontal" role="form" id="paypalForm" method="post" ng-submit="paynow('deposit')">
 			    <div class="form-group">
-			      <p class=" col-md-3 text-left" for="amount">상품명</p>
+			      <p class=" col-md-3 text-left" for="amount"><span translate="ProductName"></span></p>
 			      <div class="col-sm-6 text-right p-r-lg">
-			        프로젝트 및 컨테스트 대금
+			        <span translate="Projectandcontestfees"></span>
 			      </div>
 			    </div>
 				<div class="form-group">
-			      <p class="col-md-4 text-left" for="amount">결제금액</p>
+			      <p class="col-md-4 text-left" for="amount"><span translate="Amountofpayment"></span></p>
 			      <div class="col-sm-5">
 			       	<input style="text-align:right" class="form-control" ng-change="calTotalAmount()" ng-model="pay.amount" min="0" name="amount" placeholder="결제금액을 입력하십시오" required="required" type="number">
 			      </div>
@@ -71,7 +71,7 @@
 			    </div>
 
 			    <div class="form-group">
-			      <p class=" col-md-4 text-left" for="amount">수수료</p>
+			      <p class=" col-md-4 text-left" for="amount"><span translate="Fees"></span></p>
 			      <div class="col-sm-8 text-right p-r-lg">
 			        <i class="fa fa-usd"></i>{{processFee || '0' | number: 1 }}
 
@@ -80,7 +80,7 @@
 			    </div>
 			    <hr>
 			    <div class="form-group">
-			      <p class=" col-md-4 text-left" for="amount"><b>최종결제금액</b></p>
+			      <p class=" col-md-4 text-left" for="amount"><b translate="FinalAmount"></b></p>
 			      <div class="col-sm-8 text-right p-r-lg"><b><i class="fa fa-usd"></i>{{totalDepositAmount || '0'| number: 1}}</b></div>
 			    </div>
 
@@ -111,24 +111,24 @@
 	<div class="col-xs-12 col-sm-4 col-md-4 col-lg-4 p-mr-none p-ml-none hidden-xs">
 	  <br>
         <div class="panel panel-primary" style="border:1px solid #656a72;">
-			<div class="panel-heading text-center" style="background:#656a72;font-size: 15px;border:1px solid #656a72;">아웃소싱 오케이 유료서비스 안내</div>
+			<div class="panel-heading text-center" style="background:#656a72;font-size: 15px;border:1px solid #656a72;"><span translate="Paidserviceguide"></span></div>
 				<div class="panel-body form-horizontal" style="height:40%; text-align:center;" >
 					
 
 					<div class="form-group" style="margin-top:20px">
 						<div class="col-sm-4">
 							  <div class="btn-container">
-								<label class="btn btn-info btn-block" style="background:#1793b1;color:#fff;">채팅</label>								 
+								<label class="btn btn-info btn-block" style="background:#1793b1;color:#fff;"><span translate="featured"></span></label>								 
 							  </div>
 						</div>
 
 						<div class="col-sm-6" style="font-size:15px">
-						  <h3 class="title">등록 건별 30일간 무제한 채팅이용!</h3>
-						  <p>구매시 1:1 화상채팅은 무료</p>
+						  <h3 class="title" translate="Unlimitedchat"></h3>
+						  <p translate="VideoChat1to1"></p>
 			 
 						</div>
 						<div class="col-sm-2" style="font-size:15px">
-						  5,000원
+						  5,000<span translate="Won"></span>
 						</div>
 					</div>
 <!-- 
@@ -166,11 +166,11 @@
 
             </div>
 						<div class="col-sm-6" style="font-size:15px">
-						  <h3 class="title">각프리랜서들이 지원내용을 볼수없습니다.</h3>						  
+						  <h3 class="title" translate="EachCannotSee"></h3>						  
 							<p>&nbsp;</p>
 						</div>
 						<div class="col-sm-2" style="font-size:15px">
-						  1,000원
+						  1,000<span translate="Won"></span>
 						</div>
 					</div>
 					<div class="form-group" style="margin-top:20px">
@@ -179,18 +179,18 @@
               
 
               <div class="btn-container">
-                <label class="btn btn-danger btn-block" style="background:#6b081d;color:#fff;">긴급</label>
+                <label class="btn btn-danger btn-block" style="background:#6b081d;color:#fff;"><span translate="urgent"></span></label>
               </div>
 
 
             </div>
 						<div class="col-sm-6" style="font-size:15px">
-						  <h3 class="title">빠른 응답과 긴급을 요한 서비스입니다.</h3>
+						  <h3 class="title" translate="FastResponsiveurgent"></h3>
 						 
 			 
 						</div>
 						<div class="col-sm-2" style="font-size:15px">
-						  1,000원
+						  1,000<span translate="Won"></span>
 						</div>
 					</div>
 					

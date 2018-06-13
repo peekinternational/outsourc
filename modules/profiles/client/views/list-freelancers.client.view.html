@@ -1,7 +1,7 @@
 <div class="row project-backgroundimage5 hidden-xs">
         <div class="container about-investor-title-setting">
 <br>
-            <h3 class="investor-heading p-t-sm" style="font-size:20px;">글로벌 프리랜서 리스트</h3>
+            <h3 class="investor-heading p-t-sm" style="font-size:20px;" translate="GlobalFreelanceList"></h3>
             <h3 class="investor-para">
                
             </h3>
@@ -41,7 +41,7 @@
 			
 			  <div class="text-center img-responsive hidden-lg"> 
 				<div class="btn btn-small border-wla" style="border: 1px solid #35abc8;padding:10px 50px;background:#fff;">
-				  <h4><b>글로벌 프리랜서 리스트</b></h4>
+				  <h4><b  translate="GlobalFreelanceList"></b></h4>
 				</div>  
 			  </div>
 <div class="col-xs-12 p-mr-none p-ml-none text-right">
@@ -82,7 +82,7 @@
 						</div> -->
 						<br>
 						<div class="form-group">
-							<label for="skill">전문기술</label>
+							<label for="skill"><span translate="ExpertiesSkills"></span></label>
 							<div>
 							  <div >
 							    <select selector model="searchBySkill" multi="true" options="skills" label-attr="name" placeholder="전문기술 검색" ></select>
@@ -102,7 +102,7 @@
 							<select  class="form-control" ng-model="bidding.education" ></select>
 						</div> -->
 						<div class="form-group">
-							<label for="countries">국가</label>							
+							<label for="countries"><span translate="Country"></span></label>							
 							<div >
 							  <select selector model="searchByCountry" multi="true" options="countryData" label-attr="name" placeholder="국가별로 검색" ></select>
 							</div>							
@@ -214,10 +214,10 @@
 							<span  style="color: #000" uib-rating ng-model="rateingStars" ng-init="rateingStars = prof.finalUserRattingBaseOnProjectAwarded" max="max" read-only="isReadonly" titles="['one','two','three']" aria-labelledby="default-rating"> </span>
 						</div>
 						<span ng-if="prof.noOfReviewBaseOnProjectAwarded">
-							<small>{{prof.noOfReviewBaseOnProjectAwarded}} 리뷰</small>
+							<small>{{prof.noOfReviewBaseOnProjectAwarded}} <span translate="Review"></span></small>
 						</span>
 						<span ng-if="!prof.noOfReviewBaseOnProjectAwarded">
-							<small>0 리뷰</small>
+							<small>0 <span translate="Review"></span></small>
 						</span>
 						<!-- <div class="col-xs-12 col-md-4 p-ml-none p-mt-sm">
 							<span class="hidden-xs"><strong>0.0</strong></span>
@@ -225,11 +225,11 @@
 						</div> -->
 						<br class="hidden-md hidden-lg">
 						<span ng-show="{{prof.perHourRate}}" class="p-l-sm p-ml-none p-mt-xs">
-							<small> 시간당 요금 -<strong> {{prof.perHourRate}}</strong></small>
+							<small> <span translate="hourlyAmount"></span> -<strong> {{prof.perHourRate}}</strong></small>
 						</span>
 						<br>
 						<div class="p-mt-xs">
-							<p style="margin: 7px 0 10px;" class="m-mt-none"><!-- <strong>10 Year 10 Months Experience &nbsp</strong> --><span><i class="fa fa-check-square-o" style="font-size:20px; color:#00aeef"></i>&nbsp {{prof.certificates.length}} 자격증</span></p>
+							<p style="margin: 7px 0 10px;" class="m-mt-none"><!-- <strong>10 Year 10 Months Experience &nbsp</strong> --><span><i class="fa fa-check-square-o" style="font-size:20px; color:#00aeef"></i>&nbsp {{prof.certificates.length}} <span</span></p>
 							<p class="text-primary" ng-repeat="skill in prof.skills" style="display:inline;">
 								<!-- <strong>{{skill}} , 	</strong></p> -->
 								<span class="label label-success" style="background:#8ba753;border: 1px solid #8ba753;">{{skill.name}}</span>
@@ -253,7 +253,7 @@
 								<img src="modules/core/client/img/customimages/list_icon6.png">&nbsp;
 							</div> 
 							<div class="div-btnMe p-mt-sm" style="padding-top:10px">
-								<a ui-sref="profile.outsourcer({profileId: prof._id})" style="text-decoration: none"><button class="btn btn-me" style="background: #5f5b56;border: 1px solid #5f5b56">프리랜서 채용</button></a>
+								<a ui-sref="profile.outsourcer({profileId: prof._id})" style="text-decoration: none"><button class="btn btn-me" style="background: #5f5b56;border: 1px solid #5f5b56"><span translate="ViewProfile"></span></button></a>
 							</div>
 						</div>
 					</div>
