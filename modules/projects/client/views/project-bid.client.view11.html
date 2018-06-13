@@ -14,17 +14,17 @@
         <div class="text-center">
           <ul class="list-inline bidding-list  m-t-sm m-l-sm">
             <li class="bidding-li">
-            <h4><strong>지원자수</strong></h4>
+            <h4><strong translate="Applications"></strong></h4>
             <h3 class="text-primary text-center m-t-none"><strong>{{project.bids.length}}</strong></h3>
             </li>
             <li class="bidding-li">
-             <h4><strong>평균 지원/입찰 금액</strong></h4>
+             <h4><strong translate="bidamount"></strong></h4>
              <h3 class="text-primary text-center m-t-none">
               <strong>{{projectCur.symbol_native}} {{avgBid | number:0}}</strong>
             </h3>
             </li>
             <li>
-            <h4><strong>프로젝트 지출예산</strong></h4> 
+            <h4><strong translate="ProjectBudget"></strong></h4> 
              <h3 class="text-primary text-center m-t-none">
               <strong>{{projectCur.symbol_native}} {{project.minRange | number:0}} - {{projectCur.symbol_native}}{{project.maxRange | number:0}}
                 <span ng-show="project.projectRate === 'hourly'">/<sup>시간제</sup></span>
@@ -33,12 +33,12 @@
           </ul>
           <ul class="list-inline bidding-list m-t-sm pull-right m-r-sm ">
             <li class="bidding-li">
-              <h4 class="verificationcheck" ng-if = "!awardedProject && days > 0"><strong>{{days}} 일 {{hours}} 시간 후 마감</strong></h4>
-			  <h3 class="verificationcheck awarding-li" ng-if = "!awardedProject && project.status !== 'completed' && days < 0 "><strong>마감</strong></h3>
-              <h3 class="text-center m-t-none verificationcheck" ng-if = "!awardedProject && project.status !== 'completed' && days > 0"><strong>진행중</strong></h3>
-              <h4 class="verificationcheck awarding-li" ng-if = "awardedProject.awarded ==='pending' && project.status !== 'completed'"><strong>계약진행중</strong></h4>
-              <h4 class="verificationcheck awarding-li" ng-if = "awardedProject.awarded ==='yes' && project.status !== 'completed'"><strong>계약완료</strong></h4>
-              <h4 class="verificationcheck awarding-li" ng-if = "project.status ==='completed'"><strong>종료</strong></h4>
+              <h4 class="verificationcheck" ng-if = "!awardedProject && days > 0"><strong>{{days}} 일 {{hours}} <span translate="Hoursleft"></span></strong></h4>
+			  <h3 class="verificationcheck awarding-li" ng-if = "!awardedProject && project.status !== 'completed' && days < 0 "><strong translate="Close"></strong></h3>
+              <h3 class="text-center m-t-none verificationcheck" ng-if = "!awardedProject && project.status !== 'completed' && days > 0"><strong translate="Awarded"></strong></h3>
+              <h4 class="verificationcheck awarding-li" ng-if = "awardedProject.awarded ==='pending' && project.status !== 'completed'"><strong translate="UnderContract"></strong></h4>
+              <h4 class="verificationcheck awarding-li" ng-if = "awardedProject.awarded ==='yes' && project.status !== 'completed'"><strong translate="InProgress"></strong></h4>
+              <h4 class="verificationcheck awarding-li" ng-if = "project.status ==='completed'"><strong translate="End"></strong></h4>
             </li>
           </ul>
         </div>
@@ -53,10 +53,10 @@
               <div class="col-xs-6 col-md-6">
                 <div class="row">
                   <div class="col-xs-6">
-                    <h4><strong>지원/입찰:</strong></h4>
-                    <p class="p-t-sm">프로젝트 지원 제시 금액</p>
+                    <h4><strong><span translate="SupportBidding"></span> :</strong></h4>
+                    <p class="p-t-sm"><span translate="Paidtoyour"></span></p>
                     <!-- <p class="p-t-xs">프로젝트 수수료+7%)</p> -->
-                    <p class="p-t-xs">프로젝트 지원 제시 총금액</p>
+                    <p class="p-t-xs"><span translate="YourBid"></span></p>
                   </div>
                   <div class="col-xs-6">
                     <br><br>
@@ -85,7 +85,7 @@
               <div class="col-xs-6 col-md-6">
                 <div class="row">
                   <div class="col-xs-6">
-                    <h4><strong>프로젝트 작업기간</strong></h4>
+                    <h4><strong translate="Deliverin"></strong></h4>
                     <div class="input-group">
                       <input type="text" class="form-control" ng-model="deliverDays" onkeypress="return (event.charCode == 8 || event.charCode == 0) ? null : event.charCode >= 48 && event.charCode <= 57">
                       <span class="input-group-addon">일(Days)</span>
@@ -94,7 +94,7 @@
                   <div class="col-xs-6 ">
                     <div class="bidbox pull-right p-l-xs p-r-xs">
                     <h3>{{authentication.user.remainingBids}} <sub>/300</sub></h3>
-                      <h4><strong>지원가능횟수</strong></h4>
+                      <h4><strong translate="BidsLeft"></strong></h4>
                     </div>
                   </div>
                 </div>
@@ -156,20 +156,20 @@
 		<br>
         <button ng-show="!bidShow" class="btn btn-success text-center" ng-click="submitBid(deliverDays); bidShow=!bidShow">지원/입찰 참여</button>
         <br><br>
-		<div class="m-l-md" style="padding-top:20px"><h6><strong style="color:#820923"><i class="fa fa-exclamation-triangle" aria-hidden="true" style="color:#820923;"></i>  프로젝트에 지원하는 프리랜서는 이메일, 유무선번호 등을 게시하여 직거래를 유도할 경우, 서비스 이용에 제재를 받을 수 있습니다.</strong></h6></div>
+		<div class="m-l-md" style="padding-top:20px"><h6><strong style="color:#820923"><i class="fa fa-exclamation-triangle" aria-hidden="true" style="color:#820923;"></i> <span translate="SubjecttoSanctions"></span> </strong></h6></div>
 		<br><br>
         <div ng-show="bidShow">
           <div class="row">
           <div class=" col-xs-offset-1 col-xs-10 placesuccess">
             <p class="text-success p-t-xs">
-              <strong>회원님의 지원/입찰이 성공적으로 접수되었습니다.</strong>
-              아래에 제안서를 작성하면 지원/입찰이 완료됩니다.
+              <strong translate="BidProcessedSuccessfully"></strong>
+              <span translate="createdproposalbidcompleted"></span>
             </p>
           </div>
           <div class=" col-xs-offset-1 col-xs-10 ">
             <p class="p-t-md">
-              <strong>제안:</strong>
-              다른 프리랜서들에게 공개되지않습니다. (의뢰인만 회원님의 제안서를 볼 수 있습니다)
+              <strong><span translate="Suggestion"></span> :</strong>
+             <span translate="NotOpentoOtherFreelancers"></span>
             </p>
           </div>
           <form name="proposalForm"  class="" novalidate autocomplete="off">
@@ -180,7 +180,7 @@
               <div class="row">
                 <div ng-repeat="milestone in milestones track by $index">
                   <div class="col-sm-8 form-group p-r-none">
-                    <label>프로젝트 대금지급 일정표 </label>
+                    <label><span translate="ProjectMilestone"></span> </label>
                     <input type="text" placeholder="Project Milestone" class="form-control" ng-model="milestones[$index].description" required>
                   </div>
                   <div class="col-sm-3 form-group  p-r-none">
@@ -205,15 +205,15 @@
               <!-- <p class="text-danger p-l-md">지원/입찰 최소금액은{{projectCur.symbol_native}} {{min}} {{projectCur.code}} 원입니다</p> -->
               <p class="text-danger p-l-md">{{priceError}}</p>
               <p class="p-l-md " ng-click="add(); "><i class="fa fa-plus charbi-circle" aria-hidden="true"></i> <b>추가 대금 일정 제시</b> <b class="pull-right">{{projectCur.symbol_native}} {{milstoneTotal | number:0}}</b></p>
-              <button class="btn btn-md btn-primary" ng-disabled = "proposalForm.$invalid || milestoneError === false" ng-click="submitProposal(bidDescription, 'Requested'); mileStoneFeilds=!mileStoneFeilds">제안서 보내기</button>
+              <button class="btn btn-md btn-primary" ng-disabled = "proposalForm.$invalid || milestoneError === false" ng-click="submitProposal(bidDescription, 'Requested'); mileStoneFeilds=!mileStoneFeilds"><span translate="SendProposal"></span></button>
               <a href="#" class="text-primary p-l-md" ng-click="mileStoneFeilds=!mileStoneFeilds">취소</a>
               <br><br>
             </div>
             <div class="col-xs-6 col-md-4" ng-show="!mileStoneFeilds">
               <div class="bestproposal p-l-xs p-r-xs">
-                <h5 class="bestproposal-heading p-t-sm p-b-xs"><strong>의뢰인께 좋은 제안을 해야합니다!</strong></h5>
-                <p>회원님의 제안은 의뢰인에게 좋은 인상을 남길 수있는 기회입니다.</p>
-                <p><strong>다음상황을 체크하십시오.</strong></p>
+                <h5 class="bestproposal-heading p-t-sm p-b-xs"><strong translate="GiveGoodSuggestion"></strong></h5>
+                <p><span translate="FirstImpression"></span></p>
+                <p><strong translate="Ensurethatyou"></strong></p>
                 <ul>
                   <li>프로젝트 요구 사항을 이해 하고 있어야합니다.</li>
                   <li>회원님의 전문기술과 경험이 의뢰인의 프로젝트에 얼마나 적합한 지 설명이 필요합니다.</li>
