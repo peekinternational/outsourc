@@ -11,9 +11,7 @@ angular.module('core').controller('HeaderController', ['$translate','$scope', '$
     if(Authentication.user && !Authentication.user.verEmail){
       $location.path('/verify');
     }
-    $scope.changeLanguage = function (key) {
-      $translate.use(key);
-    };
+    
 
     // TEST 
     // function updateAccount (){

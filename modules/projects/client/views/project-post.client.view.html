@@ -10,12 +10,6 @@
       </div>
 
 <section  class="container-fluid p-ml-none p-mr-none" ng-controller="ProjectsController" ng-init = "universalData()">
-
-
-
-
-
-
  <!--  <div ng-include="vm.search"></div> -->
  <br class="hidden-xs"><br class="hidden-xs">
   <div class="m-ml-none m-mr-none" style="margin-right:1rem; margin-left:0.5rem; margin-top:20px;">
@@ -122,14 +116,22 @@
               <b>&nbsp;&nbsp;&nbsp;&nbsp;프로젝트에 요구되는 전문기술 </b>
               <span popover-title="프로젝트에 요구되는 전문 기술" uib-popover="프로젝트에 요구되는 전문기술를 선택할경우 프로젝트 목록에 표시해 줍니다." popover-trigger="'mouseenter'" ><i class="fa fa-question-circle-o" aria-hidden="true" style="font-size:20px;margin-top:10px;"></i></span>
             </p>
-
-            <select selector class="prjct-name"
-                  model="project.skills"
-                  options="allProjectSkills"
-                  multi="true"
-                  label-attr="name"
-                  placeholder="프로젝트에 요구되는 전문기술을 선택 바랍니다.">
-            </select>
+            <div style="position: relative;">
+              <select ng-click="box = true" selector class="prjct-name"
+                    model="project.skills"
+                    options="allProjectSkills"
+                    multi="true"
+                    label-attr="name"
+                    placeholder="프로젝트에 요구되는 전문기술을 선택 바랍니다.">
+              </select>
+              <!-- <input type="text" ng-model="project.skills" ng-click="box = true"> -->
+              <div class="scroll" ng-show="box" style="height: 218px;overflow-y: scroll;z-index: 1000;position: absolute;background: #fff;border: 1px solid #ccc;padding: 10px;width: 586px;top: 42px;">
+                <div infinite-scroll-container='".scroll"' infinite-scroll="loadMore()" infinite-scroll-parent="true" infinite-scroll-distance="2">
+                  <div ng-repeat='x in allProjectSkills' ng-click="assign(x)">{{x.name}}</div>
+                </div>
+              </div>
+            </div>
+            
 
             <br><br><br>
             <p class="sub-heading top-space prjct-list-font">
@@ -137,7 +139,8 @@
               <span popover-title="프로젝트 내용" uib-popover="프로젝트에 관한 내용을 자세히 작성해야 합니다. 프리랜서들은 프로젝트 내용을 확인하고 지원 할 수 있습니다. 프로젝트 내용은 최소 300자 이상 작성 바랍니다. 프로젝트 작성이 어려울 경우 아웃소싱오케이 고객문의(support@outsourcingok.com)에 등록하면 담당자가 도와 드립니다." popover-trigger="'mouseenter'" ><i class="fa fa-question-circle-o" aria-hidden="true" style="font-size:20px;margin-top:10px;"></i></span>
             </p>
             <!-- <textarea  class="form-control porjct-desp" rows="6" name="description" ng-model="project.description" placeholder="프로젝트 내용 작성요령을 참조바라며 정확히 작성해야만 프리랜서들로부터 많은 지원을 받을 수 있습니다...[최소300자 이상 작성하기 바랍니다!]" required></textarea> -->
-            <div text-angular="text-angular" name="description" ng-model="project.description" ta-disabled='disabled' ta-text-editor-class="form-control myform1-height" ta-html-editor-class="form-control myform1-height"></div>
+            <div text-angular="text-angular" name="description" ng-model="project.description" ta-disabled='disabled' ta-text-editor-class="form-control myform1-height"></div>
+            </div>
           </div>
 
           <div class="form-group col-md-offset-1">

@@ -24,7 +24,20 @@ var path = require('path'),
 /**
  * Create a project
  */
-
+exports.getskills = function(req,res){
+  var q = Skills.find().limit(100);
+  q.exec(function(err,data){
+    res.json(data);
+  });
+}
+exports.getnextskills = function(req,res){
+  var skip = parseInt(req.params.skip);
+  var take = parseInt(req.params.skip) + 100;
+  var p = Skills.find().skip(skip).limit(take);
+  p.exec(function(err,data){
+    res.json(data);
+  });
+}
 var lock = new AsyncLock();
 
 var fs = require('fs');

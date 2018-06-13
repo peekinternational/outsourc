@@ -17,6 +17,8 @@ module.exports = function (app) {
   app.route('/api/activeProjects/:catId').get(projects.activeProjects);
   app.route('/api/Allprojects').post(projects.Allprojects);
   app.route('/api/searchproject').post(projects.searchprojectbyname);
+  app.route('/api/getskills').get(projects.getskills);
+  app.route('/api/getskills/:skip').get(projects.getnextskills);
 
   app.route('/api/projects').all(projectsPolicy.isAllowed)
     .post(projects.create);
