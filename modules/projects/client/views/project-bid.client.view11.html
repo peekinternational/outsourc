@@ -215,10 +215,10 @@
                 <p><span translate="FirstImpression"></span></p>
                 <p><strong translate="Ensurethatyou"></strong></p>
                 <ul>
-                  <li>프로젝트 요구 사항을 이해 하고 있어야합니다.</li>
-                  <li>회원님의 전문기술과 경험이 의뢰인의 프로젝트에 얼마나 적합한 지 설명이 필요합니다.</li>
-                  <li>프로젝트를 어떤기술로 어떻게 응용해서 완성 할 지 계획을 가지고 있어야 합니다</li>
-                  <li>의뢰인과 아웃소싱오케이 화상채팅 이용시 자세한 내용을 설명할 수 있도록 준비해야 합니다.</li>
+                  <li><span translate="understandneeds"></span></li>
+                  <li><span translate="Explain"></span></li>
+                  <li><span translate="Outlineplan"></span></li>
+                  <li><span translate="Invitetodiscuss"></span></li>
                 </ul>
               </div>
             </div>
@@ -234,12 +234,12 @@
         <div class="col-md-8 col-xs-12 thumbnail">
           <div class="row">
             <div class="col-xs-12 col-md-8 p-t-xs">
-              <h4><strong>프로젝트 내용</strong></h4>
+              <h4><strong translate="Description"></strong></h4>
               <br>
             </div>
             <div class="col-xs-4 btn-tool text-right p-t-xs">
-              <span ng-show="authentication.user.remainingBids === 0" class="bidEnd"><center>회원님은 지원가능횟수를 모두사용하셨습니다. 지원횟수 추가요청을 하시기 바랍니다.</center></span>
-              <button  class="btn btn-lg btn-info" ng-disabled="authentication.user.remainingBids === 0"  ng-click="showMe=!showMe; btnBidThisPro=!btnBidThisPro" ng-show = " project.user._id !== authentication.user._id && !btnBidThisPro && !bidExists && !awardedProject && days > 0" ><a style="text-decoration:none; color:white">프로젝트 지원/입찰</a></button>
+              <span ng-show="authentication.user.remainingBids === 0" class="bidEnd"><center><span translate="BidLimitReach"></span></center></span>
+              <button  class="btn btn-lg btn-info" ng-disabled="authentication.user.remainingBids === 0"  ng-click="showMe=!showMe; btnBidThisPro=!btnBidThisPro" ng-show = " project.user._id !== authentication.user._id && !btnBidThisPro && !bidExists && !awardedProject && days > 0" ><a style="text-decoration:none; color:white"><span translate="BidThisProject"></span></a></button>
             </div>
           </div>
           <!--  <hr> -->  
@@ -248,12 +248,12 @@
           <hr>
           <!-- additional packages -->
 
-		  <button ng-show="project.additionalPakages.urgent" class="ittu-sa btn btn-xs btn-danger" style="background:#6b081d;border: 1px solid #6b081d;">긴급</button>
-          <button ng-show="project.additionalPakages.sealed" class="ittu-sa btn btn-xs  btn-warning" style="background:#113886;border: 1px solid #113886;">비공개</button>
-          <button ng-show="project.additionalPakages.private" class="ittu-sa btn btn-xs btn-info" style="background:#008000;border: 1px solid #008000;">개인서비스</button>
-          <button ng-show="project.additionalPakages.NDA" class="ittu-sa btn btn-xs btn-info" style="background:#efbf50;border: 1px solid #efbf50;">계약(NDA)</button>
-		  <button ng-show="project.additionalPakages.gaurantee" class="ittu-sa btn btn-xs btn-info" style="background:#886513;border: 1px solid #886513;">상금보장</button>
-		  <button ng-show="project.additionalPakages.featured" class="ittu-sa btn btn-xs btn-info" style="background:#1793b1;border: 1px solid #1793b1;">채팅</button>
+		  <button ng-show="project.additionalPakages.urgent" class="ittu-sa btn btn-xs btn-danger" style="background:#6b081d;border: 1px solid #6b081d;"><span translate="urgent"></span></button>
+          <button ng-show="project.additionalPakages.sealed" class="ittu-sa btn btn-xs  btn-warning" style="background:#113886;border: 1px solid #113886;"><span translate="sealed"></span></button>
+          <button ng-show="project.additionalPakages.private" class="ittu-sa btn btn-xs btn-info" style="background:#008000;border: 1px solid #008000;"><span translate="Private"></span></button>
+          <button ng-show="project.additionalPakages.NDA" class="ittu-sa btn btn-xs btn-info" style="background:#efbf50;border: 1px solid #efbf50;"><span translate="ContractNDA"></span></button>
+		  <button ng-show="project.additionalPakages.gaurantee" class="ittu-sa btn btn-xs btn-info" style="background:#886513;border: 1px solid #886513;"><span translate="gaurantee"></span></button>
+		  <button ng-show="project.additionalPakages.featured" class="ittu-sa btn btn-xs btn-info" style="background:#1793b1;border: 1px solid #1793b1;"><span translate="featured"></span></button>
 
 <!-- 
           <button ng-if="project.additionalPakages.urgent" class="btn btn-xs btn-danger ittu-sa">긴급</button>
@@ -264,7 +264,7 @@
           <button ng-if="project.additionalPakages.pakage_2" class="btn btn-xs btn-warning ittu-sa">실시간 화상채팅</button>
  -->        
           <!-- list of skills required for the project -->
-          <h4><strong>의뢰인이 요구하는 전문기술</strong></h4>
+          <h4><strong translate="Skillsrequired"></strong></h4>
           <!-- <hr> -->
           <ul class="list-inline text-primary" >
             <li ng-repeat="skill in project.skills"><label class="thumbnail">{{skill.name}}</label></li>
@@ -273,7 +273,7 @@
 
           <!-- Files attached -->
           <div ng-show="project.fileName">
-            <h4><strong>파일첨부</strong></h4>
+            <h4><strong translate="Fileattached"></strong></h4>
              <ul>
                <i class="glyphicon glyphicon-file"> 
                  <a target="_self" href="{{project.fileLink}}" download="{{project.fileName}}"> <b>{{project.fileName}}</b> </a>
@@ -283,9 +283,9 @@
           </div>
 
           <div>
-            <a ui-sref="projects.project-post"> <button class="btn btn-lg btn-success pull-left" >   유사 프로젝트 등록</button> </a>
-            <p><b class="pull-right">프로젝트 ID: {{project._id | limitTo: 10}}</b> </p> <br>
-            <p><a ui-sref="about.contact" class="text-danger pull-right p-t-none">프로젝트 신고</a></p>
+            <a ui-sref="projects.project-post"> <button class="btn btn-lg btn-success pull-left" >   <span translate="PostProjectlikethis"></span></button> </a>
+            <p><b class="pull-right"><span translate="mProject"></span> ID: {{project._id | limitTo: 10}}</b> </p> <br>
+            <p><a ui-sref="about.contact" class="text-danger pull-right p-t-none"><span translate="ReportProject"></span></a></p>
           </div>
             <br><br>
         </div>
@@ -295,7 +295,7 @@
             <div class="row">    
               <div class="col-xs-12 block p-t-sm">
                 <div class="text-center">
-                   <h4><strong>의뢰인 정보</strong></h4>
+                   <h4><strong translate="ClientInformation"></strong></h4>
                 </div>
               </div>
             </div>
@@ -317,7 +317,7 @@
               </strong>
             </h5>
             <!-- <h5><strong>Location:</strong></h5> -->
-            <h5><strong>회원 가입일:</strong> </h5>
+            <h5><strong><span translate="MemberSince"></span>:</strong> </h5>
             <h6>{{currentProjectUser.created | date}} </h6>
            <div class="text-left">
               <!-- show ratings -->
@@ -328,7 +328,7 @@
                <span uib-rating ng-model="currentProjectUser.finalUserRattingBaseOnMyProject" max="max" read-only="isReadonly" titles="['one','two','three']" aria-labelledby="default-rating">  
                </span>
               </div>
-              <h5 class="text-muted">{{currentProjectUser.noOfReviewBaseOnMyProject ||'0'}} 리뷰</h5>
+              <h5 class="text-muted">{{currentProjectUser.noOfReviewBaseOnMyProject ||'0'}} <span translate="Review"></span></h5>
             </div>
             </div>
             <br>
@@ -361,13 +361,13 @@
          <div class="col-xs-12 navbar-inverse m-r-lg" style="color: white;">
            <div class="row">
              <div class="col-xs-8 col-md-8 p-t-sm p-b-sm">
-               프로젝트 선정
+               <span translate="ProjectSelection"></span>
              </div>
              <div class="col-xs-2 col-md-2 p-t-sm p-b-sm hidden-xs">
                평가
              </div>
              <div class="col-xs-4 col-md-2 p-t-sm p-b-sm">
-               <center>지원/입찰 금액 ({{projectCur.code}})</center>
+               <center><span translate="Supportbidamount"></span> ({{projectCur.code}})</center>
              </div>
            </div>
          </div>
@@ -417,27 +417,27 @@
             <div class="col-xs-2 col-md-2 p-t-sm p-b-sm pull-right p-ml-none">
                 <center>
                   <p>
-                    <b>{{project.currency.symbol_native}} {{awdProj.yourBid | number:0}}원<!-- {{awdProj.yourBid | currency}} --></b> <br> {{awdProj.deliverInDays}} 일(days) 이내
+                    <b>{{project.currency.symbol_native}} {{awdProj.yourBid | number:0}}원<!-- {{awdProj.yourBid | currency}} --></b> <br> {{awdProj.deliverInDays}} <span translate="WithinDays"></span>
                   </p>
                 </center>
              </div>
              <hr>
              <br>
             <div class="text-left" ng-if = "project.user._id === authentication.user._id && awdProj.awarded !=='yes'"> 
-              <div class="btn btn-small custom">승인대기</div>  
+              <div class="btn btn-small custom"><span translate="WaitingforApproval"></span></div>  
             </div> 
             <div class="text-left mobile-view-button" ng-if = "project.user._id === authentication.user._id && awdProj.awarded ==='yes'"> 
             <br><br>
-              <div class="btn btn-small custom awarded-btn"><span class="glyphicon glyphicon-ok verificationcheck"></span> 승인완료</div>  
+              <div class="btn btn-small custom awarded-btn"><span class="glyphicon glyphicon-ok verificationcheck"></span> <span translate="Approved"></span></div>  
             </div> 
             <br>
             <div class="text-left mobile-view-button" ng-if = "awdProj.userId === authentication.user._id"> 
               <br><br>
-              <div class="btn btn-small custom" ng-if = "awdProj.awarded !=='yes'" ng-click = "acceptProject()"><span class="glyphicon glyphicon-ok verificationcheck"></span> 프로젝트 승인</div> 
-              <div class="btn btn-small custom" ng-if = "awdProj.awarded !=='yes'" ng-click = "rejectProject()"><span class="glyphicon glyphicon-remove verificationcheck"></span> 프로젝트 거절</div> 
+              <div class="btn btn-small custom" ng-if = "awdProj.awarded !=='yes'" ng-click = "acceptProject()"><span class="glyphicon glyphicon-ok verificationcheck"></span> <span translate="ProjectApproval"></span></div> 
+              <div class="btn btn-small custom" ng-if = "awdProj.awarded !=='yes'" ng-click = "rejectProject()"><span class="glyphicon glyphicon-remove verificationcheck"></span> <span translate="ProjectRejection"></span></div> 
               <br>
               <div class="btn btn-small custom accepted-btn" ng-if = "awdProj.awarded ==='yes'">
-              <span class="glyphicon glyphicon-ok verificationcheck"></span> 승인완료</div> 
+              <span class="glyphicon glyphicon-ok verificationcheck"></span> <span translate="Approved"></span></div> 
             </div> 
             <br>
             <div class="managemnt-tabs">
@@ -448,8 +448,8 @@
                   <div class="row" ng-hide = "awdProj.userId !== authentication.user._id">
                     <div class="text-right m-r-md">
                       <!-- to rate the employer -->
-                        <a ui-sref="projects.feedback({projectId:project._id}) " ng-if="project.status ==='completed'"><button class="btn btn-danger" type="button" ng-click="">의뢰인 평가</button></a>
-                      <button class="btn btn-success" type="button" ng-click="showMilestone=!showMilestone">프로젝트 대금 요청</button>
+                        <a ui-sref="projects.feedback({projectId:project._id}) " ng-if="project.status ==='completed'"><button class="btn btn-danger" type="button" ng-click=""><span translate="RateEmployer"></span></button></a>
+                      <button class="btn btn-success" type="button" ng-click="showMilestone=!showMilestone"><span translate="RequestMilestone"></span></button>
                     </div>
                     <div class="" ng-show="showMilestone">
                       <form name="proposalForm"  class="" novalidate autocomplete="off">
@@ -461,7 +461,7 @@
                           <div class="row">
                             <div ng-repeat="milestone in milestones track by $index">
                               <div class="col-sm-8 form-group p-r-none">
-                                <label>프로젝트 대금</label>
+                                <label><span translate="RequestMilestone"></span></label>
                                 <input type="text" placeholder="프로젝트 대금" class="form-control" ng-model="newMilestone.description" required>
                               </div>
                               <div class="col-sm-3 form-group  p-r-none">
@@ -481,8 +481,8 @@
                             <!-- milestones of project -->  
                         </div>
                           <p class="text-danger p-l-md"><!-- Your Milestones must be a minimun of {{projectCur.symbol_native}} {{3*latesCurrencyRate.projectCur.code}} {{projectCur.code}} --></p>
-                          <button class="btn btn-md btn-primary" ng-disabled = "proposalForm.$invalid" ng-click="addMilestone(awdProj.bidId, 'Requested' , 'freelancer'); showMilestone=!showMilestone">프로젝트 대금 요청</button>
-                          <a href="#" class="text-primary p-l-md" ng-click="showMilestone=!showMilestone">취소</a>
+                          <button class="btn btn-md btn-primary" ng-disabled = "proposalForm.$invalid" ng-click="addMilestone(awdProj.bidId, 'Requested' , 'freelancer'); showMilestone=!showMilestone"><span translate="RequestMilestone"></span></button>
+                          <a href="#" class="text-primary p-l-md" ng-click="showMilestone=!showMilestone"><span translate="Cancel"></span></a>
                           <br><br>
                       </div>
                     </form>
@@ -491,16 +491,16 @@
                 <!-- end Request milestone  -->
                 <div class="row p-l-xs">
                   <div class="col-xs-3 col-md-3">
-                    <h4><strong>금액</strong></h4>
+                    <h4><strong translate="Price"></strong></h4>
                   </div>
                   <div class="col-xs-3 col-md-3 hidden-xs">
-                    <h4><strong>내용</strong></h4>
+                    <h4><strong translate="Contents"></strong></h4>
                   </div>
                   <div class="col-xs-3 col-md-3">
-                    <h4><strong>상황</strong></h4>
+                    <h4><strong translate="Status"></strong></h4>
                   </div>
                   <div class="col-xs-3 col-md-3">
-                    <h4><strong>결과</strong></h4>
+                    <h4><strong translate="Action"></strong></h4>
                   </div>
                 </div>
                   <br>
@@ -513,21 +513,21 @@
                   </div>
                   <div class="col-xs-3 col-md-3">
                     <p class="text-muted">
-						<span ng-if="milestone.status === 'Requested'">지급요청</span>
-						<span ng-if="milestone.status === 'Created'">예치금입금</span>
-						<span ng-if="milestone.status === 'Cancelled'">취소</span>
-						<span ng-if="milestone.status === 'Released'">지급완료</span>
+						<span ng-if="milestone.status === 'Requested'" translate="Requested"></span>
+						<span ng-if="milestone.status === 'Created'" translate="Deposit"></span>
+						<span ng-if="milestone.status === 'Cancelled'" translate="Cancel"></span>
+						<span ng-if="milestone.status === 'Released'" translate="PaymentReceived"></span>
 						<!-- {{milestone.status}} -->
 					</p> 
                   </div>
                   <div class="col-xs-3 col-md-3">
                     <div class="btn-group" uib-dropdown dropdown-append-to-body>
-                      <button ng-hide="milestone.status === 'Released'" id="btn-append-to-body" type="button" class="btn btn-info" uib-dropdown-toggle>옵션선택 <span class="caret"></span>
+                      <button ng-hide="milestone.status === 'Released'" id="btn-append-to-body" type="button" class="btn btn-info" uib-dropdown-toggle><span translate="SelectOptions"></span> <span class="caret"></span>
                       </button> 
                       <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="btn-append-to-body">
-                        <li role="menuitem"><a href="#" ng-hide="milestone.status === 'Requested'">지급요청</a></li>
-                        <li role="menuitem"><a href="#" ng-click="changeMilestonStatus($index, 'Cancelled')">취소</a></li>
-                        <li role="menuitem"><a href="#" ng-hide="milestone.status === 'Requested'" ui-sref="projects.dispute({projectId: project._id, id: $index})">중재</a></li>
+                        <li role="menuitem"><a href="#" ng-hide="milestone.status === 'Requested'"><span translate="Requested"></span></a></li>
+                        <li role="menuitem"><a href="#" ng-click="changeMilestonStatus($index, 'Cancelled')"><span translate="Cancel"></span></a></li>
+                        <li role="menuitem"><a href="#" ng-hide="milestone.status === 'Requested'" ui-sref="projects.dispute({projectId: project._id, id: $index})"><span translate="Dispute"></span></a></li>
                       </ul>
                     </div>
                   </div>
@@ -536,7 +536,7 @@
               <hr>
             </div>           
             <div class="total" ng-if = "awdProj.awarded === 'yes' && awdProj.userId === authentication.user._id">
-              <strong>합계: {{projectCur.symbol_native}}{{totalAmountOfMilestones | number:0}}원<!-- {{totalAmountOfMilestones | currency}} --></strong>
+              <strong><span translate="Total"></span> : {{projectCur.symbol_native}}{{totalAmountOfMilestones | number:0}}원<!-- {{totalAmountOfMilestones | currency}} --></strong>
             </div>
             <br>
             </uib-tab>
@@ -551,13 +551,13 @@
           <div class="col-xs-12 navbar-inverse m-r-lg" style="color: white;">
             <div class="row">
               <div class="col-xs-8 col-md-8 p-t-sm p-b-sm">
-                프로젝트 지원/입찰 ({{project.bids.length}})
+                <span translate="BidThisProject"></span> ({{project.bids.length}})
               </div>
               <div class="col-xs-2 col-md-2 p-t-sm p-b-sm hidden-xs">
-                평가
+               <span translate="Reputation"></span>
               </div>
               <div class="col-xs-4 col-md-2 p-t-sm p-b-sm">
-                <center>지원/입찰 금액 ({{projectCur.code}})</center>
+                <center><span translate="Supportbidamount"></span> ({{projectCur.code}})</center>
               </div>
             </div>
           </div>
@@ -597,23 +597,23 @@
                       </span>
 
                     </div>
-                    <h5 class="text-muted">{{bid.bidderInfo.noOfReviewBaseOnProjectAwarded || '0'}} 리뷰</h5>
+                    <h5 class="text-muted">{{bid.bidderInfo.noOfReviewBaseOnProjectAwarded || '0'}} <span translate="Review"></span></h5>
                   </div>
                 </div>
               </div>
               <div class="col-xs-2 col-md-2 p-t-sm p-b-sm pull-right p-ml-none">
                 <center>
-                  <p><b>{{project.currency.symbol_native}}{{bid.yourBid | number:0}}</b> <br> {{bid.deliverInDays}} 일(Days) 이내</p>
+                  <p><b>{{project.currency.symbol_native}}{{bid.yourBid | number:0}}</b> <br> {{bid.deliverInDays}} <span translate="WithinDays"></span></p>
                 </center>
                  <div class="text-center hidden-xs" ng-if = "bid.userId === authentication.user._id && ! awardedProject"> 
-                <div class="btn btn-small" ><a ui-sref="projects.edit-bid({projectId: project._id, bidId: bid.bidId})">편집</a></div> 
-                <div class="btn btn-small" ng-click = "deleteBid(bid.bidId);"><a >삭제</a></div> 
+                <div class="btn btn-small" ><a ui-sref="projects.edit-bid({projectId: project._id, bidId: bid.bidId})"><span translate="Edit"></span></a></div> 
+                <div class="btn btn-small" ng-click = "deleteBid(bid.bidId);"><a> <span translate="Delete"></span></a></div> 
               </div> 
               </div>
                 <!-- For Only Mobile View -->
                 <div class="text-center hidden-sm hidden-md hidden-lg" ng-if = "bid.userId === authentication.user._id && ! awardedProject"> 
-                  <div class="btn btn-small" ><a ui-sref="projects.edit-bid({projectId: project._id, bidId: bid.bidId})">편집</a></div> 
-                  <div class="btn btn-small" ng-click = "deleteBid(bid.bidId);"><a >삭제</a></div> 
+                  <div class="btn btn-small" ><a ui-sref="projects.edit-bid({projectId: project._id, bidId: bid.bidId})"><span translate="Edit"></span></a></div> 
+                  <div class="btn btn-small" ng-click = "deleteBid(bid.bidId);"><a><span translate="Delete"></span></a></div> 
                 </div>
                 <!-- End Mobile View -->
               <hr>
@@ -664,14 +664,14 @@
                   <p><b>{{project.currency.symbol_native}}{{bid.yourBid | number:0}}</b> <br> {{bid.deliverInDays}} 일(Days) 이내</p>
                 </center>
                  <div class="text-center hidden-xs" ng-if = "bid.userId === authentication.user._id && ! awardedProject"> 
-                <div class="btn btn-small" ><a ui-sref="projects.edit-bid({projectId: project._id, bidId: bid.bidId})">편집</a></div> 
-                <div class="btn btn-small" ng-click = "deleteBid(bid.bidId);"><a >삭제</a></div> 
+                <div class="btn btn-small" ><a ui-sref="projects.edit-bid({projectId: project._id, bidId: bid.bidId})"> <span translate="Edit"></span></a></div> 
+                <div class="btn btn-small" ng-click = "deleteBid(bid.bidId);"><a > <span translate="Delete"></span></a></div> 
               </div> 
               </div>
                 <!-- For Only Mobile View -->
                 <div class="text-center hidden-sm hidden-md hidden-lg" ng-if = "bid.userId === authentication.user._id && ! awardedProject"> 
-                  <div class="btn btn-small" ><a ui-sref="projects.edit-bid({projectId: project._id, bidId: bid.bidId})">편집</a></div> 
-                  <div class="btn btn-small" ng-click = "deleteBid(bid.bidId);"><a >삭제</a></div> 
+                  <div class="btn btn-small" ><a ui-sref="projects.edit-bid({projectId: project._id, bidId: bid.bidId})"><span translate="Edit"></span></a></div> 
+                  <div class="btn btn-small" ng-click = "deleteBid(bid.bidId);"><a ><span translate="Delete"></span></a></div> 
                 </div>
                 <!-- End Mobile View -->
               <hr>
@@ -689,8 +689,8 @@
   <div ng-show="project.name == null && !projViewProcess" class="container-fulid m-ml-none m-mr-none" style="margin-left:3rem; margin-right:3rem;">
       <center>
         <img src="modules/projects/client/img/not_found.png">
-        <h3>죄송합니다!</h3>
-        <i><p>프로젝트가 완료됐습니다.</p></i>
+        <h3 translate="Sorry"></h3>
+        <i><p><span translate="ProjectComplete"></span></p></i>
       </center>
   </div>
 

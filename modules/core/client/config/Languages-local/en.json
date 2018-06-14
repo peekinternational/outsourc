@@ -305,6 +305,7 @@
     "Illustration": "Illustration",
     "model3D": "3D model",
     "ViewDetails": "View Details",
+    "Upgrade":"Upgrade",
     "Loading": "Loading...",
     "Quotation" : "Quotation ㆍ You ", 
     "CheckWork" : "can check the work in ",
@@ -510,17 +511,39 @@
 
     "Applications":"Applications",
     "End":"End",
-    "":"",
-    "":"",
-    "":"",
-    "":"",
-    "":"",
-    "":"",
+    "SupportBidding":"Support / Bidding",
+    "createdproposalbidcompleted":"Once you have created a proposal below, your support / bid will be completed",
+    "Suggestion":"suggestion",
+    "NotOpentoOtherFreelancers":"It is not open to other freelancers. (Only clients can see your proposal)",
+    "Price":"Price",
+    "Contents":"Contents",
+
+
+    "ProjecStatus":"Projec Status",
+    "CompinDays":"Completed within days",
+    "Rejected":"Rejected",
+    "FreelancerSelection":"Freelancer selection",
+    "AwaitingApproval":"Awaiting Approval",
+    "NofreeLanvertoSupport":"There are no freelancers to support / bid on the project.",
+    "AmountRequested":"Amount Requested",
+    "Paying":"Paying",
+    "PaymentApproval":"Payment Approval",
+    "ManageandSecure":"What are the Milestone payments",
+    "MilestoneAre":"Milestone are",
+    "SafeSecure":"Safe & Secure",
+    "hildyourmilestone":"We hild your milestone until you decide to release them",
+    "Refundable":"Refundable",
+    "dissatisfied":"if you are dissatisfied or the JCM does not accept",
+    "Controlled":"Controlled By you",
+    "satisfied":"Release them only if you are 100% satisfied.",
+    "notawardedproject":"You have not awarded this project to anyone.",
+    "nodirectmoney":"Please note that if you request a direct money transfer from a freelancer to avoid a fee, the client is at a considerable risk.",
     "":"",
     "":"",
     "":"",
     "":"",
     "":""
+
 
 
 
