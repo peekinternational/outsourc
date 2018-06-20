@@ -248,6 +248,12 @@
         "EditBid": "프로젝트 내용",
         "YouHaveNotBidOnAnyProject": "프로젝트에 지원하지 않으셨으면 ",
         "toViewPostedProjects": "를 클릭하여 등록된 모든 프로젝트를보십시오.",
+        "ClientID": "의뢰인 아이디",
+        "OUTCOME": "결과",
+        "MYENTRIES": "MY 지원횟수",
+        "YouHaveNotMadeAnyEntry": "콘테스트에 지원하지 않으셨으면",
+        "toViewPostedContest": "를 클릭하여 등록된 모든 콘테스트를 확인하십시오.",
+        "WINNER": "수상작",
 
 
         "StartRegistrationOfContest": " 콘테스트 개최 무료등록 시작",
@@ -506,6 +512,9 @@
         "Delete":"삭제",
         "Sorry":"죄송합니다!",
         "ProjectComplete":"프로젝트가 완료됐습니다.",
+        "AddMileStone": "추가 대금 일정 제시",
+        "MilestoneTotal": "총 금액",
+        "UpdateBid": "지원/입찰 변경",
 
         "Applications":"지원자수",
         "End":"종료",
@@ -535,7 +544,44 @@
         "satisfied":"회원님께서 프로젝트 진행이 100% 만족하실 경우에 대금 지급 승인을 직접 하실 수 있으며 승인 후 프리랜서에게 지급됩니다.",
         "notawardedproject":"프로젝트 선정된 프리랜서가 없습니다.",
         "nodirectmoney":"프리랜서로부터 수수료를 회피하기위해 직접대금 송금을 요청할 경우 의뢰인께서는 상당히 위험부담이 있으니 주의바랍니다.",
-        "Upgrade":"업그레이드"
+        "Upgrade":"업그레이드",
+
+
+        "LeaveFeedBack": "사용자 평가",
+        "PleaseLeaveFeedback": "사용자평가와 의견을 작성하시길 바랍니다.",
+        "Negative": "부정적",
+        "Positive": "긍정적",
+        "Professionalism": "전문성",
+        "Communication": "의사소통",
+        "PaymentPromptness": "결과물 만족도",
+        "ClarityInSpecification": "작업일정 만족도",
+        "WouldYouWorkForTheAmployerAgain": "프리랜서와 다시 작업하시겠습니까?",
+        "ProjectCompletedOnTime": "프로젝트 작업일정을 준수하셨나요?",
+        "ProjectCompletedWithInBudget": "계약금액대로 프로젝트가 완료되었나요?",
+        "Comments": "평가 작성",
+        "MaximumCharactersThisWillBePublic": "(최대200자. 작성된 평가서는 공개됩니다.)",
+        "Character": "자",
+        "RateUser": "평가서 제출",
+
+
+
+        "NewDispute": "중재신청",
+        "IdentifytheIssue": "1단계 중재원인",
+        "MostDisputeStartsWithaMisunderstanding": "대부분의 중재는 단순한 오해에서 시작합니다",
+        "OutsourcingOkayTheMediationSolution": "아웃소싱 오케이 중재 해결 시스템은 양 당사자가 문제를 해결할 수 있도록 시스템화 되어있습니다.",
+        "MostMediationWillBeResolved": "대부분의 중재는 오해의 결과로 중재없이 해결됩니다.",
+        "IfThePartiesFailToReach": "1단계에서부터 4단계까지 합의에 이르지 못하면 양 당사자는 대한상사중재원을 통해서 문제를 해결할 수 있습니다.",
+        "SelectProjectForDispute": "중재 프로젝트 제목:",
+        "SelectUser": "신청자:",
+        "SelectTheMilestone": "지급보류한 대금 금액을 선택 바랍니다.:",
+        "TotalPayment": "대금 합계",
+        "DescribeYourReason": "중재를 하는이유를 자세히 작성하시길 바랍니다:",
+        "YouMayAttachDocument": "중재에 필요한 증빙 자료를 첨부 바랍니다.",
+        "AddFiles":"첨부파일..",
+        "TotalAmountInDispute": "중재 총금액",
+        "CanIReconcileTheAmount": "금액을 조정하면 합의가 가능합니까?",
+        "StepBilateralConsultation": "2단계 양자협의"
+
 
     
 

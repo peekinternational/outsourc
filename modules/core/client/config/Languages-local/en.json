@@ -248,6 +248,12 @@
     "EditBid": "Edit Bid",
     "YouHaveNotBidOnAnyProject": "You have not bid on any project please click",
     "toViewPostedProjects": "to view all posted projects.",
+    "ClientID": "CLIENT ID",
+    "OUTCOME": "OUTCOME",
+    "MYENTRIES": "MY ENTRIES",
+    "YouHaveNotMadeAnyEntry": "You have not made any entry yet please click",
+    "toViewPostedContest": "to view all posted contests.",
+    "WINNER": "WINNER",
 
 
     "StartRegistrationOfContest": "Start free contest registration",
@@ -508,6 +514,9 @@
     "Delete":"Delete",
     "Sorry":"Sorry!",
     "ProjectComplete":"The project is complete.",
+    "AddMileStone": "Add a MileStone",
+    "MilestoneTotal": "Milestone Total",
+    "UpdateBid": "Update Bid",
 
     "Applications":"Applications",
     "End":"End",
@@ -538,14 +547,40 @@
     "satisfied":"Release them only if you are 100% satisfied.",
     "notawardedproject":"You have not awarded this project to anyone.",
     "nodirectmoney":"Please note that if you request a direct money transfer from a freelancer to avoid a fee, the client is at a considerable risk.",
-    "":"",
-    "":"",
-    "":"",
-    "":"",
-    "":""
+    
+    "LeaveFeedBack":"Leave FeedBack",
+    "PleaseLeaveFeedback": "Please leave feedback and rate project.",
+    "Negative":"Negative",
+    "Positive":"Positive",
+    "Professionalism":"Professionalism",
+    "Communication": "Communication",
+    "PaymentPromptness": "Payment Promptness",
+    "ClarityInSpecification": "Clarity in Specification",
+    "WouldYouWorkForTheAmployerAgain": "Would you work for the employer again?",
+    "ProjectCompletedOnTime": "Project completed on time?",
+    "ProjectCompletedWithInBudget": "Project completed with in Budget?",
+    "Comments": "Comments",
+    "MaximumCharactersThisWillBePublic": "(Maximum 200 characters. This will be public)",
+    "Character": "Character",
+    "RateUser": "Rate User",
 
 
-
+    "NewDispute": "New Dispute",
+    "IdentifytheIssue": "Step 1 Identify the Issue",
+    "MostDisputeStartsWithaMisunderstanding": "Most dispute starts witha misunderstanding",
+    "OutsourcingOkayTheMediationSolution": "Outsourcing Okay The mediation solution system is systemized so that both parties can solve the problem.",
+    "MostMediationWillBeResolved": "Most mediation will be resolved without mediation as a result of misunderstanding.",
+    "IfThePartiesFailToReach": "If the parties fail to reach an agreement from stage 1 to stage 4, the parties can resolve the matter through the Korean Commercial Arbitration Board.",
+    "SelectProjectForDispute": "Select Project for dispute:",
+    "SelectUser": "Select User:",
+    "SelectTheMilestone": "Select the milestone(s) you wish to dispute:",
+    "TotalPayment": "Total Payment",
+    "DescribeYourReason": "Describe your reason for dispute in detail:",
+    "YouMayAttachDocument": "You may attach document to support your case",
+    "AddFiles": "Add files..",
+    "TotalAmountInDispute": "Total amount in dispute",
+    "CanIReconcileTheAmount": "Can I reconcile the amount?",
+    "StepBilateralConsultation": "Step 2 bilateral consultation"
 
 
 
