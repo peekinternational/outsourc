@@ -595,7 +595,11 @@
     "PrivacyStatement":"Privacy Statement",
     "Agree":"Agree",
     "Alreadymember":"Already member?",
-    "":"",
+
+    "FeeandCharges":"Outsourcing okay fee and commission",
+    "feesforClients":"Fees and fees for \"clients\"",
+    "FreeRegistrationClient":"Free registration of \"client\" project",
+    "OutSourcingOKPostProjectReceive":"OutSourcingOK is free to sign up, post a project, receive bids from freelancers, review the outsoucingOk&#039;s portfolio and discuss the project requirements. If you choose to award the project, and the freelancer accepts, we charge you a small project fee relative to the value of the selected bid, as an introduction fee.",
     "":"",
     "":"",
     "":""
