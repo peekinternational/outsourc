@@ -7,7 +7,7 @@ body {
 <div class="row project-backgroundimage5 hidden-xs">
         <div class="container about-investor-title-setting">
 <br>
-            <h3 class="investor-heading p-t-sm" style="font-size:20px;">목록ㆍ공지ㆍ계정 설정</h3>
+            <h3 class="investor-heading p-t-sm" style="font-size:20px;" translate="accountHeading"></h3>
             <h3 class="investor-para">
                
             </h3>
@@ -20,8 +20,8 @@ body {
 
   <div class="row" style="background-color: white" >
     <div class="col-xs-12">
-      <div class="row paddingEveryRow" style="padding-top: 4%;"">
-          <h1><b>계정</b></h1>
+      <div class="row paddingEveryRow" style="padding-top: 4%;">
+          <h1><b translate="Account"></b></h1>
       </div>
     <hr>
 <!-- part 1 -->
@@ -30,13 +30,13 @@ body {
      <!-- 1 -->
   <form name="userForm" ng-submit="updateUserProfile(userForm.$valid)" class="signin" novalidate autocomplete="off">
    <div class="row paddingEveryRow">
-        <h4><b>프리랜서 목록 설정하기</b></h4><br>
+        <h4><b translate="SettingUpFreelanceList"></b></h4><br>
        <div>
            <label class="switch">
              <input type="checkbox"  ng-model="user.notificationsOnOff.hireMeForProjects" ng-click="updateUserProfile(true);">
              <div class="slider round"></div>
            </label> &nbsp
-           <label>프로젝트 작업을 위해서 본인을 채용 할 수 있도록 프리랜서 목록에 등록을 원합니다.</label>
+           <label translate="IWantToBeRegistered"></label>
         </div>
         <!-- Value: {{user.notificationsOnOff.hireMeForProjects}} -->
         <div class="">
@@ -44,17 +44,17 @@ body {
               <input type="checkbox"  ng-model="user.notificationsOnOff.allowFollowMe" ng-click="updateUserProfile(true);">
               <div class="slider round"></div>
             </label> &nbsp
-            <label>프로젝트ㆍ콘테스트ㆍ서비스 채용 등록 후에 모든 프리랜서들에게 공지를 원합니다.</label>
+            <label translate="IWantToBeNotified"></label>
          </div>       
          <!-- Value: {{user.notificationsOnOff.allowFollowMe}} -->
    </div>
    <hr>
    <!-- 2 -->
    <div class="row paddingEveryRow">
-        <h4><b>계정 선택</b></h4><br>
-       <label>본인의 계정변경을 원할 경우:</label> <br>       
-         <input type="radio" name="userRole" value="work" ng-model="user.userRole" />&emsp; 프리랜서 &emsp;
-         <input type="radio" name="userRole" value="hire" ng-model="user.userRole" />&emsp; 의뢰인        
+        <h4><b translate="SelectAmount"></b></h4><br>
+       <label translate="IfYouWantToChangeAccount"></label> <br>       
+         <input type="radio" name="userRole" value="work" ng-model="user.userRole" />&emsp; <span translate="freelancer"></span> &emsp;
+         <input type="radio" name="userRole" value="hire" ng-model="user.userRole" />&emsp; <span translate="client"></span>        
    </div>
    <hr>
    <!-- 3 -->
@@ -122,10 +122,10 @@ body {
   <hr>
    <!-- 4 -->
    <div class="text-center">
-    <button type="submit" class="btn btn-primary" style="width: 20%;">설정 하기</button>
+    <button type="submit" class="btn btn-primary" style="width: 20%;" translate="SetUp"></button>
    </div>
    <div ng-show="success" class="text-center text-success">
-     <strong>프로필이 성공적으로 완료 되었습니다</strong>
+     <strong translate="ProfileCompletedSuccessfully"></strong>
    </div>
    </form>
    <br><br>
