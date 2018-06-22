@@ -117,19 +117,22 @@
               <span popover-title="프로젝트에 요구되는 전문 기술" uib-popover="프로젝트에 요구되는 전문기술를 선택할경우 프로젝트 목록에 표시해 줍니다." popover-trigger="'mouseenter'" ><i class="fa fa-question-circle-o" aria-hidden="true" style="font-size:20px;margin-top:10px;"></i></span>
             </p>
             <div style="position: relative;">
-              <select ng-click="box = true" selector class="prjct-name"
-                    model="project.skills"
-                    options="allProjectSkills"
-                    multi="true"
-                    label-attr="name"
-                    placeholder="프로젝트에 요구되는 전문기술을 선택 바랍니다.">
+              <select selector class="prjct-name"
+                model="project.skills"
+                multi="true"
+                label-attr="name"
+                options="allProjectSkills"
+                create="createFunction(input)"
+                placeholder="프로젝트에 요구되는 전문기술을 선택 바랍니다."
+              >
               </select>
+              
               <!-- <input type="text" ng-model="project.skills" ng-click="box = true"> -->
-              <div class="scroll" ng-show="box" style="height: 218px;overflow-y: scroll;z-index: 1000;position: absolute;background: #fff;border: 1px solid #ccc;padding: 10px;width: 586px;top: 42px;">
+             <!--  <div class="scroll" ng-show="box" style="height: 218px;overflow-y: scroll;z-index: 1000;position: absolute;background: #fff;border: 1px solid #ccc;padding: 10px;width: 586px;top: 42px;">
                 <div infinite-scroll-container='".scroll"' infinite-scroll="loadMore()" infinite-scroll-parent="true" infinite-scroll-distance="2">
                   <div ng-repeat='x in allProjectSkills' ng-click="assign(x)">{{x.name}}</div>
                 </div>
-              </div>
+              </div> -->
             </div>
             
 

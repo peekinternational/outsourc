@@ -6,7 +6,28 @@ var app = angular.module('projects');
 app.controller('ProjectsController', ['$scope', '$interval', '$rootScope', '$filter', 'Socket', 'Notification', '$state', 'toastr', '$stateParams', '$location', '$http', '$timeout', '$window', 'Authentication', 'Projects', 'geolocation', 'FileUploader', 'UniversalData', 'Account', 'Transactions', 'SweetAlert', 'Conversation', 'usSpinnerService', 'uuid2', 'Notifications', 'ProjectFeed', 'Categories', 'SubCategories', 'Skills', 'Contests',
   function ($scope, $interval, $rootScope, $filter, Socket, Notification, $state, toastr, $stateParams, $location, $http, $timeout, $window, Authentication, Projects, geolocation, FileUploader, UniversalData, Account, Transactions, SweetAlert, Conversation, usSpinnerService, uuid2, Notifications, ProjectFeed, Categories, SubCategories, Skills, Contests){
     
-
+    $scope.createFunction = function (input) {
+      // format the option and return it
+      var name = {
+        description:input,
+        name:input,
+        id:""
+      }
+      return name;
+    };
+    $scope.skillChange = function(newValue, oldValue){
+      //console.log(newValue);
+      
+    };
+    $scope.remoteConfig = {
+      url: "/api/searchSkills",
+      cache: true,
+      transformResponse: function (data) {
+        var skills = angular.fromJson(data);
+        return skills
+        
+      }
+    };
     var checkAgreement = {
       userId:Authentication.user._id,
       projectId:$stateParams.projectId
@@ -548,9 +569,8 @@ app.controller('ProjectsController', ['$scope', '$interval', '$rootScope', '$fil
         $scope.allProjectSkills = res;
       });*/
       $http.get("/api/getskills").then(function(response) {
-        console.log(response);
-              $scope.allProjectSkills = response.data;
-          });
+        $scope.allProjectSkills = response.data;
+      });
 
       Categories.find({}, function(res){
         $scope.categories = res;

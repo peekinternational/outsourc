@@ -30,6 +30,17 @@ exports.getskills = function(req,res){
     res.json(data);
   });
 }
+exports.searchSkills = function(req,res){
+  
+  var q = Skills.find({name:new RegExp(req.query.text, 'i')}).limit(100);
+  q.exec(function(err,data){
+    res.json(data);
+  });
+  /*Skills.find({name:new RegExp(req.query.text, 'i')}, function (err, data) {
+    res.json(data);
+
+  });*/
+}
 exports.getnextskills = function(req,res){
   var skip = parseInt(req.params.skip);
   var take = parseInt(req.params.skip) + 100;
