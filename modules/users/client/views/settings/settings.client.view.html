@@ -4,12 +4,12 @@
  <div class="col-xs-12 col-sm-12 col-md-10 col-lg-10 col-md-offset-1 row settingpage m-l-none m-r-none m-lnegtv-row m-rnegtv-none">
     <nav class="col-xs-12 col-md-3">
         <ul class="nav nav-stacked text-left">
-          <li class="list-width" ng-class="{active : $state.includes('settings.profile')}"><a ui-sref="settings.profile"><i class="fa fa-user"></i> 프로필</a></li>
-          <li class="list-width" ng-class="{active : $state.includes('settings.notifications')}"><a ui-sref="settings.notifications"><i class="fa fa-bell"></i> 알림</a></li>
+          <li class="list-width" ng-class="{active : $state.includes('settings.profile')}"><a ui-sref="settings.profile"><i class="fa fa-user"></i><span translate="profile"></span></a></li>
+          <li class="list-width" ng-class="{active : $state.includes('settings.notifications')}"><a ui-sref="settings.notifications"><i class="fa fa-bell"></i> <span translate="notification"></span></a></li>
           <!-- <li class="list-width"><a ui-sref="settings.membership">Membership</a></li> -->
-          <li class="list-width" ng-class="{active : $state.includes('settings.password')}"><a ui-sref="settings.password"><i class="fa fa-unlock"></i>비밀번호</a></li>
+          <li class="list-width" ng-class="{active : $state.includes('settings.password')}"><a ui-sref="settings.password"><i class="fa fa-unlock"></i><span translate="password"></span></a></li>
           <!-- <li><a ui-sref="#">Payment & Financials</a></li> -->
-          <li class="list-width" ng-class="{active : $state.includes('settings.account')}"><a ui-sref="settings.account">계정</a></li>
+          <li class="list-width" ng-class="{active : $state.includes('settings.account')}"><a ui-sref="settings.account" translate="Account"></a></li>
         </ul>
     </nav>
   <div class="col-xs-12 col-md-9 settings-view">
