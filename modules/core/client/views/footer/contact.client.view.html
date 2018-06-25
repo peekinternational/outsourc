@@ -1,7 +1,7 @@
 <div class="row project-backgroundimage5 hidden-xs">
         <div class="container about-investor-title-setting">
 <br>
-            <h3 class="investor-heading p-t-sm" style="font-size:20px;">회원 고객문의 및 투자제휴</h3>
+            <h3 class="investor-heading p-t-sm" style="font-size:20px;" translate="MembershipInquiries"></h3>
             <h3 class="investor-para">
                
             </h3>
@@ -14,7 +14,7 @@
   
   <div class="col-xs-12 col-sm-12 col-md-10 col-lg-10 col-md-offset-1 container-fluid p-mr-none p-ml-none" style="padding-bottom: 20px;">
   
-  <h3 class="h2-mobil-landing" style="padding-top:50px"><b>회원 고객 문의 및 투자제휴</b></h1>
+  <h3 class="h2-mobil-landing" style="padding-top:50px"><b  translate="MembershipInquiries"></b></h1>
     <form name="contact-form">
       <div class="col-xs-12 col-sm-12 col-md-8 form-line p-mall-none" style="padding: 10px 100px 20px 0px"> 
           <!-- <div class="form-group">
@@ -22,11 +22,11 @@
             <input type="email" class="form-control" id="exampleInputEmail" placeholder=" Enter Email id">
           </div>   -->
             <div class="form-group">
-              <label for="exampleInputUsername">제목</label>
+              <label for="exampleInputUsername" translate="emailAddress"></label>
               <input type="text" class="form-control" id="" placeholder="회원님의 문의 제목을 입력 하시길 바랍니다" ng-model="subject">
             </div>
             <div class="form-group">
-              <label for ="description">문의 내용</label>
+              <label for ="description" translate="message"></label>
               <textarea  class="form-control" rows="20" ng-model="message" placeholder="회원님의 문의 내용을 작성 하시길 바랍니다"></textarea>
             </div><br>
             
@@ -34,7 +34,7 @@
           <p ng-show="captchaResponse==undefined && yourForm.$submitted" class="form-error">
             귀하가 로못이 아니라는 것을 확인 하시길 바랍니다
           </p> -->
-          <button ng-if="!isLoading" type="submit" class="btn btn-info btn-lg" ng-click="contactForm();" ng-disabled="!subject || !message" > 보내기</button>
+          <button ng-if="!isLoading" type="submit" class="btn btn-info btn-lg" ng-click="contactForm();" ng-disabled="!subject || !message" translate="Send"> </button>
 
           <div class="text-center" ng-if="isLoading">
             <i class="fa fa-spinner fa-spin fa-3x fa-fw"></i> <h4 class="text-primary"> <br> Please wait...</h4>
@@ -42,14 +42,14 @@
 
           <div ng-if="msg && !isLoading">
             <center>
-              <h3 class="text-primary">감사합니다. 메일을 성공적으로 보냈습니다.</h3>
-              <p class="text-success"> 빠른 시간내에 답변드리겠습니다.</p>
+              <h3 class="text-primary" translate="messageSuccessfully"></h3>
+              <p class="text-success" translate="weWillRespond"> </p>
             </center>
           </div>
         </div>
         <div class="col-xs-12 col-sm-12 col-md-offset-1 col-md-3 p-ml-none">
           
-           <h5><b>회사명: 주식회사 잡콜미</b></h5>
+           <h5><b><span translate="CompanyName"></span>: <span translate="jobCallme"></span></b></h5>
                <h6><b>Registered office</b></h6>
                <address class="contactInfo-address">
                    <!-- Level 20, World Square<br/>
@@ -57,12 +57,12 @@
                    Sydney, New South Wales<br/>
                    Australia 2000<br/>
                    ACN 134 845 748 -->
-
-                   서울시 서초구<br/>
-                   논현로 27길 39<br/>
-				   (천일빌딩 2층 양재동88-11)06746<br/>
-                   사업자 등록번호: 201-86-41011<br/>
-				   전화번호: 070-7770-0967
+                   <span translate="addressCompany"></span>
+                   <!-- 서울시 서초구<br/>
+                   논현로 27길 39<br/> -->
+				   <!-- (천일빌딩 2층 양재동88-11)06746<br/> -->
+                   <span translate="CompanyRegistrationNumber"></span>: 201-86-41011<br/>
+				          <span translate="PhoneNumber"></span>: 070-7770-0967
                </address>
                <a class="contactInfo-link" href="mailto:admin@OutsoucingOk.com">admin@outsourcingok.com</a> 
                       <br><br><br><br><br><br>
