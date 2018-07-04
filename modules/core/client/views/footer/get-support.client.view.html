@@ -4,13 +4,13 @@
   <div class="row m-mb-none">
     <div class="col-xs-12 bck-img get-supprt-top-mrgn" style="margin-top: -36px;">
     <br><br><br><br><br><br><br><br>
-        <h1 class="text-center" style="color:#fff;"><strong> 무엇을 도와 드릴까요?</strong></h1>
+        <h1 class="text-center" style="color:#fff;"><strong translate="howMayWe"> </strong></h1>
         <div class="col-md-offset-2 col-md-8 col-xs-12">
        <form>
         <div class="input-group input-group-md">
           <input type="text" style="height:45px;" class="form-control" placeholder="질문사항을 검색하십시오" ng-model="searchKeyWord">
           <div class="input-group-btn">
-            <button class="btn btn-success" style="height:45px;" type="submit">도움말 검색</button>
+            <button class="btn btn-success" style="height:45px;" type="submit" translate="searchHelp"></button>
           </div>
         </div>
         </form>
@@ -29,7 +29,7 @@
               <div class="projects-listng">
                 <div class="list-picture">
                 <p class="text-center p-t-lg"><i class="fa fa-cogs list-img-setng " aria-hidden="true"></i></p> 
-                <h3 class="text-center" style="color: #fff;">일반사항</h3>
+                <h3 class="text-center" style="color: #fff;" translate="general"></h3>
                 </div>
               </div>
             </div>
@@ -39,7 +39,7 @@
             <div class="col-xs-12 col-md-4 p-mt-lg p-mr-none p-ml-none">
             <div class="list-picture1">
               <p class="text-center p-t-lg"><i class="fa fa-life-ring list-img-setng" aria-hidden="true"></i></p> 
-              <h3 class="text-center" style="color: #fff;">프로젝트</h3>
+              <h3 class="text-center" style="color: #fff;" translate="mProject"></h3>
             </div>
             </div>
           </a>
@@ -48,7 +48,7 @@
             <div class="col-xs-12 col-md-4 p-mt-lg p-mr-none p-ml-none">
               <div class="list-picture2">
               <p class="text-center p-t-lg"><i class="fa fa-wpforms list-img-setng" aria-hidden="true"></i></p> 
-              <h3 class="text-center" style="color: #fff;">콘테스트</h3>
+              <h3 class="text-center" style="color: #fff;" translate="mcontest"></h3>
             </div>
             </div>
           </a>
@@ -63,7 +63,7 @@
               <div class="projects-listng">
                 <div class="list-picture3">
                 <p class="text-center p-t-lg"><i class="fa fa-money list-img-setng" aria-hidden="true"></i></p> 
-                <h3 class="text-center" style="color: #fff;">예치금 결제</h3>
+                <h3 class="text-center" style="color: #fff;" translate="paymentSetting"></h3>
                 </div>
               </div>
             </div>
@@ -73,7 +73,7 @@
             <div class="col-xs-12 col-md-4 p-mt-lg p-mr-none p-ml-none">
             <div class="list-picture4">
               <p class="text-center p-t-lg"><i class="fa fa-address-card list-img-setng" aria-hidden="true"></i></p> 
-              <h3 class="text-center" style="color: #fff;">회원</h3>
+              <h3 class="text-center" style="color: #fff;" translate="membership"></h3>
             </div>
             </div>
           </a>
@@ -82,7 +82,7 @@
             <div class="col-xs-12 col-md-4 p-mt-lg p-mr-none p-ml-none">
               <div class="list-picture5">
               <p class="text-center p-t-lg"><i class="fa fa-user list-img-setng" aria-hidden="true"></i></p> 
-              <h3 class="text-center" style="color: #fff;">프로필</h3>
+              <h3 class="text-center" style="color: #fff;" translate="profile"></h3>
             </div>
             </div>
           </a>
@@ -92,7 +92,7 @@
         <br><br><br>
         <div class="row" style="background: #F0F0F0;">
           
-          <h2 class="text-center">자주 묻는 질문</h2>
+          <h2 class="text-center" translate="suggestedArticle"></h2>
           <div class="col-md-offset-2 col-md-8 col-xs-12" ng-repeat="f in faq | filter: searchKeyWord">
             <div class="articles-inner thumbnail p-ml-lg m-ml-none m-mr-none">
               <span class="corner-ribbon"></span>
