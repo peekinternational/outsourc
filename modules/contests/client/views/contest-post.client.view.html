@@ -137,15 +137,15 @@
                   
                   <div ng-show="uploader.queue.length>0">
                     <div><spa translate="FileName"></spa>: {{ item.file.name }}</div>
-                    <div>파일크기: {{ item.file.size/1024/1024|number:2 }} Mb</div>
+                    <div><span translate="fileSize"></span>: {{ item.file.size/1024/1024|number:2 }} Mb</div>
                     <div ng-show="uploader.isHTML5">
-                        진행상황: {{ item.progress +'%'}}
+                        <span translate="Progress"></span>: {{ item.progress +'%'}}
                         <div>
                             <div  ng-style="{ 'width': item.progress + '%' }"></div>
                         </div>
                     </div>  
   
-                    <button ng-click="item.upload()" ng-disabled="item.isReady || item.isUploading || item.isSuccess">파일 업로드하기</button>
+                    <button ng-click="item.upload()" ng-disabled="item.isReady || item.isUploading || item.isSuccess" translate="uploadingFiles"></button>
                     <!-- <button ng-click="item.cancel()" ng-disabled="!item.isUploading">Cancel</button> -->
                     <!-- <button ng-click="item.remove()">Remove</button> -->
                     <span ng-show="errMsg" class="text-danger">
@@ -155,7 +155,7 @@
                       {{sucMsg}}
                     </span>  
             <br>
-            <p style="padding-top:10px" class="prjct-list-font"><i class="fa fa-exclamation-triangle" aria-hidden="true" style="color:#820923;"></i>파일이 성공적으로 업로드 되었어도 첨부한 파일이 2MB 이상일 경우 등록이 불가능합니다.</p>
+            <p style="padding-top:10px" class="prjct-list-font"><i class="fa fa-exclamation-triangle" aria-hidden="true" style="color:#820923;"></i><span translate="fileWarning"></span></p>
                   </div>
                 </div>
                 <div class="col-sm-6">
@@ -234,12 +234,12 @@
               <div class="col-sm-3 col-xs-6 p-mb-sm">
                 <input class="top" type="checkbox" value='false' ng-model = "pakage_1" ng-change="checktotalAmount(pakage_1,'pakage_1')">
                 <div class="btn-container">
-                  <label class="btn btn-info btn-block" style="background:#2d6ca7;color:#fff;">채팅</label>
+                  <label class="btn btn-info btn-block" style="background:#2d6ca7;color:#fff;" translate="chat"></label>
                 </div>
               </div>
               <!-- Mobile View -->
               <div class="col-sm-2 col-xs-6 hidden-md hidden-lg text-right">
-           <span><span><strike translate="Won5000"></strike><br>{{contest.currency.symbol_native}} {{ latestCurrencyRate[contest.currency.code]*pakagePrices.pakage_1 | number:0}}원 <br>[무료 이벤트]</span>	</span>
+           <span><span><strike translate="Won5000"></strike><br>{{contest.currency.symbol_native}} {{ latestCurrencyRate[contest.currency.code]*pakagePrices.pakage_1 | number:0}}원 <br><span translate="freeEvents"></span></span>	</span>
                  <!-- <span>{{contest.currency.symbol_native}} {{ latestCurrencyRate[contest.currency.code]*pakagePrices.pakage_1 | number:0}}원</span> -->
               </div>
               <!-- End -->
@@ -247,23 +247,23 @@
                 <h3 class="title h3-mobile-font" translate="UsingChat"></h3>
                  <p class="prjct-list-font"><span translate="UnlimitedChatBuyChat"></span> &nbsp;&nbsp;<span ng-click="chat = !chat" style="font-size:10px;padding-left:20px;background:#6b0816;border-radius: 3px;padding:5px;color:#fff;cursor: pointer; cursor: hand;" translate="Caution"></span></p>
                  <span ng-show="chat">
-                 <p class="prjct-list-font"><span style="color:#920923">[보안과 안전성을 이유로 반드시 구글크롬을 이용해야 합니다.]</span></p>
-                <p class="prjct-list-font">아웃소싱오케이 실시간채팅 서비스는 의뢰인과 함께 콘테스트 공개 포럼을 거쳐 채팅으로 상담한&nbsp;&nbsp; 1차합격자 프리랜서(의뢰인이 선택한 프리랜서를 칭함)들로부터 콘테스트 시작부터 완료까지 전체 과정을 실시간회의를 거쳐 수상자를 선정 할 수 있습니다. 채팅 서비스 이용 구매시 1:1 화상채팅은 무료로 이용할 수 있습니다.</p>
-          <p>무료로 제공하는 1:1 화상 채팅은 프리랜서들과 화상회의가 언제든지 가능하며 안전하게 거래 할 수 있습니다. 대면 미팅을 원할경우 아웃소싱본사 회의실에서 원하는 시간에 맞춰서 대면미팅을 하실 수 있습니다.</p>
-                <p>여러 프리랜서들과 실시간 채팅으로 더 많은 아이디어를 얻을 수 있는 기회가 되며 분쟁이 발생하기 전에 저장된 문자 채팅의 기록물로 양당사자간에 문제를 사전에 예방 할 수 있으며 분쟁을 쉽게 해결 할 수 있습니다.</p>
+                 <p class="prjct-list-font"><span style="color:#920923" translate="YouMustUseGoogleChrome"></span></p>
+                <p class="prjct-list-font" translate="OutsourcingOkayLivChatService"></p>
+                <p translate="FreeVideoChatsAreAvailable"></p>
+                <p translate="ItGivesYouTheOpportunity"></p>
           
   
           <ul class="ul-sidebar2">
               
           <li style="color:#898989" class="prjct-list-font">
-             기타 외부 화상채팅[카카오톡, 스카이프등]을 이용시 양 당사자간 분쟁이 발생할 경우 아웃소싱오케이에서는 중재에 도움을 줄 수 없으니 주의 바랍니다.
+             <span translate="OtherExternalVideoChat"></span>
           </li>
           </ul>
   
           <ul class="ul-sidebar2">
               
           <li style="color:#898989" class="prjct-list-font">
-             채팅기록 보관은 ctrl+a후 ctrl+c로 회원님PC 저장파일에 ctrl+v로 별도보관바랍니다.
+             <span translate="SaveChatHistory"></span>
           </li>
           </ul>
           </span>
@@ -284,24 +284,24 @@
               <div class="col-sm-3 col-xs-6 p-mb-sm">
                 <input class="top" type="checkbox" value='false' ng-model = "pakage_2" ng-change="checktotalAmount(pakage_2,'pakage_2')" ng-disabled="pakage_1">
                 <div class="btn-container">
-                  <label class="btn btn-info btn-block" style="background:#295a87;color:#fff;">화상(비디오)</label>
+                  <label class="btn btn-info btn-block" style="background:#295a87;color:#fff;" translate="image"></label>
                 </div>
               </div>
               <!-- Mobile View -->
               <div class="col-sm-2 col-xs-6 hidden-md hidden-lg text-right">
-                 <span style="color:#000000">{{contest.currency.symbol_native}} {{ latestCurrencyRate[contest.currency.code]*pakagePrices.pakage_2 | number:0}}원 <br>[채팅구매시 무료]</span>
+                 <span style="color:#000000">{{contest.currency.symbol_native}} {{ latestCurrencyRate[contest.currency.code]*pakagePrices.pakage_2 | number:0}}원 <br><span translate="freePurchasev"></span></span>
               </div>
               <!-- End -->
               <div class="col-sm-7 col-xs-12">
                 <h3 class="title h3-mobile-font" translate="HighSuccessRate"></h3>
                 <p class="prjct-list-font" style="color:#898989"><span translate="VideoService"></span>&nbsp;&nbsp;<span ng-click="videochat = !videochat" style="font-size:10px;margin-left:13px;padding-left:20px;background:#2f70a9;border-radius: 3px;padding:5px;color:#fff;cursor: pointer; cursor: hand;" translate="btnIntro"></span></p>
           <span ng-show="videochat">
-          <p class="prjct-list-font">화상(비디오)은 저장을 할 수 없는 기능이오니 여기에 관련하여 문제가 발생될 경우 아웃소싱오케이에서는 일체의 책임을 지지 않으며 안전성을 위해서 구글크롬 사용으로만 최적화되어 있습니다. 만약 IE(인터넷 익스플로러) 사용시에 아웃소싱 오케이는 일체 책임지지 않습니다.</p>
+          <p class="prjct-list-font" translate="VideoCannnotbeSaved"></p>
   
           <ul class="ul-sidebar2">
               
           <li class="prjct-list-font">
-             데스크탑으로 최적화되어있어 모바일 화상 이용 경우 불편할 수도 있습니다.
+             <span translate="InconvenientForMobileVideo"></span>
           </li>
           </ul>
           </span>
@@ -309,7 +309,7 @@
          
               </div>
               <div class="col-sm-2 hidden-xs">
-                 <span style="color:#000000">{{contest.currency.symbol_native}}  {{ latestCurrencyRate[contest.currency.code]*pakagePrices.pakage_2 | number:0}}원 <br>[채팅구매시 무료]</span>
+                 <span style="color:#000000">{{contest.currency.symbol_native}}  {{ latestCurrencyRate[contest.currency.code]*pakagePrices.pakage_2 | number:0}}원 <br><span translate="freePurchasev"></span></span>
               </div>
   
             </div>
@@ -343,7 +343,7 @@
               <div class="col-sm-3 col-xs-6 p-mb-sm">
                 <input class="top" type="checkbox" value='false' ng-model = "pakage_4" ng-change="checktotalAmount(pakage_4,'pakage_4')" >
                 <div class="btn-container">
-                  <label class="btn btn-info btn-block" style="background:#85a1b9;color:#fff;">개인 서비스</label>
+                  <label class="btn btn-info btn-block" style="background:#85a1b9;color:#fff;" translate="private"></label>
                 </div>
               </div>
               <!-- Mobile View -->
@@ -352,8 +352,8 @@
               </div>
               <!-- End -->
               <div class="col-sm-7 col-xs-12">
-                 <p class="prjct-list-font">개인 서비스는 보안성이 필요한 핵심적인 콘테스트에 전문 프리랜서를 찾을 때 효과적입니다.<span ng-click="service = !service" style="font-size:10px;margin-left:13px;padding-left:20px;background:#2f70a9;border-radius: 3px;padding:5px;color:#fff;cursor: pointer; cursor: hand;">안내▶</span></p>
-           <p ng-show="service" class="prjct-list-font">아웃소싱 오케이는 회원님께서 등록한 콘테스트 내용들을 재 검토하여 프리랜서들에게 부각될 수 있도록 아웃소싱오케이 담당자가 1:1 서비스로 콘테스트 등록 재검토 및 수정해 드립니다. 본 서비스는 계약전에 회원님께서 원하는 여러프리랜서와 대면미팅을 원할경우 아웃소싱 오케이 담당자가 시간,장소등 모든 일정표를 회원님과 함께 계획하여 대면미팅시 직접 참여해서 계약까지 도와드립니다.</p>
+                 <p class="prjct-list-font"><span translate="PersonalServicesAreEffective"></span><span ng-click="service = !service" style="font-size:10px;margin-left:13px;padding-left:20px;background:#2f70a9;border-radius: 3px;padding:5px;color:#fff;cursor: pointer; cursor: hand;" translate="introduction"></span></p>
+           <p ng-show="service" class="prjct-list-font" translate="OutsourcingOKWillReviewAndUpdate"></p>
               </div>
               <div class="col-sm-2 hidden-xs">
                 <span>{{contest.currency.symbol_native}} {{ latestCurrencyRate[contest.currency.code]*pakagePrices.pakage_4 | number:0}}원</span>
@@ -367,7 +367,7 @@
                 
                 <input class="top" type="checkbox" value='false' ng-model = "pakage_5" ng-change="checktotalAmount(pakage_5,'pakage_5')">
                 <div class="btn-container">
-                  <label class="btn btn-success btn-block" style="background:#8fb7b9;border-color: #8fb7b9;">비공개</label>
+                  <label class="btn btn-success btn-block" style="background:#8fb7b9;border-color: #8fb7b9;" translate="sealed"></label>
                 </div>
               </div>
               <!-- Mobile View -->
@@ -376,7 +376,7 @@
               </div>
               <!-- End -->
               <div class="col-sm-7 col-xs-12">
-                 <p class="prjct-list-font">콘테스트 개최를 비공개로 할 경우 지원한 프리랜서들은 다른 프리랜서의 입찰금액과 내용을 볼 수 없어 기대이상의 효과를 볼 수 있습니다.</p>
+                 <p class="prjct-list-font" translate="IfYouHoldTheContestPrivately"></p>
           
           <ul class="ul-sidebar2">
               
@@ -406,9 +406,9 @@
               </div>
               <!-- End -->
               <div class="col-sm-7 col-xs-12">
-                <p class="prjct-list-font">비밀유지 계약은 콘테스트 업무수행을 위해 필요한 비밀정보를 유지하기위해서 의뢰인과 프리랜서가 계약을 체결하는것입니다.<span ng-click="nda = !nda" style="font-size:10px;margin-left:13px;padding-left:20px;background:#6b0816;border-radius: 3px;padding:5px;color:#fff;cursor: pointer; cursor: hand;">주의▶</span></p>
+                <p class="prjct-list-font"><span translate="NDAdescription"></span>.<span ng-click="nda = !nda" style="font-size:10px;margin-left:13px;padding-left:20px;background:#6b0816;border-radius: 3px;padding:5px;color:#fff;cursor: pointer; cursor: hand;" translate="caution"></span></p>
                 <span ng-show="nda">
-                  <p class="prjct-list-font">비밀유지 계약 서비스를 선택할 경우 하이라이트로 표시되어 콘테스트가 부각될 수 있습니다. 또한 주어진 조건에 따라 콘테스트에 대한 의뢰인과 프리랜서간에 비밀유지 계약입니다.</p>
+                  <p class="prjct-list-font" translate="NdaDetails"></p>
   
                   <!-- <ul class="ul-sidebar2">       
                     <li style="color:#898989" class="prjct-list-font">
@@ -427,7 +427,7 @@
               <div class="col-sm-3 col-xs-6 p-mb-sm">
                 <input class="top" type="checkbox" value='false' ng-model = "pakage_7" ng-change="checktotalAmount(pakage_7,'pakage_7')">
                 <div class="btn-container">
-                  <label class="btn btn-danger btn-block" style="background:#524a3f;color:#fff;border-color: #524a3f;">긴급</label>
+                  <label class="btn btn-danger btn-block" style="background:#524a3f;color:#fff;border-color: #524a3f;" translate="urgent"></label>
                 </div>
               </div>
               <!-- Mobile View -->
@@ -436,7 +436,7 @@
               </div>
               <!-- End -->
               <div class="col-sm-7 col-xs-12">
-                <p>본 서비스 기능은 프리랜서들에게 회원님의 콘테스트 빠른 응답과 긴급이 요구되는 콘테스트, 변경, 업데이트, 긴급제작등 콘테스트를 신속하게 처리할 수 있는 서비스입니다. </p>
+                <p translate="ThisServiceIsServiceThatAllowsFreelancers"> </p>
               </div>
               <div class="col-sm-2 hidden-xs">
                 <span>{{contest.currency.symbol_native}} {{ latestCurrencyRate[contest.currency.code]*pakagePrices.pakage_7 | number:0}}원</span>
@@ -451,7 +451,7 @@
               <div class="col-sm-3 col-xs-6 p-mb-sm">
                 <input class="top" type="checkbox" value='false' ng-model="gaurantee" ng-change="checktotalAmount(gaurantee,'gaurantee')">
                 <div class="btn-container">
-                  <label class="btn btn-primary btn-block" style="background:#5a4920;color:#fff;border-color: #5a4920;">상금보장</label>
+                  <label class="btn btn-primary btn-block" style="background:#5a4920;color:#fff;border-color: #5a4920;" translate="gaurantee"></label>
                 </div>
               </div>
               <!-- Mobile View -->
@@ -460,10 +460,10 @@
               </div>
               <!-- End -->
               <div class="col-sm-7 col-xs-12">
-                <p class="prjct-list-font">상금보장을 선택하면 프리랜서들에게 의뢰인의 콘테스트가 강조 됩니다. 상금보장 선택시 환불이 불가합니다.</p>
+                <p class="prjct-list-font" translate="IfYouChooseToWinPrize"></p>
                 <ul class="ul-sidebar2">          
                   <li style="color:#898989" class="prjct-list-font">
-                    상금보장을 선택하면 환불이 불가하며 콘테스트 마감시점부터 7일이내 수상작 선정을 희망하지 않는 경우에는 의뢰인께서 회사 화상채팅 인박스를 통해서 상담한 모든 프리랜서들에게 90%를 1/n로 균등하게 지급 됩니다(콘테스트 공개포럼에 참여한 프리랜서는 1/n 제외되며 1차합격자가 없는 경우에는 콘테스트 공개포럼에 참여한 모든 프리랜서들에게 90%를 1/n로 균등하게 지급 됩니다.)
+                    <span translate="IfYouChooseToWinaPrize"></span>
                   </li>
                 </ul>
               </div>
@@ -472,9 +472,9 @@
               </div>
   
             </div>
-            <div class="m-l-md"><h4><strong> 합계(부가세별도): {{contest.currency.symbol_native}} {{totalAmount | number:0}}</strong></h4></div>
+            <div class="m-l-md"><h4><strong> <span translate="TotalVATExcluded"></span>: {{contest.currency.symbol_native}} {{totalAmount | number:0}}</strong></h4></div>
   
-            <div class="m-l-md" style="padding-top:20px"><h6><strong style="color:#820923"><i class="fa fa-exclamation-triangle" aria-hidden="true" style="color:#820923;"></i>  콘테스트에 지원하는 프리랜서는 이메일, 유무선번호 등을 게시하여 직거래를 유도할 경우, 서비스 이용에 제재를 받을 수 있습니다.</strong></h6></div>
+            <div class="m-l-md" style="padding-top:20px"><h6><strong style="color:#820923"><i class="fa fa-exclamation-triangle" aria-hidden="true" style="color:#820923;"></i> <span translate="FreelancersWhoApply"></span></strong></h6></div>
   
           </div>
   
@@ -484,8 +484,8 @@
            <!-- <button class="btn btn-info btn-lg" ng-click="create()" ng-disabled="contestForm.$invalid">무료 콘테스트등록</button> -->
   
            <div style="display: -webkit-box;">
-             <button class="btn btn-info btn-lg" ng-click = "create()" ng-disabled="contestForm.$invalid || isLoading" style="background:#688686;border: 1px solid #688686;">
-               콘테스트 등록완료
+             <button class="btn btn-info btn-lg" ng-click = "create()" ng-disabled="contestForm.$invalid || isLoading" style="background:#688686;border: 1px solid #688686;" translate="contestPost">
+               
              </button>
   
              <div ng-if="isLoading">
@@ -543,21 +543,21 @@
   
             <ul class="ul-sidebar3">
               
-        <li>대면미팅전에 실시간 화상채팅으로 사전에 확인할 수 있어 상당한 신뢰와 시간 절약이 가능합니다.</li>
-              <li>고정금액 또는 시간제로 선택해서 프리랜서를 찾을 수 있습니다.</li>
+        <li><span translate="RealTimeVideoChattingBefore"></span></li>
+              <li><span translate="YouCanFindFreelancers"></span></li>
   
-              <li>여러명과 실시간 채팅이용으로 최상의 결과를 얻을 수 있습니다.</li>
+              <li><span translate="GetTheBestResults"></span></li>
   
-              <li>선택된 프리랜서와 의뢰인은 1:1로 장소 구애 없이 실시간 화상인터뷰로 시간과 경비를 절감 할 수있습니다.</li>      
+              <li><span translate="SelectedFreelancersAndClients"></span></li>      
         
-               <li>채팅 이용시 등록당(건별) 프로젝트 시작부터 종료시점까지 화상채팅 이용료 5천원(부가세별도)이 부과 되며 언제든 무제한 이용 할 수 있습니다. 채팅구매시 화상이용은 종료기간까지 무료입니다.</li>
+              <li><span translate="WhenUsingChat"></span></li>
   
-        <li>보안과 안전성을 이유로 화상채팅은 반드시 구글크롬을 이용하시길 바랍니다. IE(인터넷 익스플로러)이용시 사용이 제한될 수 있습니다.</li>
+              <li><span translate="securityAndSecurityReasonsVideoChatMustUseGoogleChrome"></span></li>
   
             </ul>
   
             <div class="text-center" style="padding-top:20px">
-            <button class="btn btn-info" ui-sref="projects.project-post" style="background: #5f5b56;border: 1px solid #5f5b56">프로젝트 무료 등록</button>
+            <button class="btn btn-info" ui-sref="projects.project-post" style="background: #5f5b56;border: 1px solid #5f5b56" translate="postAProject"></button>
             </div>
             
   
@@ -566,10 +566,10 @@
   
       <div class="box" style="margin-left:30px;border-top:5px solid #bab3a9;background:#fff;">
             
-               <h1 class="sidebar-title" style="color:#4c0a18">콘테스트 내용 작성요령</h1>
+               <h1 class="sidebar-title" style="color:#4c0a18" translate="HowToWriteContest"></h1>
         
   
-            <h2 class="sidebar-title-sub text-center"><!-- <img src="modules/projects/client/img/project_icon5.png"> -->콘테스트 내용 예시&nbsp;&nbsp;<span ng-click="showSkills = !showSkills" style="font-size:10px;padding-left:20px;background:#bab3a9;border-radius: 3px;padding:5px;color:#fff;cursor: pointer; cursor: hand;">예시보기</span></h2>
+            <h2 class="sidebar-title-sub text-center"><!-- <img src="modules/projects/client/img/project_icon5.png"> --><span translate="ExamplesContestContent"></span>&nbsp;&nbsp;<span ng-click="showSkills = !showSkills" style="font-size:10px;padding-left:20px;background:#bab3a9;border-radius: 3px;padding:5px;color:#fff;cursor: pointer; cursor: hand;" translate="seeExample"></span></h2>
   
             <hr/>
       
@@ -577,9 +577,9 @@
   
   
   
-  <b style="color:#087c99">[콘테스트 진행 방식]</b><br> 
-  예시)화상채팅,대면미팅 등<br><br>
-  -시작시점에서 개최종료까지 아웃소싱오케이 공개포럼과<br>&nbsp;&nbsp;화상채팅 방식으로 진행합니다.<br>
+  <b style="color:#087c99" translate="HowContest"></b><br> 
+  <span translate="ExamplesVideoChat"></span><br><br>
+  <span translate="OutsourcingFromTheBeginning"></span><br>&nbsp;&nbsp;<span translate="ProceedWithVideoChat"></span><br>
   
   <br><br>
   
@@ -587,70 +587,70 @@
   
   
   
-  <b style="color:#087c99">[서비스 개요]</b><br>
-  예시)슬로건, 제품컨셉, 특장점, 핵심타겟 등<br><br>
-  -슬로건 : 24시간 데일리 스킨케어<br>
-  -제품 컨셉 : 간편한 스킨케어 제품으로 언제 어디서나<br>&nbsp;&nbsp;편리하게 사용<br>
-  -특장점 : 24시간 매일 케어, 다양한 컬러별 케어, 간편 케어<br>
-  -핵심타겟 : 19~30세 남·여
+  <b style="color:#087c99" translate="serviceOverview"></b><br>
+  <span translate="ExamplesSloganProduct"></span><br><br>
+  <span translate="Slogan"></span><br>
+  <sup translate="ProductConcept"></sup><br>&nbsp;&nbsp;<span translate="EasyToUse"></span><br>
+  <span translate="Features"></span><br>
+  <span translate="CoreTarget"></span>
   <br><br>
   
   
   
-  <b style="color:#087c99">[디자인 요구사항]</b><br>
-  예시)디자인 용도, 디자인 요구사항 등<br><br>
-  -용기 라벨 디자인<br>
-  -패키지 디자인<br>
+  <b style="color:#087c99" translate="DesignRequirements"></b><br>
+  <span translate="ExampleDesignPurpose"></span><br><br>
+  <span translate="ContainerLabelDesign"></span><br>
+  <span translate="PackageDesign"></span><br>
   <br><br>
   
   
-  <b style="color:#087c99">[상세 설명]</b><br>
-  예시)제품기능, 디자인 내용 , 필요한 조건 등<br><br>
+  <b style="color:#087c99" translate="DetailedDescription"></b><br>
+  <span translate="ExampleProductFunction"></span><br><br>
   
-  -미네랄스틱[수분용]<br>
-  &nbsp;&nbsp;촉촉하게 수분감넘치는 피부로 가꿔주는 미네랄 스틱<br>
+  <span translate="MineralStick"></span><br>
+  &nbsp;&nbsp;<span translate="MineralStickToMoisturize"></span><br>
   
-  -모이스처스틱[보습용]<br>
-  &nbsp;&nbsp;각질없이 매끄럽고 부드러운 피부를 위한 모이스처 스틱<br>
+  <span translate="MoistureStick"></span><br>
+  &nbsp;&nbsp;<span translate="MoistureStickForSmooth"></span><br>
   
-  -오일스틱[오일]<br>
-  &nbsp;&nbsp;매끈한 피부결로 가꾸어주는 부드러운 마무리감의 오일 스틱<br>
+  <span translate="OilStick"></span><br>
+  &nbsp;&nbsp;<span translate="OilStickWith"></span><br>
   
-  -클렌징스틱[스크럽]<br>
-  &nbsp;&nbsp;스크럽 알갱이가 블랙헤드 및 노폐물을 녹여주는 클렌징 스틱<br>
+  <span translate="CleansingStick"></span><br>
+  &nbsp;&nbsp;<span translate="ScrubGrainsCleansingStick"></span><br>
   
-  -클렌징스틱[모공수렴]<br>
-  &nbsp;&nbsp;모공을 촘촘하고 산뜻한 피부로 가꿔주는 클렌징 스틱<br>
+  <span translate="PoreConvergence"></span><br>
+  &nbsp;&nbsp;<span translate="cleansingStickThatCleanses"></span><br>
   
   <br><br>
   
-  -용기 라벨 디자인<br>
-  &nbsp;&nbsp;심플하고 정면에서 보았을때 제품명이 눈에 확 띄게 표현<br>
-  &nbsp;&nbsp;용기 색상 - 하늘색<br>
-  &nbsp;&nbsp;용기 용량 - A:-50g[미네랄,모이스처,오일],B:-60g[클렌징]<br>
-  &nbsp;&nbsp;용기 크기 - 첨부파일 확인[용기라벨크기.ai]<br>
-  &nbsp;&nbsp;라벨 크기 - 첨부파일 확인[용기라벨크기.ai]<br>
-  &nbsp;&nbsp;앞면 - 영문 제품명, 슬로건, 제품을 잘 보여줄 수 있는 아이콘<br>&nbsp;&nbsp;색상 등<br>
-  &nbsp;&nbsp;뒷면 - 로고, 영문 제품명<br>
+  <span translate="ContainerLabelDesign"></span><br>
+  &nbsp;&nbsp;<span translate="productNameIsClearlyVisible"></span><br>
+  &nbsp;&nbsp;<span translate="ContainerColor"></span><br>
+  &nbsp;&nbsp;<span translate="ContainerCapacity"></span><br>
+  &nbsp;&nbsp;<span translate="ContainerSize"></span><br>
+  &nbsp;&nbsp;<span translate="LabelSize"></span><br>
+  &nbsp;&nbsp;<span translate="FrontEnglishName"></span><br>&nbsp;&nbsp;<span translate="ColorEtc"></span><br>
+  &nbsp;&nbsp;<span translate="BackLogo"></span><br>
   <br><br>
   
-  -패키지디자인<br>
-  &nbsp;&nbsp;창의적인 패키지, 사각패키지, 원형패키지, 투명패키지 등<br>&nbsp;&nbsp;자유로운 패키지디자인<br>
-  &nbsp;&nbsp;일러스트 패키지, 색상시리즈 등 첨부파일 확인(샘플.jpg)<br>
-  &nbsp;&nbsp;앞면 - 제품 로고, 제품명, 용량 필수<br>
-  &nbsp;&nbsp;뒷면 - 뒷면.xls<br>
-  &nbsp;&nbsp;사이트 - https://www.amazon.com/Nykaa-MATTE<br>
+  <span translate="PackageDesign"></span><br>
+  &nbsp;&nbsp;<span translate="CreativePackage"></span><br>&nbsp;&nbsp;<span translate="FreePackageDesign"></span><br>
+  &nbsp;&nbsp;<span translate="IllustrationPackage"></span><br>
+  &nbsp;&nbsp;<span translate="FrontProductLogo"></span><br>
+  &nbsp;&nbsp;<span translate="BackBack"></span><br>
+  &nbsp;&nbsp;<span translate="site"></span> - https://www.amazon.com/Nykaa-MATTE<br>
   <br><br>
   
-  ＊첨부한 PANTONE COLOR #211C는 제품별 포인트 컬러입니다.<br>
-  ＊좋은 아이디어가 있으면 컬러 변경도 가능합니다.<br>
+  <span translate="AttachedPANTONECOLOR"></span><br>
+  <span translate="canChangeTheColor"></span><br>
   
   
   
-  <b style="color:#087c99">[참고자료 / 유의사항]</b><br>
-  예시)참고사이트, 기타 유의사항 등<br><br>
-  -화장품 전문 디자이너를 찾고있습니다.<br>
-  -참고사이트 https://www.amazon.com/Nykaa-MATTE
+  <b style="color:#087c99"><span translate="ReferencesNotes"></span></b><br>
+  <span translate="ExampleReferenceSite"></span><br><br>
+  <span translate="CosmeticDesigner"></span><br>
+  <span translate="ReferenceSite"></span> https://www.amazon.com/Nykaa-MATTE
   <br><br>
   
   
