@@ -17,6 +17,8 @@ module.exports = function (app) {
     .get(contests.read)
     .put(contests.update)
     .delete(contests.delete);
+  // search contest through skills 
+  app.route('/api/searchContest/skills').post(contests.searchContestSkills);
   // this route use to search contest as a name and description
   app.route('/api/searchContest/:word').get(contests.searchWord);
   // count contest record to make pagination

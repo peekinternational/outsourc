@@ -174,6 +174,7 @@ angular.module('users').controller('AuthenticationController', ['$scope', '$root
           'password' : $scope.credentials.individual.password,
           'status' : $scope.status
         };
+        
 
       }
       if(userType==='company') {
