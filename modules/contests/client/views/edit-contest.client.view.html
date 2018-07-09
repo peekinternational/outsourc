@@ -1,7 +1,7 @@
 <div class="row project-backgroundimage5 hidden-xs">
 	<div class="container about-investor-title-setting">
 			<br>
-			<h3 class="investor-heading p-t-sm" style="font-size:20px;">콘테스트 편집 및 삭제</h3>
+			<h3 class="investor-heading p-t-sm" style="font-size:20px;" translate="EditAndDelete"></h3>
 			<h3 class="investor-para"> </h3>
 			<br><br>
 		</div>
@@ -11,17 +11,17 @@
 
 	<h3 class="text-info text-center">
 		<div>
-			콘테스트 편집 및 삭제 <br> <br>
+			<span translate="EditAndDelete"></span> <br> <br>
 			<button class="btn btn-md btn-info" ng-click="editContest();" ng-disabled="upgrade"> 
-				편집 
+				<span translate="Edit"></span>
 				<i class="fa fa-pencil-square-o" aria-hidden="true"></i>	
 			</button>
 			<button class="btn btn-md btn-warning" ng-click="deleteContest();"  ng-disabled="upgrade"> 
-				삭제 
+				<span translate="Delete"></span>
 				<i class="fa fa-trash" aria-hidden="true"></i>
 			</button>
 			<button class="btn btn-md btn-success" ng-click="upgradeContest(); upgrade = true"  ng-disabled="edit"> 
-				업그레이드 
+				<span translate="Upgrade"></span>
 				<i class="fa fa-line-chart" aria-hidden="true"></i>
 			</button>
 		</div> 
@@ -37,13 +37,13 @@
 
 		<div ng-if="!isLoading" class="col-md-offset-2 col-xs-12 col-md-8" style="border: 1px #5bc0de solid; border-radius: 1rem;padding: 2rem;">
 			<div class="form-group">
-				<h4>제목:
+				<h4><span translate="title"></span>:
 					<span ng-show="!editName" ng-click="editName = true" style="word-break: break-word">{{thisContest.name}}</span> 
 					<input type="text" ng-model="thisContest.name" ng-show="editName" class="form-control">
 				</h4>
 			</div>
 			<div class="form-group">
-				<b>내용:</b>
+				<b translate="Contents">:</b>
 				<!-- <span ng-show="!editDesc" ng-click="editDesc = true" class="prjct-list-font" style="white-space: pre-line; word-wrap: break-word;">{{thisContest.description}}</span> 
 				<textarea ng-model="thisContest.description"  ng-show="editDesc" class="form-control"></textarea> -->
 
@@ -53,17 +53,17 @@
 				
 			</div>
 			<div class="form-group">
-				<b>기간</b>: {{thisContest.dayContest}}일
+				<b translate="term"></b>: {{thisContest.dayContest}}일
 			</div>
 			<div class="form-group">
-				<b>지급통화</b>: {{thisContest.currency.code}}
+				<b translate="Currency"></b>: {{thisContest.currency.code}}
 			</div>
 			<div class="form-group">
-				<b>전문기술:</b> <p style="display:inline;" ng-repeat="skill in thisContest.skills"> <span  class="label label-info m-l-xs m-r-xs" style="word-break: break-word"> {{skill.name}}&nbsp;	</span></p> 
+				<b translate="ExpertiesSkills"></b>: <p style="display:inline;" ng-repeat="skill in thisContest.skills"> <span  class="label label-info m-l-xs m-r-xs" style="word-break: break-word"> {{skill.name}}&nbsp;	</span></p> 
 			</div>
 			
 			<div>
-				<b>지원자 수:</b> {{thisContest.entries.length}}
+				<b translate="Applicants">:</b> {{thisContest.entries.length}}
 			</div>
 
 			<br>
@@ -83,7 +83,7 @@
 		<div class="col-md-offset-2 col-md-8 col-xs-12">
 			
 			<div class=" profile_container bordortop_styling p-l-sm p-r-lg">            
-			  <h3 class="h3-mobile-font"> <strong>콘테스트 업그레이드</strong></h3>
+			  <h3 class="h3-mobile-font"> <strong translate="upgradingContest"></strong></h3>
 			  <hr>
 			  <div class="upRow">
 			    <br class="hidden-xs">
@@ -102,11 +102,11 @@
 			      <!-- End -->
 			    <div class="col-xs-12 col-md-8 p-l-none p-ml-md prjct-list-font p-mt-sm">
 			        
-					<h3 class="title">채팅이용은 프로젝트의 높은 성공의 지표입니다. 등록건별 무제한 채팅이용!</h3>
-					  <p>등록건별로 콘테스트가 완성될때까지 언제 어디서나 무제한 채팅이용할 수 있으며 등록이 다를경우 별도 구매 해야합니다. &nbsp;&nbsp;<span ng-click="chat = !chat" style="font-size:10px;padding-left:20px;background:#6b0816;border-radius: 3px;padding:5px;color:#fff;cursor: pointer; cursor: hand;">주의▶</span></p>
+					<h3 class="title" translate="chatHeading"></h3>
+					  <p><span translate="YouCanUseUnlimitedChat"></span> &nbsp;&nbsp;<span ng-click="chat = !chat" style="font-size:10px;padding-left:20px;background:#6b0816;border-radius: 3px;padding:5px;color:#fff;cursor: pointer; cursor: hand;" translate="caution"></span></p>
 					<span ng-show="chat">
-					  <p><span style="color:#920923">[보안과 안전성을 이유로 반드시 구글크롬을 이용해야 합니다.]</span></p>
-		              <p>아웃소싱오케이 실시간채팅 서비스는 의뢰인과 함께 콘테스트 공개 포럼을 거쳐 채팅으로 상담한&nbsp;&nbsp; 1차합격자 프리랜서(의뢰인이 선택한 프리랜서를 칭함)들로부터 콘테스트 시작부터 완료까지 전체 과정을 실시간회의를 거쳐 수상자를 선정 할 수 있습니다. 채팅 서비스 이용 구매시 1:1 화상채팅은 무료로 이용할 수 있습니다.</p>
+					  <p><span style="color:#920923" translate="YouMustUseGoogleChrome"></span></p>
+		              <p translate="OutsourcingOkayLivChatService"></p>
 					  <p>무료로 제공하는 1:1 화상 채팅은 프리랜서들과 화상회의가 언제든지 가능하며 안전하게 거래 할 수 있습니다. 대면 미팅을 원할경우 아웃소싱본사 회의실에서 원하는 시간에 맞춰서 대면미팅을 하실 수 있습니다.</p>
 		              <p>여러 프리랜서들과 실시간 채팅으로 더 많은 아이디어를 얻을 수 있는 기회가 되며 분쟁이 발생하기 전에 저장된 문자 채팅의 기록물로 양당사자간에 문제를 사전에 예방 할 수 있으며 분쟁을 쉽게 해결 할 수 있습니다.</p>
 			  
