@@ -3,10 +3,31 @@
 // Projects controller
 var app = angular.module('projects');
 
-app.controller('ProjectsController', ['$scope', '$rootScope', '$filter', 'Socket', 'Notification', '$state', 'toastr', '$stateParams', '$location', '$http', '$timeout', '$window', 'Authentication', 'Projects', 'geolocation', 'FileUploader', 'UniversalData', 'Account', 'Transactions', 'SweetAlert', 'Conversation', 'usSpinnerService', 'uuid2', 'Notifications', 'ProjectFeed', 'Categories', 'SubCategories', 'Skills', 'Contests',
-  function ($scope, $rootScope, $filter, Socket, Notification, $state, toastr, $stateParams, $location, $http, $timeout, $window, Authentication, Projects, geolocation, FileUploader, UniversalData, Account, Transactions, SweetAlert, Conversation, usSpinnerService, uuid2, Notifications, ProjectFeed, Categories, SubCategories, Skills, Contests){
+app.controller('ProjectsController', ['$scope', '$interval', '$rootScope', '$filter', 'Socket', 'Notification', '$state', 'toastr', '$stateParams', '$location', '$http', '$timeout', '$window', 'Authentication', 'Projects', 'geolocation', 'FileUploader', 'UniversalData', 'Account', 'Transactions', 'SweetAlert', 'Conversation', 'usSpinnerService', 'uuid2', 'Notifications', 'ProjectFeed', 'Categories', 'SubCategories', 'Skills', 'Contests',
+  function ($scope, $interval, $rootScope, $filter, Socket, Notification, $state, toastr, $stateParams, $location, $http, $timeout, $window, Authentication, Projects, geolocation, FileUploader, UniversalData, Account, Transactions, SweetAlert, Conversation, usSpinnerService, uuid2, Notifications, ProjectFeed, Categories, SubCategories, Skills, Contests){
     
-
+    $scope.createFunction = function (input) {
+      // format the option and return it
+      var name = {
+        description:input,
+        name:input,
+        id:""
+      }
+      return name;
+    };
+    $scope.skillChange = function(newValue, oldValue){
+      //console.log(newValue);
+      
+    };
+    $scope.remoteConfig = {
+      url: "/api/searchSkills",
+      cache: true,
+      transformResponse: function (data) {
+        var skills = angular.fromJson(data);
+        return skills
+        
+      }
+    };
     var checkAgreement = {
       userId:Authentication.user._id,
       projectId:$stateParams.projectId
@@ -525,11 +546,30 @@ app.controller('ProjectsController', ['$scope', '$rootScope', '$filter', 'Socket
     $scope.showArbButtonTab2 = false;
     $scope.showArbButtonTab3 = false;
     $scope.currentUserId = $scope.authentication.user._id.toString();
+    $scope.box = false;
+    var arr = [];
+    $scope.assign = function(num){
+      if(num == false){
+        $scope.box = false;
+      }else{
+        /*arr.push(num);
+        $scope.project.skills = arr;*/
+        $scope.project.skills.push(num);
+        $scope.box = false;
+      }
+      
 
+    }
+  
     // Get categories/sucat and skills
     var getCatSubcat = function(){
-      Skills.find({}, function(res){
+
+      /*Skills.find({}, function(res){
+        console.log(res);
         $scope.allProjectSkills = res;
+      });*/
+      $http.get("/api/getskills").then(function(response) {
+        $scope.allProjectSkills = response.data;
       });
 
       Categories.find({}, function(res){
@@ -541,6 +581,18 @@ app.controller('ProjectsController', ['$scope', '$rootScope', '$filter', 'Socket
       });
     };
     getCatSubcat();
+    
+    $scope.loadMore = function() {
+      var skip = $scope.allProjectSkills.length;
+      $http.get("/api/getskills/"+skip).then(function(response) {
+          //console.log(response.data);
+          //$scope.allProjectSkills = response.data;
+          for(var i = 1; i <= 100; i++) {
+            $scope.allProjectSkills.push(response.data[i]);
+          }
+          });
+      
+    };
     
     // On Change of Cateogries
     $scope.selectCat = function(){
@@ -578,6 +630,7 @@ app.controller('ProjectsController', ['$scope', '$rootScope', '$filter', 'Socket
           return;
 
         $scope.allProjectSkills.forEach(function(value1, key1){
+
           $scope.project.subcat.skills.forEach(function(value2, key2){
             if( angular.equals(value1.id, value2)){
               $scope.projSkills.push(value1);
@@ -981,7 +1034,8 @@ app.controller('ProjectsController', ['$scope', '$rootScope', '$filter', 'Socket
         }
       });
     });
-
+    
+   
     /** Create new Project*/ 
     $scope.create = function (isValid) {
       $scope.error = null;
@@ -1077,10 +1131,10 @@ app.controller('ProjectsController', ['$scope', '$rootScope', '$filter', 'Socket
 
               var convertedAmount;
               if($scope.project.currency.code === 'USD'){
-                console.log('usd');
+                //console.log('usd');
                 convertedAmount = $rootScope.userAccountBalance.accountBalance.USD +  ($rootScope.userAccountBalance.accountBalance.KRW/$rootScope.latestCurrencyRate.KRW);
               }else if($scope.project.currency.code === 'KRW'){
-                console.log('krw');
+                //console.log('krw');
                 convertedAmount =  $rootScope.userAccountBalance.accountBalance.KRW + ($rootScope.userAccountBalance.accountBalance.USD*$rootScope.latestCurrencyRate.KRW);
               }
 
@@ -1130,7 +1184,7 @@ app.controller('ProjectsController', ['$scope', '$rootScope', '$filter', 'Socket
             // project.fileName = fileItem.file.name;
             project.fileLink = uploadedFileLink;
             project.fileName = uploadedFileName;
-            console.log('file uploaded');
+            //console.log('file uploaded');
             $scope.isLoading = true;
             project.$save(function (response) {
               
@@ -1436,7 +1490,7 @@ app.controller('ProjectsController', ['$scope', '$rootScope', '$filter', 'Socket
         }).then(function (response) {
           // success 
           $scope.project = response.data;
-          console.log('$scope.project 2 ',$scope.project);
+          //console.log('$scope.project 2 ',$scope.project);
           $timeout(function () {
             $scope.findAvgBid();
           }, 100);
@@ -1491,7 +1545,7 @@ app.controller('ProjectsController', ['$scope', '$rootScope', '$filter', 'Socket
           $scope.milstoneTotal = $scope.yourBid;
           $scope.totalBidAmount = parseInt($scope.yourBid);
           $scope.project = response.data.project;
-          console.log('$scope.project 3 ',$scope.project);
+          //console.log('$scope.project 3 ',$scope.project);
           $scope.authentication.user = response.data.user;
           $timeout(function () {
             $scope.findAvgBid();
@@ -1584,7 +1638,7 @@ app.controller('ProjectsController', ['$scope', '$rootScope', '$filter', 'Socket
         data: obj
       }).then(function (response) { 
         $scope.project = response.data;
-        console.log('$scope.project 4 ',$scope.project);
+        //console.log('$scope.project 4 ',$scope.project);
         $timeout(function() {
           usSpinnerService.stop('feedbackLoader');
           $location.path('/thankyou');
@@ -1626,7 +1680,7 @@ app.controller('ProjectsController', ['$scope', '$rootScope', '$filter', 'Socket
       }).then(function (response) {
         $scope.isLoading = false; 
         $scope.project = response.data;
-        console.log('$scope.project 5 ',$scope.project); 
+        //console.log('$scope.project 5 ',$scope.project); 
       }, function (response) {
         $scope.isLoading = false;
       });
@@ -1648,7 +1702,7 @@ app.controller('ProjectsController', ['$scope', '$rootScope', '$filter', 'Socket
         data: object
       }).then(function (response) { 
         $scope.project = response.data;
-        console.log('$scope.project 6 ',$scope.project);
+        //console.log('$scope.project 6 ',$scope.project);
         $scope.project.bids = response.data.bids;
 
         // Notify the user
@@ -1688,7 +1742,7 @@ app.controller('ProjectsController', ['$scope', '$rootScope', '$filter', 'Socket
         data: object
       }).then(function (response) {
         $scope.project = response.data;
-        console.log('$scope.project 7 ',$scope.project);
+        //console.log('$scope.project 7 ',$scope.project);
         $scope.project.bids = response.data.bids;
 
         // Notify the user
@@ -3968,7 +4022,7 @@ app.controller('ProjectsController', ['$scope', '$rootScope', '$filter', 'Socket
                   'detail': 'Disputed project'
                 }
               }, function (tranSucc) {
-                //console.log('wah g wah');
+                
                 $scope.dispute = $scope.project.dispute;
                 $scope.dispute.tab = 3;
                 $scope.dispute.tab2ArbitrationCreatedDate = Date.now();
@@ -3997,10 +4051,10 @@ app.controller('ProjectsController', ['$scope', '$rootScope', '$filter', 'Socket
                 
 
               }, function(err){
-                //console.log('ahhhhhhhhh');
+                
               });
             }, function(err){
-                //console.log('ohhh no');
+               
             });
             
           } else {

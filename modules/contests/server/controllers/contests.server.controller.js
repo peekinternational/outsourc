@@ -17,7 +17,17 @@ var fs = require('fs');
 /*
   Send Email
   */
+  exports.searchSkills = function(req,res){
+  
+  var q = Skills.find({name:new RegExp(req.query.text, 'i')}).limit(100);
+  q.exec(function(err,data){
+    res.json(data);
+  });
+  /*Skills.find({name:new RegExp(req.query.text, 'i')}, function (err, data) {
+    res.json(data);
 
+  });*/
+}
   var emailSending = function (objs, receiverEmail, message, req, res) {
 
 
@@ -127,7 +137,29 @@ var fs = require('fs');
   // }); 
 
 };
+  // dynamic pagination get page data 
+exports.dynamicPagination = function(req,res){
+  var skip = parseInt(req.params.size) * (parseInt(req.params.page) -1);
+  var size = parseInt(req.params.size);
+  Contest.find({}).skip(skip).limit(size).sort('-created').populate('user', 'displayName').exec(function(err,data){
+    if(err) throw err;
+    res.json(data);
+  })
+  
+}
+// count all contest record to make pagination
+exports.countContestRecord = function(req,res){
+  Contest.count({},function(err,count) {
+    res.json(count);
+  } )
+}
+// search contest through name and descrioption
+exports.searchWord = function(req,res){
+  Contest.find({$or:[{name:new RegExp(req.params.word, 'i')},{description:new RegExp(req.params.word, 'i')}]}, function (err, data) {
+    res.json(data);
 
+  });
+}
 
 /**
  * Create a contest
@@ -308,7 +340,7 @@ var fs = require('fs');
  * List of Contests
  */
  exports.list = function (req, res) {
-  Contest.find().sort('-created').populate('user', 'displayName').exec(function (err, contests) {
+  Contest.find().sort('-created').populate('user', 'displayName').limit(5).exec(function (err, contests) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)

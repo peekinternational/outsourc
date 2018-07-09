@@ -29,7 +29,9 @@ var ApplicationConfiguration = (function () {
   'ui-notification',
   'angularMoment',
   'pascalprecht.translate',
-  'textAngular'];
+  'textAngular',
+  'infinite-scroll',
+  ];
 
   // Add a new vertical module
   var registerModule = function (moduleName, dependencies) {

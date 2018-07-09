@@ -41,8 +41,78 @@ angular.module('contests').controller('ContestsController', ['$scope', '$rootSco
       // 1 USD = 1000 KRW
       $rootScope.latestCurrencyRate = { 'USD': 1, 'KRW': 1000 };
     };
-
-
+    // get first pagination page data 
+    $timeout(function() {
+      usSpinnerService.spin('contLoader');
+    }, 100);
+    $http({
+        method: 'GET',
+        url: '/contestRecord/'+5+'/'+1
+      }).then(function successCallback(response) {
+          $scope.filteredContests = response.data;
+          $timeout(function() {
+            usSpinnerService.stop('contLoader');
+          }, 50);
+        }, function errorCallback(response) {
+          alert('error in contest.client.controller.js line no 65')
+        });
+    
+    // count All contest to make pagination 
+    $http({
+        method: 'GET',
+        url: '/countContestRecord'
+      }).then(function successCallback(response) {
+          $scope.contestsLength = response.data;
+          
+        }, function errorCallback(response) {
+          alert('error in contest.client.controller.js line no 53')
+        });
+    
+    // get per page contest data dynamic on change in pagination
+    $scope.perpage = 5;
+    $scope.getpagedata = function(){
+      
+      if($scope.searchContest){
+       
+        console.log($scope.oldcontest);
+        var start = ($scope.currentPage - 1) * $scope.perpage;
+        var end = $scope.currentPage * $scope.perpage;
+        console.log(start);
+        console.log(end);
+        $scope.filteredContests = $scope.oldcontest.slice(start,end);
+        console.log($scope.filteredContests);
+      }else{
+        $http({
+        method: 'GET',
+        url: '/contestRecord/'+$scope.perpage+'/'+$scope.currentPage
+      }).then(function successCallback(response) {
+          $scope.filteredContests = response.data;
+          
+        }, function errorCallback(response) {
+          alert('error in contest.client.controller.js line no 65')
+        });
+      }
+      
+    }
+    // create new option for contest skills dropdown 
+    $scope.createFunction = function (input) {
+      // format the option and return it
+      var name = {
+        description:input,
+        name:input,
+        id:""
+      }
+      return name;
+    };
+    $scope.remoteConfig = {
+      url: "/api/searchSkills",
+      cache: true,
+      transformResponse: function (data) {
+        var skills = angular.fromJson(data);
+        return skills
+        
+      }
+    };
     // Add an event listener to the comment on entry
     Socket.on($stateParams.contestId+'contestComment', function (message) {
       if($scope.thisContest){
@@ -373,8 +443,11 @@ angular.module('contests').controller('ContestsController', ['$scope', '$rootSco
 
     // Get categories/sucat and skills
     var getCatSubcat = function(){
-      Skills.find({}, function(res){
+      /*Skills.find({}, function(res){
         $scope.allProjectSkills = res;
+      });*/
+      $http.get("/api/getskills").then(function(response) {
+        $scope.allProjectSkills = response.data;
       });
 
       Categories.find({}, function(res){
@@ -1144,7 +1217,7 @@ angular.module('contests').controller('ContestsController', ['$scope', '$rootSco
     };
 
     // Find a list of Contests
-    $scope.find = function () {
+  /*  $scope.find = function () {
       $timeout(function() {
         usSpinnerService.spin('contLoader');
       }, 100);
@@ -1159,7 +1232,7 @@ angular.module('contests').controller('ContestsController', ['$scope', '$rootSco
         var end = begin + $scope.numPerPage;
         $scope.filteredContests = $scope.contest.slice(begin, end);
         //end code for pagination
-        $scope.contestsLength = $scope.contest.length;
+        //$scope.contestsLength = $scope.contest.length;
         $timeout(function() {
           usSpinnerService.stop('contLoader');
         }, 50);
@@ -1170,7 +1243,7 @@ angular.module('contests').controller('ContestsController', ['$scope', '$rootSco
       }, 100);
       });
  
-    };
+    };*/
 
 
     // Post entry against contest
@@ -1384,14 +1457,14 @@ angular.module('contests').controller('ContestsController', ['$scope', '$rootSco
       $scope.yourBid = parseInt($scope.contestFee) + parseInt($scope.paidYours);
     };
 
-    $scope.$watch('currentPage + numPerPage', function() {
+   /* $scope.$watch('currentPage + numPerPage', function() {
       var begin = (($scope.currentPage - 1) * $scope.numPerPage);
       var end = begin + $scope.numPerPage;
     
       if($scope.promiseResolved) {
         $scope.filteredContests = $scope.contest.slice(begin, end);
       }
-    });
+    });*/
 
     $scope.maxSize = 5;
     $scope.numPerPage = 10;
@@ -1597,7 +1670,7 @@ angular.module('contests').controller('ContestsController', ['$scope', '$rootSco
       } 
     });
 
-    $scope.search = function (key) {
+    /*$scope.search = function (key) {
       if (key === 'byDescription') {
         if($scope.searchContest){
           $scope.contest = $scope.oldData;
@@ -1612,8 +1685,14 @@ angular.module('contests').controller('ContestsController', ['$scope', '$rootSco
         }
       }
       $scope.paginateSearchResults();
+    };*/
+    $scope.search = function (key) {
+      $http.get('/api/searchContest/'+$scope.searchContest).then(function(res){
+        $scope.contestsLength = res.data.length;
+        $scope.filteredContests = res.data;
+         $scope.oldcontest = res.data;
+      })
     };
-
     $scope.exportInvoice = false;
     $scope.InvoiceExportButton = function(buttonStatus){
       if(buttonStatus === false){

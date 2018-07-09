@@ -87,8 +87,8 @@ module.exports = {
         'public/lib/angular-spinner/dist/angular-spinner.min.js', 
         //Angular Audio
         'public/lib/angular-audio/app/angular.audio.js',    
-              
-        'https://cdn.rawgit.com/indrimuska/angular-selector/master/dist/angular-selector.js',
+        'public/lib/angular-selector/angular-selector.js',   
+        //'https://cdn.rawgit.com/indrimuska/angular-selector/master/dist/angular-selector.js',
         'https://cdnjs.cloudflare.com/ajax/libs/angular-ui-select/0.16.1/select.min.js',
         // 'https://cdnjs.cloudflare.com/ajax/libs/angular-sanitize/1.5.0/angular-sanitize.js',
 

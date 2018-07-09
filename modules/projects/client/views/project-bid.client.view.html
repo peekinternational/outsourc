@@ -319,10 +319,12 @@
             <hr> 
           </div>
 
-          <div>
+          <div class="col-md-4">
             <a ui-sref="projects.project-post" class="hidden-xs"> <button class="btn btn-lg btn-success pull-left" style="background:#5f5b56;border: 1px solid #5f5b56;"><span translate="PostProjectlikethis"></span></button> </a>
-            <p class="text-xs-center"><b class="pull-right"><span translate="mProject"></span></b> ID: {{project._id | limitTo: 10}}</b> </p> <br>
-            <p class="hidden-xs"><a ui-sref="about.contact" class="text-danger pull-right p-t-none"><span translate="ReportProject"></span></a></p>
+          </div>
+          <div class="col-md-8" align="Right">
+            <p><b><span translate="mProject"></span></b> ID: {{project._id | limitTo: 10}}</p> <br>
+            <p class="hidden-xs"><a ui-sref="about.contact" class="text-danger p-t-none"><span translate="ReportProject"></span></a></p>
           </div>
             <br class="hidden-xs"><br>
         </div>

@@ -1,10 +1,13 @@
 'use strict';
 
-angular.module('core').controller('FooterController', ['$scope', '$http', '$rootScope', 'SweetAlert', '$state', 'Authentication', 'logOutService', 'Account', 'toastr', 'ProjectSchema', 'UserSchema', 'ContestSchema',
-  function ($scope, $http, $rootScope, SweetAlert, $state, Authentication, logOutService , Account, toastr, ProjectSchema, UserSchema, ContestSchema) {
+angular.module('core').controller('FooterController', ['$translate', '$scope', '$http', '$rootScope', 'SweetAlert', '$state', 'Authentication', 'logOutService', 'Account', 'toastr', 'ProjectSchema', 'UserSchema', 'ContestSchema',
+  function ($translate, $scope, $http, $rootScope, SweetAlert, $state, Authentication, logOutService , Account, toastr, ProjectSchema, UserSchema, ContestSchema) {
 
     // Find total users registred
-    
+    $scope.changeLanguage = function () {
+      $translate.use($scope.lang);
+      console.log($scope.lang);
+    };
     UserSchema.find({}, function(suc){
       $rootScope.totalRegUsers = suc.length + 46000;
     }, function(err){

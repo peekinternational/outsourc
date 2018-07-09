@@ -17,7 +17,12 @@ module.exports = function (app) {
     .get(contests.read)
     .put(contests.update)
     .delete(contests.delete);
-
+  // this route use to search contest as a name and description
+  app.route('/api/searchContest/:word').get(contests.searchWord);
+  // count contest record to make pagination
+  app.route('/countContestRecord').get(contests.countContestRecord);
+  // contest dynamic pagination route
+  app.route('/contestRecord/:size/:page').get(contests.dynamicPagination);
   app.route('/api/contests/placeEntry/:contestId').put(contests.update);
   app.route('/api/contest/create').post(contests.create);
   app.route('/api/contest/makeThisWinner/').put(contests.makeThisWinnerServer);
