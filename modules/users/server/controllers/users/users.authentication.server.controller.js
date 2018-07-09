@@ -218,6 +218,7 @@ var sendEmail = function (receiverEmail, username, verifUrl, req, res) {
         });
       }
      if(!exist){
+
        // Then save the user
        user.save(function (err) {
          if (err) {
@@ -226,6 +227,7 @@ var sendEmail = function (receiverEmail, username, verifUrl, req, res) {
              user: req.body
            });
          } else {
+          
            // Remove sensitive data before login
            user.password = undefined;
            user.salt = undefined;

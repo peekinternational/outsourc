@@ -137,6 +137,13 @@ var fs = require('fs');
   // }); 
 
 };
+// search contest through skills
+exports.searchContestSkills = function(req,res){
+  Contest.find({$or:req.body}, function (err, data) {
+    if(err) throw err;
+    res.json(data);
+  });
+}
   // dynamic pagination get page data 
 exports.dynamicPagination = function(req,res){
   var skip = parseInt(req.params.size) * (parseInt(req.params.page) -1);

@@ -29,8 +29,45 @@ angular.module('contests').controller('ContestsController', ['$scope', '$rootSco
       { stateOn: 'glyphicon-heart' },
       { stateOff: 'glyphicon-off' }
     ];
-
-
+    // erver side search skills dropdown select values
+    $scope.remoteConfig = {
+      url: "/api/searchSkills",
+      cache: true,
+      transformResponse: function (data) {
+        var skills = angular.fromJson(data);
+        return skills
+        
+      }
+    };
+    /// search contest server side take value from select and send to server
+  $scope.log = function (newValue, oldValue) { 
+  
+    if (typeof newValue !== 'undefined' && newValue.length > 0) {
+        
+         /*make array of object to pass find or query*/
+        var array = [];
+        for (var i = 0;i < newValue.length; i++) {
+            array.push({
+             "skills.name": newValue[i].name
+            });
+        }
+        /*send http post request to get All data that matches the array*/
+        $http({
+          method: 'POST',
+          url: '/api/searchContest/skills',
+          data:array
+        }).then(function(res){
+          $scope.filteredContests = res.data;
+          $scope.oldSearchContests = res.data;
+          $scope.contestsLength = res.data.length;
+          
+        })
+      }else{
+        $scope.getFirstPageData();
+        $scope.countAllContests();
+        $scope.searchSkills =1;
+      } 
+    };
 
     // Currency rate is being hardcoded here instead of getting the latest rate
     // 1 USD = 1000 KRW
@@ -42,45 +79,52 @@ angular.module('contests').controller('ContestsController', ['$scope', '$rootSco
       $rootScope.latestCurrencyRate = { 'USD': 1, 'KRW': 1000 };
     };
     // get first pagination page data 
-    $timeout(function() {
-      usSpinnerService.spin('contLoader');
-    }, 100);
-    $http({
-        method: 'GET',
-        url: '/contestRecord/'+5+'/'+1
-      }).then(function successCallback(response) {
-          $scope.filteredContests = response.data;
-          $timeout(function() {
-            usSpinnerService.stop('contLoader');
-          }, 50);
-        }, function errorCallback(response) {
-          alert('error in contest.client.controller.js line no 65')
-        });
+    $scope.getFirstPageData = function(){
+      $timeout(function() {
+        usSpinnerService.spin('contLoader');
+      }, 100);
+      $http({
+          method: 'GET',
+          url: '/contestRecord/'+5+'/'+1
+        }).then(function successCallback(response) {
+            $scope.filteredContests = response.data;
+            $timeout(function() {
+              usSpinnerService.stop('contLoader');
+            }, 50);
+          }, function errorCallback(response) {
+            alert('error in contest.client.controller.js line no 65')
+          });
+    }
     
+    $scope.getFirstPageData();
     // count All contest to make pagination 
-    $http({
-        method: 'GET',
-        url: '/countContestRecord'
-      }).then(function successCallback(response) {
-          $scope.contestsLength = response.data;
-          
-        }, function errorCallback(response) {
-          alert('error in contest.client.controller.js line no 53')
-        });
+    $scope.countAllContests = function(){
+      $http({
+          method: 'GET',
+          url: '/countContestRecord'
+        }).then(function successCallback(response) {
+            $scope.contestsLength = response.data;
+          }, function errorCallback(response) {
+            alert('error in contest.client.controller.js line no 53')
+          });
+    }
+    $scope.countAllContests();
+    $scope.custompagination = function(array){
+      var start = ($scope.currentPage - 1) * $scope.perpage;
+      var end = $scope.currentPage * $scope.perpage;
+       return array.slice(start,end);
+    }
     
     // get per page contest data dynamic on change in pagination
     $scope.perpage = 5;
     $scope.getpagedata = function(){
       
       if($scope.searchContest){
-       
-        console.log($scope.oldcontest);
-        var start = ($scope.currentPage - 1) * $scope.perpage;
-        var end = $scope.currentPage * $scope.perpage;
-        console.log(start);
-        console.log(end);
-        $scope.filteredContests = $scope.oldcontest.slice(start,end);
-        console.log($scope.filteredContests);
+        console.log('contest');
+        $scope.filteredContests = $scope.custompagination($scope.oldcontest);
+      }else if($scope.searchSkills != 'undefined' && $scope.searchSkills != '' && $scope.searchSkills.length > 0){
+        console.log($scope.searchSkills);
+        $scope.filteredContests = $scope.custompagination($scope.oldSearchContests);
       }else{
         $http({
         method: 'GET',
@@ -1687,11 +1731,18 @@ angular.module('contests').controller('ContestsController', ['$scope', '$rootSco
       $scope.paginateSearchResults();
     };*/
     $scope.search = function (key) {
-      $http.get('/api/searchContest/'+$scope.searchContest).then(function(res){
-        $scope.contestsLength = res.data.length;
-        $scope.filteredContests = res.data;
-         $scope.oldcontest = res.data;
-      })
+      if($scope.searchContest == ''){
+        $scope.getFirstPageData();
+        $scope.countAllContests();
+        $scope.currentPage = 1;
+      }else{
+        $http.get('/api/searchContest/'+$scope.searchContest).then(function(res){
+          $scope.contestsLength = res.data.length;
+          
+          $scope.filteredContests = res.data;
+           $scope.oldcontest = res.data;
+        })
+      }
     };
     $scope.exportInvoice = false;
     $scope.InvoiceExportButton = function(buttonStatus){
