@@ -1,5 +1,5 @@
 
-{  
+{
     "outsourcingOkLoading": "OutsourcingOk Loading",
     "Bid": "Applicants",
     "bidamount": "Average support / bid amount",
@@ -60,7 +60,7 @@
     "setting": "Setting",
     "logout": "Logout",
     "chatBox": "My Chat Box",
-  
+
     "loginOutSourcing": "Login to OutSourcingOk",
     "userNameRequired": "Username is required",
     "passwordRequired": "Password is required",
@@ -68,7 +68,7 @@
     "dontAccount": "Dont have an account",
     "alreadyAccount": "Already have a account",
     "optmizeGoogle": "Outsourcing OK is optimized for Google Chrome",
-    
+
     "signupForFreeAccount": "Sign Up for your FREE account",
     "signupOutSourcing": "Sign Up to OutSourcingOk",
     "companyName": "Company name is required",
@@ -84,7 +84,7 @@
     "or": "or",
     "firstName": "First name is required",
     "lastName": "Last name is required",
-  
+
     "startFreeProject": "Start free project registration",
     "RequiredItemsMustFilloutInTheOrderProject": "are the required items, and you must fill out the order in the order listed below to be free to register for the project!",
     "projectType": "Please select a project type",
@@ -151,9 +151,9 @@
     "applicantsSelectedByTheClient": "In OutsourcingOk real-time video chat with clients chosen by the applicants through public forums to get the best results",
     "selectedFreelancerAndClientCanSaveTime": "The selected freelancer and client can save time, money, and results more than expected with real-time 1: 2 video chatting.",
     "securityAndSecurityReasonsVideoChatMustUseGoogleChrome": "For security and security reasons, video chat must use Google Chrome. Use of Internet Explorer (IE) may be restricted.",
-    
+
     "BrowsebyCategory": "Browse by Category",
-    
+
     "projectList": "Project List",
     "LookingForProjects": "Looking for Projects",
     "mySkills": "My Skills",
@@ -169,7 +169,7 @@
     "projectCompleted": "Completed",
     "gaurantee": "Gaurantee",
     "featured": "Featured",
-    
+
     "MyDashboard": "My Dashboard",
     "WebsiteInformationSoftware": "Web siteㆍInformationㆍSoftware",
     "MobilephoneComputing": "Mobile phoneㆍComputing",
@@ -195,7 +195,7 @@
     "choromeExtensionParagraph": "It works as a live video chat using a Google Chrome browser for the best communication among members. Currently, when using video chat in Internet Explorer (IE), it is not possible to use video chat, but you can use chat but it is a bit inconvenient. We strongly recommend you to use Google Chrome to protect your valuable property. If you download Google Chrome from IE (Internet Explorer), you can click on the chrome icon on your desktop to use the live video chat.",
     "bidsLeft": "Bids Left",
     "GetmoreBids": "Get more bids",
-    
+
     "IfYouDoNotCreateYourProfile": "If you do not create your profile, it will not appear on the freelance list.",
     "CreateProfile": "Create Profile",
     "YouHave": "You have Bidded on",
@@ -210,7 +210,7 @@
     "AfterCompletingTheWork": "After completing the work and requesting the project fee after the approval of the client, the amount deposited by the client will be paid and payment will be made to the member within 24 hours.",
     "hasAccepted": "has accepted",
     "WithTheProjectDeposit": "With the project deposit, client deposit settlement is automatically created and the work progresses with peace of mind. If you receive a payment request from a freelancer and you approve the deposit, the payment will be made and the freelancer will be paid within 24 hours.",
-    
+
 
     "MyProjectContest": "My Project & Contest",
     "My": "My",
@@ -219,7 +219,7 @@
     "BID": "BIDS",
     "AVGBIDS": "AVG BIDS",
     "BIDENDDATE": "BID END DATE",
-    "PROJECTName": "PROJECT NAME",
+      "PROJECTName": "PROJECT NAME",
     "ACTION": "ACTION",
     "prev": "« Prev",
     "next": "Next »",
@@ -273,7 +273,7 @@
     "PrizeMoneyOver100Million" : "[Inquiry for OutsourcingOk contest prize money over 100 million won]",
     "ConatestPeriod": "Contest period",
     "IfWinnerNotSelected": "If the winner is not selected within 7 days of the deadline for the contest, the applicant will be paid 1 / n.",
-    "OutsourcingOkService":"OutsourcingOk service [optional]", 
+    "OutsourcingOkService":"OutsourcingOk service [optional]",
     "NoteOutsourcingOk": "Note: When using OutsourcingOk service, you will not be charged cancellation or refund for each registration fee.",
     "UsingChat": "Using chat is an indicator of the high success of the project. Unlimited chat with registered users!",
     "UnlimitedChatBuyChat": "You can use unlimited chat anytime and anywhere until the contest is complete by registration. If the contest registration is different, you have to purchase separately.",
@@ -313,7 +313,7 @@
     "ViewDetails": "View Details",
     "Upgrade":"Upgrade",
     "Loading": "Loading...",
-    "Quotation" : "Quotation ㆍ You ", 
+    "Quotation" : "Quotation ㆍ You ",
     "CheckWork" : "can check the work in ",
     "RealTime": "Real Time",
     "VideoChat" : "through video chat.",
@@ -339,7 +339,7 @@
     "RegisterShowcase": "Register Showcase",
 
     "UploadCoverPicture": "Upload Profile Picture",
-   
+
     "Cancel":"Cancel",
     "CompletionRate": "Jobs Completed",
     "Budget": "Budget",
@@ -547,13 +547,13 @@
     "satisfied":"Release them only if you are 100% satisfied.",
     "notawardedproject":"You have not awarded this project to anyone.",
     "nodirectmoney":"Please note that if you request a direct money transfer from a freelancer to avoid a fee, the client is at a considerable risk.",
-    
+
     "LeaveFeedBack":"Leave FeedBack",
     "PleaseLeaveFeedback": "Please leave feedback and rate project.",
     "Negative":"Negative",
     "Positive":"Positive",
     "Professionalism":"Professionalism",
-    "Communication": "Communication",
+    "Communication4": "4.Communication",
     "PaymentPromptness": "Payment Promptness",
     "ClarityInSpecification": "Clarity in Specification",
     "WouldYouWorkForTheAmployerAgain": "Would you work for the employer again?",
@@ -582,15 +582,15 @@
     "ProjectSubCategory":"Project Sub Category",
     "ProjectCurrency":"Project Currency",
     "IncreaseTheBids":"Upgrading your project will help you to increase the bids you get or the features that you have available",
-   
+
     "Possible":"It's possible",
-    "RegisterAsFreeContest":"Register as a free contest",   
+    "RegisterAsFreeContest":"Register as a free contest",
     "SelecttheWinner":"After the contest is held, hundreds of applicants / freelancers submits the proposal to the client and then selects the winner.",
     "RecommendyourProject":"We will recommend your project as free registration for the contest.",
     "Options":"[options]",
     "MinimumSpendingBudget":"Minimum spending budget",
     "MaximumSpendingBudget":"Maximum spending budget",
-    "VideoCannnotbeSaved":"Video (video) is a feature that can not be saved. If there is a problem related to this, outsourcing OK is not responsible for anything and is only optimized for use with Google Chrome for safety. If you use IE (Internet Explorer) may be restricted.",   
+    "VideoCannnotbeSaved":"Video (video) is a feature that can not be saved. If there is a problem related to this, outsourcing OK is not responsible for anything and is only optimized for use with Google Chrome for safety. If you use IE (Internet Explorer) may be restricted.",
     "InconvenientForMobileVideo":"It is optimized for the desktop and may be inconvenient when using mobile video.",
     "UnlimitedUseAnyTimebyRegistration":"In case of using chat, you can use unlimited use at any time by registration (per case) from 5,000 KRW (excluding VAT) for video chatting from the beginning to the end of the contest. Purchase of chat is free until the end of the term.",
     "ContestFreeRegistration":"Contest Free Registration",
@@ -805,7 +805,7 @@
     "Address": "Address",
     "AddressRequired": "Address is required",
     "City": "City",
-    "InputCityName": "Please input city name",    
+    "InputCityName": "Please input city name",
     "zipCode": "Zip Code",
     "zipCodeRequired": "Zip Code is required",
     "FName": "First Name",
@@ -1156,7 +1156,7 @@
     "Service11":"(11) \"The client shall be obliged to comply with the obligation\" to hold the contest \"as follows:\" The client, who has registered for the \"Contest Hold\" separately from the \"Membership Obligations\" from Article 9 (1) To",
     "ClientNotRequire":"\"Client\" does not require the transmission of the original file by any other means than through the \"Company\" to the specific \"freelancer\" that you have supported.",
     "Service12":"(12) \"The client shall be entitled to\" winners \"after 14 days without prior announcement or announcement of the contest held by the\" client \"separately from the\" obligations of the member \"from Article 9 (1) to (9) \"Is not selected by\" Client \":",
-    
+
     "NoRefundForPrize":"No refund can be given if \"client\" applies for \"prize money\". Up to 5 applicants of the contest applicants will be selected from among the first applicants (the applicants who have chatted with the \"client\" in the MY video chat box The maximum number of candidates selected from among the candidates for the \"Contest holding\" (ie, the first passer who has chatted with the \"client\" in the MY video chat box) will receive 90% of the prize money equal to 1 / n You must be notified of up to five \"freelancer\" applicants who have been selected and paid to the \"Company\" by e-mail within 7 days. If not informed, it will be paid equally to 1 / n to all \"freelancers\" who support. However, you can get a 90% refund if you have zero freelancers.",
     "ContestNonRefund":"The \"Contest Hold\" is non-refundable and can not be used by any \"Design Contest\" registered by the Client.",
     "FreelancerMustTransferOriginalFile":"When the \"freelancer\" awarded to the \"Contest\" is selected as the winner, the freelancer must transfer the original file of the winning work to the \"client\" in the manner specified by the \"company\" after agreeing to transfer the copyright to the \"client\". Details of the transfer of copyrights are set forth in Articles 25 and 26 (1), (2).",
@@ -1164,31 +1164,14 @@
     "":"",
     "":"",
     "":"",
-    "Service13":"",
+    "Service13":"(13) \"Freelancer\" has the duty of \"freelancer\" who has applied for \"holding contest\" separately from \"obligations of members\" from Article 9 (1) to (9).",
     "NoReqBeyondCompany":"\"Client\" does not require a freelancer to support any other requirements or conditions beyond the terms of the \"Company\" in relation to the holding of the Contest.",
     "ObligationToDetermine":"\"Client\" has an obligation to determine whether or not the design and ideas are violated before the final winner is selected. \"Company\" has no obligation to inspect or censor all posts, and is not responsible for any damages arising after the transfer of copyrights.",
     "WithIn7Days":"All \"Contests held\" must be selected from among the \"Freelancers\" supported by the winners within seven days of the registration deadline. If inevitable circumstances (such as internal review period, absence of sponsor, etc.) are not possible to select a winner within the agreed period, the date of announcement of the winner must be notified to \"Company\" by e-mail (admin@outsourcingok.com).",
-    "":"",
-    "":"",
-    "":"",
-    "":"",
-    "":"",
-    "":"",
-    "":"",
-    "":"",
-    "":"",
-    "":"",
-    "":"",
-    "":"",
-    "":"",
-    "":"",
-    "":"",
-    
+
+
     "Art26":"Article 26 (Intellectual Property Rights)",
-    "":"",
-    "":"",
-    "":"",
-    "":"",
+
     "Art27":"Article 27 Deposit Insurance System Service",
     "ProjPay":"\"Project\" payment of \"client\"",
     "PayP1":"(1) Separately from Article 27 (1), payment shall be made pursuant to the following items:",
@@ -1218,10 +1201,7 @@
     "RefundPolicyClient":"Refund policy for \"client-related service recruitment\" of \"client\"",
     "PaymentLivingRelated":"\"Freelance\" payment of \"living related service recruitment\"",
     "WithIn24AfterApproval":"(1) Payment will be made within 24 hours after approval of \"client-related service recruitment\" of \"client\".",
-    "":"",
-    "":"",
-    "":"",
-    "":"",
+
     "ClientAppliedForHostingContest":"\"Client\" registered in \"Contest holding\" separately from Article 26 (1) and \"Prince Lancer\" applied for hosting contest shall follow the following subparagraphs.",
     "Art28":"Article 28 (Disclosure of Status of Payment)",
     "MemberServiceContract":"A member who has entered into a service contract between a \"company\" and a \"member\" can check the status of payment, deposit, payment, etc. in the \"member\" escrow financial statement in the \"company\" site. \"Company\" shall apply the changed status within one (1) maximum day if the status of the payment changes.",
@@ -1265,7 +1245,7 @@
     "messageSuccessfully":"Thank you. Your message was successfully sent.",
     "weWillRespond":"We will respond quickly.",
     "MembershipInquiries":"Membership inquiries and investment alliances",
-    
+
 
 
 
@@ -1304,7 +1284,7 @@
     "SearchForFreelancers": "Search for freelancers to propose support for the project, and after the project has been completed, clients will be paid directly to freelancers through a deposit settlement system.",
     "serviceCenter": "service center",
     "InvestmentAlliance": "Investment Alliance",
-    
+
 
     "YouCanRegister": "You can register projects in all fields!",
     "howToUseOutSourcing": "How to use outsourcingOK",
@@ -1361,8 +1341,6 @@
     "HowToChooseRight": "3. How to choose the right applicant",
     "HowToOperateClient": "4. How to operate the client escrow payment system",
 
-    "": "",
-
     "OutsourcingOKUsers":"OutsourcingOK Users",
     "UserRules":"User rules",
     "ParaUserRules":"Company (\"the Company\"), operated by Hakco Micronics Co., Ltd., is a natural obligation to carry out business in accordance with all applicable rules, regulations and laws in order to satisfy society's expectation of business. The \"Company\" seeks to fulfill its responsibilities to help all \"Members\" behave in a manner that maintains trust and respect. This \"User Policy\" is for the purpose of stipulating that the \"Company\" site must abide by the \"User Rules\" for the use of the \"Members\" without any problem. If this \"User Rules\" and policies and procedures are violated, And disciplinary action may be taken. If you have any inquiries regarding this \"User Policy\", please contact \"Company\" Information Liability Support Department at 02-2058-0137. The \"Company\" legal affairs support department may provide additional information on correct procedures and may resolve any questions that may arise. \"Member\" agrees to this \"User Policy\" and \"Company\" (\"Company\" and outsourcing, including //www.outsourcingok.com, which means all service platforms, including managed and operated websites and applications). Children under the age of 14 can never join the membership. Even if you join, forced member withdrawal will be done.",
@@ -1378,6 +1356,7 @@
     "MemberHarass":"  not harass or discriminate against all users. ",
     "MemberSafety":"  must respect the interests, rights and safety of their users. ",
     "MemberIndentity":" never forge my identity or any other identity, and must provide truthful and accurate information.",
+
 
 
     "UserContent":"User Content",
@@ -1417,23 +1396,23 @@
 
 
 
-    "ContestAndProjectSupp":"Contest and project support (bid) related",
+    "ContestAndProjectSupp":"5.Contest and project support (bid) related",
     "MembersShould":"Members should",
     "MembersLowSuppAvdComm":"not lower support (bid) amounts to avoid commissions.",
     "MembersDirectTransacAvoidFee" : "Members should not engage in direct transactions to avoid fees",
     "MembersParticipateProConLifeConven":"Members should never participate in any project, contest, or other life convenience service related to illegal behavior.",
 
 
-    "SpanAndAdvert":"Spam and advertising",
+    "SpanAndAdvert":"6.Spam and advertising",
     "MemberSpamAdver":"Members should never spam or advertise on the website.Members should not send unwanted spam emails from their email address book, group emails, etc.",
     "MemberSpamEmail":"Members should not send unwanted spam emails from their email address book, group emails, etc.",
 
 
-    "Confidentiality":"Confidentiality",
+    "Confidentiality":"7.Confidentiality",
     "MemberConfidentiality":"Members should keep confidentiality without revealing the project to others.",
     "MemberDiscloseInfo":"Members shall not disclose any information or documents that they acquire, unless authorized by law.",
 
-    "ContactUs":"Contact Us",
+    "ContactUs8":"8.Contact Us",
     "MemberNotReqInfo":"Members should not request personal contact information from other freelance users, but only through the official website feature.",
     "MemberFacetofaceMeet":"If a member requests a face-to-face meeting with another user, the meeting place must not meet in a place other than the meeting room of Outking Oky Corporation.",
 
@@ -1519,7 +1498,7 @@
     "ConfirmDownload":"If you send the file more than once, you will need to confirm the download to your client and send the next file.",
     "FilName":"File name",
     "Size":"Size",
-    "Cancel":"cancel",
+
     "SemdFile":"Send file",
     "InstructionSequence":"Contest winner original file and instruction sequence",
     "SuccessfullySent.":"The original file was successfully sent.",
@@ -1527,7 +1506,7 @@
     "DocCheck":"Winner original files and documentation check",
     "ConfirmWinner":"Confirm the winner's original file",
     "Applicants":"Applicants",
-    "Progress":"Progress",
+
 
 
     "FundDetail":"Fund details",
@@ -1561,12 +1540,8 @@
     "Released" :"Released",
     "ThereAreNoDeposit" :"There are no deposit and withdrawal details",
     "ApplicantFreelancer" :"Applicant / freelancer",
-    "" :"",
-    "" :"",
 
-
-
-
+    "RelatedSitePolicies" :"Related Site Policies",
 
     "RegistrationOfContest": "Registration of contest support",
     "deadline":"Deadline",
@@ -1689,13 +1664,172 @@
     "Interpretation": "Interpretation / translation",
     "SearchProjects": "Search projects by categories",
     "NumberOfBids": "If the number of bids is more than 300, you can add 50 additional bids by purchasing 2,000 won (additional tax).",
-    "": "",
-    "": "",
-    "": "",
-    "": "",
-    "": "",
-    "": "",
-    "": ""
+    "EscrowFundStat": "Escrow Fund Status",
+    "MoneyManagement": "Money management",
+    "Escrow": "Escrow",
+    "ReqMoney": "Request payment",
+    "StatementFund": "Statement of Fund",
+    " EscrowPayment": "Select escrow payment",
+    "Income": "Income",
+    "Expendit":"expenditure",
+    "EscrowPay":"Escrow payment",
+    "ProjectApp":"Project or applicant (freelancer)",
+    "Example":"Example",
+    "ProjectTit":"Project Title",
+    "Execution":"Execution",
+    "Previous":"« Previous",
+    "Situation":"Situation",
+    "NoFinancialStat":"There is no financial status.",
+    "NoPaymentHis":"There is no payment request history.",
+    "AmountDue":" Amount due",
+    "AmountInnv":"Amount of invoice",
+    "BillingRef":"Billing reference",
+    "Bill":"Bill",
+    "AppFree":"Applicant (freelance)",
+    "FundTransferMethod":"Fund transfer payment method",
+    "EscrowFund":"Escrow Fund",
+    "RecommenedSend":"It is recommended to send in.",
+    "MoneyTransfer":"Money transfer",
+    "EscrowWithdrawal":"Escrow withdrawal",
+    "ReqTime":"Request time",
+    "DetailedSit":"Detailed Situation",
+    "ProcessingDate":"Processing Date",
+    "WorkThroughShowcase":"Show your work through the showcase",
+    "ShowcaseRegis":"Showcase registration!",
+    "OutsourcingLoading":"Outsourcing Loading OK",
+    "AfterComContest":"After completing the \"Contest\" and transferring all rights, we will give you a 3.3% withholding tax and a 10% commission fee.",
+    "Contest24H":"Contest\" will be paid within 24 hours after completion and transfer of all rights",
+    "UserAgreement":"User Agreement",
+    "OutsourcingUserAgreement":"The costs and charges outlined on this page are subject to the terms of the outsourcing ok user agreement and related site policy. The Terms and Conditions contain other important provisions, so be sure to read the full text.",
+    "Article14Contest":"Article 14 Withdrawal of consent to collection, use and provision of personal information",
+    "Art10ObliCom":"Article 10 (Obligation of \"Company\")",
+    "AbuseProb":"\"The Company\" does not prohibit or abuse the relevant laws and the terms of this agreement, and strive to provide \"service\" continuously and reliably.",
+    "CompanySecurity":"\"Company\" shall have a security system for the protection of personal information (including credit information) so that \"members\" can use the service safely and publicize and observe the personal information processing policy.",
+    "RepairUnauthorized":"Company\"shall promptly repair or repair any unauthorized cause, such as natural disasters, emergencies, or technical defects that are difficult to solve, if the data is lost due to a fault in the equipment while the service is being upgraded to use the stable service to the\" member \" However, if there is an obstacle to the facilities of the supplier, or if the data is lost due to intention or negligence of the supplier, the \"company\" is exempted unless there is no intention or gross negligence in the company.",
+    "NormalDamage":"In the event of any damages to the Member caused by the services provided by the Company, such damages shall be borne only by the Company's intent or negligence, and the liability shall be limited only to \"normal damages\".",
+    "CompanyDeal":"\"Company\" shall deal with any opinion or complaint filed by a member if it is justified. For comments or complaints filed by \"Members\", we will send the process and results to the \"Member\" by postal mail.",
+    "CompanyPaypal":"\"When a member uses a credit card or paypal as a payment method, the member must manage his or her own information to prevent the loss of information, etc. Therefore,\" Company \"means that the member shall use the credit card and PayPal service Of the Member's intent, negligence, and failure to use the Service due to the cause of the Member shall not be liable for damages.",
+    "Art11Violation":"Article 11 (Sanctions for Violation of Member's Obligations)",
+    "MemberWarning":"In the event that a \"Member\" violates the obligations of Article 9 (Membership Obligations), the \"Company\" shall, in consideration of the importance of the matter and any damage suffered by any other member, third party or Company, Sanctions and warnings.",
+    "WrittenWarning":" (1) written warning",
+    "CompanyWarArt9":"\"Company\" may warn the \"member\" in violation of the obligations of Article 9 in writing by stating the contents of violation of obligations and the time of violation.",
+    "RestrictionUse":"(2) Restrictions on Use",
+    "CompanyFixedPeriod":"\"Company\" may set a fixed period to limit registration and support of \"Project\", video chat, face-to-face meetings and login.",
+    "PermanentSuspension":"(3) Permanent suspension",
+    "PermanentalySuspend":"\"Company\" may permanently suspend the account of \"Member\".",
+    "CompanySanction":"The \"Company\" shall notify members who have been subject to the suanction in violation of the obligations of Article 9 (Membership Obligations) by e - mail, etc.",
+    "ProjectInfo":"Article 12 (\"Project\" information service for members)",
+    "originalCopy":"④\"Client\" must confirm receipt of final receipt within one week from the date of selection of the final winner. If the original copy of the winning work has been delivered normally but no such action has been taken, the winner will be automatically notified of the receipt at the end of the week.",
+    "IdeasNotSelect":"⑤ All designs and ideas that are not selected by the \"client\" other than the winner are copyrighted by the \"freelancer\" who supports it. \"Client\" can not use \"freelance\" designs and ideas not selected by me as a winner.",
+    "ClientNotSupport":"⑥ \"Client\" can not support your \"Contest\" in any way.",
+    "ContestHold":"⑦ If the held \"Contest\" proves to be an unfair \"Contest Hold\", the \"Company\" has the right to compensate for the \"Freelancer\" that is supported by the prize paid by the \"Client\".",
+    "HoldingCompany":"① All designs and ideas related to \"holding a contest\" must be registered through the\"Company\", and the format and uploading method of the file must follow the method specified in \"Company\".",
+    "PromisingGuaranteeing":"②Registering designs or ideas related to \"holding a contest\" means agreeing to the \"company\" policy, promising and guaranteeing that it does not infringe on the intellectual property rights of others or is not a secondary work of certain intellectual property.",
+    "CompanyRegarding":"③ The intellectual property right of a third party can not be infringed unless it is specifically recognized by the \"Company\" regarding \"holding a contest\".",
+    "ThirdParty":"④ A \"freelancer\" who applied for \"holding a contest\" must bear the responsibility of the \"client\" for infringement of the intellectual property rights of the third party. However, if the freelancer is not responsible for the reasons for which the sponsor is not responsible, the \"client\" will bear it.",
+    "WinnerDelivered":"⑤ When selected as the winner, you must upload the original file of the winner to be delivered to \"client\" to \"company\".",
+    "RelationClient":"⑥ \"Freelancer\" should not have a relationship with the \"client\" who held the \"contest\".",
+    "Article13Concern":"Article 13 (Intermediation concerning the conclusion of service contract between members)",
+    "Article12Ordered":"\"Client\" shall be deemed to be a \"freelancer\" of the \"Freelancer\" who has supported the \"Project\" ordered by \"Client\" in accordance with Article 12 (\"Project\" Face-to-face meetings with the corresponding \"freelancers\" registered in the \"Company\", the \"Client\" and \"Freelancer\" meet directly at face-to-face meetings in the \"Company\" As a rule.",
+    "SignedSeparately":"\"Client\" and \"Freelancer\" perform \"Project\" based on the form provided by the \"Company\" when the \"Client\" decides to \"Freelancer\" to refer to the \"Project\" (Hereinafter referred to as \"Outsourcing OK-to-Members Service Agreement\") with the contents determined by consultation between \"Company\", \"Client\" and \"Freelancer\". The parties to a service contract between \"Company\" members may vary by contract type. However, in accordance with the agreement of \"Company\" and \"Member\", the member form provided by one of the \"Members\" may be used. In this case, \"Member\" \"Must be added to the membership form or signed separately.\"",
+    "InternetExplorer2":"This video chat service is optimized for desktop in Google Chrome, so if you use Internet Explorer (IE), you have to download Google Chrome and use video chat service. If you experience a service interruption using Internet Explorer (IE), \"Company\" is not responsible. This video chat service is provided as a fee for the \"client\" in the \"member\" and is a minimum protection device for the confidentiality of the chat archive before the dispute between \"client\" and \"freelancer\" occurs. It is not possible to preserve archives with functions that can not be used. The fee for video chatting must be paid by the \"client\" who has registered the \"project\" for each \"project\" You can not use chat and free images after project completion.",
+    "Contractor":" \"Contractor\" shall pay the contract price to the \"Company\" pursuant to the agreement made by the contract after the contract between the \"Company\" members and the Contractor shall keep the contract price for the contract period, Accordingly, the \"Company\" shall pay the \"freelancer\" the amount (the amount of the amount deposited by the client multiplied by the amount determined by the \"Company\", excluding the VAT (10% Freelancer \").",
+    "Precedence":"The individual contracts concluded between the \"Company\" members and the service contracts between the clients and \"freelancers\" and \"companies\" shall take precedence over these terms and conditions not otherwise specified by the \"Company\".",
+    "VerificationPeriod":"\"Freelancer\" in \"Client\" and \"Member\" in \"Member\" shall not be held liable for any claims arising in the course of business, up to a maximum of 7 days (except as specifically set forth in the Service Agreement between \"Company\" \"Verification Period\"). If you fail to comply with this, you are responsible for all the matters that are processed (refunds, cancellations, dispute resolution procedures, etc.). If you pay by credit card, the fee from the credit card company will be borne by the client. If you cancel within a few days, you can get a full refund. If you cancel by paying by PayPal, the fee incurred without regard to the date will be borne by the Client in full.",
+    "AddedTax":"\"Freelancer\" shall be provided to the \"Company\" in accordance with the \"Company\" service contract when the \"Client\" and \"Freelancer\" agree to proceed with the mutual \"Project\" \"Company\" shall pay the amount collected by the \"Client\" to the \"Freelancer\" after deducting the amount of the Company's value multiplied by the amount determined by \"Company\", excluding the Value-Added Tax.",
 
+    "CompanyBear":"\"Company\" does not guarantee and does not bear any responsibility for the process and result of \"freelancer\" of the service contract between \"company\" and \"member\".",
+    "Art14PaidServices":"Article 14 (Terms of Use of Paid Services, etc.)",
+    "ProvidingPaid":"In providing paid services, the \"Company\" may set the terms of use such as the amount of use of the paid service (regardless of its name, etc.) or the period of use, in accordance with the \"Company\" policy. The terms of use of the paid service shall be notified to the member by specifying in each detailed instruction of using the charged service or individual agreement or posting on the paid service screen of the \"Company\" site",
+    "CompayCredit":"The member may pay the amount of usage to the \"Company\" in the manner prescribed by the \"Company\" (credit card, other payment means determined by the Company).",
+    "correctionContent":"Article 15 (Change of Service and Correction of Content)",
+    "OperationalTechnical":"The \"Company\" may amend or change the content of the Service in accordance with the operational and technical needs, in which case the changes are posted on the outsourcing OK site. In this regard, \"Company\" does not bear any responsibility to the member or the third party.",
+    "Art16ProvisionProject":"Article 16 (Provision of Project, Contest, Life-Related Recruiting Service (hereinafter referred to as \"Service\") and suspension)",
+    "CommenceService":"\"Company\" shall commence service from the time of acceptance of application for use pursuant to Article 5 (concluding and restricting use of membership) and Article 6 (obligation for the management of \"ID\" and password). If you use \"Company\" paid services related to Gunrantee for video chat, personal service, recommendation, highlight, private, private contract, emergency situation and contest holding even after joining as a \"member\" Can be provided. \"Company\" can divide the service into a certain range and set the available time for each range separately. In this case, we will disclose it to the \"Company\" site in advance or afterwards, or notify the member.",
+    "Services24":"Services are available 24 hours a day, 7 days a week. However, depending on the nature of the service, service delivery may be restricted on Saturdays, Sundays, public holidays and after 5 pm on weekdays.",
+    "CertainPeriod":"Notwithstanding the provisions of Paragraph 2 above, the Service may not be provided for a certain period of time if any of the following items is applicable, and \"Company\" is not obliged to provide the Service during that time.",
+    "PeriodicInspection":"(1) When necessary for maintenance, replacement, periodic inspection or modification of service of information and communication equipment such as computer",
+    "HackingCommunication":" (2) When it is needed to cope with electronic intrusion such as hacking, communication accident, unusual service utilization behavior of members, and instability of unexpected service",
+    "MethodRelevant":"(3) When prohibiting the provision of services at a specific time or method in relevant laws and regulations",
+    "NaturalDisasters":"(4) If it is impossible to provide normal service due to natural disasters, national emergencies, power outages, failure of service facilities,",
+    "Deterioration":"(5) In case of significant need for business management such as division, merger, transfer of business, abolition of business, deterioration of profit of service concerned",
 
-  }
+    "CommunicationData":"In addition, due to the suspension of the above service, the contents of messages stored in the service or transmitted, other communication messages, etc. may not be stored or may be deleted, not transmitted, or other communication data may be lost. After the stop period, you should check whether the message is transmitted or not. \"Company\" shall not be held responsible for the \"Company\" unless there is intent or negligence. If the service is to be permanently suspended due to the \"Company\", the above items shall apply mutatis mutandis. However, in this case, the advance notice period shall be one month",
+
+    "PcCommunication":"In the case of item 3, the \"Company\" pre-informs the member to the individual service initial screen or outsourcing OK platform one week before, and during this period, the member is not aware of the notice, and the outsourcing OK is liable Do not. Inability to provide services due to unavoidable circumstances that can not be notified in advance (such as urgent system check, expansion and replacement, system administrator's intention, faultless disk failure, system down, third party PC communication company, If there is an outsourcing (such as an outsourcing can not be controlled by OK), you can notify it immediately after the situation has ended.",
+
+    "PublicationOfAd":"Article 17 (Providing Information and Publication of Advertisements)",
+    "ShallExclude":"The \"Company\" may provide the \"Member\" with various information that \"Member\" is deemed necessary during use of the Service, such as notice, e-mail, mobile phone text message. The Company shall exclude the \"Member\" from the Information Provided if the Member indicates that the Member does not want to provide the Service Benefit Information, and the Company shall be liable for any disadvantage to the use of the Service by the Member not.",
+    "CompanyRevenue":"A portion of the service investment base from which the \"Company\" can provide services to \"Members\" comes from revenue from ad serving. Any person who wishes to use the service is deemed to agree to the advertisement of the service",
+    "PageLink":"If the page is linked to a page provided by a third party pursuant to Paragraph 2, the page is not a service area of ​​the \"Company\", so the \"Company\" does not guarantee reliability, stability, etc., \"Is not responsible.\"",
+    "PromotionalActivities":"\"Company\" means any member of the Company that has been posted on the Service or has participated in promotional activities with third parties through the Service, has any special provisions in the relevant laws for any loss or damage caused as a result of communication or transaction, And shall not be liable for any cause other than that caused by intentional or gross negligence.",
+
+    "OwnApp":"The Member may terminate the Service Use Agreement (hereinafter referred to as \"Membership Withdrawal\") through the Company. When a member submits a membership withdrawal, the \"company\" can confirm whether it is the \"member\" own application, and the \"company\" takes action according to the application of \"member\" after confirmation is completed.",
+    "Article18Ter":"Article 18 (Termination of Contract and Use Restriction)",
+    "Article19Termination":"Article 19 (Termination)",
+    "PriorNotice":"\"Company\" is best to fix a \"member\" by fixing a period of 7 days if a \"member\" breaches the Terms of Use, or in the case of any of the following cases, There is. However, in the event that \"member\" inflicts damages on the Company due to violation of current law and intentional or material negligence, the service usage contract may be terminated without prior notice.",
+    "Fraudulent":"(1) If the data provided by the member proves to be fraudulent, such as unauthorized subscription, business registration number, or theft of social security number",
+    "CriminalAct":"(2) When it relates to criminal act",
+    "SocialPublic":"(3) planning or implementing the use of the Service for the purpose of impeding national interest or social public interest",
+    "Stolen":"(4) When the service ID and password of another person are stolen",
+    "Impair":"(5) To impair the honor of others or to disadvantage,",
+    "DoubleRegisters":"(6) When the same user double-registers with another ID",
+    "Hinds":"(7) If it hinds the healthy use of the service, such as the risk to the service",
+    "AnyOther":"(8) Any other related laws or outsourcing ok",
+    "Suspended":"If the contract is terminated pursuant to Paragraph 1, all services provided to the member will be suspended and all accumulated information related to the member's activities will be treated as private.",
+
+    "Sanction":"Article 20 (Sanctions Against Members)",
+    "connectionSuspend":"If the \"member\" has acted in violation of the terms of this agreement, you may limit and suspend the use of the service at will. In this case, \"Company\" may suspend the connection of \"Members\" and may delete any or all of the contents posted by \"Members\".",
+    "Dormant":"If you are a member who is dormant for more than 6 months, you can stop using the service after 7 days notice period after notification message or announcement.",
+    "Banners":"\"Company\" may include various forms of advertisements, such as banners and links, which may be associated with pages provided by third parties.",
+    "InfoContent":"If the contents of the information provided by the Member are proved to be false or there is any reasonable reason to believe that such information is false, the Member may suspend or stop using the Service in whole or in part, \"Company\" is not responsible for the disadvantage.",
+    "Article21Transfer":"Article 21 (Prohibition of Transfer)",
+    "Collateral":"\"Member\" shall not transfer or give the right of use of services under this Agreement, outsourcing or other service contracts such as service contracts between members, and can not provide them as collateral",
+    "DormantMember":"If you are a dormant member for more than 6 months, you may stop using the service after a notice period or a notice period of one week after the notice is announced.",
+    "LiabilityIndemnification":"Article 22 (Limitation of Liability and Indemnification)",
+    "CompanyExempt":"\"Company\" is exempt from the following cases.",
+    "TechnologicalDeficiencies":"(1) exhibits, affairs, natural disasters, national emergencies, technological deficiencies that are difficult to solve, and other inability to provide services due to force majeure",
+    "TerminationService":"(2) In the event that the termination of service, the use disability and the service use contract termination due to the cause of the \"member\"",
+    "CarrierSuspends":"(3) When a telecommunications carrier suspends or does not provide telecommunication services normally",
+    "UnavoidableReasons":"(4) If service is suspended or disabled due to unavoidable reasons such as maintenance, replacement, periodic inspection,",
+    "NetworkEnvironment":"5) Problems arising from the computer environment of \"Members\" or problems caused by network environment without intention or serious fault of \"Company\"",
+    "GrossNegligence":"(6) A dispute arises between the members of the \"Company\" without intent or gross negligence, or between the Member and the third party through the Service",
+    "NoIntentional":"(7) there is no intentional or material fault of the Company with respect to the free and paid services;",
+    "MaterialFault":"(8) If there is no intentional or material fault of the Company with respect to the services provided by a provider other than the Company;",
+    "BenefitsExpected":"(9) In the event that the service is provided in the normal way and the member does not get the benefits expected by the member, the result is lost or lost, or the damage caused by the member's choice of cooking",
+    "ComputerError":"(10) In case of damages caused by a computer error of \"member\", or in case of damages by incorrectly listing personal information and e-mail address,",
+    "GovernmentPolicies":"(11) If the service can not be provided in accordance with relevant laws and government policies.",
+    "Accuracy":"(12) There are no intentional or material errors in the outsourcing okay about the contents of the \"members\" or third parties posted or transmitted in the service or on the website, such as the reliability, accuracy,",
+    "Video":"(13) The \"member\" shall keep all the records of the chatting, both the client and the freelancer, to store the records on the same day, and if the recorded records disappear, if the third party video chat is used, the \"company\" (Video Video) is \"a feature that can not be saved\", but you can view the record of the chat text archives that the \"Company\" has kept.",
+    "DescribedDirectly":"\"Member\" items such as profiles posted on \"Company\" are described directly by \"Client\" and \"Freelancer\" and \"Company\" does not guarantee or verify the facts and does not bear any responsibility for this.",
+
+    "InformationOpinions":"\"Member\" shall post information and opinions on the Company with his / her authority and responsibility and \"Company\" shall have the obligation to verify or approve the facts of information and opinions expressed by \"Members\" or third parties in the service process there is none. \"Company\" does not guarantee the truthfulness, accuracy, and reliability of information posted by \"members\" or other related organizations on the Service (including, without limitation, the history, profile, Therefore, outsourcing ok will not be liable for any loss or damage of any kind caused by \"members\" trusting the above information and opinions.",
+    "AttorneysFee":"In the event of a loss of outsourcing okay due to unlawful act of \"member\" or violation of this agreement, or criminal punishment or sanction from investigative agency or administrative office, \"member\" shall pay the cost of \"member\" , Attorneys' fees, etc.), and indemnify the \"Company\"",
+    "UnderArticle13":"\"Company\" has no obligation to inspect or inspect the results of the \"freelancer\" business after the service contract between the \"members\" under Article 13 has been concluded.",
+    "CompensationDamages":"Article 23 (Compensation for Damages)",
+    "IntentionalGross":"The Company shall not be liable for any damages whatsoever to the Member in connection with the services provided before the service contract between the Members, except for damages caused by intentional or gross negligence.",
+    "ArtJudge":"Article 24 (Judge)",
+    "CompetentJurisdiction":"If there is a dispute between the Company and the Member regarding the service of the Company, the Company and the Member shall make all necessary efforts to resolve the dispute in a satisfactory manner. If a lawsuit is filed against a dispute that arises, the court that has jurisdiction over the address of the parties shall be the court of competent jurisdiction. Provided, however, that the provisions of this Article shall not apply to cases where arbitration is settled by a service contract between \"Company\" members.",
+    "PostsCopyright":"Article 25 (Use of Posts and Copyright)",
+    "IncludingModifications":"All postings posted by \"Members\" are copyrighted by \"Members,\" and \"Company\" has the right to publish (including modifications, processing, summaries, excerpts and aggregation) within the Company's site. The \"Company\" prohibits posting of any of the following: In the event of a breach, the Company may take action to remove, move or refuse registration without prior notice to the post.",
+    "DoesMeet":"(1) If the service does not meet the purpose of use",
+    "SimilarContent":"(2) If there is a match or similar content, duplicate",
+    "URL":"(3) If you directly list contents such as e-mail address, mobile phone, telephone number, address, URL, etc.",
+    "NotDesignated":"(4) In the case of a type of work not designated by the \"company\" (such as full-time, contract or temporary employment)",
+    "CompanyProposes":"(5) If the Company proposes a form other than the payment provided by the Company",
+    "Soliciting":"(6) Directing, soliciting or suggesting direct transactions without going through this service",
+    "ObsceneVulgar":"(7) In the event of any violation of these Terms of Service, or any content deemed commercial, illegal, obscene or vulgar",
+    "Slander":"(8) In the case of content that defamates another member or a third party or damages reputation by slander",
+    "ChildPornography":"(9) posting any illegal content, including gambling, drugs, sexually explicit material or child pornography",
+    "Morality":"(10) In case of content that violates public order and morality",
+    "CriminalAct2":"(11) In cases where it is recognized as being connected with a criminal act",
+    "PortraitCopyright":"(12) Content that infringes the right of portrait, copyright, or other rights of a third party.",
+    "NatureInfo":"(13) For information that does not conform to the nature of the service",
+    "UserRulesVio":"(14) In case of violation of \"User Rules\"",
+    "ApplicableLaws":"(15) Any other violation of applicable laws and regulations",
+    "ConsiderablePeriod":"The \"Company\" may move or delete the post if the post has been published for a considerable period of time and is no longer valid as a content.",
+    "CriminalLiability":"The \"Company\" may delete or republish the post by request of the copyright holder or \"member\" in accordance with the procedures set forth in the Copyright Act for the post that infringes the copyright of the other person. \"Membership\" shall be solely responsible for any civil or criminal liability arising from the infringement of the copyrights of a member's post.",
+    "ContentsTransmitted":"\"Member\" may not commercially use any of the material posted on the Site, such as processing or selling information obtained through the Service. Therefore, the \"Company\" shall not be liable for any damages arising from the use of the files and contents transmitted by \"Members\" and shall be responsible for the identification of the \"members\" and suppliers supplied between the transaction \"members\"",
+    "LibelousActivity":"The \"Company\" has intellectual property rights and other rights relating to the services provided by \"Company\", the software, images, marks, logos, designs, service names, \"Member\" means any person who has the right to modify, lend, loan, sell, distribute, manufacture, transfer, re-license, or otherwise transfer, in whole or in part, You may not engage in libelous activity or commercial use, and you may not allow a third party to do so."
+
+}
