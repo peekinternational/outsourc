@@ -1168,6 +1168,7 @@
     "NoReqBeyondCompany":"\"Client\" does not require a freelancer to support any other requirements or conditions beyond the terms of the \"Company\" in relation to the holding of the Contest.",
     "ObligationToDetermine":"\"Client\" has an obligation to determine whether or not the design and ideas are violated before the final winner is selected. \"Company\" has no obligation to inspect or censor all posts, and is not responsible for any damages arising after the transfer of copyrights.",
     "WithIn7Days":"All \"Contests held\" must be selected from among the \"Freelancers\" supported by the winners within seven days of the registration deadline. If inevitable circumstances (such as internal review period, absence of sponsor, etc.) are not possible to select a winner within the agreed period, the date of announcement of the winner must be notified to \"Company\" by e-mail (admin@outsourcingok.com).",
+<<<<<<< HEAD
     "":"",
     "":"",
     "":"",
@@ -1184,11 +1185,12 @@
     "":"",
     "":"",
 
+=======
+
+
+>>>>>>> caf6c779dffaf150464b4b4b74bc87ee652d44f6
     "Art26":"Article 26 (Intellectual Property Rights)",
-    "":"",
-    "":"",
-    "":"",
-    "":"",
+
     "Art27":"Article 27 Deposit Insurance System Service",
     "ProjPay":"\"Project\" payment of \"client\"",
     "PayP1":"(1) Separately from Article 27 (1), payment shall be made pursuant to the following items:",
@@ -1218,10 +1220,7 @@
     "RefundPolicyClient":"Refund policy for \"client-related service recruitment\" of \"client\"",
     "PaymentLivingRelated":"\"Freelance\" payment of \"living related service recruitment\"",
     "WithIn24AfterApproval":"(1) Payment will be made within 24 hours after approval of \"client-related service recruitment\" of \"client\".",
-    "":"",
-    "":"",
-    "":"",
-    "":"",
+
     "ClientAppliedForHostingContest":"\"Client\" registered in \"Contest holding\" separately from Article 26 (1) and \"Prince Lancer\" applied for hosting contest shall follow the following subparagraphs.",
     "Art28":"Article 28 (Disclosure of Status of Payment)",
     "MemberServiceContract":"A member who has entered into a service contract between a \"company\" and a \"member\" can check the status of payment, deposit, payment, etc. in the \"member\" escrow financial statement in the \"company\" site. \"Company\" shall apply the changed status within one (1) maximum day if the status of the payment changes.",
@@ -1360,8 +1359,6 @@
     "howToPay": "2. In OutsourcingOK how to pay for projects and contests",
     "HowToChooseRight": "3. How to choose the right applicant",
     "HowToOperateClient": "4. How to operate the client escrow payment system",
-
-    "": "",
 
     "OutsourcingOKUsers":"OutsourcingOK Users",
     "UserRules":"User rules",
@@ -1562,12 +1559,8 @@
     "Released" :"Released",
     "ThereAreNoDeposit" :"There are no deposit and withdrawal details",
     "ApplicantFreelancer" :"Applicant / freelancer",
-    "RelatedSitePolicies" :"RelatedSitePolicies",
-    "" :"",
 
-
-
-
+    "RelatedSitePolicies" :"Related Site Policies",
 
     "RegistrationOfContest": "Registration of contest support",
     "deadline":"Deadline",
@@ -1892,4 +1885,9 @@
 
 
 
+<<<<<<< HEAD
   }
+=======
+
+  }
+>>>>>>> caf6c779dffaf150464b4b4b74bc87ee652d44f6

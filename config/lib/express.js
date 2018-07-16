@@ -15,9 +15,11 @@ var config = require('../config'),
   methodOverride = require('method-override'),
   cookieParser = require('cookie-parser'),
   helmet = require('helmet'),
+  cors = require('cors'),
   flash = require('connect-flash'),
   consolidate = require('consolidate'),
   path = require('path');
+  
 
 /**
  * Initialize local variables
@@ -44,6 +46,14 @@ module.exports.initLocalVariables = function (app) {
     res.locals.url = req.protocol + '://' + req.headers.host + req.originalUrl;
     next();
   });
+  var corsOptions = {
+    origin: 'http://127.0.0.1:8000',
+    optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
+  }
+  app.use(cors(corsOptions))
+  app.get('/products/:id', function (req, res, next) {
+    res.json({msg: 'This is CORS-enabled for all origins!'})
+  })
 };
 
 /**
