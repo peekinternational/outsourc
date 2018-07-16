@@ -24,7 +24,7 @@
             </div> -->
           </div>
         </form>
-    
+
     </div>
   </div>
   <!-- banner_section_end -->
@@ -34,7 +34,7 @@
   <div>
     <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8 col-md-offset-2">
       <div class="main_content m-mb-lg" style="padding-top:20px">
-        
+
     <h3 class="h3-mobile-font"><span class="pull-right"><button class="btn btn-success" ui-sref="showcases.myshowcases" style="background:#5f5b56;border-color: #5f5b56;"><span translate="MyShowcase"></span></button>&nbsp;&nbsp;&nbsp;<button class="btn btn-success" ui-sref="showcases.create" style="background:#5f5b56;border-color: #5f5b56;"><span translate="ShowcaseReg"></span></button></span></h3>
 
     <ul class="nav nav-pills nav-showcase-tabs m-mt-lg" style="padding-top:50px;text-align: left !important;">
@@ -101,13 +101,13 @@
                   </div>
                 </div>
                 <center ng-if="isLoading">
-                  <span style="font-size:25px;color:#734912;"><b>아웃소싱 오케이 로딩중...</b></span>
+                  <span style="font-size:25px;color:#734912;"><b translate="OutsourcingLoading"> </b></span>
                   <br>
                   <h3 class="danub-font"> <span class="fa fa-spinner fa-spin fa-2x fa-fw"></span>
                   <!--  로딩중... --></h3>
                 </center>
                 <!--<center ng-if="!filtered.length && !isLoading">
-                  <img src="modules/showcases/client/img/no_search_results.png" width="10%">
+                  <img src="modules/showcases/client/img/no_search_results.png" width="10%"
                   <h3 class="danub-font">등록한 쇼케이스가 없습니다.</h3>
                 </center>-->
               </div>
@@ -382,10 +382,10 @@
 
       <div class="text-center content-myShow" ng-if="!showcases.length">
         <h2 class="h3-mobile-font"><strong><!-- Looks like there isn't any showcases added yet. --></strong></h2>
-        <p class="prjct-list-font">회원님의 작품을 쇼케이스를 통해서 보여주십시오. <a href="showcases/create">쇼케이스 등록!</a></p>
+        <p class="prjct-list-font"> <span translate="WorkThroughShowcase"></span> <a href="showcases/create"><span translate="ShowcaseRegis"></span></a></p>
       </div>
 
     </div>
-  </div>  
+  </div>
 
 </section>
