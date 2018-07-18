@@ -37,7 +37,7 @@
             <select model="project.workRequire" change="selectCat()" selector class="prjct-name"           
                   options="categories"
                   label-attr="name"
-                  placeholder="1차 카테고리 선택 후 2차 세부 카테고리를 선택 필수">
+                  placeholder="1차 카테고리 선택 후 2차 세부 카테고리를 선택 필수/Select a category of work">
             </select>
           </div> 
           <!-- sub menu of work -->
@@ -48,7 +48,7 @@
                   model="project.subcat"
                   options="subCat"
                   label-attr="name"
-                  placeholder="2차 세부 카테고리 선택">
+                  placeholder="2차 세부 카테고리 선택/Select sub category">
             </select>
             <br><br>
           </div> 
@@ -88,8 +88,8 @@
               <b translate="projectTitle">.</b>
             </p>
 
-            <p class="sub-heading"><b translate="titlePro">&nbsp;&nbsp;&nbsp;</b> <span popover-title="프로젝트 제목" uib-popover="프로젝트에 프리랜서들이 많이 지원하기 위해서는 가능한 정확한 단어로 필요한 것들을 간단 명료하게 제목을 입력하시기 바랍니다." popover-trigger="'mouseenter'" ><i class="fa fa-question-circle-o" aria-hidden="true" style="font-size:20px;"></i></span></p>
-            <input type="text" class="form-control prjct-name"  ng-model="project.name" placeholder="프로젝트 제목을 작성하십시오" name="project_name" required></input>
+            <p class="sub-heading"><b translate="titlePro">&nbsp;&nbsp;&nbsp;</b> <span popover-title="프로젝트 제목/Project Name" uib-popover="프로젝트에 프리랜서들이 많이 지원하기 위해서는 가능한 정확한 단어로 필요한 것들을 간단 명료하게 제목을 입력하시기 바랍니다./Your project name is important as it is what attracts freelancers to bid on your contest. You should clearly describe what you need in as few words as possible." popover-trigger="'mouseenter'" ><i class="fa fa-question-circle-o" aria-hidden="true" style="font-size:20px;"></i></span></p>
+            <input type="text" class="form-control prjct-name"  ng-model="project.name" placeholder="프로젝트 제목을 작성하십시오/Enter project name" name="project_name" required></input>
 
             <br><br><br>
             <p class="sub-heading top-space prjct-list-font">
@@ -98,7 +98,7 @@
               <input type="checkbox" name="project.isLocal" ng-click="checkLocal()" class="rdio-pstn-selctr"> <span translate="Options"></span>
             </p>
             <div class="input-group prjct-name" ng-show = "project.isLocal">
-                <input type="text" class="form-control prjct-name" name="location" placeholder="지역검색을 클릭 하십시오 [PC사용시 위치가 정확하지 않을 수 있습니다.]" ng-model="project.location">
+                <input type="text" class="form-control prjct-name" name="location" placeholder="지역검색을 클릭 하십시오 [PC사용시 위치가 정확하지 않을 수 있습니다.]/Enter a location(City, Suburb, Town or Address)" ng-model="project.location">
                 <span class="input-group-btn">
                   <button class="btn btn-info btn-lg btn-zee mobile-btn-location" ng-click="detectMyLocation()" translate="detectLocation"></button>
                 </span>
@@ -114,7 +114,7 @@
 
             <p class="sub-heading prjct-list-font">
               <b translate="projectExpertise">&nbsp;&nbsp;&nbsp;&nbsp;</b>
-              <span popover-title="프로젝트에 요구되는 전문 기술" uib-popover="프로젝트에 요구되는 전문기술를 선택할경우 프로젝트 목록에 표시해 줍니다." popover-trigger="'mouseenter'" ><i class="fa fa-question-circle-o" aria-hidden="true" style="font-size:20px;margin-top:10px;"></i></span>
+              <span popover-title="프로젝트에 요구되는 전문 기술/Project Skills" uib-popover="프로젝트에 요구되는 전문기술를 선택할경우 프로젝트 목록에 표시해 줍니다./We will notify all freelancers relevant to your project skills. As you enter more skills, your contest will reach out to more freelancers." popover-trigger="'mouseenter'" ><i class="fa fa-question-circle-o" aria-hidden="true" style="font-size:20px;margin-top:10px;"></i></span>
             </p>
             <div style="position: relative;">
               <select selector class="prjct-name"
@@ -125,7 +125,7 @@
                 label-attr="name"
                 options="allProjectSkills"
                 create="createFunction(input)"
-                placeholder="프로젝트에 요구되는 전문기술을 선택 바랍니다."
+                placeholder="프로젝트에 요구되는 전문기술을 선택 바랍니다./What skills are required?"
               >
               </select>
               
@@ -141,7 +141,7 @@
             <br><br><br>
             <p class="sub-heading top-space prjct-list-font">
               <b translate="content"></b>
-              <span popover-title="프로젝트 내용" uib-popover="프로젝트에 관한 내용을 자세히 작성해야 합니다. 프리랜서들은 프로젝트 내용을 확인하고 지원 할 수 있습니다. 프로젝트 내용은 최소 300자 이상 작성 바랍니다. 프로젝트 작성이 어려울 경우 아웃소싱오케이 고객문의(support@outsourcingok.com)에 등록하면 담당자가 도와 드립니다." popover-trigger="'mouseenter'" ><i class="fa fa-question-circle-o" aria-hidden="true" style="font-size:20px;margin-top:10px;"></i></span>
+              <span popover-title="프로젝트 내용/Project Description" uib-popover="프로젝트에 관한 내용을 자세히 작성해야 합니다. 프리랜서들은 프로젝트 내용을 확인하고 지원 할 수 있습니다. 프로젝트 내용은 최소 300자 이상 작성 바랍니다. 프로젝트 작성이 어려울 경우 아웃소싱오케이 고객문의(support@outsourcingok.com)에 등록하면 담당자가 도와 드립니다./The more detail you provide, the better chance you have in getting exactly what you are after in the shortest possible time period." popover-trigger="'mouseenter'" ><i class="fa fa-question-circle-o" aria-hidden="true" style="font-size:20px;margin-top:10px;"></i></span>
             </p>
             <!-- <textarea  class="form-control porjct-desp" rows="6" name="description" ng-model="project.description" placeholder="프로젝트 내용 작성요령을 참조바라며 정확히 작성해야만 프리랜서들로부터 많은 지원을 받을 수 있습니다...[최소300자 이상 작성하기 바랍니다!]" required></textarea> -->
             <div text-angular="text-angular" name="description" ng-model="project.description" ta-disabled='disabled' ta-text-editor-class="form-control myform1-height"></div>
@@ -206,7 +206,7 @@
             </p>
             <div style="font-size: 12px;">
               <b translate="projectAmount">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</b>
-              <span popover-title="프로젝트 금액 선택" uib-popover="긴급을 요하지 않는 경우를 제외하고 프로젝트 금액을 고정금액으로 선택하는 것을 추천 합니다. 고정금액 시작단위는 500,000원[오십만원] 시작을 권장합니다." popover-trigger="'mouseenter'" ><i class="fa fa-question-circle-o" aria-hidden="true" style="font-size:20px;margin-bottom:20px;"></i></span>        
+              <span popover-title="프로젝트 금액 선택/Choose project amount" uib-popover="긴급을 요하지 않는 경우를 제외하고 프로젝트 금액을 고정금액으로 선택하는 것을 추천 합니다. 고정금액 시작단위는 500,000원[오십만원] 시작을 권장합니다./It is recommended that you choose a fixed amount for the project amount, unless you do not need an emergency. We recommend starting a fixed amount starting at 500,000 won [500,000 won]." popover-trigger="'mouseenter'" ><i class="fa fa-question-circle-o" aria-hidden="true" style="font-size:20px;margin-bottom:20px;"></i></span>        
             </div>
 
             <!-- <p class="sub-heading"><b>Project name?</b></p> -->
@@ -241,7 +241,7 @@
                   model="project.price"
                   options="rateListt"
                   label-attr="name"
-                  placeholder="프로젝트 금액을 선택 바랍니다" 
+                  placeholder="프로젝트 금액을 선택 바랍니다/Select Category" 
                   change="getMinMaxValue();">
                 </select>
 <!-- <span class="text-right" style="color:#820923;"><i class="fa fa-exclamation-triangle" aria-hidden="true" style="color:#820923;"></i> 프로젝트 예산이 1억원 이상인 경우 아웃소싱 오케이에 별도 문의</span> -->
@@ -578,19 +578,18 @@
 
 
 <b style="color:#087c99"><span translate="Projdetails"></span></b><br>
-예시)사이트의 용도, 주요 기능 List, 작업 분량, 필요한 조건 등<br>
--주요 기능 :<br>
- ＊안드로이드 앱 개발<br>
- ＊실시간 채팅 구현<br>
- ＊위치기반 대리점 검색<br>
+<span translate="ExampleUseOfSite"></span><br>
+<span translate="mainFunction"></span>:<br>
+ <span translate="AndroidAppDevelopment"></span><br>
+ <span translate="chatImplementation"></span><br>
+ <span translate="SearchForLocationBased"></span><br>
 <br><br>
 
 
-
-<b style="color:#087c99">[참고자료 / 유의사항]</b><br>
-예시)참고사이트, 기타 유의사항 등<br>
--위치기반앱 및 실시간채팅 개발경험이 있으신분을 찾습니다.<br>
--참고사이트 https://www.google.co.kr/maps
+<b style="color:#087c99" translate="ReferencesNotes"></b><br>
+<span translate="ExampleReferenceSite"></span><br>
+<span translate="FindPeopleWhoHave"></span><br>
+<span translate="SeeSiteKR"></span>
 <br><br>
       </div>
 

@@ -37,7 +37,7 @@
 			<!-- paypal payment -->
 			<!-- style="width:50%;margin:0 auto; margin-top:45%" -->
 			<div class="panel panel-primary">
-			<div class="panel-heading" style="background-color:#2c456c;font-size: 15px;background:#009cde;">페이팔(Paypal)결제</div>
+			<div class="panel-heading" style="background-color:#2c456c;font-size: 15px;background:#009cde;" translate="PaypalPayment"></div>
 			<div class="panel-body" style="height:40%; text-align:center;" >
 			<p class="bg-info" id="msg"></p>
 			   <form class="form-horizontal" role="form" id="paypalForm" method="post" ng-submit="paynow('deposit')">
@@ -50,7 +50,7 @@
 				<div class="form-group">
 			      <p class="col-md-4 text-left" for="amount"><span translate="Amountofpayment"></span></p>
 			      <div class="col-sm-5">
-			       	<input style="text-align:right" class="form-control" ng-change="calTotalAmount()" ng-model="pay.amount" min="0" name="amount" placeholder="결제금액을 입력하십시오" required="required" type="number">
+			       	<input style="text-align:right" class="form-control" ng-change="calTotalAmount()" ng-model="pay.amount" min="0" name="amount" placeholder="결제금액을 입력하십시오/Enter your amount" required="required" type="number">
 			      </div>
 			      <div class="col-sm-3">
 				    

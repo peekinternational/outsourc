@@ -160,7 +160,7 @@
               <i class="glyphicon glyphicon-search text-muted">
             </i></button>
           </span>
-          <input type="text" class="form-control" ng-keyup="$event.keyCode == 13 ? search('byDescription') : null" name="searchContest" ng-model="searchContest" placeholder="등록된 콘테스트 개최 제목 또는 내용으로 찾을 수 있습니다." ng-change="search('byDescription')">
+          <input type="text" class="form-control" ng-keyup="$event.keyCode == 13 ? search('byDescription') : null" name="searchContest" ng-model="searchContest" placeholder="등록된 콘테스트 개최 제목 또는 내용으로 찾을 수 있습니다./Search for contestss by name or description" ng-change="search('byDescription')">
         </div>
 
         <hr>
@@ -174,7 +174,7 @@
             label-attr="name" 
             remote="remoteConfig" 
             remote-param="text" 
-            placeholder="프리랜서께서 보유한 전문 기술로 등록된 콘테스트 개최 목록을 찾을 수 있습니다" ></select>
+            placeholder="프리랜서께서 보유한 전문 기술로 등록된 콘테스트 개최 목록을 찾을 수 있습니다/Type to filter projects by skills" ></select>
           
           </div>
           <div class="col-md-12">

@@ -11,7 +11,7 @@
             <div class="col-md-12">
               <div class="inner-addons">
                 <i class="fa fa-search"></i>
-                <input type="text" model="" class="form-control" ng-model="searchString.title" placeholder="전문 개발자ㆍ사진가ㆍ일러스트레이터ㆍ제작자를 검색하고 실시간으로 구매및상담 하십시오!">
+                <input type="text" model="" class="form-control" ng-model="searchString.title" placeholder="전문 개발자ㆍ사진가ㆍ일러스트레이터ㆍ제작자를 검색하고 실시간으로 구매및상담 하십시오!/earch for professional developers, photographers, illustrators, producers">
                 <button class="btn btn-info btn-lg"><span translate="Search"></span></button>
               </div><br><br><br><br><br><br>
             </div>
@@ -84,7 +84,7 @@
                        <img src="{{sc.file.link}}" alt="Avatar" style="width:100%">
                        <div class="caption">
                          <p class="prjct-list-font"><b>{{sc.title}}</b></p>
-                         프리랜서 <a href="outsourcer/{{sc.userInfo.profileId}}">{{sc.userInfo.username}}</a>
+                         <span translate="freelancer"></span> <a href="outsourcer/{{sc.userInfo.profileId}}">{{sc.userInfo.username}}</a>
                        </div>
                        <hr>
                        <div class="card-footer">
@@ -123,13 +123,13 @@
                      <div class="card">
                        <div class="showcase-overlay" ng-click="viewShowcase(sc._id)" data-toggle="modal">
                          <div class="showcase-content">
-                           <button class="btn btn-info" >상세보기 </button>
+                           <button class="btn btn-info" translate="ViewDetails"></button>
                          </div>
                        </div>
                        <img src="{{sc.file.link}}" alt="Avatar" style="width:100%">
                        <div class="caption">
                          <p class="prjct-list-font"><b>{{sc.title}}</b></p>
-                         프리랜서 <a href="outsourcer/{{sc.userInfo.profileId}}">{{sc.userInfo.username}}</a>
+                         <span translate="freelancer"></span> <a href="outsourcer/{{sc.userInfo.profileId}}">{{sc.userInfo.username}}</a>
                        </div>
                        <hr>
                        <div class="card-footer">
@@ -151,7 +151,7 @@
                 </center>
                 <center ng-if="!filtered.length && !isLoading">
                   <img src="modules/showcases/client/img/no_search_results.png" width="10%">
-                  <h3 class="danub-font">등록한 쇼케이스가 없습니다.</h3>
+                  <h3 class="danub-font" translate="noRegisteredShowcase"></h3>
                 </center>
               </div>
             </div>
@@ -166,13 +166,13 @@
                      <div class="card">
                        <div class="showcase-overlay" ng-click="viewShowcase(sc._id)" data-toggle="modal">
                          <div class="showcase-content">
-                           <button class="btn btn-info" >상세보기 </button>
+                           <button class="btn btn-info" translate="ViewDetails"> </button>
                          </div>
                        </div>
                        <img src="{{sc.file.link}}" alt="Avatar" style="width:100%">
                        <div class="caption">
                          <p class="prjct-list-font"><b>{{sc.title}}</b></p>
-                         프리랜서 <a href="outsourcer/{{sc.userInfo.profileId}}">{{sc.userInfo.username}}</a>
+                         <span translate="freelancer"></span> <a href="outsourcer/{{sc.userInfo.profileId}}">{{sc.userInfo.username}}</a>
                        </div>
                        <hr>
                        <div class="card-footer">
@@ -194,7 +194,7 @@
                 </center>
                 <center ng-if="!filtered.length && !isLoading">
                   <img src="modules/showcases/client/img/no_search_results.png" width="10%">
-                  <h3 class="danub-font">등록한 쇼케이스가 없습니다.</h3>
+                  <h3 class="danub-font" translate="noRegisteredShowcase"></h3>
                 </center>
               </div>
             </div>
@@ -209,13 +209,13 @@
                      <div class="card">
                        <div class="showcase-overlay" ng-click="viewShowcase(sc._id)" data-toggle="modal">
                          <div class="showcase-content">
-                           <button class="btn btn-info" >상세보기 </button>
+                           <button class="btn btn-info" translate="ViewDetails"> </button>
                          </div>
                        </div>
                        <img src="{{sc.file.link}}" alt="Avatar" style="width:100%">
                        <div class="caption">
                          <p class="prjct-list-font"><b>{{sc.title}}</b></p>
-                         프리랜서 <a href="outsourcer/{{sc.userInfo.profileId}}">{{sc.userInfo.username}}</a>
+                         <span translate="freelancer"></span> <a href="outsourcer/{{sc.userInfo.profileId}}">{{sc.userInfo.username}}</a>
                        </div>
                        <hr>
                        <div class="card-footer">
@@ -233,11 +233,11 @@
                 </div>
 
                 <center ng-if="isLoading">
-                  <h3 class="danub-font"> <span class="fa fa-spinner fa-spin fa-2x fa-fw"></span> 로딩중...</h3>
+                  <h3 class="danub-font"> <span class="fa fa-spinner fa-spin fa-2x fa-fw"></span> <span translate="Loading"></span></h3>
                 </center>
                 <center ng-if="!filtered.length && !isLoading">
                   <img src="modules/showcases/client/img/no_search_results.png" width="10%">
-                  <h3 class="danub-font">등록한 쇼케이스가 없습니다.</h3>
+                  <h3 class="danub-font" translate="noRegisteredShowcase"></h3>
                 </center>
               </div>
             </div>
@@ -252,13 +252,13 @@
                      <div class="card">
                        <div class="showcase-overlay" ng-click="viewShowcase(sc._id)" data-toggle="modal">
                          <div class="showcase-content">
-                           <button class="btn btn-info" >상세보기 </button>
+                           <button class="btn btn-info" translate="ViewDetails"> </button>
                          </div>
                        </div>
                        <img src="{{sc.file.link}}" alt="Avatar" style="width:100%">
                        <div class="caption">
                          <p class="prjct-list-font"><b>{{sc.title}}</b></p>
-                         프리랜서 <a href="outsourcer/{{sc.userInfo.profileId}}">{{sc.userInfo.username}}</a>
+                         <span translate=""></span> <a href="outsourcer/{{sc.userInfo.profileId}}">{{sc.userInfo.username}}</a>
                        </div>
                        <hr>
                        <div class="card-footer">
@@ -276,11 +276,11 @@
                 </div>
 
                 <center ng-if="isLoading">
-                  <h3 class="danub-font"> <span class="fa fa-spinner fa-spin fa-2x fa-fw"></span> 로딩중...</h3>
+                  <h3 class="danub-font"> <span class="fa fa-spinner fa-spin fa-2x fa-fw"></span> <span translate="Loading"></span></h3>
                 </center>
                 <center ng-if="!filtered.length && !isLoading">
                   <img src="modules/showcases/client/img/no_search_results.png" width="10%">
-                  <h3 class="danub-font">등록한 쇼케이스가 없습니다.</h3>
+                  <h3 class="danub-font" translate="noRegisteredShowcase"></h3>
                 </center>
               </div>
             </div>
@@ -295,13 +295,13 @@
                      <div class="card">
                        <div class="showcase-overlay" ng-click="viewShowcase(sc._id)" data-toggle="modal">
                          <div class="showcase-content">
-                           <button class="btn btn-info" >상세보기 </button>
+                           <button class="btn btn-info" translate="ViewDetails"> </button>
                          </div>
                        </div>
                        <img src="{{sc.file.link}}" alt="Avatar" style="width:100%">
                        <div class="caption">
                          <p class="prjct-list-font"><b>{{sc.title}}</b></p>
-                         프리랜서 <a href="outsourcer/{{sc.userInfo.profileId}}">{{sc.userInfo.username}}</a>
+                         <span translate="freelancer"></span> <a href="outsourcer/{{sc.userInfo.profileId}}">{{sc.userInfo.username}}</a>
                        </div>
                        <hr>
                        <div class="card-footer">
@@ -319,11 +319,11 @@
                 </div>
 
                 <center ng-if="isLoading">
-                  <h3 class="danub-font"> <span class="fa fa-spinner fa-spin fa-2x fa-fw"></span> 로딩중...</h3>
+                  <h3 class="danub-font"> <span class="fa fa-spinner fa-spin fa-2x fa-fw"></span> <span translate="Loading"></span></h3>
                 </center>
                 <center ng-if="!filtered.length && !isLoading">
                   <img src="modules/showcases/client/img/no_search_results.png" width="10%">
-                  <h3 class="danub-font">등록한 쇼케이스가 없습니다.</h3>
+                  <h3 class="danub-font" translate="noRegisteredShowcase"></h3>
                 </center>
               </div>
             </div>
@@ -338,13 +338,13 @@
                      <div class="card">
                        <div class="showcase-overlay" ng-click="viewShowcase(sc._id)" data-toggle="modal">
                          <div class="showcase-content">
-                           <button class="btn btn-info" >상세보기 </button>
+                           <button class="btn btn-info" translate="ViewDetails"> </button>
                          </div>
                        </div>
                        <img src="{{sc.file.link}}" alt="Avatar" style="width:100%">
                        <div class="caption">
                          <p class="prjct-list-font"><b>{{sc.title}}</b></p>
-                         프리랜서 <a href="outsourcer/{{sc.userInfo.profileId}}">{{sc.userInfo.username}}</a>
+                         <span translate="freelancer"></span> <a href="outsourcer/{{sc.userInfo.profileId}}">{{sc.userInfo.username}}</a>
                        </div>
                        <hr>
                        <div class="card-footer">
@@ -362,11 +362,11 @@
                 </div>
 
                 <center ng-if="isLoading">
-                  <h3 class="danub-font"> <span class="fa fa-spinner fa-spin fa-2x fa-fw"></span> 로딩중...</h3>
+                  <h3 class="danub-font"> <span class="fa fa-spinner fa-spin fa-2x fa-fw"></span> <span translate="Loading"></span></h3>
                 </center>
                 <center ng-if="!filtered.length && !isLoading">
                   <img src="modules/showcases/client/img/no_search_results.png" width="10%">
-                  <h3 class="danub-font">등록한 쇼케이스가 없습니다.</h3>
+                  <h3 class="danub-font" translate="noRegisteredShowcase"></h3>
                 </center>
               </div>
             </div>
@@ -374,7 +374,7 @@
           <!-- End tab 7 -->
           <div class="col-md-12 text-center {{(showCaseExist)?'':'hidden'}}">
             <a href="javascript:void(0)" class="btn" ng-click="getAllShowCases()" >
-              <strong>더 보기...</strong>
+              <strong translate="ViewMore"></strong>
             </a>
           </div>
         </div>

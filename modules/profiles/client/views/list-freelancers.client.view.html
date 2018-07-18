@@ -64,7 +64,7 @@
 					<form class="p-r-md">
 						<br>
 						<div class="input-group">
-						  <input type="text" class="form-control" ng-keyup="$event.keyCode == 13 ? search('byProfession') : null" name="searchProfile" ng-model="searchProfile" placeholder="글로벌 프리랜서 회원 검색" ng-change="search('byProfession')">
+						  <input type="text" class="form-control" ng-keyup="$event.keyCode == 13 ? search('byProfession') : null" name="searchProfile" ng-model="searchProfile" placeholder="글로벌 프리랜서 회원 검색/Freelancer member search" ng-change="search('byProfession')">
 						  <span class="input-group-btn">
 						     <button class="btn btn-default" type="button" ng-click="search('byProfession')"> 
 						      <i class="glyphicon glyphicon-search text-muted">
@@ -85,7 +85,7 @@
 							<label for="skill"><span translate="ExpertiesSkills"></span></label>
 							<div>
 							  <div >
-							    <select selector model="searchBySkill" multi="true" options="skills" label-attr="name" placeholder="전문기술 검색" ></select>
+							    <select selector model="searchBySkill" multi="true" options="skills" label-attr="name" placeholder="전문기술 검색/Skills Search" ></select>
 							  </div>
 							  <div class="col-xs-12 col-md-12">
 							    <div ng-show="skills" class="row">
@@ -104,7 +104,7 @@
 						<div class="form-group">
 							<label for="countries"><span translate="Country"></span></label>							
 							<div >
-							  <select selector model="searchByCountry" multi="true" options="countryData" label-attr="name" placeholder="국가별로 검색" ></select>
+							  <select selector model="searchByCountry" multi="true" options="countryData" label-attr="name" placeholder="국가별로 검색/Country" ></select>
 							</div>							
 							<div class="col-md-12">
 							  <div ng-show="countryData" class="row">

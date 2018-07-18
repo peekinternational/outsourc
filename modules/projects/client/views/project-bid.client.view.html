@@ -200,14 +200,14 @@
           </div>
           <form name="proposalForm"  class="" novalidate autocomplete="off">
             <div ng-show="!mileStoneFeilds" class="col-xs-12 col-md-8 p-ml-xs">
-              <textarea placeholder="프로젝트 제안서 내용" rows="5" class="form-control" ng-model = "bidDescription" required></textarea> 
+              <textarea placeholder="프로젝트 제안서 내용/Proposal Description" rows="5" class="form-control" ng-model = "bidDescription" required></textarea> 
               <br>
               <!-- adding milestones of project bid -->
               <div class="row m-ml-none m-mr-none">
                 <div ng-repeat="milestone in milestones track by $index">
                   <div class="col-sm-8 col-md-8 form-group p-r-none p-ml-none">
                     <label><span translate="ProjectMilestone"></span> </label>
-                    <input type="text" placeholder="순차별 프로젝트 대금지금 일정표 제목 입력바랍니다" class="form-control" ng-model="milestones[$index].description" required>
+                    <input type="text" placeholder="순차별 프로젝트 대금지금 일정표 제목 입력바랍니다/Project Milestone" class="form-control" ng-model="milestones[$index].description" required>
                   </div>
                   <div class="col-sm-3 col-md-3 form-group  p-r-none p-ml-none">
                     <label><span translate="For"></span></label>
@@ -518,7 +518,7 @@
             <br><br class="hidden-md hidden-lg">
             <div class="managemnt-tabs mobile-managemnt-tabs">
               <uib-tabset ng-if = "awardedProject.awarded === 'yes' && awardedProject.userId === authentication.user._id">
-                <uib-tab heading="프로젝트 대금내역" style="float:left;" class="p-l-sm">
+                <uib-tab heading="프로젝트 대금내역/Milestones" style="float:left;" class="p-l-sm">
                 <br>
                 <!-- Request Milestones start  -->
                   <div class="row" ng-hide = "awardedProject.userId !== authentication.user._id">
@@ -538,7 +538,7 @@
                             <div ng-repeat="milestone in milestones track by $index">
                               <div class="col-sm-8 form-group p-r-none">
                                 <label><span translate="RequestMilestone"></span></label>
-                                <input type="text" placeholder="프로젝트 대금" class="form-control" ng-model="newMilestone.description" required>
+                                <input type="text" placeholder="프로젝트 대금/Project Milestone" class="form-control" ng-model="newMilestone.description" required>
                               </div>
                               <div class="col-sm-3 form-group  p-r-none">
                                 <label>For</label>
