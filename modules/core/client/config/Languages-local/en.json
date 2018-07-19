@@ -1906,8 +1906,24 @@
     "CurrentBalance": "Current Balance",
     "TransferAmount": "Transfer Amount",
     "MinimumTransferAmount" :"Minimum transfer amount",
-    "Transfer": "Transfer"
-
+    "Transfer": "Transfer",
+    "accountUserID": "Please enter your account user ID.",
+    "resetFailed": "Password reset failed.",
+    "resetAgain": "Please reset again.",
+    "resetCompleted": "Password reset completed.",
+    "GoHomePage" : "Go to home page",
+    "NewPassword": "New Password",
+    "EnterPassword": "Please enter your password",
+    "ReEnterPassword": "Re-enter password",
+    "PleaseReEnter": "Please re-enter password",
+    "PasswordsNotMatch": "Passwords do not match.",
+    "PasswordRequirement": "Password Requirement",
+    "RequestPassword": "Request a password",
+    "PasswordChangedSuccessfully": "Password changed successfully",
+    "countryOfResidence": "Please enter your current country of residence.",
+    "projectRegistered": "Notify me when my project is registered",
+    "LastName": "Last Name",
+    "UserID": "User ID"
 
 
 

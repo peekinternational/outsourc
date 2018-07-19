@@ -1920,7 +1920,24 @@
     "CurrentBalance": "현재잔액",
     "TransferAmount": "이체금액",
     "MinimumTransferAmount": "최소이체금액",
-    "Transfer": "이체하기"
+    "Transfer": "이체하기",
+    "accountUserID": "계정 사용자 아이디를 입력하십시오.",
+    "resetFailed": "비밀번호 재설정이 실패했습니다.",
+    "resetAgain": "재설정을 다시 하시길 바랍니다.",
+    "resetCompleted": "비밀번호가 재설정 완료되었습니다.",
+    "GoHomePage": "홈 페이지로 이동",
+    "NewPassword": "새로운 비밀번호",
+    "EnterPassword": "비밀번호를 입력하십시오",
+    "ReEnterPassword": "비밀번호 재입력",
+    "PleaseReEnter": "비밀번호 재입력을 입력하십시오",
+    "PasswordsNotMatch": "비밀번호가 일치하지 않습니다.",
+    "PasswordRequirement": "비밀번호 요구 사항",
+    "RequestPassword": "비밀번호 요청",
+    "PasswordChangedSuccessfully": "성공적으로 비밀번호가 변경되었습니다.",
+    "countryOfResidence": "현재 거주 국가를 입력바랍니다.",
+    "projectRegistered": "프로젝트 등록될때 나의 전문기술과 일치되는 경우 알림",
+    "LastName": "성",
+    "UserID": "사용자 ID"
 
 
 

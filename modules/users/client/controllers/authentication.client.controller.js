@@ -90,8 +90,8 @@ angular.module('users').controller('AuthenticationController', ['$scope', '$root
     //$scope.interestCheck = '';
    
     $scope.users = [
-      { title:'사업자 전용', value:'company' },
-      { title:'개인 전용', value:'individual' }
+      { title:'사업자 전용/Company', value:'company' },
+      { title:'개인 전용/Individual', value:'individual' }
     ];
 
     $scope.alertMe = function() {
