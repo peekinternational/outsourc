@@ -90,8 +90,8 @@ angular.module('users').controller('AuthenticationController', ['$scope', '$root
     //$scope.interestCheck = '';
    
     $scope.users = [
-      { title:'사업자 전용/Company', value:'company' },
-      { title:'개인 전용/Individual', value:'individual' }
+      { title:'사업자 전용', value:'company' },
+      { title:'개인 전용', value:'individual' }
     ];
 
     $scope.alertMe = function() {
@@ -141,10 +141,7 @@ angular.module('users').controller('AuthenticationController', ['$scope', '$root
 
     $scope.status = 'online';
     $scope.signup = function (isValid, userType) {
-      $http.get('https://www.jobcallme.com/check').success(function(res){
-        console.log(res);
-      })
-      return false;
+    
       $scope.error = null;
       if (!isValid) {
         $scope.$broadcast('show-errors-check-validity', 'userForm');
@@ -177,7 +174,23 @@ angular.module('users').controller('AuthenticationController', ['$scope', '$root
           'password' : $scope.credentials.individual.password,
           'status' : $scope.status
         };
-        
+        $scope.user = angular.copy($scope.credentials);
+        $scope.user.country.name = ($scope.user.country.name == undefined) ? 0 : $scope.user.country.name ;
+        $scope.user.country.city = ($scope.user.country.city == undefined) ? 0 : $scope.user.country.city ;
+        $scope.jobcallme = {
+          'firstName' : $scope.user.firstName,
+          'lastName' : $scope.user.lastName,
+          'email' : $scope.user.email,
+          'username' : $scope.user.username,
+          'country' : $scope.user.country.name,
+          'city' : $scope.user.country.city,
+          'phoneNumber' : 0,
+          'password' : $scope.user.password,
+          'user_status' : 'Y',
+        }
+        $http.post('https://www.jobcallme.com/api/registerUser', $scope.jobcallme).success(function(response){
+          console.log(response);
+        });
 
       }
       if(userType==='company') {
@@ -208,8 +221,20 @@ angular.module('users').controller('AuthenticationController', ['$scope', '$root
           'password' : $scope.credentials.company.password,
           'status' : $scope.status
         };
-      }
 
+      }
+      /*$http({
+      method: 'POST',
+      url:'https://www.jobcallme.com/api/registerUser',
+      data:jobcallme,
+      headers: {
+        'Content-Type': 'application/json'
+      }
+      }).success(function(res){
+          console.log(res);
+        });*/
+      
+      
       $http.post('/api/auth/signup', $scope.credentials).success(function (response) {
         // If successful we assign the response to the global user model
         $scope.authentication.user = response;
@@ -315,6 +340,7 @@ angular.module('users').controller('AuthenticationController', ['$scope', '$root
           $rootScope.userAccountBalance = res;
 
           $rootScope.userAccountBalance = res;
+      
           if($scope.authentication.user.verEmail || $scope.authentication.user.verjobcallmeEmail){
             // $state.go('projects.project-dash');
             if($state.previous.state.name !== 'home'){
