@@ -23,12 +23,12 @@
               <br> -->
               <div>
                 <h2>
-                  <span style="display: block;" class="label label-primary">포트폴리오 소개</span>
+                  <span style="display: block;" class="label label-primary" translate="PortfolioIntroduction"></span>
                 </h2>
               </div>
               <br>
               <div>
-                <h4><strong> {{profile.perHourRate || '0' | number:1}} 원/시간당 </strong></h4>
+                <h4><strong> {{profile.perHourRate || '0' | number:1}} <span translate="PerHour"></span> </strong></h4>
                 <!-- {{profile.perHourRate}} -->
               </div>
               <div class="col-xs-7 p-l-none p-r-none star-rankingcolor"> 
@@ -38,7 +38,7 @@
                 </span>
               </div>
             <div class="col-xs-5 p-r-none p-l-none text-right">
-              <small>{{profile.noOfReviewBaseOnProjectAwarded || '0'}} 리뷰</small>
+              <small>{{profile.noOfReviewBaseOnProjectAwarded || '0'}} <span translate="review"></span></small>
             </div>
             <br>
             <br>
@@ -49,12 +49,12 @@
             <hr>
             <div>
               <h2>
-                <span style="display: block;" class="label label-info">포트폴리오 설명</span>
+                <span style="display: block;" class="label label-info" translate="PortfolioDescription"></span>
               </h2>
               <p>{{portfolio.description}}</p>
             </div>
             <br>
-            <h4><b> 프로젝트에 사용한 기술</b></h4>
+            <h4><b translate="TechnologyUsed"> </b></h4>
             <div ng-repeat="skill in portfolio.skills">
               <!-- <button class="btn btn-sm btn-default" disabled>{{skill}} </button> -->
               <label class="skill-labell"> {{skill}}</label>

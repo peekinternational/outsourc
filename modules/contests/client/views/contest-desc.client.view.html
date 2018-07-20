@@ -34,7 +34,7 @@
       <!-- contest budget  remaiing Time -->
       <h3 class="p-r-lg m-r-lg p-mr-none m-mr-none h3-mobile-font" ng-if="thisContest.remainingDays >= 0">
         <b class="p-r-lg p-mr-sm ">
-          <label class="label label-success" style="background:#5f4119;border: 1px solid #5f4119;">개최마감 {{thisContest.remainingDays}} 일전</label>
+          <label class="label label-success" style="background:#5f4119;border: 1px solid #5f4119;"><span translate="deadline"></span> {{thisContest.remainingDays}} <span translate="before"></span></label>
         </b>
       </h3>
 
@@ -54,7 +54,7 @@
           </a>
         </span>
         <!-- End -->
-        <strong class="p-r-lg p-mr-none h3-mobile-getsupport" style="color:#fff">상금 {{thisContest.currency.symbol_native}}{{thisContest.sliderContestBudg | number:0}}원</strong>
+        <strong class="p-r-lg p-mr-none h3-mobile-getsupport" style="color:#fff"><span translate="PRIZE"></span> {{thisContest.currency.symbol_native}}{{thisContest.sliderContestBudg | number:0}}원</strong>
       </h4>
       <h5 ng-show="authentication.user._id != thisContest.user._id"  class="p-r-lg m-r-lg hidden-xs">
         <a ui-sref="contests.entry({contestId: thisContest._id})"  ng-if="thisContest.contestStatus !== 'closed' ">
@@ -71,16 +71,16 @@
             <!-- <li class="active lab" ><label ng-click="entries = false"> Description </label></li>
             <li class="active lab" ><label ng-click="entries = true"> Entries </label></li> -->
             <li class="m-l-lg">
-              <a ng-click="tab=1" ng-init="tab=1" ng-class="{'active':tab==1}" href="#">콘테스트 내용</a>
+              <a ng-click="tab=1" ng-init="tab=1" ng-class="{'active':tab==1}" href="#" translate="Description"></a>
             </li>
             <li>
-              <a ng-click="tab=2; getSimilarAndCompletedContests();" ng-class="{'active':tab==2}" href="#">지원자 리스트 및 공개포럼</a>
+              <a ng-click="tab=2; getSimilarAndCompletedContests();" ng-class="{'active':tab==2}" href="#" translate="entries"></a>
             </li>
             <li ng-if="thisContest.user._id === authentication.user._id">
-              <a ng-click="entries = false" href="/contests/edit/{{thisContest._id}}">콘테스트 편집</a>
+              <a ng-click="entries = false" href="/contests/edit/{{thisContest._id}}" translate="editContest"></a>
             </li>
             <li ng-if="thisContest.contestStatus == 'closed' && ( authentication.user._id == thisContest.user._id || (authentication.user._id === (thisContest.entries|filter:{entryPersonUserId: authentication.user._id, youWinner: 'yes'})[0].entryPersonUserId))"> 
-              <a ui-sref="contests.handover({contestId: thisContest._id})">콘테스트작품 파일업로드</a>
+              <a ui-sref="contests.handover({contestId: thisContest._id})" translate="UploadContest"></a>
             </li>
         </ul> 
       </div>
@@ -96,16 +96,16 @@
           <!-- <li class="active lab" ><label ng-click="entries = false"> Description </label></li>
           <li class="active lab" ><label ng-click="entries = true"> Entries </label></li> -->
           <li class="lab">
-            <a ng-click="tab=1" ng-init="tab=1" ng-class="{'active':tab==1}" href="#" >콘테스트 내용</a>
+            <a ng-click="tab=1" ng-init="tab=1" ng-class="{'active':tab==1}" href="#" translate="Description"></a>
           </li>
           <li class="lab">
-            <a ng-click="tab=2; getSimilarAndCompletedContests();" ng-class="{'active':tab==2}" href="#">지원자 리스트</a>
+            <a ng-click="tab=2; getSimilarAndCompletedContests();" ng-class="{'active':tab==2}" href="#" translate="entries"></a>
           </li>
           <li ng-if="thisContest.user._id === authentication.user._id" class="lab">
-            <a ng-click="entries = false" href="/contests/edit/{{thisContest._id}}">콘테스트 편집</a>
+            <a ng-click="entries = false" href="/contests/edit/{{thisContest._id}}" translate="editContest"></a>
           </li>
           <li class="lab" ng-if="thisContest.contestStatus == 'closed' && ( authentication.user._id == thisContest.user._id || (authentication.user._id === (thisContest.entries|filter:{entryPersonUserId: authentication.user._id, youWinner: 'yes'})[0].entryPersonUserId))"> 
-            <a ui-sref="contests.handover({contestId: thisContest._id})">콘테스트작품 파일업로드</a>
+            <a ui-sref="contests.handover({contestId: thisContest._id})" translate="UploadContest"></a>
           </li>
       </ul> 
     </div>
@@ -287,7 +287,7 @@
                         <div class="caption">
                           <div class="caption-content">
                             <button class="btn btn-md" ng-click="viewEntry('lg',entry,$index, thisContest.entries.length)" class="portfolio-link" data-toggle="modal">
-                              <i class="fa fa-eye" aria-hidden="true"></i> 보기
+                              <i class="fa fa-eye" aria-hidden="true"></i> <span translate="View"></span>
                             </button>
                             <!-- <span class="entryRate"><b><i class="fa fa-usd" aria-hidden="true"></i>{{entry.entrySellPrice}} USD</b></span> -->
                           </div>
@@ -392,7 +392,7 @@
       </div>
       <div class="col-xs-9 col-sm-6 col-md-10 p-l-none">
         <textarea ng-model="commentEntry" class="form-control intro-area "  rows="2"></textarea> 
-        <h5 class="prjct-list-font"><b>수상자외에 2등,3등을 수여할 경우 별도의 상금이 필요합니다. <span class="text-info" style="color:#d0a620"><a ui-sref="about.contact">고객문의</a>에 문의바랍니다.</span></b>
+        <h5 class="prjct-list-font"><b><span translate="InAdditionTo"></span> <span class="text-info" style="color:#d0a620"><a ui-sref="about.contact" translate="ContactUs"></a></span></b>
         </h5>
         <button class="btn btn-md btn-success pull-right" ng-click="commentOnEntry(commentEntry)" style="background:#37526a;border: 1px solid #37526a;" translate="Send"></button> &nbsp
       </div>

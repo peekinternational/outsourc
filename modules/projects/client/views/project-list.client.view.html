@@ -53,7 +53,7 @@
             <i class="glyphicon glyphicon-search text-muted">
           </i></button>
         </span>
-        <input type="text" class="form-control" ng-keyup="$event.keyCode == 13 ? search('byDescription') : null" name="searchProject" ng-model="searchProject" placeholder="프로젝트 제목 또는 내용을 입력하시면 프로젝트 목록을 볼 수 있습니다"  ng-change="search('byDescription')">
+        <input type="text" class="form-control" ng-keyup="$event.keyCode == 13 ? search('byDescription') : null" name="searchProject" ng-model="searchProject" placeholder="프로젝트 제목 또는 내용을 입력하시면 프로젝트 목록을 볼 수 있습니다/Search for projects by name or description"  ng-change="search('byDescription')">
         
       </div>
 
@@ -68,7 +68,7 @@
     <div>
         <div>
           <!-- <select selector model="searchSkills" multi="true" options="skills" label-attr="name" placeholder="지원자/프리랜서께서 보유하고 있는 전문 기술로 등록된 프로젝트 목록을 찾을 수 있습니다." ></select> -->
-          <select ng-click="getSkillsAndCat()" selector model="searchSkills" multi="true" options="skills" label-attr="name" closeAfterSelection="true" placeholder="지원자/프리랜서께서 보유하고 있는 전문 기술로 등록된 프로젝트 목록을 찾을 수 있습니다." ></select>
+          <select ng-click="getSkillsAndCat()" selector model="searchSkills" multi="true" options="skills" label-attr="name" closeAfterSelection="true" placeholder="지원자/프리랜서께서 보유하고 있는 전문 기술로 등록된 프로젝트 목록을 찾을 수 있습니다./Type to filter projects by skills" ></select>
         </div>
       </div>
 

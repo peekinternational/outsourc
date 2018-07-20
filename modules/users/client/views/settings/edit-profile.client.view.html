@@ -29,14 +29,14 @@ body {
           <div class="row" style="display: -webkit-box;">
             <div class="form-group col-xs-6" show-errors>
               <label for="firstName" translate="FName"></label>
-              <input type="text" id="firstName" name="firstName" class="form-control inputwidthsetting" ng-model="user.firstName" placeholder="성을 입력 바랍니다." required>
+              <input type="text" id="firstName" name="firstName" class="form-control inputwidthsetting" ng-model="user.firstName" placeholder="성을 입력 바랍니다/Please enter your first name" required>
               <div ng-messages="userForm.firstName.$error" role="alert">
                 <p class="help-block error-text" ng-message="required"><span translate="firstName"></span></p>
               </div>
             </div>
             <div class="form-group col-xs-6" show-errors>
               <label for="lastName" translate="LName"></label>
-              <input type="text" id="lastName" name="lastName" class="form-control inputwidthsetting" ng-model="user.lastName" placeholder="이름을 입력 바랍니다." required>
+              <input type="text" id="lastName" name="lastName" class="form-control inputwidthsetting" ng-model="user.lastName" placeholder="이름을 입력 바랍니다/Please enter your last name." required>
               <div ng-messages="userForm.lastName.$error" role="alert">
                 <p class="help-block error-text" ng-message="required"><span translate="lastName"></span></p>
               </div>
@@ -50,14 +50,14 @@ body {
          <h4><b>Address</b></h4><br>
           <div class="form-group" show-errors>
             <label for="address" translate="Address"></label>
-            <textarea style="height: 4rem;" type="text" id="address" name="address" class="form-control" ng-model="user.address" placeholder="주소를 입력바랍니다." required></textarea>
+            <textarea style="height: 4rem;" type="text" id="address" name="address" class="form-control" ng-model="user.address" placeholder="주소를 입력바랍니다/Please enter your address" required></textarea>
             <div ng-messages="userForm.address.$error" role="alert">
               <p class="help-block error-text" ng-message="required"><span translate="AddressRequired"></span></p>
             </div>
           </div>
           <div class="form-group" show-errors>
             <label for="city" translate="City"></label>
-            <input type="text" id="city" name="city" class="form-control" ng-model="user.city" placeholder="시ㆍ도명을 입력바랍니다." required>
+            <input type="text" id="city" name="city" class="form-control" ng-model="user.city" placeholder="시ㆍ도명을 입력바랍니다/Please enter city name." required>
             <div ng-messages="userForm.city.$error" role="alert">
               <p class="help-block error-text" ng-message="required"><span translate="InputCityName"></span></p>
             </div>
@@ -65,16 +65,16 @@ body {
           <div class="row" style="display: -webkit-box;">
             <div class="form-group col-xs-6" show-errors>
               <label for="zipcode" translate="zipCode"></label>
-              <input type="text" id="zipcode" name="zipcode" class="form-control inputwidthsetting" ng-model="user.zipcode" placeholder="우편번호를 입력바랍니다." required>
+              <input type="text" id="zipcode" name="zipcode" class="form-control inputwidthsetting" ng-model="user.zipcode" placeholder="우편번호를 입력바랍니다/Please enter your zip code" required>
               <div ng-messages="userForm.zipcode.$error" role="alert">
                 <p class="help-block error-text" ng-message="required"><span translate="zipCodeRequired"></span></p>
               </div>
             </div>
             <div class="form-group col-xs-6" show-errors>
               <label for="stateprovince" translate="State/Province"></label>
-              <input type="text" id="stateprovince" name="stateprovince" class="form-control inputwidthsetting" ng-model="user.stateprovince" placeholder="현재 거주 국가를 입력바랍니다." required>
+              <input type="text" id="stateprovince" name="stateprovince" class="form-control inputwidthsetting" ng-model="user.stateprovince" placeholder="현재 거주 국가를 입력바랍니다/Please enter your current country of residence" required>
               <div ng-messages="userForm.stateprovince.$error" role="alert">
-                <p class="help-block error-text" ng-message="required">현재 거주 국가를 입력바랍니다.</p>
+                <p class="help-block error-text" ng-message="required" translate="countryOfResidence"></p>
               </div>
             </div>
           </div>
@@ -95,7 +95,7 @@ body {
           </div>
           <div class="form-group" show-errors>
             <label for="companyName" translate="CompanyName"></label>
-            <input type="text" id="companyName" name="companyName" class="form-control" ng-model="user.companyName" placeholder="회사를 입력바랍니다." required>
+            <input type="text" id="companyName" name="companyName" class="form-control" ng-model="user.companyName" placeholder="회사를 입력바랍니다/Please enter the company" required>
             <div ng-messages="userForm.companyName.$error" role="alert">
               <p class="help-block error-text" ng-message="required"><span translate="companyName"></span></p>
             </div>
@@ -111,7 +111,7 @@ body {
                       model="user.timezone"
                       options="timez"
                       label-attr="value"
-                      placeholder="시간 존을 선택바랍니다."
+                      placeholder="시간 존을 선택바랍니다/Please select a time zone."
                       >
                 </select>
               </div>
@@ -119,7 +119,7 @@ body {
            
           <div class="input-group col-xs-6">
               <label translate="location"></label><br>
-              <input type="text" id="location" name="location" class="form-control" style="width: 80%; height:39px"  placeholder="지도버튼를 클릭하시면 위치가 나옵니다." ng-model="user.location">
+              <input type="text" id="location" name="location" class="form-control" style="width: 80%; height:39px"  placeholder="지도버튼를 클릭하시면 위치가 나옵니다/Click the map button to see the location." ng-model="user.location">
                 <button type="button" class="btn btn-default btn-sm" style="height: 39px;" ng-click="detectMyLocation()">
                 <span class="glyphicon glyphicon-map-marker"></span><span translate="map"></span></button>
           </div>

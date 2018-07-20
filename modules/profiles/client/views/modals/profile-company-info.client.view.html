@@ -1,6 +1,6 @@
 <section ng-controller="ProfilesController" ng-init="universalData()">
 <div class="modal-header">
-    <h3 class="modal-title" id="modal-title">회사 프로필 작성</h3>
+    <h3 class="modal-title" id="modal-title" translate="CreateCompanyProfile"></h3>
 </div>
 <div class="modal-body" id="modal-body">
 
@@ -12,60 +12,60 @@
                         <div class="col-sm-12">
                             <div class="row">
                                 <div class="col-sm-6 form-group">
-                                    <label>회사명</label>
+                                    <label translate="CompanyName"></label>
                                     <!-- {{compInfo}} -->
                                     <input ng-disabled="compInfo.companyName" type="text" placeholder="Enter First Name Here.." class="form-control" ng-model="compInfo.companyName" required>
                                     <!-- {{profile.compInfo.companyName}} -->
                                 </div>
                                 <!-- {{compInfo.companyName}} -->
                                 <div class="col-sm-6 form-group">
-                                    <label>사업자 등록번호</label>
-                                    <input ng-disabled="compInfo.companyName" type="text" placeholder="사업자등록을 입력하신후 사본을 support@oursourcinok.com으로 보내주시기 바랍니다.." class="form-control" ng-model="compInfo.companyReg" required>
+                                    <label translate="CompanyRegistrationNumber"></label>
+                                    <input ng-disabled="compInfo.companyName" type="text" placeholder="사업자등록을 입력하신후 사본을 support@oursourcinok.com으로 보내주시기 바랍니다../Please enter a Business Registration and send a copy to support@oursourcinok.com." class="form-control" ng-model="compInfo.companyReg" required>
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label>담당자 성함</label>
-                                <input type="text" placeholder="담당자 이름을 입력 바랍니다" class="form-control" ng-model="compInfo.subscribersName" required>
+                                <label translate="ContactName"></label>
+                                <input type="text" placeholder="담당자 이름을 입력 바랍니다/Please enter the contact person name" class="form-control" ng-model="compInfo.subscribersName" required>
                             </div>
                             <div class="row">
                                 <div class="col-sm-6 form-group">
-                                    <label>대표지 성함</label>
-                                    <input type="text" placeholder="대표 이사 이름을 입력 바랍니다" class="form-control" ng-model="compInfo.representativeName" required>
+                                    <label translate="representativeName"></label>
+                                    <input type="text" placeholder="대표 이사 이름을 입력 바랍니다/Please enter your name" class="form-control" ng-model="compInfo.representativeName" required>
                                 </div>
                                 <div class="col-sm-6 form-group">
-                                    <label>상장 유무</label>
-                                    <input type="text" placeholder="상장 유뮤를 입력 바랍니다" class="form-control" ng-model="compInfo.listing" required>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-sm-6 form-group">
-                                    <label>전화번호</label>
-                                    <input type="text" placeholder="전화번호와 내선번호를 입력 바랍니다" class="form-control" ng-model="compInfo.phoneNumber" required onkeypress="return (event.charCode == 8 || event.charCode == 0) ? null : event.charCode >= 48 && event.charCode <= 57">
-                                </div>
-                                <div class="col-sm-6 form-group">
-                                    <label>팩스 번호</label>
-                                    <input type="text" placeholder="팩스번호를 입력 바랍니다" class="form-control" ng-model="compInfo.fax" onkeypress="return (event.charCode == 8 || event.charCode == 0) ? null : event.charCode >= 48 && event.charCode <= 57">
+                                    <label translate="Listing"></label>
+                                    <input type="text" placeholder="상장 유뮤를 입력 바랍니다/Please enter a public listing" class="form-control" ng-model="compInfo.listing" required>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-sm-6 form-group">
-                                    <label>이메일 주소</label>
-                                    <input type="email" placeholder="이메일 주소를 입력 바랍니다" class="form-control" ng-model="compInfo.email" required>
+                                    <label translate="PhoneNumber"></label>
+                                    <input type="text" placeholder="전화번호와 내선번호를 입력 바랍니다/Please enter your phone number and extension" class="form-control" ng-model="compInfo.phoneNumber" required onkeypress="return (event.charCode == 8 || event.charCode == 0) ? null : event.charCode >= 48 && event.charCode <= 57">
                                 </div>
                                 <div class="col-sm-6 form-group">
-                                    <label>회사홈페이지 주소</label>
-                                    <input type="text" placeholder="화사 홈패이지 주소를 입력 바랍니다" class="form-control" ng-model="homePage">
+                                    <label translate="FaxNumber"></label>
+                                    <input type="text" placeholder="팩스번호를 입력 바랍니다/Please enter your fax number" class="form-control" ng-model="compInfo.fax" onkeypress="return (event.charCode == 8 || event.charCode == 0) ? null : event.charCode >= 48 && event.charCode <= 57">
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-sm-6 form-group">
-                                    <label>우편번호</label>
-                                    <input type="text" placeholder="우편번호를 입력 바랍니다" class="form-control" ng-model="compInfo.zipcode" required>
+                                    <label translate="emailAddress"></label>
+                                    <input type="email" placeholder="이메일 주소를 입력 바랍니다/Please enter your email address" class="form-control" ng-model="compInfo.email" required>
+                                </div>
+                                <div class="col-sm-6 form-group">
+                                    <label translate="CompanyHomePage"></label>
+                                    <input type="text" placeholder="화사 홈패이지 주소를 입력 바랍니다/Please enter your company's homepage" class="form-control" ng-model="homePage">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-6 form-group">
+                                    <label translate="zipCode"></label>
+                                    <input type="text" placeholder="우편번호를 입력 바랍니다/Please enter your zip code" class="form-control" ng-model="compInfo.zipcode" required>
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label>회사주소</label>
-                                <textarea  ng-model="compInfo.address" placeholder="회사주소를 입력 바랍니다.." rows="3" class="form-control"></textarea>
+                                <label translate="CompanyAddress"></label>
+                                <textarea  ng-model="compInfo.address" placeholder="회사주소를 입력 바랍니다../Please enter your company address .." rows="3" class="form-control"></textarea>
                             </div>
                             <script type="text/ng-template" id="selector/demo/country">
                                 <i class="flag" ng-class="option.code.toLowerCase()"></i>&nbsp; {{option}}
@@ -82,37 +82,37 @@
                             </div>
                             <div class="row">
                                 <div class="col-sm-6 form-group">
-                                    <label>사업의 종류</label>
-                                    <input type="text" placeholder="사업의종류를 입력 바랍니다" class="form-control" ng-model="compInfo.sector" required>
+                                    <label translate="Sectors"></label>
+                                    <input type="text" placeholder="사업의종류를 입력 바랍니다/Please enter the type of business" class="form-control" ng-model="compInfo.sector" required>
                                 </div>
                                 <div class="col-sm-6 form-group">
-                                    <label>사업의 종목</label>
-                                    <input type="text" placeholder="사업의 종목을 입력 바랍니다" class="form-control" ng-model="compInfo .companyType" required>
+                                    <label translate="BusinessItem"></label>
+                                    <input type="text" placeholder="사업의 종목을 입력 바랍니다/Please enter company type" class="form-control" ng-model="compInfo .companyType" required>
                                 </div>                          
                             </div>
                             <div class="row">
                                 <div class="col-sm-6 form-group">
-                                    <label>설립 년월일</label>
-                                    <input type="Date" placeholder="회사 설랍 년월알을 입력 바랍니다" class="form-control" ng-model="compInfo.dfe" required>
+                                    <label translate="DateOfEstablishment"></label>
+                                    <input type="Date" placeholder="회사 설랍 년월알을 입력 바랍니다/Please enter the year" class="form-control" ng-model="compInfo.dfe" required>
                                 </div>
                                 <div class="col-sm-6 form-group">
-                                    <label>사원 수</label>
-                                    <input type="text" placeholder="사원 수를 입력 바랍니다" class="form-control" ng-model="compInfo.employees" required onkeypress="return (event.charCode == 8 || event.charCode == 0) ? null : event.charCode >= 48 && event.charCode <= 57">
+                                    <label translate="numberofEmployees"></label>
+                                    <input type="text" placeholder="사원 수를 입력 바랍니다/Please enter the number of employees" class="form-control" ng-model="compInfo.employees" required onkeypress="return (event.charCode == 8 || event.charCode == 0) ? null : event.charCode >= 48 && event.charCode <= 57">
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-sm-6 form-group">
-                                    <label>자본금</label>
-                                    <input type="text" placeholder="자본금을 압력 바랍니다" class="form-control" ng-model="compInfo.capital" required>
+                                    <label translate="Capital"></label>
+                                    <input type="text" placeholder="자본금을 압력 바랍니다/Please enter the capital" class="form-control" ng-model="compInfo.capital" required>
                                 </div>
                                 <div class="col-sm-6 form-group">
-                                    <label>매출액</label>
-                                    <input type="text" placeholder="매출액을 입력 바랍니다" class="form-control" ng-model="compInfo.take">
+                                    <label translate="Take"></label>
+                                    <input type="text" placeholder="매출액을 입력 바랍니다/Please input the sale" class="form-control" ng-model="compInfo.take">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label>Main Business Contant</label>
-                                <input type="text" placeholder="주요 사업 내용을 입력 바랍니다" class="form-control" ng-model="compInfo.mainBussiness" required>
+                                <input type="text" placeholder="주요 사업 내용을 입력 바랍니다/Please enter your main business content" class="form-control" ng-model="compInfo.mainBussiness" required>
                             </div>
                            <!--  <div class="row">
                                 <div class="col-sm-12">
@@ -131,9 +131,9 @@
                             <br>
                             <div class="row">
                                 <h3 class="m-b-none"> 
-                                    <strong>회사 인재상</strong>
+                                    <strong translate="CompanyTalent"></strong>
                                 </h3>
-                                <small>회사의 인재상에 잘 맞는 항목을 선택 하십시오 </small>
+                                <small translate="SelectItems"> </small>
                                 <br>
                                 <br>
                                 <div class="col-sm-3 col-md-3 ">
@@ -141,8 +141,8 @@
                                             <div class="col-xs-offset-1 col-md-offset-0 col-xs-1 p-l-none">
                                                 <input type="checkbox"/>
                                             </div>
-                                            <div class="col-xs-8 col-md-10 p-all-none">
-                                                고객지향성
+                                            <div class="col-xs-8 col-md-10 p-all-none" translate="CustomerOrientation">
+                                                
                                             </div>
                                         </div>                                     
                                 </div>
@@ -152,8 +152,8 @@
                                             <div class="col-xs-offset-1 col-md-offset-0 col-xs-1 p-l-none">
                                                 <input type="checkbox">
                                             </div>
-                                            <div class="col-xs-8 col-md-10 p-all-none">
-                                                글로벌 인재
+                                            <div class="col-xs-8 col-md-10 p-all-none" translate="GlobalTalent">
+                                                
                                             </div>
                                         </div>
                                 </div>
@@ -162,8 +162,8 @@
                                             <div class="col-xs-offset-1 col-md-offset-0 col-xs-1 p-l-none">
                                                 <input type="checkbox"/>
                                             </div>
-                                            <div class="col-xs-8 col-md-10 p-all-none">
-                                                도덕성
+                                            <div class="col-xs-8 col-md-10 p-all-none" translate="Morality">
+                                                
                                             </div>
                                         </div> 
                                 </div>
@@ -172,8 +172,8 @@
                                             <div class="col-xs-offset-1 col-md-offset-0 col-xs-1 p-l-none">
                                                 <input type="checkbox">
                                             </div>
-                                            <div class="col-xs-8 col-md-10 p-all-none">
-                                                도전정신
+                                            <div class="col-xs-8 col-md-10 p-all-none" translate="ChallengeSpirit">
+                                                
                                             </div>
                                         </div> 
                                 </div>
@@ -182,9 +182,9 @@
 
                             <div class="row">
                                 <h3 class="m-b-none"> 
-                                    <strong>사내 클럽활동</strong>
+                                    <strong translate="InHouseClub"></strong>
                                 </h3>
-                                <small>사내 동호회 유무를 선택 하십시오.  </small>
+                                <small translate="selectWhether"></small>
                                 <br>
                                 <br>
                               
@@ -193,8 +193,8 @@
                                             <div class="col-xs-offset-1 col-md-offset-0 col-xs-1 p-l-none">
                                                 <input type="checkbox"/>
                                             </div>
-                                            <div class="col-xs-8 col-md-10 p-all-none">
-                                                게임
+                                            <div class="col-xs-8 col-md-10 p-all-none" translate="Games">
+                                                
                                             </div>
                                         </div>                                     
                                 </div>
@@ -204,8 +204,8 @@
                                             <div class="col-xs-offset-1 col-md-offset-0 col-xs-1 p-l-none">
                                                 <input type="checkbox"/>
                                             </div>
-                                            <div class="col-xs-8 col-md-10 p-all-none">
-                                                스포츠
+                                            <div class="col-xs-8 col-md-10 p-all-none" translate="Sports">
+                                                
                                             </div>
                                         </div>
                                 </div>
@@ -214,8 +214,8 @@
                                             <div class="col-xs-offset-1 col-md-offset-0 col-xs-1 p-l-none">
                                                 <input type="checkbox">
                                             </div>
-                                            <div class="col-xs-8 col-md-10 p-all-none">
-                                                영화
+                                            <div class="col-xs-8 col-md-10 p-all-none" translate="Movie">
+                                                
                                             </div>
                                         </div> 
                                 </div>
@@ -224,8 +224,8 @@
                                             <div class="col-xs-offset-1 col-md-offset-0 col-xs-1 p-l-none">
                                                 <input type="checkbox"/>
                                             </div>
-                                            <div class="col-xs-8 col-md-10 p-all-none">
-                                                음악
+                                            <div class="col-xs-8 col-md-10 p-all-none" translate="Music">
+                                                
                                             </div>
                                         </div> 
                                 </div>
@@ -234,25 +234,25 @@
                             <br>
                             <br>
                             <div class="form-group">
-                                <h3> <strong>회사 개요 및 사명</strong></h3>
-                                <textarea  ng-model="compInfo.companyOverview" placeholder="회사의 개요와 사명을 입력 바랍니다.." rows="3" class="form-control"></textarea>
-                                <p>회사 세부정보</p>
+                                <h3> <strong translate="CompanyOverveiw"></strong></h3>
+                                <textarea  ng-model="compInfo.companyOverview" placeholder="회사의 개요와 사명을 입력 바랍니다../Please enter the company's outline and mission statement." rows="3" class="form-control"></textarea>
+                                <p translate="CompanyDetails"></p>
                             </div>
                             <br>
                             <br>
                             <div class="form-group">
-                                <h3><strong>연혁 및 실적</strong></h3>
-                                <textarea placeholder="회사 연혁과 살적을 입력 바랍니다.." rows="3" class="form-control" ng-model="compInfo.historyPerformance"></textarea>
+                                <h3><strong translate="HistoryPerformance"></strong></h3>
+                                <textarea placeholder="회사 연혁과 살적을 입력 바랍니다../Please enter your company history" rows="3" class="form-control" ng-model="compInfo.historyPerformance"></textarea>
                                 <p></p>
                             </div>
                             
                             <div class="btnscontainer">
                                 <div class="btn-toolbar">
                                     <div class="btn-group">
-                                        <button type="button" class="btn btn-primary">저장</button>
+                                        <button type="button" class="btn btn-primary" translate="Save"></button>
                                     </div>
                                     <div class="btn-group">
-                                        <button type="button" class="btn">취소</button>
+                                        <button type="button" class="btn" translate="Cancel"></button>
                                     </div>
                                 </div>
                             </div>
@@ -267,7 +267,7 @@
 
 </div>
 <div class="modal-footer">
-    <button class="btn btn-primary" type="button" ng-click="ok()">완료</button>
+    <button class="btn btn-primary" type="button" ng-click="ok()" translate="Complete"></button>
 </div>
 </section>
 

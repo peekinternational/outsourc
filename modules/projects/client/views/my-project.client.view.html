@@ -70,11 +70,11 @@
     	    <uib-tabset active="activeJustified" justified="true">
 
     	    	<!-- ///////////////////////////////////////////////////////// -->
-    			<uib-tab index="0" heading="프로젝트 등록현황" ng-click="findPostedProjects()">
+    			<uib-tab index="0" heading="프로젝트 등록현황/Open" ng-click="findPostedProjects()">
     			  <div class="m-mt-none" style="margin-top:20px">
     				<div class="col-xs-7 col-md-10 p-l-none p-t-lg hidden-xs">
     					<div class="input-group add-on">
-					      <input class="form-control" style="height: 40px;" placeholder="프로젝트 제목으로 검색 할 수 있습니다" name="srch-term" id="srch-term" type="text" ng-model="searchKeyword">
+					      <input class="form-control" style="height: 40px;" placeholder="프로젝트 제목으로 검색 할 수 있습니다/Enter project id contest name etc" name="srch-term" id="srch-term" type="text" ng-model="searchKeyword">
 					      <div class="input-group-btn">
 					        <button class="btn btn-default" type="submit" style="height: 40px;"><i class="glyphicon glyphicon-search"></i></button>
 					      </div>
@@ -252,11 +252,11 @@
 
 
 
-				    <uib-tab index="1" heading="진행중인 프로젝트 현황" ng-click="findActivePostedProjects('inProgress')">
+				    <uib-tab index="1" heading="진행중인 프로젝트 현황/Work Progess" ng-click="findActivePostedProjects('inProgress')">
 				    	<div class="hidden-xs" style="margin-top:20px">	
     				<div class="col-xs-7 col-md-10 p-l-none p-t-lg">
     					<div class="input-group add-on">
-					      <input class="form-control" style="height: 40px;" placeholder="프로젝트 제목으로 검색 할 수 있습니다" name="srch-term" id="srch-term" type="text">
+					      <input class="form-control" style="height: 40px;" placeholder="프로젝트 제목으로 검색 할 수 있습니다/Enter project id contest name etc" name="srch-term" id="srch-term" type="text">
 					      <div class="input-group-btn">
 					        <button class="btn btn-default" type="submit" style="height: 40px;"><i class="glyphicon glyphicon-search"></i></button>
 					      </div>
@@ -399,11 +399,11 @@
 
 					  </div>
 				    </uib-tab>
-				    <uib-tab index="2" heading="프로젝트 완료 내역" ng-click="findActivePostedProjects('past')">
+				    <uib-tab index="2" heading="프로젝트 완료 내역/Past Project" ng-click="findActivePostedProjects('past')">
 				    	<div class="hidden-xs" style="margin-top:20px">	
 								<div class="col-xs-7 col-md-10 p-l-none p-t-lg">
 									<div class="input-group add-on">
-										<input class="form-control" style="height: 40px;" placeholder="프로젝트 제목으로 검색 할 수 있습니다" name="srch-term" id="srch-term" type="text">
+										<input class="form-control" style="height: 40px;" placeholder="프로젝트 제목으로 검색 할 수 있습니다/Enter project id contest name etc" name="srch-term" id="srch-term" type="text">
 										<div class="input-group-btn">
 											<button class="btn btn-default" type="submit" style="height: 40px;"><i class="glyphicon glyphicon-search"></i></button>
 										</div>
@@ -428,7 +428,7 @@
 					    		  <tbody>
 											<tr class="row navbar-inverse employee-heading p-t-sm p-b-sm" style="color: white;">
 												<th class="id prjct-name"><strong translate="PROJECTName"></strong></th>
-												<th class="name text-center"><strong translate="BID">지원인원</strong></th>
+												<th class="name text-center"><strong translate="BID"></strong></th>
 												<th class="name text-center"><strong translate="FREELANCE"></strong></th>
 												<th class="description text-center"><strong translate="AWARDEDBIDS"></strong></th>
 												<th class="field3 text-center"><strong translate="TIME"></strong></th>
@@ -555,11 +555,11 @@
 
 					  </div>
 				    </uib-tab>
-				    <uib-tab index="3" heading="콘테스트 등록현황" ng-click="getAllMyContests();">
+				    <uib-tab index="3" heading="콘테스트 등록현황/Open Contests" ng-click="getAllMyContests();">
 				    	<div class="hidden-xs" style="margin-top:20px">	
     				<div class="col-xs-7 col-md-10 p-l-none p-t-lg">
     					<div class="input-group add-on">
-					      <input class="form-control" style="height: 40px;" placeholder="콘테스트 제목으로 검색 할 수 있습니다" name="srch-term" id="srch-term" type="text" ng-model="contSearch">
+					      <input class="form-control" style="height: 40px;" placeholder="콘테스트 제목으로 검색 할 수 있습니다/Enter project id contest name etc" name="srch-term" id="srch-term" type="text" ng-model="contSearch">
 					      <div class="input-group-btn">
 					        <button class="btn btn-default" type="submit" style="height: 40px;"><i class="glyphicon glyphicon-search"></i></button>
 					      </div>
@@ -714,12 +714,12 @@
 
 					  </div>
 				    </uib-tab>
-				    <uib-tab index="4" heading="상금지급 내역" ng-click="getContestInProgress();">
+				    <uib-tab index="4" heading="상금지급 내역/Prizes Awarded" ng-click="getContestInProgress();">
 				    	<span us-spinner="{radius:30, width:8, length: 16}" spinner-key="contLoader"></span>
 				    	<div class="hidden-xs" style="margin-top:20px;margin-bottom:20px;">	
     				<div class="col-xs-7 col-md-10 p-l-none p-t-lg">
     					<div class="input-group add-on">
-					      <input class="form-control" style="height: 40px;" placeholder="콘테스트 제목으로 검색 할 수 있습니다" name="srch-term" id="srch-term" type="text" ng-model="contSearchKeyword">
+					      <input class="form-control" style="height: 40px;" placeholder="콘테스트 제목으로 검색 할 수 있습니다/Enter project id contest name etc" name="srch-term" id="srch-term" type="text" ng-model="contSearchKeyword">
 					      <div class="input-group-btn">
 					        <button class="btn btn-default" type="submit" style="height: 40px;"><i class="glyphicon glyphicon-search"></i></button>
 					      </div>
@@ -963,13 +963,13 @@
 		<br class="hidden-xs">
 			<div class="tabs-freelncr tabs-freelncr-mobile tabBgColor">
     	    <uib-tabset active="activeJustified" justified="true" >
-    				<uib-tab index="0" heading="지원한 프로젝트 현황" ng-click= "getUserProjects('activeBids')">
+    				<uib-tab index="0" heading="지원한 프로젝트 현황/Active Bids" ng-click= "getUserProjects('activeBids')">
     				<!-- <uib-tab index="0" heading="Active Bids" select= "getUserProjects('activeBids');"> -->
     			<div class="hidden-xs" style="margin-top:20px;margin-bottom:20px;">	
     				<div class="col-xs-7 col-md-10 p-l-none p-t-lg hidden-xs">
     					<!-- For Searching in list -->
     					<div class="input-group add-on">
-    					  <input type="text" class="form-control search-query" ng-model="query"  placeholder="프로젝트 제목으로 검색 할 수 있습니다" ng-change="searchh(query)" ng-model="searchKeyword">
+    					  <input type="text" class="form-control search-query" ng-model="query"  placeholder="프로젝트 제목으로 검색 할 수 있습니다/Search by project title" ng-change="searchh(query)" ng-model="searchKeyword">
     					  <div class="input-group-btn">
     					    <button class="btn btn-default" ng-click="searchh(query)"><i class="glyphicon glyphicon-search"></i></button>
     					  </div>
@@ -1139,11 +1139,11 @@
 
 					  </div> 
     				</uib-tab>
-				    <uib-tab index="1" heading="진행중인 프로젝트 현황" ng-click="getUserProjects('CurrentWork')">
+				    <uib-tab index="1" heading="진행중인 프로젝트 현황/Current Work" ng-click="getUserProjects('CurrentWork')">
 				    	<div class="hidden-xs" style="margin-top:20px;margin-bottom:20px;">	
     				<div class="col-xs-7 col-md-10 p-l-none p-t-lg">
     					<div class="input-group add-on">
-    					  <input type="text" class="form-control search-query" ng-model="query"  placeholder="프로젝트 제목으로 검색 할 수 있습니다" ng-change="searchh(query)">
+    					  <input type="text" class="form-control search-query" ng-model="query"  placeholder="프로젝트 제목으로 검색 할 수 있습니다/Search by project title" ng-change="searchh(query)">
     					  <div class="input-group-btn">
     					    <button class="btn btn-default" ng-click="searchh(query)"><i class="glyphicon glyphicon-search"></i></button>
     					  </div>
@@ -1283,11 +1283,11 @@
 
 					  </div>
 				    </uib-tab>
-				    <uib-tab index="2" heading="프로젝트 완료 내역" ng-click="getUserProjects('pastWork')">
+				    <uib-tab index="2" heading="프로젝트 완료 내역/Past Work" ng-click="getUserProjects('pastWork')">
 				    	<div class="hidden-xs" style="margin-top:20px;margin-bottom:20px;">	
     				<div class="col-xs-7 col-md-10 p-l-none p-t-lg">
     					<div class="input-group add-on">
-					      <input class="form-control" style="height: 40px;" placeholder="프로젝트 제목으로 검색 할 수 있습니다" name="srch-term" id="srch-term" type="text">
+					      <input class="form-control" style="height: 40px;" placeholder="프로젝트 제목으로 검색 할 수 있습니다/Search by project title" name="srch-term" id="srch-term" type="text">
 					      <div class="input-group-btn">
 					        <button class="btn btn-default" type="submit" style="height: 40px;"><i class="glyphicon glyphicon-search"></i></button>
 					      </div>
@@ -1428,11 +1428,11 @@
 
 					  </div>
 				    </uib-tab>
-				    <uib-tab index="3" heading="지원한 콘테스트 현황" ng-click="getAllActiveContests()">
+				    <uib-tab index="3" heading="지원한 콘테스트 현황/Active Contests" ng-click="getAllActiveContests()">
 				    	<div class="hidden-xs" style="margin-top:20px;margin-bottom:20px;">	
     				<div class="col-xs-7 col-md-10 p-l-none p-t-lg">
     					<div class="input-group add-on">
-					      <input class="form-control" style="height: 40px;" placeholder="콘테스트 제목으로 검색 할 수 있습니다" name="srch-term" id="srch-term" type="text">
+					      <input class="form-control" style="height: 40px;" placeholder="콘테스트 제목으로 검색 할 수 있습니다/Search by project title" name="srch-term" id="srch-term" type="text">
 					      <div class="input-group-btn">
 					        <button class="btn btn-default" type="submit" style="height: 40px;"><i class="glyphicon glyphicon-search"></i></button>
 					      </div>
@@ -1668,7 +1668,7 @@
 						    </div>
 					  </div>
 				    </uib-tab> -->
-				    <uib-tab index="4" heading="콘테스트 완료 내역" ng-click="getAllPastContests()">
+				    <uib-tab index="4" heading="콘테스트 완료 내역/Past Contests" ng-click="getAllPastContests()">
 				    <div class="hidden-xs" style="margin-top:20px;margin-bottom:20px;">	
 	    				<div class="col-xs-7 col-md-10 p-l-none p-t-lg">
 	    					<div class="input-group add-on">

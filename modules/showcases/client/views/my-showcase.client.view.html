@@ -36,7 +36,7 @@
 
 			 		<uib-tab index="0">
 			 			<uib-tab-heading>
-			 				<i class="fa fa-check-circle-o"></i> 등록된 쇼케이스
+			 				<i class="fa fa-check-circle-o"></i> <span translate="RegisterShowcase"></span>
 			 			</uib-tab-heading>
 
 			 			<div class="row">
@@ -52,7 +52,7 @@
 			 				        <img src="{{sc.file.link}}" alt="Avatar" style="width:100%">
 			 				        <div class="caption">
 			 				         	<p class="prjct-list-font"><b>{{sc.title}}</b></p>
-			 				         	<a href="">프리랜서 {{authentication.user.username}}</a>
+			 				         	<a href=""><span translate="freelancer"></span> {{authentication.user.username}}</a>
 			 				       	</div>
 			 				       	<hr>
 			 				       	<div class="card-footer">
@@ -67,8 +67,8 @@
 			 			</div>
 
 			 			<div class="text-center content-myShow" ng-if="!activeShowcases.length">
-			 				<h2 class="h3-mobile-font"><strong>쇼케이스에 등록한 상품이 없습니다.</strong></h2>
-			 				<p class="prjct-list-font">회원님의 상품을 쇼케이스를 통해서 전세계 회원에게 알리십시오. <a href="showcases/create">쇼케이스 등록!</a></p>
+			 				<h2 class="h3-mobile-font"><strong translate="noRegisteredShowcase"></strong></h2>
+			 				<p class="prjct-list-font"><span translate="LetYourMembers"></span> <a href="showcases/create" translate="ShowcaseRegis"></a></p>
 			 			</div>	
 			 		</uib-tab>
 
@@ -91,7 +91,7 @@
 			 				        <img src="{{sc.file.link}}" alt="Avatar" style="width:100%">
 			 				        <div class="caption">
 			 				         	<p class="prjct-list-font"><b>{{sc.title}}</b></p>
-			 				         	<a href="">프리랜서 {{authentication.user.username}}</a>
+			 				         	<a href=""><span translate="freelancer"></span> {{authentication.user.username}}</a>
 			 				       	</div>
 			 				       	<hr>
 			 				       	<div class="card-footer">
@@ -131,7 +131,7 @@
 			 				        <img src="{{sc.file.link}}" alt="Avatar" style="width:100%">
 			 				        <div class="caption">
 			 				         	<p class="prjct-list-font"><b>{{sc.title}}</b></p>
-			 				         	<a href="">프리랜서 {{authentication.user.username}}</a>
+			 				         	<a href=""><span translate="freelancer"></span> {{authentication.user.username}}</a>
 			 				       	</div>
 			 				       	<hr>
 			 				       	<div class="card-footer">

@@ -16,7 +16,7 @@
 
    <uib-tabset class="text-left managemnt-tabs mobileView-managemnt-tabs" active="model.active">
 
-    <uib-tab heading="지원자ㆍ입찰자" index="0">
+    <uib-tab heading="지원자ㆍ입찰자/Proposal" index="0">
     <!-- ng-if= "awardedProject.awarded === 'no' || awardedProject.awarded === 'yes' || awardedProject.awarded === 'pending' "  -->
       <div class="col-xs-12 col-sm-12 col-md-10 col-lg-10 col-md-offset-1 container-fluid p-ml-none p-mr-none p-mt-lg" style="padding-top:5rem;padding-bottom:10rem;">
           <div>
@@ -151,7 +151,7 @@
           </div>
     </uib-tab>
 
-  <uib-tab heading="프로젝트 대금 결제" index="1">
+  <uib-tab heading="프로젝트 대금 결제/Management" index="1">
   <div class="col-xs-12 col-sm-12 col-md-10 col-lg-10 col-md-offset-1 container-fluid m-ml-none m-mr-none p-ml-none p-mr-none p-mt-lg" style="padding-top:5rem;padding-bottom:10rem;">
           <div class="row" ng-if= "awardedProject.awarded === 'yes'">
               <div class="col-xs-12 col-md-8">
@@ -188,7 +188,7 @@
                   <br class="hidden-xs">
                   <br>
                   <uib-tabset class="milestone-mobile">
-                    <uib-tab heading="프로젝트 대금 지급 내역" style="float:left;" class="p-l-sm">
+                    <uib-tab heading="프로젝트 대금 지급 내역/Milestones" style="float:left;" class="p-l-sm">
                     <br class="hidden-xs">
                     <br class="hidden-md hidden-lg">
                     <div class="row m-mr-none">
@@ -208,7 +208,7 @@
                                     <div ng-repeat="milestone in milestones track by $index">
                                       <div class="col-sm-8 form-group p-r-none">
                                           <label><span translate="RequestMilestone"></span></label>
-                                          <input type="text" placeholder="프로젝트 대금" class="form-control" ng-model="newMilestone.description" required>
+                                          <input type="text" placeholder="프로젝트 대금/Project Milestone" class="form-control" ng-model="newMilestone.description" required>
                                       </div>
                                       <div class="col-sm-3 form-group  p-r-none">
                                         <label><span translate="Amount"></span></label>
@@ -373,7 +373,7 @@
           </div>
   </uib-tab>
 
-  <uib-tab heading="프로젝트 수정ㆍ삭제" class="project-detail-tab" id="tab2" index="2">
+  <uib-tab heading="프로젝트 수정ㆍ삭제/Modify / Delete project" class="project-detail-tab" id="tab2" index="2">
 
     <div class="col-xs-12 col-sm-12 col-md-10 col-lg-10 col-md-offset-1 container-fluid p-mr-none p-ml-none text-center" style="margin-top:30px;">
       <center>
