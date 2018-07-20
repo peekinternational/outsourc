@@ -1168,27 +1168,7 @@
     "NoReqBeyondCompany":"\"Client\" does not require a freelancer to support any other requirements or conditions beyond the terms of the \"Company\" in relation to the holding of the Contest.",
     "ObligationToDetermine":"\"Client\" has an obligation to determine whether or not the design and ideas are violated before the final winner is selected. \"Company\" has no obligation to inspect or censor all posts, and is not responsible for any damages arising after the transfer of copyrights.",
     "WithIn7Days":"All \"Contests held\" must be selected from among the \"Freelancers\" supported by the winners within seven days of the registration deadline. If inevitable circumstances (such as internal review period, absence of sponsor, etc.) are not possible to select a winner within the agreed period, the date of announcement of the winner must be notified to \"Company\" by e-mail (admin@outsourcingok.com).",
-<<<<<<< HEAD
-    "":"",
-    "":"",
-    "":"",
-    "":"",
-    "":"",
-    "":"",
-    "":"",
-    "":"",
-    "":"",
-    "":"",
-    "":"",
-    "":"",
-    "":"",
-    "":"",
-    "":"",
 
-=======
-
-
->>>>>>> caf6c779dffaf150464b4b4b74bc87ee652d44f6
     "Art26":"Article 26 (Intellectual Property Rights)",
 
     "Art27":"Article 27 Deposit Insurance System Service",
@@ -1853,41 +1833,4 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<<<<<<< HEAD
-  }
-=======
-
-  }
->>>>>>> caf6c779dffaf150464b4b4b74bc87ee652d44f6
+}

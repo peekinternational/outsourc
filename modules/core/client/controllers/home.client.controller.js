@@ -7,8 +7,8 @@ angular.module('core').controller('HomeController', ['$scope', '$http', '$rootSc
     $scope.isCollapsed = false;
     $scope.isCollapsedHorizontal = false;
 
-
-    if(Authentication.user && !Authentication.user.verEmail){
+    console.log(Authentication.user.verjobcallmeEmail);
+    if(Authentication.user && !Authentication.user.verEmail || Authentication.user && !Authentication.user.verjobcallmeEmail){
       $location.path('/verify');
     }
 

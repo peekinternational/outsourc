@@ -141,7 +141,10 @@ angular.module('users').controller('AuthenticationController', ['$scope', '$root
 
     $scope.status = 'online';
     $scope.signup = function (isValid, userType) {
-
+      $http.get('https://www.jobcallme.com/check').success(function(res){
+        console.log(res);
+      })
+      return false;
       $scope.error = null;
       if (!isValid) {
         $scope.$broadcast('show-errors-check-validity', 'userForm');
@@ -312,7 +315,7 @@ angular.module('users').controller('AuthenticationController', ['$scope', '$root
           $rootScope.userAccountBalance = res;
 
           $rootScope.userAccountBalance = res;
-          if($scope.authentication.user.verEmail){
+          if($scope.authentication.user.verEmail || $scope.authentication.user.verjobcallmeEmail){
             // $state.go('projects.project-dash');
             if($state.previous.state.name !== 'home'){
               $state.go($state.previous.state.name, $state.previous.params);
