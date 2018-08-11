@@ -1683,7 +1683,7 @@
     "MoneyManagement": "자금관리",
     "Escrow": "에스크로",
     "ReqMoney": "대금지급 요청",
-      "StatementFund": "자금내역서",
+    "StatementFund": "자금내역서",
     " EscrowPayment": "에스크로 대금결제 선택",
     "Income": "수입",
     "Expendit":"지출",
@@ -1986,7 +1986,7 @@
     "WebsiteSonstruction": "웹사이트 구축",
     "ShoppingMall": "쇼핑몰 구축 ",
     "Software": "소프트웨어",
-    "WordPressTemplate": "워드프레스 템플릿"
+    "WordPressTemplate": "워드프레스 템플릿",
 
     "SearchMember":"아웃소싱 오케이 글로벌 프리랜서 회원 검색",
     "Opentab" : "지원한 프로젝트 현황",
