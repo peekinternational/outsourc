@@ -3,7 +3,7 @@
 <br>
             <h3 class="investor-heading p-t-sm" style="font-size:20px;" translate="ServiceFee"></h3>
             <h3 class="investor-para">
-               
+
             </h3>
             <br><br>
           </div>
@@ -23,7 +23,7 @@
 			<div class="panel-heading" style="background:#5b1b29;font-size: 15px;border:1px solid #5b1b29;"><span translate="SelectPaymentMethod"></span></div>
 			<div class="panel-body" style="height:40%; text-align:center;" >
 			<a ui-sref="credit-deposit"><button class="btn btn-primary btn-lg" style="margin-right:50px;"> <span translate="Creditcard"></span></button> </a><a ui-sref="cash-deposit"><button class="btn btn-primary btn-lg" style="margin-right:20px;background:#d0a620;border:1px solid #d0a620;"> <span translate="CashPayment"></span></button></a>&nbsp;&nbsp;&nbsp;<a ui-sref="paypal-deposit"><button class="btn btn-primary btn-lg" style="background:#009cde;margin-left:20px;">&nbsp;&nbsp;<span translate="Paypal"></span>&nbsp;&nbsp;</button> </a>
-			   
+
 			</div>
 			</div>
 		</div>
@@ -41,13 +41,13 @@
 			   	    	<span translate="Amountofpayment"></span> :
 			   	    </label>
 			   	    <div class="col-sm-9">
-			   	      <input type="number" ng-model="pricee" class="form-control" placeholder="결제금액을 입력바랍니다[최소1000원 이상]" min="1000" ng-change="priceeChange()" required />
+			   	      <input type="number" ng-model="pricee" class="form-control" placeholder="결제금액을 입력바랍니다[최소1000원 이상]" “translate translate-attr-placeholder="MinimumYen" min="1000" ng-change="priceeChange()" required />
 			   	    </div>
 			   	</div>
 
 			   	<div class="form-group hidden">
 			   	    <label class="control-label col-sm-3" for="username"><span translate="Name"></span>:</label>
-			   	    <div class="col-sm-9"> 
+			   	    <div class="col-sm-9">
 			   	      <input type="text" name="buyerName" ng-model="authentication.user.username" class="form-control"/>
 			   	    </div>
 			   	</div>
@@ -62,7 +62,7 @@
 			   	<div class="form-group">
 			   	    <label class="control-label col-sm-3" for="mobile"><span translate="MobilePhoneNumber"></span> :</label>
 			   	    <div class="col-sm-9">
-			   	      <input type="number" name="tel" ng-model="authentication.user.mobile" placeholder="핸드폰 번호를 입력바랍니다" class="form-control" required/>
+			   	      <input type="number" name="tel" ng-model="authentication.user.mobile" placeholder="핸드폰 번호를 입력바랍니다" translate translate-attr-placeholder="EnterNum" class="form-control" required/>
 			   	    </div>
 			   	</div>
 
@@ -98,9 +98,9 @@
 			</div>
 			</div>
 
-				<!-- <div class="form-group">	                
+				<!-- <div class="form-group">
 	                <label class="control-label col-sm-10"><img src="modules/core/client/img/customimages/top_icon46.png"> 모바일결제는 준비중입니다.</label>
-					
+
 	            </div> -->
 
 		</div>
@@ -124,7 +124,7 @@
 
 				   	<div class="form-group hidden">
 				   	    <label class="control-label col-sm-2" for="username">UserName:</label>
-				   	    <div class="col-sm-10"> 
+				   	    <div class="col-sm-10">
 				   	      <input type="text" name="buyerName" ng-model="authentication.user.username" class="form-control"/>
 				   	    </div>
 				   	</div>
@@ -139,7 +139,7 @@
 				   	<div class="form-group">
 				   	    <label class="control-label col-sm-2" for="mobile"><span translate="MobilePhoneNumber"></span>: </label>
 				   	    <div class="col-sm-10">
-				   	      <input type="number" name="tel" ng-model="authentication.user.mobile" placeholder="핸드폰 번호를 입력바랍니다" class="form-control" required/>
+				   	      <input type="number" name="tel" ng-model="authentication.user.mobile" placeholder="핸드폰 번호를 입력바랍니다" “translate translate-attr-placeholder="EnterNum" class="form-control" required/>
 				   	    </div>
 				   	</div>
 
@@ -166,7 +166,7 @@
 				    <div class="form-group">
 				      <div class=" col-sm-12">
 				        <button id="send" value="submit" class="btn btn-primary btn-lg" type="submit" >
-				           <span class="glyphicon glyphicon-send" ></span> <span translate="payment"></span> 
+				           <span class="glyphicon glyphicon-send" ></span> <span translate="payment"></span>
 				           <i class="fa fa-krw" aria-hidden="true"></i> {{totalPricee | number: 0}}
 				        </button>
 				      </div>
@@ -184,30 +184,30 @@
         <div class="panel panel-primary" style="border:1px solid #656a72;">
 			<div class="panel-heading text-center" style="background:#656a72;font-size: 15px;border:1px solid #656a72;"><span translate="Paidserviceguide"></span></div>
 				<div class="panel-body form-horizontal" style="height:40%; text-align:center;" >
-					
+
 
 					<div class="form-group" style="margin-top:20px">
 						<div class="col-sm-4">
 							  <div class="btn-container">
-								<label class="btn btn-info btn-block" style="background:#1793b1;color:#fff;"><span translate="Chatting"></span></label>								 
+								<label class="btn btn-info btn-block" style="background:#1793b1;color:#fff;"><span translate="Chatting"></span></label>
 							  </div>
 						</div>
 
 						<div class="col-sm-6" style="font-size:15px">
 						  <h3 class="title" translate="Unlimitedchat"></h3>
 						  <p><span translate="VideoChat1to1"></span></p>
-			 
+
 						</div>
 						<div class="col-sm-2" style="font-size:15px">
 						  5,000<span translate="Won"></span>
 						</div>
 					</div>
 
-<!-- 
+<!--
 					<div class="form-group" style="margin-top:20px">
 						<div class="col-sm-4">
-              
-              
+
+
 
               <div class="btn-container">
                 <label class="btn btn-info btn-block" style="background:#008000;color:#fff;">개인 서비스</label>
@@ -218,7 +218,7 @@
 						<div class="col-sm-6" style="font-size:15px">
 						  <h3 class="title">회원님의 모든 일정표를 관리해드립니다.</h3>
 						  <p>등록 재검토 및 수정 편집</p>
-			 
+
 						</div>
 						<div class="col-sm-2" style="font-size:15px">
 						  5,000원
@@ -230,11 +230,11 @@
 
 					<div class="form-group" style="margin-top:20px">
 						<div class="col-sm-4">
-              
-      
+
+
 
               <div class="btn-container">
-                <label class="btn btn-success btn-block" style="background:#113886;border-color: #113886;">비공개</label>
+                <label class="btn btn-success btn-block" style="background:#113886;border-color: #113886;" translate="Private"></label>
               </div>
 
 
@@ -242,7 +242,7 @@
 						<div class="col-sm-6" style="font-size:15px">
 						  <h3 class="title" translate="EachCannotSee"></h3>
 						  <p>&nbsp;</p>
-			 
+
 						</div>
 						<div class="col-sm-2" style="font-size:15px">
 						  1,000<span translate="EachCannotSee"></span>
@@ -250,8 +250,8 @@
 					</div>
 					<div class="form-group" style="margin-top:20px">
 						<div class="col-sm-4">
-              
-              
+
+
 
               <div class="btn-container">
                 <label class="btn btn-danger btn-block" style="background:#6b081d;color:#fff;"><span translate="urgent"></span></label>
@@ -261,17 +261,17 @@
             </div>
 						<div class="col-sm-6" style="font-size:15px">
 						  <h3 class="title" translate="FastResponsiveurgent"></h3>
-						 
-			 
+
+
 						</div>
 						<div class="col-sm-2" style="font-size:15px">
 						  1,000<span translate="Won"></span>
 						</div>
 					</div>
-					
 
 
-				   
+
+
 				</div>
 			</div>
 			</div>

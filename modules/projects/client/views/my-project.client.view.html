@@ -3,7 +3,7 @@
 <br>
             <h3 class="investor-heading p-t-sm" style="font-size:20px;" translate="MyProjectContest"></h3>
             <h3 class="investor-para">
-               
+
             </h3>
             <br><br>
           </div>
@@ -17,11 +17,11 @@
 			<h3 class="h3-mobile-font" style="font-weight: 800;">
 				<span translate="My"></span> <span style="color:#188ca8" translate="mProject"></span> ㆍ <span style="color:#a78311" translate="mcontest"></span>
 			</h3>
-		</div>	
+		</div>
    	<div class="col-xs-12 col-md-4 pull-right freelnce-tabs p-l-none p-r-none m-mt-lg m-mb-md">
 			<button class="btn btn-default btn-md employe-btn" ng-class="{true: 'my-project-tabs', false: '.financial-tabs > li >a'}[isEmployeeProject]" ng-click="showEmployee('employee'); toggleMyProject();" translate="Employer"></button>
 			<button class="btn btn-default btn-md employe-btn" ng-class="{true: 'my-project-tabs', false: '.employe-btn > li >a'}[freelancerProject]" ng-click="showEmployee('freelancer'); toggleMyProject();" translate="FreeLancer"></button>
-	</div> 
+	</div>
 	</div>
 		<div class="col-xs-12 m-b-lg p-l-none p-r-none" ng-show="!employee">
 		 <!-- <div class="main-body">
@@ -30,7 +30,7 @@
 		        <div class="col-xs-5">
 		          <h6 class="pull-left"><strong>Drafts</strong></h6>
 		        </div>
-		        
+
 		        <div class="col-xs-4">
 		          <h6><strong>Project type</strong></h6>
 		        </div>
@@ -70,11 +70,11 @@
     	    <uib-tabset active="activeJustified" justified="true">
 
     	    	<!-- ///////////////////////////////////////////////////////// -->
-    			<uib-tab index="0" heading="프로젝트 등록현황" ng-click="findPostedProjects()">
+    			<uib-tab index="0" heading="{{'Opentab' | translate}}" ng-click="findPostedProjects()">
     			  <div class="m-mt-none" style="margin-top:20px">
     				<div class="col-xs-7 col-md-10 p-l-none p-t-lg hidden-xs">
     					<div class="input-group add-on">
-					      <input class="form-control" style="height: 40px;" placeholder="프로젝트 제목으로 검색 할 수 있습니다" name="srch-term" id="srch-term" type="text" ng-model="searchKeyword">
+					      <input class="form-control" style="height: 40px;" placeholder="프로젝트 제목으로 검색 할 수 있습니다" translate translate-attr-placeholder="ProjecID" name="srch-term" id="srch-term" type="text" ng-model="searchKeyword">
 					      <div class="input-group-btn">
 					        <button class="btn btn-default" type="submit" style="height: 40px;"><i class="glyphicon glyphicon-search"></i></button>
 					      </div>
@@ -109,7 +109,7 @@
 					  </div>
 
 
-					  <div > 
+					  <div >
 					  	<!-- asdf {{authentication.user.myProjects[3]}} -->
 					  	<div class="col-xs-12 text-center main-body p-l-none p-r-none mrgn-botm m-t-lg table-responsive hidden-xs">
 				  	 		<table class="table table-striped table-hover">
@@ -140,7 +140,7 @@
 				    		    </td>
 				    		   </tr>
 				    		  </tfoot>
-				    		  <tbody> 
+				    		  <tbody>
 				    		    <tr ng-repeat="item in postedProjects | orderBy: '-created' | filter: searchKeyword ">
 				    		      <td class="text-left">
 				    		      	<strong>
@@ -155,12 +155,12 @@
 										    	<option translate="select"></option>
 										    	<!-- <option>Retract Bid</option> -->
 										    	<option value="projects/project-manage/{{item.id}}" translate="ViewApplicants">
-										    		
+
 										    	</option>
 										    	<!-- <option>Send Message</option> -->
 										    	<!-- <option>Clarify</option> -->
 										  	</select>
-								  		</td>        
+								  		</td>
 				    		    </tr>
 				    		    <tr ng-if="isLoading">
 				    		    	<td class="text-center" colspan="6">
@@ -211,7 +211,7 @@
 							    	<option translate="select"></option>
 							    	<!-- <option>Retract Bid</option> -->
 							    	<option value="projects/project-manage/{{item.id}}" translate="ViewApplicants">
-							    		
+
 							    	</option>
 							    	<!-- <option>Send Message</option> -->
 							    	<!-- <option>Clarify</option> -->
@@ -243,8 +243,8 @@
 			        </div>
 				    </div>
 						<!-- End Mobile View -->
-					  
-					  </div> 
+
+					  </div>
 					 </div>
     				</uib-tab>
 
@@ -252,11 +252,11 @@
 
 
 
-				    <uib-tab index="1" heading="진행중인 프로젝트 현황" ng-click="findActivePostedProjects('inProgress')">
-				    	<div class="hidden-xs" style="margin-top:20px">	
+				    <uib-tab index="1" heading="{{'WorkProgess' | translate}}" ng-click="findActivePostedProjects('inProgress')">
+				    	<div class="hidden-xs" style="margin-top:20px">
     				<div class="col-xs-7 col-md-10 p-l-none p-t-lg">
     					<div class="input-group add-on">
-					      <input class="form-control" style="height: 40px;" placeholder="프로젝트 제목으로 검색 할 수 있습니다" name="srch-term" id="srch-term" type="text">
+					      <input class="form-control" style="height: 40px;" placeholder="프로젝트 제목으로 검색 할 수 있습니다" translate translate-attr-placeholder="ProjecID" name="srch-term" id="srch-term" type="text">
 					      <div class="input-group-btn">
 					        <button class="btn btn-default" type="submit" style="height: 40px;"><i class="glyphicon glyphicon-search"></i></button>
 					      </div>
@@ -274,7 +274,7 @@
 					      </div>
 					    </div>
 					  </div>
-					 </div> 
+					 </div>
 					  <div>
 					  	 <div class="col-xs-12 text-center main-body p-l-none p-r-none m-t-lg table-responsive hidden-xs">
 					  	 		<table class="table table-striped table-hover">
@@ -321,9 +321,9 @@
 			      					    	<option>Edit Project</option>
 			      					    	<option>Send Message</option>
 		      					  		</select> -->
-		      				  	  </td>      
+		      				  	  </td>
 					    		    </tr>
-					    		</tbody>	
+					    		</tbody>
 					    			<tr ng-if="isLoading">
 					    				<td class="text-center" colspan="6">
 					    					<i class="fa fa-spinner fa-spin fa-3x fa-fw"></i>
@@ -370,7 +370,7 @@
     					      </div>
     					      <!-- ACTION -->
     					      <div class="col-xs-6 p-t-sm text-right">
-    	    		      	<strong>{{item.milestones || '0'}}</strong>  <span>차 지급</span> 
+    	    		      	<strong>{{item.milestones || '0'}}</strong>  <span>차 지급</span>
     					      </div>
     				      </div>
     	    		    <!-- End -->
@@ -399,11 +399,11 @@
 
 					  </div>
 				    </uib-tab>
-				    <uib-tab index="2" heading="프로젝트 완료 내역" ng-click="findActivePostedProjects('past')">
-				    	<div class="hidden-xs" style="margin-top:20px">	
+				    <uib-tab index="2" heading="{{'PastProject' | translate}}" ng-click="findActivePostedProjects('past')">
+				    	<div class="hidden-xs" style="margin-top:20px">
 								<div class="col-xs-7 col-md-10 p-l-none p-t-lg">
 									<div class="input-group add-on">
-										<input class="form-control" style="height: 40px;" placeholder="프로젝트 제목으로 검색 할 수 있습니다" name="srch-term" id="srch-term" type="text">
+										<input class="form-control" style="height: 40px;" placeholder="프로젝트 제목으로 검색 할 수 있습니다" translate translate-attr-placeholder="ProjecID" name="srch-term" id="srch-term" type="text">
 										<div class="input-group-btn">
 											<button class="btn btn-default" type="submit" style="height: 40px;"><i class="glyphicon glyphicon-search"></i></button>
 										</div>
@@ -421,7 +421,7 @@
 										</div>
 									</div>
 								</div>
-					 		</div> 
+					 		</div>
 					  <div >
 					  	 <div class="col-xs-12 text-center main-body p-l-none p-r-none m-t-lg table-responsive hidden-xs">
 					  	 		<table class="table table-striped table-hover">
@@ -472,7 +472,7 @@
     		      					    	<option>Edit Project</option>
     		      					    	<option>Send Message</option>
     		      					  	</select> -->
-    		      				  	  </td>        
+    		      				  	  </td>
 					    		    </tr>
 
 					    		    <tr ng-if="isLoading">
@@ -489,7 +489,7 @@
 								    </tr>
 					    		  </tbody>
 					    		</table>
-						      
+
 						    </div>
 
     						<!-- Mobile View Only -->
@@ -526,7 +526,7 @@
     					      </div>
     					      <!-- ACTION -->
     					      <div class="col-xs-6 p-t-sm text-right">
-    	    		      	<span translate="Completed"></span> 
+    	    		      	<span translate="Completed"></span>
     					      </div>
     				      </div>
     	    		    <!-- End -->
@@ -555,11 +555,11 @@
 
 					  </div>
 				    </uib-tab>
-				    <uib-tab index="3" heading="콘테스트 등록현황" ng-click="getAllMyContests();">
-				    	<div class="hidden-xs" style="margin-top:20px">	
+				    <uib-tab index="3" heading="{{'OpenContests' | translate}}" ng-click="getAllMyContests();">
+				    	<div class="hidden-xs" style="margin-top:20px">
     				<div class="col-xs-7 col-md-10 p-l-none p-t-lg">
     					<div class="input-group add-on">
-					      <input class="form-control" style="height: 40px;" placeholder="콘테스트 제목으로 검색 할 수 있습니다" name="srch-term" id="srch-term" type="text" ng-model="contSearch">
+					      <input class="form-control" style="height: 40px;" placeholder="콘테스트 제목으로 검색 할 수 있습니다" “translate translate-attr-placeholder="ProjecID" name="srch-term" id="srch-term" type="text" ng-model="contSearch">
 					      <div class="input-group-btn">
 					        <button class="btn btn-default" type="submit" style="height: 40px;"><i class="glyphicon glyphicon-search"></i></button>
 					      </div>
@@ -595,7 +595,7 @@
 					  </div>
 
 
-					 </div> 
+					 </div>
 					  <div >
 					  	 <div class="col-xs-12 text-center main-body p-l-none p-r-none m-t-lg table-responsive hidden-xs">
 					  	 		<table class="table table-striped table-hover">
@@ -627,7 +627,7 @@
 					    		    </td>
 					    		  </tr></tfoot>
 					    		  <tbody>
-					    		  	<!-- ng-repeat="item in pagedItems[currentPage] | orderBy:sortingOrder:reverse" --> 
+					    		  	<!-- ng-repeat="item in pagedItems[currentPage] | orderBy:sortingOrder:reverse" -->
 					    		    <!-- <tr ng-repeat="contest in myContests | orderBy:'-'" > -->
 					    		    <tr ng-repeat="contest in awardedContests | orderBy: '-created' | filter: contSearch " >
 					    		      <td class="text-left"><a ui-sref="contests.view({contestId: contest._id})">{{contest.name}}</a></td>
@@ -641,7 +641,7 @@
 									    	<option>Edit Project</option>
 									    	<option>Send Message</option>
 									  	</select> -->
-								  	  </td>        
+								  	  </td>
 					    		    </tr>
 
 					    		    <tr ng-if="isLoading">
@@ -658,7 +658,7 @@
 							    </tr>
 					    		  </tbody>
 					    		</table>
-						      	
+
 						    </div>
 
       						<!-- Mobile View Only -->
@@ -714,12 +714,12 @@
 
 					  </div>
 				    </uib-tab>
-				    <uib-tab index="4" heading="상금지급 내역" ng-click="getContestInProgress();">
+				    <uib-tab index="4" heading="{{'PrizesAwarded' | translate}}" ng-click="getContestInProgress();">
 				    	<span us-spinner="{radius:30, width:8, length: 16}" spinner-key="contLoader"></span>
-				    	<div class="hidden-xs" style="margin-top:20px;margin-bottom:20px;">	
+				    	<div class="hidden-xs" style="margin-top:20px;margin-bottom:20px;">
     				<div class="col-xs-7 col-md-10 p-l-none p-t-lg">
     					<div class="input-group add-on">
-					      <input class="form-control" style="height: 40px;" placeholder="콘테스트 제목으로 검색 할 수 있습니다" name="srch-term" id="srch-term" type="text" ng-model="contSearchKeyword">
+					      <input class="form-control" style="height: 40px;" placeholder="콘테스트 제목으로 검색 할 수 있습니다" translate translate-attr-placeholder="ProjecID" name="srch-term" id="srch-term" type="text" ng-model="contSearchKeyword">
 					      <div class="input-group-btn">
 					        <button class="btn btn-default" type="submit" style="height: 40px;"><i class="glyphicon glyphicon-search"></i></button>
 					      </div>
@@ -754,7 +754,7 @@
 					  </div>
 
 
-					 </div> 
+					 </div>
 					  <div>
 					  	 <div class="col-xs-12 text-center main-body p-l-none p-r-none m-t-lg table-responsive hidden-xs">
 					  	 		<table class="table table-striped table-hover">
@@ -810,7 +810,7 @@
     		      					    	<option>Edit Project</option>
     		      					    	<option>Send Message</option>
     		      					  	</select> -->
-    		      				  	  </td>       
+    		      				  	  </td>
 					    		    </tr>
 
 					    		    <tr ng-if="isLoading">
@@ -885,7 +885,7 @@
 					  </div>
 				    </uib-tab>
 				    <!-- <uib-tab index="5" heading="Past Contests">
-				    	<div class="hidden-xs">	
+				    	<div class="hidden-xs">
     				<div class="col-xs-7 col-md-10 p-l-none p-t-lg">
     					<div class="input-group add-on">
 					      <input class="form-control" style="height: 40px;" placeholder="Enter project id contest name etc" name="srch-term" id="srch-term" type="text">
@@ -904,7 +904,7 @@
 					      </div>
 					    </div>
 					  </div>
-					 </div> 
+					 </div>
 					  <div >
 					  	 <div class="col-xs-12 text-center main-body p-l-none p-r-none m-t-lg table-responsive">
 					  	 <table class="table table-striped table-hover">
@@ -942,8 +942,8 @@
 					    		      <td>${{item.yourBid}}</td>
 					    		      <td>${{item.actualBid}}</td>
 					    		      <td>${{item.actualBid}}</td>
-					    		      <td>{{item.created | date}}</td> 
-					    		      
+					    		      <td>{{item.created | date}}</td>
+
 					    		    </tr>
 							    <tr ng-if="!pagedItems[currentPage].length">
                                                               <td class="text-center" colspan="7">
@@ -957,19 +957,19 @@
 				    </uib-tab> -->
 				  </uib-tabset>
     		</div>
-		</div>	
+		</div>
 		<div class="col-xs-12 p-l-none p-r-none" ng-show="!freelancer">
 		<br class="hidden-xs">
 		<br class="hidden-xs">
 			<div class="tabs-freelncr tabs-freelncr-mobile tabBgColor">
     	    <uib-tabset active="activeJustified" justified="true" >
-    				<uib-tab index="0" heading="지원한 프로젝트 현황" ng-click= "getUserProjects('activeBids')">
+    				<uib-tab index="0" heading="{{'Opentab' | translate}}" ng-click= "getUserProjects('activeBids')">
     				<!-- <uib-tab index="0" heading="Active Bids" select= "getUserProjects('activeBids');"> -->
-    			<div class="hidden-xs" style="margin-top:20px;margin-bottom:20px;">	
+    			<div class="hidden-xs" style="margin-top:20px;margin-bottom:20px;">
     				<div class="col-xs-7 col-md-10 p-l-none p-t-lg hidden-xs">
     					<!-- For Searching in list -->
     					<div class="input-group add-on">
-    					  <input type="text" class="form-control search-query" ng-model="query"  placeholder="프로젝트 제목으로 검색 할 수 있습니다" ng-change="searchh(query)" ng-model="searchKeyword">
+    					  <input type="text" class="form-control search-query" ng-model="query"  placeholder="프로젝트 제목으로 검색 할 수 있습니다" translate translate-attr-placeholder="ProjecID" ng-change="searchh(query)" ng-model="searchKeyword">
     					  <div class="input-group-btn">
     					    <button class="btn btn-default" ng-click="searchh(query)"><i class="glyphicon glyphicon-search"></i></button>
     					  </div>
@@ -998,9 +998,9 @@
 					      </div>
 					    </div>
 					  </div>
-					 </div> 
+					 </div>
 					  <div >
-					  	 
+
 					    	<div class="col-xs-12 text-center main-body p-l-none p-r-none mrgn-botm m-t-lg  table-responsive hidden-xs">
 					    	  	<!-- <br><br>
 					    		<a ui-serf="" class="add-prjct-link"><i class="fa fa-trophy" aria-hidden="true"></i><br>
@@ -1045,8 +1045,8 @@
 					    		      <td>{{item.currency.symbol}}{{item.yourBid |number:0}}</td>
 					    		      <td>{{item.currency.symbol}}{{item.avgBids |number:0}}</td>
 					    		      <td>{{item.daysRemaining}} 일(Days)</td>
-					    		      <td class="text-right"> 
-					    		      	<select class="btn btn-default dropdown-toggle" ng-model="freelancSelected" ng-change="freelancOption(item.projectId)" onchange="location = this.value;"> 
+					    		      <td class="text-right">
+					    		      	<select class="btn btn-default dropdown-toggle" ng-model="freelancSelected" ng-change="freelancOption(item.projectId)" onchange="location = this.value;">
 									    	<option value= "projects/view/{{item.projectId}}" translate="RequestPayment"></option>
 									    	<!-- <option value="ci" >Create Invoice</option> -->
 									    	<!-- <option>Retract Bid</option> -->
@@ -1070,7 +1070,7 @@
 					    		  </tbody>
 					    		</table>
 					    	</div>
-					    	
+
     						<!-- Mobile View Only -->
     				    <section class="hidden-sm hidden-md hidden-lg m-t-lg" ng-repeat="item in freelancerActiveProjects | orderBy:'-created' | filter: searchKeyword">
     				      <!-- contest title, description, trophy, flag etc -->
@@ -1106,10 +1106,10 @@
     					      </div>
     					      <!-- ACTION -->
     					      <div class="col-xs-6 p-t-sm text-right">
-    	    		      	<select class="btn btn-default dropdown-toggle" ng-model="freelancSelected" ng-change="freelancOption(item.projectId)" onchange="location = this.value;"> 
+    	    		      	<select class="btn btn-default dropdown-toggle" ng-model="freelancSelected" ng-change="freelancOption(item.projectId)" onchange="location = this.value;">
 									    	<option value= "projects/view/{{item.projectId}}" translate="RequestPayment"></option>
 									    	<option value= "projects/view/{{item.projectId}}" translate="EditBid"></option>
-									  	</select> 
+									  	</select>
     					      </div>
     				      </div>
     	    		    <!-- End -->
@@ -1137,17 +1137,17 @@
     						<!-- End Mobile View -->
 
 
-					  </div> 
+					  </div>
     				</uib-tab>
-				    <uib-tab index="1" heading="진행중인 프로젝트 현황" ng-click="getUserProjects('CurrentWork')">
-				    	<div class="hidden-xs" style="margin-top:20px;margin-bottom:20px;">	
+				    <uib-tab index="1" heading="{{'WorkProgess' | translate}}" ng-click="getUserProjects('CurrentWork')">
+				    	<div class="hidden-xs" style="margin-top:20px;margin-bottom:20px;">
     				<div class="col-xs-7 col-md-10 p-l-none p-t-lg">
     					<div class="input-group add-on">
-    					  <input type="text" class="form-control search-query" ng-model="query"  placeholder="프로젝트 제목으로 검색 할 수 있습니다" ng-change="searchh(query)">
+    					  <input type="text" class="form-control search-query" ng-model="query"  placeholder="프로젝트 제목으로 검색 할 수 있습니다" translate translate-attr-placeholder="ProjecID" ng-change="searchh(query)">
     					  <div class="input-group-btn">
     					    <button class="btn btn-default" ng-click="searchh(query)"><i class="glyphicon glyphicon-search"></i></button>
     					  </div>
-    					</div> 
+    					</div>
 					  </div>
 					  <div class="col-xs-5 col-md-2 p-r-none p-t-lg p-ml-none">
 					  	<div class="input-group add-on">
@@ -1161,7 +1161,7 @@
 					      </div>
 					    </div>
 					  </div>
-					 </div> 
+					 </div>
 					  <div >
 					  	 <div class="col-xs-12 text-center main-body p-l-none p-r-none m-t-lg table-responsive hidden-xs">
 					  	 	<table class="table table-striped table-hover">
@@ -1206,7 +1206,7 @@
     		      					    	<option>Edit Project</option>
     		      					    	<option>Send Message</option>
     		      					  	</select> -->
-    		      				  	  </td> 
+    		      				  	  </td>
 					    		    </tr>
 					    		    <tr ng-if="isLoading">
 					    		    	<td class="text-center" colspan="6">
@@ -1283,11 +1283,11 @@
 
 					  </div>
 				    </uib-tab>
-				    <uib-tab index="2" heading="프로젝트 완료 내역" ng-click="getUserProjects('pastWork')">
-				    	<div class="hidden-xs" style="margin-top:20px;margin-bottom:20px;">	
+				    <uib-tab index="2" heading="{{'PastProject' | translate}}"” ng-click="getUserProjects('pastWork')">
+				    	<div class="hidden-xs" style="margin-top:20px;margin-bottom:20px;">
     				<div class="col-xs-7 col-md-10 p-l-none p-t-lg">
     					<div class="input-group add-on">
-					      <input class="form-control" style="height: 40px;" placeholder="프로젝트 제목으로 검색 할 수 있습니다" name="srch-term" id="srch-term" type="text">
+					      <input class="form-control" style="height: 40px;" placeholder="프로젝트 제목으로 검색 할 수 있습니다" translate translate-attr-placeholder="ProjecID" name="srch-term" id="srch-term" type="text">
 					      <div class="input-group-btn">
 					        <button class="btn btn-default" type="submit" style="height: 40px;"><i class="glyphicon glyphicon-search"></i></button>
 					      </div>
@@ -1305,7 +1305,7 @@
 					      </div>
 					    </div>
 					  </div>
-					 </div> 
+					 </div>
 					  <div>
 					  	 <div class="col-xs-12 text-center main-body p-l-none p-r-none m-t-lg table-responsive hidden-xs">
 					  	 <table class="table table-striped table-hover">
@@ -1361,7 +1361,7 @@
 								</td>
 							    </tr>
 							</tbody>
-						 </table>	
+						 </table>
 						  </div>
 
   						<!-- Mobile View Only -->
@@ -1428,11 +1428,11 @@
 
 					  </div>
 				    </uib-tab>
-				    <uib-tab index="3" heading="지원한 콘테스트 현황" ng-click="getAllActiveContests()">
-				    	<div class="hidden-xs" style="margin-top:20px;margin-bottom:20px;">	
+				    <uib-tab index="3" heading="{{'ActiveContests' | translate}}"" ng-click="getAllActiveContests()">
+				    	<div class="hidden-xs" style="margin-top:20px;margin-bottom:20px;">
     				<div class="col-xs-7 col-md-10 p-l-none p-t-lg">
     					<div class="input-group add-on">
-					      <input class="form-control" style="height: 40px;" placeholder="콘테스트 제목으로 검색 할 수 있습니다" name="srch-term" id="srch-term" type="text">
+					      <input class="form-control" style="height: 40px;" placeholder="콘테스트 제목으로 검색 할 수 있습니다" translate translate-attr-placeholder="SearchTitle" name="srch-term" id="srch-term" type="text">
 					      <div class="input-group-btn">
 					        <button class="btn btn-default" type="submit" style="height: 40px;"><i class="glyphicon glyphicon-search"></i></button>
 					      </div>
@@ -1450,9 +1450,9 @@
 					      </div>
 					    </div>
 					  </div>
-					 </div> 
+					 </div>
 					  <div>
-					 </div> 
+					 </div>
 					  <div >
 					  	 <div class="col-xs-12 text-center main-body p-l-none p-r-none m-t-lg table-responsive hidden-xs">
 
@@ -1511,7 +1511,7 @@
     		      					    	<option>Edit Project</option>
     		      					    	<option>Send Message</option>
     		      					  	</select> -->
-    		      				  	  </td> 
+    		      				  	  </td>
 					    		    </tr>
 					    		    <tr ng-if="isLoading">
 					    		    	<td class="text-center" colspan="7">
@@ -1525,7 +1525,7 @@
 										</td>
 								    </tr>
 					    		  </tbody>
-					    		</table>	
+					    		</table>
 						    </div>
 
     						<!-- Mobile View Only -->
@@ -1593,7 +1593,7 @@
 					  </div>
 				    </uib-tab>
 				    <!-- <uib-tab index="4" heading="Prizes Won">
-				    	<div class="hidden-xs">	
+				    	<div class="hidden-xs">
     				<div class="col-xs-7 col-md-10 p-l-none p-t-lg">
     					<div class="input-group add-on">
 					      <input class="form-control" style="height: 40px;" placeholder="Enter project id contest name etc" name="srch-term" id="srch-term" type="text">
@@ -1612,7 +1612,7 @@
 					      </div>
 					    </div>
 					  </div>
-					 </div> 
+					 </div>
 					  <div >
 					  	 <div class="col-xs-12 text-center main-body p-l-none p-r-none m-t-lg table-responsive">
 
@@ -1655,8 +1655,8 @@
 					    		      <td>${{item.actualBid}}</td>
 					    		      <td>{{item.created | date}}</td>
     		      	    		      <td class="text-center">
-    		      	    		      	
-    		      				  	  </td> 
+
+    		      				  	  </td>
 					    		    </tr>
 							    		<tr ng-if="!pagedItems[currentPage].length">
                     		<td class="text-center" colspan="8">
@@ -1668,8 +1668,8 @@
 						    </div>
 					  </div>
 				    </uib-tab> -->
-				    <uib-tab index="4" heading="콘테스트 완료 내역" ng-click="getAllPastContests()">
-				    <div class="hidden-xs" style="margin-top:20px;margin-bottom:20px;">	
+				    <uib-tab index="4" heading="{{'PastContests' | translate}}" ng-click="getAllPastContests()">
+				    <div class="hidden-xs" style="margin-top:20px;margin-bottom:20px;">
 	    				<div class="col-xs-7 col-md-10 p-l-none p-t-lg">
 	    					<div class="input-group add-on">
 						      <input class="form-control" style="height: 40px;" placeholder="Enter project id contest name etc" name="srch-term" id="srch-term" type="text">
@@ -1690,7 +1690,7 @@
 						      </div>
 						    </div>
 						  </div>
-					 </div> 
+					 </div>
 					  <div >
 					  	 <div class="col-xs-12 text-center main-body p-l-none p-r-none m-t-lg table-responsive hidden-xs">
 
@@ -1732,13 +1732,13 @@
 					    		      <td>{{item.entries.length}}명</td>
 					    		      <td><a href="outsourcer/{{item.userInfo.profile_id}}">{{item.userInfo.username}}</a></td>
 					    		      <!-- <td>{{item.myentries}}</td> -->
-					    		      <td ng-repeat="i in item.entries | filter:{youWinner: 'yes'}"> 
+					    		      <td ng-repeat="i in item.entries | filter:{youWinner: 'yes'}">
 					    		      	<span>{{ i.entryName}}</span>
 					    		      </td>
-					    		      <td ng-repeat="i in item.entries | filter:{youWinner: 'yes'}"> 
+					    		      <td ng-repeat="i in item.entries | filter:{youWinner: 'yes'}">
 					    		      	<span>{{item.currency.symbol_native}}{{ i.entrySellPrice | number:0}}원</span>
 					    		      </td>
-					    		      <td ng-repeat="i in item.entries | filter:{youWinner: 'yes'}"> 
+					    		      <td ng-repeat="i in item.entries | filter:{youWinner: 'yes'}">
 					    		      	<span>{{ i.created | date:"y'년' MM'월' d'일'"}}</span>
 					    		      </td>
 					    		      <td translate="Completed"></td>
@@ -1831,7 +1831,7 @@
 				  </uib-tabset>
     		</div>
 		</div>
-		
+
 	</div>
 </div>
 

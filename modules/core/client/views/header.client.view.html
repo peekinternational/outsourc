@@ -20,7 +20,7 @@
                 <a style="text-decoration: none; color: white;" href="" class="panel-anchr" id="lang" uib-dropdown-toggle><span class="caret pull-right" style="margin-top:12px;"></span>
                   lang
                 </a>
-                 <button ng-click="logOut();">xxlogOut</button> 
+                 <button ng-click="logOut();">xxlogOut</button>
                  <ul class="dropdown-menu panel-menu" uib-dropdown-menu role="menu" aria-labelledby="lang">
                    <div class="bordortop_styling border-mradus toggel-top" style="width:85%; margin-top:-14px; overflow: auto; height:auto">
                       <i class="fa fa-times-circle-o cross-butn p-t-xs text-right p-l-sm" aria-hidden="true" ng-click="collapsed=!collapsed"></i>
@@ -29,17 +29,17 @@
                             <i class="fa fa-user p-r-xs" aria-hidden="true">&nbsp;</i>
                             <a ng-click="changeLanguage('en')" style="cursor:pointer;">English</a>
                          </li>
-                         
+
                          <li class="list-group-item toggel-top-list">
                             <i class="fa fa-cog fa-cog p-r-xs" aria-hidden="true">&nbsp;</i>
                             <a ng-click="changeLanguage('kr')" style="cursor:pointer;">Korean</a>
                          </li>
-                         
+
                       </ul>
                    </div>
                  </ul>
               </div>
-              
+
            </li> -->
            <li ui-sref-active="active login-link" style="padding-top: 4px;">
               <a ui-sref="authentication.signin" class="login"><i class="fa fa-lock lock" aria-hidden="true"></i><span translate="login"></span></a>
@@ -53,7 +53,7 @@
 
         </ul>
      </div>
-    
+
   </nav>
 </div>
 <!-- Mobile View -->
@@ -93,12 +93,12 @@
         <ul class="hidden-sm hidden-md hidden-lg" style="display: flex; padding-top: 3px; list-style: none; margin-bottom: 0;">
            <li>
               <a class="dropdown-toggle user-header-dropdown-toggle" dropdown-toggle role="button" ng-mouseover="msgAlert=false" ng-click="newMsgAlert()" ui-sref="chat.inbox">
-                 <i class="fa fa-commenting commt-iconss" aria-hidden="true"></i> 
+                 <i class="fa fa-commenting commt-iconss" aria-hidden="true"></i>
                  <!-- red alert -->
                  <i ng-show="msgAlert" class="fa fa-circle text-danger badgeStyles"></i>
               </a>
            </li>
-           
+
               <!-- <a class="dropdown-toggle user-header-dropdown-toggle" dropdown-toggle role="button"  ng-mouseover="notifAlert=false" ng-click="notificationAlert()">
                  <i class="fa fa-bell commt-iconss" aria-hidden="true"> </i>  -->
                  <!-- red Alert -->
@@ -107,7 +107,7 @@
            <div class="dropdown-notifctn p-ml-mobile">
               <ul class="dropbtn-notifctn">
                  <a  class="dropdown-toggle user-header-dropdown-toggle" dropdown-toggle role="button"  ng-mouseover="notifAlert=false" ng-click="notificationAlert()">
-                    <i class="fa fa-bell commt-iconss" aria-hidden="true" style="margin-top: 0.4rem;"> </i> 
+                    <i class="fa fa-bell commt-iconss" aria-hidden="true" style="margin-top: 0.4rem;"> </i>
                     <!-- red Alert -->
                     <i ng-show="notifAlert" class="fa fa-circle text-danger badgeStyles-bell"></i>
                  </a>
@@ -136,7 +136,7 @@
                  </div>
               </div>
            </div>
-           
+
            <!-- <li class="p-ml-mobile">
               <a class="dropdown-toggle user-header-dropdown-toggle" dropdown-toggle role="button" ng-mouseover="showredAlert=false" ng-click="projFeedAlert()">
                  <i class="fa fa-rss commt-iconss" aria-hidden="true"></i> -->
@@ -144,7 +144,7 @@
                  <!-- <i ng-show="showredAlert" ng-if="projectFeed.length != 0 || projectFeed" class="fa fa-circle text-danger badgeStyle"></i>
               </a>
            </li> -->
-           <div class="dropdown-notifctn p-ml-mobile"> 
+           <div class="dropdown-notifctn p-ml-mobile">
               <ul class="dropbtn-notifctn">
                  <a class="dropdown-toggle user-header-dropdown-toggle" dropdown-toggle role="button" ng-mouseover="showredAlert=false" ng-click="projFeedAlert()">
                     <i class="fa fa-rss commt-iconss" aria-hidden="true" style="margin-top: 0.4rem;"></i>
@@ -195,7 +195,7 @@
            </li>
            <li class="p-mt-lg">
               <button class="btn btn-lg btn-warning btn-block p-mt-xs p-mb-xs" ui-sref="chat.inbox"><i class="fa fa-comments-o" aria-hidden="true"></i> <span translate="chatBox"></span></button>
-           </li>       
+           </li>
            <li class="p-mt-lg">
               <a target="_parent" ng-click="reloadData()" ui-sref="projects.project-dash"><i class="fa fa-tachometer p-mr-xs" aria-hidden="true"></i> <span translate="dashboard"></span></a>
            </li>
@@ -211,7 +211,7 @@
            <li class="p-mt-lg">
               <a ui-sref="outsoucers"><i class="fa fa-user-o p-mr-xs" aria-hidden="true"></i> <span translate="browseDirectory"></span></a>
            </li>
-        <!-- 
+        <!--
            <li class="p-mt-lg">
               <a ui-sref="chat.inbox"><i class="fa fa-envelope-o p-mr-xs" aria-hidden="true"></i>채팅 &nbsp;&nbsp;인박스</a>
            </li>
@@ -220,7 +220,7 @@
               <a ui-sref="credit-deposit"><i class="fa fa-credit-card p-mr-xs" aria-hidden="true"></i> <span translate="deposit"></span></a>
            </li>
            <li class="p-mt-lg">
-              <a ng-click="logOut();" href="/api/auth/signout" target="_self"><i class="fa fa-sign-out fa-cog p-r-xs" aria-hidden="true">&nbsp;</i> <span translate="logout"></span></a> 
+              <a ng-click="logOut();" href="/api/auth/signout" target="_self"><i class="fa fa-sign-out fa-cog p-r-xs" aria-hidden="true">&nbsp;</i> <span translate="logout"></span></a>
            </li>
         </ul>
         <ul class="nav navbar-nav m-ml-none hidden-xs" style="margin-left: -14rem;" ng-show="authentication.user" uib-dropdown dropdown-append-to-body>
@@ -234,11 +234,11 @@
                  </a>
               </ul>
               <div class="dropdown-content-hire p-t-lg p-l-xs">
-              
+
                  <li class="heading text-center" style="margin-top:10px;">
                     <b style="color:#8ba753;font-size:15px;"><img src="modules/core/client/img/customimages/client.png"> <span translate="findFreelancer"></span></b> <br>
-                 </li>				  
-                 <br>				
+                 </li>
+                 <br>
                  <li ui-sref-active="active">
                     <a ui-sref="projects.project-post"><img src="modules/core/client/img/customimages/top_icon33.png" class="col-md-offset-1"> <span translate="startProject"> </span></a>
                  </li>
@@ -246,8 +246,8 @@
                  <li ui-sref-active="active">
                     <a ui-sref="contests.contest-post"><img src="modules/core/client/img/customimages/top_icon31.png" class="col-md-offset-1"> <span translate="startContest"> </span></a>
                  </li>
-                 <hr class="m-t-xs m-b-sm" style="border-top: 1px solid #363636;">            
-                 
+                 <hr class="m-t-xs m-b-sm" style="border-top: 1px solid #363636;">
+
                  <!-- <li ui-sref-active="active" >
                     <a ui-sref="#">Browse Services</a>
                     </li> -->
@@ -264,7 +264,7 @@
                     <a ui-sref="showcases.list"><img src="modules/core/client/img/customimages/top_icon52.png" class="col-md-offset-1"> <span translate="showcase"></span></a>
                  </li>
                  <hr class="m-t-xs m-b-sm" style="border-top: 1px solid #363636;">
-         <!-- 
+         <!--
          <li ui-sref-active="active">
                     <a ui-sref="projects.project-list"><!-- <i class="fa fa-search" aria-hidden="true"></i> --><!--  <img src="modules/core/client/img/customimages/top_icon36.png" class="col-md-offset-1"> 프로젝트 검색</a>
                  </li>
@@ -359,7 +359,7 @@
                  <li ui-sref-active="active" style="margin-bottom:10px">
                     <a ui-sref="chat.inbox"><!-- <i class="fa fa-video-camera" aria-hidden="true"></i> --><img src="modules/core/client/img/customimages/top_icon42.png" class="col-md-offset-1"> <span translate="inbox"></span></a>
                  </li>
-         <!-- 
+         <!--
                  <hr class="m-t-xs m-b-xs" style="border-top: 1px solid #363636;">
          <li class="divider" class="col-md-offset-1"></li>
                  <li ui-sref-active="active" style="margin-bottom:10px">
@@ -437,7 +437,7 @@
         <div class="col-xs-12 col-md-2 p-r-none m-ml-none hidden-xs large-screen text-center">
           <form class="navbar-form p-l-none" role="search">
            <div class="input-group serch-bar-width">
-              <input ng-focus="focus=true" ng-blur="focus=false" type="text" class="form-control serchBar-header" placeholder="아웃소싱 오케이 글로벌 프리랜서 회원 검색" ng-model="search.outSourcer">
+              <input ng-focus="focus=true" ng-blur="focus=false" type="text" class="form-control serchBar-header" placeholder="아웃소싱 오케이 글로벌 프리랜서 회원 검색" translate translate-attr-placeholder="SearchMember" ng-model="search.outSourcer">
               <div class="input-group-btn">
                   <button class="btn btn-default srch-btn" type="submit"><i class="glyphicon glyphicon-search" style="color: white;"></i></button>
               </div>
@@ -455,7 +455,7 @@
                           </a>
                        </span>
                        <br>
-                       <span ng-repeat="(key, value) in user.skills"> 
+                       <span ng-repeat="(key, value) in user.skills">
                           <span class="label label-success" style="margin-right: .1rem">
                              {{value.name}}
                           </span>
@@ -482,9 +482,9 @@
               <div class="dropdown-content-hire p-t-lg p-l-xs">
                  <li class="heading text-center" >
                     <b style="color:#8ba753;"><img src="modules/core/client/img/customimages/top_icon1.png">&nbsp;&nbsp;<span translate="balance"></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</b> <br>
-                 </li> 
+                 </li>
                  <br>
-                 <li> 
+                 <li>
                     <div class="text-left" ng-repeat="(key,value) in userAccountBalance.accountBalance" style="color:#d7d7d7">
                        <span ng-if="key === 'KRW'"><!-- {{key}} -->&nbsp;&nbsp;<img src="modules/core/client/img/customimages/top_icon35.png"> &nbsp  &nbsp₩{{value |number: 0}}</span>
                        <span ng-if="key === 'USD'"><!-- {{key}} -->&nbsp;&nbsp;<img src="modules/core/client/img/customimages/top_icon34.png"> &nbsp  &nbsp{{value |currency:'$'}}</span>
@@ -512,19 +512,19 @@
                  <li ui-sref-active="active" ng-controller="ProfilesController">
                     <a ui-sref="contests.transcation"><img src="modules/core/client/img/customimages/top_icon49.png"> <span translate="transcation"></span></a>
                  </li>
-        
+
                  <hr class="m-t-xs m-b-sm" style="border-top: 1px solid #363636;">
                  <li ui-sref-active="active" >
                     <a ui-sref="contests.verify-payment"><img src="modules/core/client/img/customimages/top_icon50.png"> <span translate="verifyPayment"></span></a>
                  </li>
-     
+
                  <br>
               </div>
            </div>
            <div class="dropdown-notifctn">
               <ul class="dropbtn-notifctn">
                  <a class="dropdown-toggle user-header-dropdown-toggle" dropdown-toggle role="button" ng-mouseover="msgAlert=false" ng-click="newMsgAlert()">
-                    <i class="fa fa-commenting commt-icon" aria-hidden="true"></i> 
+                    <i class="fa fa-commenting commt-icon" aria-hidden="true"></i>
                     <!-- red alert -->
                     <i ng-show="msgAlert" class="fa fa-circle text-danger badgeStyles"></i>
                  </a>
@@ -553,14 +553,14 @@
                  </li>
                  <li ui-sref-active="active" ng-repeat="conversation in conversations | orderBy: 'lastMessageAt' : true | limitTo: 5">
                    <!-- <a style="padding: 0px; margin: 0px;" href="#" ng-click="openChatWindowFromHeader(conversation, conversation.cid, conversation.userTwo);"> -->
-                    <a style="padding: 0px; margin: 0px;" href="chat/inbox/{{conversation.id}}" ng-click="conversation.hasUnreadMessages = false"> 
+                    <a style="padding: 0px; margin: 0px;" href="chat/inbox/{{conversation.id}}" ng-click="conversation.hasUnreadMessages = false">
                       <div class="col-xs-2 p-r-none p-l-none" style="width:17%;">
                         <img ng-src="{{conversation.profileImageURL}}" class="img-circle img-responsive" style="width:4rem; height:4rem;">
                       </div>
                       <div class="pad-left">
                         <p class="m-t-none m-b-none" style="font-size: 11px;" ng-class='{ unread: conversation.hasUnreadMessages}'>
                           {{conversation.username}}
-                          <i ng-if="conversation.hasUnreadMessages" style="color: #d9534f" class="fa fa-envelope" aria-hidden="true"></i> 
+                          <i ng-if="conversation.hasUnreadMessages" style="color: #d9534f" class="fa fa-envelope" aria-hidden="true"></i>
                         </p>
                         <p class="m-t-none m-b-none" style="font-size: 11px;" ng-class='{ unread: conversation.hasUnreadMessages}'>
                          {{conversation.projectTitle}}</p>
@@ -569,13 +569,13 @@
                    <!-- conversation:{{conversation}} -->
                    <hr class="m-t-sm m-b-sm">
                  </li>
-                 
+
               </div>
            </div>
            <div class="dropdown-notifctn">
               <ul class="dropbtn-notifctn">
                  <a  class="dropdown-toggle user-header-dropdown-toggle" dropdown-toggle role="button"  ng-mouseover="notifAlert=false" ng-click="notificationAlert()">
-                    <i class="fa fa-bell commt-icon" aria-hidden="true"> </i> 
+                    <i class="fa fa-bell commt-icon" aria-hidden="true"> </i>
                     <!-- red Alert -->
                     <i ng-show="notifAlert" class="fa fa-circle text-danger badgeStyles-bell"></i>
                  </a>
@@ -597,7 +597,7 @@
                   <img src="modules/core/client/img/customimages/top_icon51.png">
                       </div>
                       <div class="pad-left">
-                        <p class="m-t-cht m-b-none">  
+                        <p class="m-t-cht m-b-none">
                            <a ng-if="noti.project" href="projects/view/{{noti.link}}"> {{noti.description| limitTo : 100}}...</a>
                            <a ng-if="noti.contest" href="contests/view/{{noti.link}}"> {{noti.description| limitTo : 100}}...</a>
                         </p>
@@ -655,7 +655,7 @@
               <div class="dropdown-content-notifctn p-l-xs">
                  <li ui-sref-active="active" ui-sref="projects.project-post" style="cursor: pointer; cursor: hand;">
                    <div class="col-xs-3 p-l-xs m-l-md p-r-none circle-div img-circle">
-                <!-- <i style="color: rgba(30, 97, 171, 0.97)" class="fa fa-desktop circle-icon"></i> -->  
+                <!-- <i style="color: rgba(30, 97, 171, 0.97)" class="fa fa-desktop circle-icon"></i> -->
                 <img src="modules/core/client/img/customimages/top_icon32.png" class="circle-icon">
                    </div>
                    <div class="pad-left-menu">
@@ -694,7 +694,7 @@
                  <br>
               </div>
            </div>
-           
+
         <!-- for user log out and profile dropdown -->
            <li>
               <div class="p-t-sm" uib-dropdown>
@@ -728,17 +728,17 @@
                             <a ui-sref="settings.profile" translate="setting"></a>
                          </li>
                          <li class="list-group-item toggel-top-list">
-                            <i class="fa fa-question-circle fa-cog p-r-xs" aria-hidden="true">&nbsp;</i> 
+                            <i class="fa fa-question-circle fa-cog p-r-xs" aria-hidden="true">&nbsp;</i>
                             <a ui-sref="support" translate="getSupport"></a>
                          </li>
                          <!-- <li class="list-group-item toggel-top-list">
                             <i class="fa fa-users fa-cog p-r-xs" aria-hidden="true">&nbsp;</i>
                             <a ui-sref="#">Invite Friends</a>
                          </li> -->
-                         
+
                          <li class="list-group-item toggel-top-list">
                             <i class="fa fa-sign-out fa-cog p-r-xs" aria-hidden="true">&nbsp;</i>
-                            <a ng-click="logOut();" href="/api/auth/signout" target="_self" translate="logout"></a> 
+                            <a ng-click="logOut();" href="/api/auth/signout" target="_self" translate="logout"></a>
                          </li>
                       </ul>
                    </div>
@@ -751,7 +751,7 @@
                 <a style="text-decoration: none; color: white;" href="" class="panel-anchr" id="lang" uib-dropdown-toggle><span class="caret pull-right" style="margin-top:12px;"></span>
                   lang
                 </a>
-                 <button ng-click="logOut();">xxlogOut</button> 
+                 <button ng-click="logOut();">xxlogOut</button>
                  <ul class="dropdown-menu panel-menu" uib-dropdown-menu role="menu" aria-labelledby="lang">
                    <div class="bordortop_styling border-mradus toggel-top" style="width:85%; margin-top:-14px; overflow: auto; height:auto">
                       <i class="fa fa-times-circle-o cross-butn p-t-xs text-right p-l-sm" aria-hidden="true" ng-click="collapsed=!collapsed"></i>
@@ -760,19 +760,19 @@
                             <i class="fa fa-user p-r-xs" aria-hidden="true">&nbsp;</i>
                             <a ng-click="changeLanguage('en')" style="cursor:pointer;">English</a>
                          </li>
-                         
+
                          <li class="list-group-item toggel-top-list">
                             <i class="fa fa-cog fa-cog p-r-xs" aria-hidden="true">&nbsp;</i>
                             <a ng-click="changeLanguage('kr')" style="cursor:pointer;">Korean</a>
                          </li>
-                         
+
                       </ul>
                    </div>
                  </ul>
               </div>
-              
+
            </li>-->
- 
+
            <!-- <div class="dropdown-hire">
               <ul class="dropbtn-hire">
                  <a class="dropdown-toggle user-header-dropdown-toggle" dropdown-toggle role="button">
@@ -808,7 +808,7 @@
                           <a ui-sref="settings.profile">Setting</a>
                        </li>
                        <li class="list-group-item toggel-top-list">
-                          <i class="fa fa-question-circle fa-cog p-r-xs" aria-hidden="true">&nbsp;</i> 
+                          <i class="fa fa-question-circle fa-cog p-r-xs" aria-hidden="true">&nbsp;</i>
                           <a ui-sref="#">Get Support</a>
                        </li>
                        <li class="list-group-item toggel-top-list">
@@ -817,7 +817,7 @@
                        </li>
                        <li class="list-group-item toggel-top-list">
                           <i class="fa fa-sign-out fa-cog p-r-xs" aria-hidden="true">&nbsp;</i>
-                          <a href="/api/auth/signout" target="_self">Logout</a> 
+                          <a href="/api/auth/signout" target="_self">Logout</a>
                        </li>
                     </ul>
                  </div>

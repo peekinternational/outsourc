@@ -11,7 +11,7 @@
       <!-- open from project manage page -->
       <!--  <div ng-if="convToOpenFromProjects === 1">
          <div ng-init="getConversation(convToOpen);"></div>
-         </div> --> 
+         </div> -->
       <div>
          <div class="col-xs-12 col-md-4 p-ml-none p-mr-none">
             <div class="profile_container bordortop_styling p-l-sm msg-div" ng-show="contactDetail">
@@ -20,7 +20,7 @@
                <!-- conversations[0]:{{conversations[0]}} -->
                <div class="form-group">
                   <div class="input-group add-on">
-                     <input class="form-control" placeholder="프로젝트 제목 또는 회원이름을 검색" ng-model="searchUsername" type="text">
+                     <input class="form-control" placeholder="프로젝트 제목 또는 회원이름을 검색" translate translate-attr-placeholder="SearchMem" ng-model="searchUsername" type="text">
                      <div class="input-group-btn">
                         <button class="btn btn-default serch-btn" type="submit"><i class="glyphicon glyphicon-search"></i></button>
                      </div>
@@ -31,7 +31,7 @@
                   <div class="msg-details">
                      <!-- Main Div of Mesaages -->
                      <div class="row m-t-xs" ng-repeat="conversation in conversations | filter: searchUsername  | orderBy: 'lastMessageAt' : true" ng-if="conversations">
-                        <!--  lastMessage: {{conversation.lastMessage}}<br> 
+                        <!--  lastMessage: {{conversation.lastMessage}}<br>
                            lastMessage: {{conversation.lastMessageAt | date}} -->
                         <!-- ng-repeat="reader in book.reader | orderBy: '-created_at' | limitTo: 1"> -->
                         <a href="#" class="col-xs-3 p-r-none">
@@ -43,7 +43,7 @@
                         <!-- <div class="col-xs-9"  ng-click="getConversation(conversation); scrollBottom(); conversation.hasUnreadMessages = false; messageDetail();"> -->
                         <a href="#" class="col-xs-9 p-l-none">
                            <div  ng-click="getConvoByCid(conversation.id); conversation.hasUnreadMessages = false; messageDetail();">
-                              
+
                               <span>
                                  <span ng-class='{ unread: conversation.hasUnreadMessages}'>
                                     {{conversation.username || 'username'}}
@@ -51,7 +51,7 @@
                                  <span class="label label-danger" ng-if="conversation.hasUnreadMessages">unread</span>
                               </span><br>
 
-                              <span ng-show="conversation.status === 'online'"><i class="fa fa-circle text-green" style="color: #00d88a; position: absolute; left: -3.5rem; top: 3rem;"></i></span> 
+                              <span ng-show="conversation.status === 'online'"><i class="fa fa-circle text-green" style="color: #00d88a; position: absolute; left: -3.5rem; top: 3rem;"></i></span>
                               <span ng-show="conversation.status !== 'online'"><i class="fa fa-circle text-green" style="color: #BEC0C2; position: absolute; left: -3.5rem; top: 3rem;"></i></span>
                               <span style="color: rgba(51, 122, 183, 0.61); text-decoration: none;">{{conversation.projectTitle | limitTo: 29}}...</span>
                               <!-- <p ng-if="conversation.hasUnreadMessages">has new message</p> -->
@@ -80,8 +80,8 @@
                   </div>
                   <div class="col-xs-3 col-md-3 hidden-xs m-t-xs">
                      <span>
-                     <a href="#" style="text-decoration: none;"><i class="fa fa-phone iconSettingChating" aria-hidden="true"></i></a>&nbsp  
-                     <a href="#" style="text-decoration: none;text-align:center;"> <i ng-click="makeVideoCall(conversationWith)" class="iconSettingChating fa fa-video-camera" aria-hidden="true" popover-title="화상 통화" uib-popover="채팅은 프로젝트 및 콘테스트 건별로 구매시점부터 완료까지 사용할 수 있으며 채팅구매시 화상(비디오)은 무료이용 혜택을 받을 수 있습니다." popover-trigger="'mouseenter'"></i></a>  
+                     <a href="#" style="text-decoration: none;"><i class="fa fa-phone iconSettingChating" aria-hidden="true"></i></a>&nbsp
+                     <a href="#" style="text-decoration: none;text-align:center;"> <i ng-click="makeVideoCall(conversationWith)" class="iconSettingChating fa fa-video-camera" aria-hidden="true" popover-title="화상 통화" uib-popover="채팅은 프로젝트 및 콘테스트 건별로 구매시점부터 완료까지 사용할 수 있으며 채팅구매시 화상(비디오)은 무료이용 혜택을 받을 수 있습니다." popover-trigger="'mouseenter'"></i></a>
                      </span>
                   </div>
                </div>
@@ -94,7 +94,7 @@
                   <div ng-if="isLoading" class="text-center">
                     <i class="fa fa-spinner fa-spin fa-3x fa-fw"></i>
                   </div>
-                  
+
                   <div data-spy="scroll" ng-repeat="messages in chatmessages track by $index">
                      <!-- <div class="msg-detail" data-spy="scroll" ng-repeat="messages in chatmessages"> -->
                      <!-- Message Details Div -->
@@ -176,7 +176,7 @@
 
                         <div ng-bind-html="txtmessage | emojify"></div> -->
                      </div>
-                     <div class="m-r-sm m-b-none">                        
+                     <div class="m-r-sm m-b-none">
                         <div class="pull-right">
                            <div class="">
                               <span translate="PressEnter"></span> <input type="checkbox" name="" class="m-r-sm">
@@ -185,12 +185,12 @@
                         </div>
                      </div>
                   </form>
-                  <span>   
+                  <span>
                   <label ng-disabled="disabledMessage" class="btn btn-default" for="upload-file-selector" ng-hide="">
                   <!-- <input id="upload-file-selector" type="file" nv-file-select uploader="uploader" > -->
-                  <input ng-disabled="disabledMessage"  id="upload-file-selector"  type="file" nv-file-select uploader="uploader" >  
+                  <input ng-disabled="disabledMessage"  id="upload-file-selector"  type="file" nv-file-select uploader="uploader" >
                   <i class="glyphicon glyphicon-plus"></i>
-                  <b translate="AddFiles"></b> 
+                  <b translate="AddFiles"></b>
                   </label> <span translate="ClickFileUpload"></span> <span style="color:#96223a" translate="MaximumFile"></span>
                   </span>
 
@@ -203,7 +203,7 @@
                            <div>
                                <div  ng-style="{ 'width': item.progress + '%' }"></div>
                            </div>
-                       </div>  
+                       </div>
 
                        <button class="btn btn-sm btn-warning" ng-click="item.upload()" ng-disabled="item.isReady || item.isUploading || item.isSuccess" translate="Upload"></button>
                        <!-- <button ng-click="item.cancel()" ng-disabled="!item.isUploading">Cancel</button> -->
@@ -214,7 +214,7 @@
                        </span>
                        <span ng-show="item.progress ===100" class="text-success">
                          {{sucMsg}}
-                       </span>  
+                       </span>
                      </div>
                   </span>
                </div>
