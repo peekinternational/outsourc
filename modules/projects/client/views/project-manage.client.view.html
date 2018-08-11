@@ -2,7 +2,7 @@
   <div class="container about-investor-title-setting">
     <br>
       <h3 class="investor-heading p-t-sm" style="font-size:20px;">MY <span translate="ProjecStatus"></span></h3>
-      <h3 class="investor-para"> 
+      <h3 class="investor-para">
     </h3>
     <br><br>
   </div>
@@ -16,12 +16,12 @@
 
    <uib-tabset class="text-left managemnt-tabs mobileView-managemnt-tabs" active="model.active">
 
-    <uib-tab heading="지원자ㆍ입찰자/Proposal" index="0">
+    <uib-tab heading="{{'ProposalTab' | translate}}" index="0">
     <!-- ng-if= "awardedProject.awarded === 'no' || awardedProject.awarded === 'yes' || awardedProject.awarded === 'pending' "  -->
       <div class="col-xs-12 col-sm-12 col-md-10 col-lg-10 col-md-offset-1 container-fluid p-ml-none p-mr-none p-mt-lg" style="padding-top:5rem;padding-bottom:10rem;">
           <div>
               <div class="col-xs-12 col-md-8 p-ml-none p-mr-none">
-              
+
                   <br class="hidden-xs">
                   <div class=" profile_container bordortop_styling p-l-sm p-r-sm" style="background:#fff;">
                   <div class="row bidder-detail" ng-repeat = "bid in project.bids">
@@ -29,10 +29,10 @@
                           <img class="img-responsive mobile-pic-mange" style="width:100%;" ng-src="{{bid.bidderInfo.profileImageURL}}">
                       </div>
                       <div class="col-xs-10 col-md-6">
-                        <h4 class="text-primary m-t-none m-mb-xs"> 
+                        <h4 class="text-primary m-t-none m-mb-xs">
                           <a ui-sref="profile.outsourcer({profileId: bid.bidderInfo.profile_id})" style="text-decoration: none;">
-                            {{bid.bidderInfo.username}} 
-                          </a> 
+                            {{bid.bidderInfo.username}}
+                          </a>
                           <!-- country Flag -->
                           <img ng-if="bid.bidderInfo.country.code" src="https://countryflags.io/{{bid.bidderInfo.country.code || bid.bidderInfo.country.code_lower}}/flat/64.png" title= "{{bid.bidderInfo.country.code}}" style="width: 2rem; height: 2rem;">
                           <!-- or Country name -->
@@ -46,7 +46,7 @@
                                <span class="label" ng-class="{'label-warning': bid.bidderInfo.finalUserRattingBaseOnProjectAwarded<3, 'label-info': bid.bidderInfo.finalUserRattingBaseOnProjectAwarded>=3 && bid.bidderInfo.finalUserRattingBaseOnProjectAwarded<4, 'label-success': bid.bidderInfo.finalUserRattingBaseOnProjectAwarded>=4}">{{bid.bidderInfo.finalUserRattingBaseOnProjectAwarded || '0' | number:1 }}
                               </span>
 
-                             <span uib-rating ng-model="bid.bidderInfo.finalUserRattingBaseOnProjectAwarded" max="max" read-only="isReadonly" titles="['one','two','three']" aria-labelledby="default-rating">  
+                             <span uib-rating ng-model="bid.bidderInfo.finalUserRattingBaseOnProjectAwarded" max="max" read-only="isReadonly" titles="['one','two','three']" aria-labelledby="default-rating">
                              </span>
                             <span class="text-muted">{{bid.bidderInfo.noOfReviewBaseOnProjectAwarded || '0'}} <span translate="Review"></span></span>
                             </div>
@@ -57,18 +57,18 @@
                           <p>{{bid.deliverInDays}}<span translate="CompinDays"></span> </p>
                          <br>
                          <!--  createConversation(bid, true, project._id, project.name) -->
-                         <div class="text-center p-b-md"> 
+                         <div class="text-center p-b-md">
                             <div ng-if="bid.rejected" class="label label-danger" style="padding: .9rem;padding-left: 3rem;padding-right: 4rem;"><span translate="Rejected"></span></div>
-                            <div class="btn btn-success awardbtn" ng-click = "award($index);" ng-show = "bid.awarded === 'no' && !bid.rejected"><span translate="FreelancerSelection"></span></div> 
-                            <div class="btn btn-success awardbtn" ng-disabled = "true" ng-show = "bid.awarded === 'pending' "><span translate="AwaitingApproval"></span></div> 
-                            <div class="btn btn-success awardbtn" ng-disabled = "true" ng-show = "bid.awarded === 'yes' " style="background:#008000"><span translate="Approved"></span></div> 
+                            <div class="btn btn-success awardbtn" ng-click = "award($index);" ng-show = "bid.awarded === 'no' && !bid.rejected"><span translate="FreelancerSelection"></span></div>
+                            <div class="btn btn-success awardbtn" ng-disabled = "true" ng-show = "bid.awarded === 'pending' "><span translate="AwaitingApproval"></span></div>
+                            <div class="btn btn-success awardbtn" ng-disabled = "true" ng-show = "bid.awarded === 'yes' " style="background:#008000"><span translate="Approved"></span></div>
                              <!--below button creates the conversation between bidder and project owner-->
   						              <span popover-title="채팅" uib-popover="화상채팅을 이용하려면 프로젝트별로 결제를 하셔야합니다. 결제 후 프로젝트 완료까지 이용가능합니다." popover-trigger="'mouseenter'" >
-                           
-                            <div ng-if="project.additionalPakages.featured" class="btn btn-default awardbtn" ng-click="createConversation(bid, false, project._id, project.name)"><i class="fa fa-dot-circle-o verificationcheck" aria-hidden="true" ></i> 화상 채팅</div> 
-                            <div ng-if="!project.additionalPakages.featured" class="btn btn-default awardbtn" ng-click="model.active = 2;model.upgrade=true;model.detail = false"><i class="fa fa-dot-circle-o verificationcheck" aria-hidden="true" ></i> 화상 채팅</div> 
-                            
-                         </div> 
+
+                            <div ng-if="project.additionalPakages.featured" class="btn btn-default awardbtn" ng-click="createConversation(bid, false, project._id, project.name)"><i class="fa fa-dot-circle-o verificationcheck" aria-hidden="true" ></i> 화상 채팅</div>
+                            <div ng-if="!project.additionalPakages.featured" class="btn btn-default awardbtn" ng-click="model.active = 2;model.upgrade=true;model.detail = false"><i class="fa fa-dot-circle-o verificationcheck" aria-hidden="true" ></i> 화상 채팅</div>
+
+                         </div>
                       </div>
                       <div class="col-xs-6 col-md-4 m-mt-md hidden-xs hidden-sm">
                           <div class="text-left">
@@ -77,7 +77,7 @@
                                <span class="label" ng-class="{'label-warning': bid.bidderInfo.finalUserRattingBaseOnProjectAwarded<3, 'label-info': bid.bidderInfo.finalUserRattingBaseOnProjectAwarded>=3 && bid.bidderInfo.finalUserRattingBaseOnProjectAwarded<4, 'label-success': bid.bidderInfo.finalUserRattingBaseOnProjectAwarded>=4}">{{bid.bidderInfo.finalUserRattingBaseOnProjectAwarded || '0' | number:1 }}
                               </span>
 
-                             <span uib-rating ng-model="bid.bidderInfo.finalUserRattingBaseOnProjectAwarded" max="max" read-only="isReadonly" titles="['one','two','three']" aria-labelledby="default-rating">  
+                             <span uib-rating ng-model="bid.bidderInfo.finalUserRattingBaseOnProjectAwarded" max="max" read-only="isReadonly" titles="['one','two','three']" aria-labelledby="default-rating">
                              </span>
                             </div>
                           </div>
@@ -94,7 +94,7 @@
                     <h3 translate="NofreeLanvertoSupport"></h3>
                   </div>
                   <!-- <hr ng-show="project.bids.length > 0"> -->
-               
+
                   <!-- <div class="col-xs-12 text-center">
                       <button class="btn btn-success skillbutn m-t-none">
                        View More
@@ -116,9 +116,9 @@
                         <div class="col-xs-12">
                           <div class="btn-group btn-block">
                             <button class="btn btn-warning btn-block"> 프로젝트 선정</button>
-                          </div> 
+                          </div>
                           <br><br>
-                            
+
                             <div class="btn-group btn-block">
                             <button class="btn btn-default btn-block"> 프로젝트 내용보기</button>
                           </div>
@@ -126,10 +126,10 @@
                           <div class="btn-group btn-block">
                             <button class="btn btn-default btn-block"> 화상 채팅</button>
                           </div>
-                           
+
                              <rzslider class="text-warning" rz-slider-model="sliderManage.minValue"
                                        rz-slider-high="sliderManage.maxValue"
-                                       rz-slider-options="sliderManage.options"></rzslider> 
+                                       rz-slider-options="sliderManage.options"></rzslider>
                             <div class="row p-mt-none p-t-lg">
                               <div class="col-xs-6">
                               <div class="push-left">
@@ -142,20 +142,20 @@
                                </div>
                             </div>
                         </div>
-                      </div>  
+                      </div>
                        <br>
                   </div>
-                </div> -->     
+                </div> -->
               </div>
-             
+
           </div>
     </uib-tab>
 
-  <uib-tab heading="프로젝트 대금 결제/Management" index="1">
+  <uib-tab heading="{{'MangementTab' | translate}}" index="1">
   <div class="col-xs-12 col-sm-12 col-md-10 col-lg-10 col-md-offset-1 container-fluid m-ml-none m-mr-none p-ml-none p-mr-none p-mt-lg" style="padding-top:5rem;padding-bottom:10rem;">
           <div class="row" ng-if= "awardedProject.awarded === 'yes'">
               <div class="col-xs-12 col-md-8">
-              
+
                   <br class="hidden-xs">
                   <div class=" profile_container bordortop_styling p-l-sm p-r-sm" style="background:#fff;">
                   <br>
@@ -166,7 +166,7 @@
                       <div class="col-xs-10">
                         <h4 class="text-primary m-t-none">{{awardedProject.bidderName}}</h4>
                           <p class="prjct-list-font">{{awardedProject.proposal.description}}</p>
-                          
+
                          <div class="row hidden-xs">
                            <div class="col-xs-3">
                              <p class="text-muted" style="color"><span translate="Approved"></span></p>
@@ -183,12 +183,12 @@
                          </div>
                       </div>
                   </div>
-                  
+
                   <br class="hidden-xs">
                   <br class="hidden-xs">
                   <br>
                   <uib-tabset class="milestone-mobile">
-                    <uib-tab heading="프로젝트 대금 지급 내역/Milestones" style="float:left;" class="p-l-sm">
+                    <uib-tab heading="{{'MileStoneTab' | translate}}" style="float:left;" class="p-l-sm">
                     <br class="hidden-xs">
                     <br class="hidden-md hidden-lg">
                     <div class="row m-mr-none">
@@ -199,16 +199,16 @@
                         <div class="" ng-show="showMilestone">
                             <form name="proposalForm"  class="" novalidate autocomplete="off">
                               <div ng-show="!mileStoneFeilds" class="col-xs-12 col-md-8">
-                                
+
                                <!--  <textarea placeholder="Proposal Description" rows="5" class="form-control" ng-model = "description" required></textarea> -->
                                 <br>
                                 <!-- adding milestones of project bid -->
                                 <div class="row">
-                                    
+
                                     <div ng-repeat="milestone in milestones track by $index">
                                       <div class="col-sm-8 form-group p-r-none">
                                           <label><span translate="RequestMilestone"></span></label>
-                                          <input type="text" placeholder="프로젝트 대금/Project Milestone" class="form-control" ng-model="newMilestone.description" required>
+                                          <input type="text" placeholder="프로젝트 대금" translate translate-attr-placeholder="ProjectMil" class="form-control" ng-model="newMilestone.description" required>
                                       </div>
                                       <div class="col-sm-3 form-group  p-r-none">
                                         <label><span translate="Amount"></span></label>
@@ -224,17 +224,17 @@
                                       </div>
                                       </div>
                                     </div>
-                                    <!-- milestones of project -->  
+                                    <!-- milestones of project -->
                                 </div>
                                 <p class="text-danger p-l-md"><!-- Your Milestones must be a minimun of $ 3 USD --></p>
-                               
+
                                 <button class="btn btn-md btn-primary" ng-disabled = "proposalForm.$invalid" ng-click="addMilestone(awardedProject.bidId, 'Created','employer'); showMilestone=!showMilestone"><span translate="ProjectBilling"></span></button>
                                 <a href="#" class="text-primary p-l-md" ng-click="showMilestone=!showMilestone"><span translate="Cancel"></span></a>
                                 <br><br>
                               </div>
                               </form>
                     </div>
-                    </div> 
+                    </div>
                     <div class="row" style="padding-top:20px">
                       <div class="col-xs-4 col-md-3">
                         <h4><strong translate="AmountRequested"></strong></h4>
@@ -253,18 +253,18 @@
                     <div class="row milestone-detail" ng-repeat = "milestone in awardedProject.proposal.milestones">
                       <div class="col-xs-4 col-md-3">
                        <h6 class="m-t-none"> <input type="radio" name="frstradio" class="text-primary hidden-xs">
-                      {{project.currency.symbol}}{{milestone.price}} 
+                      {{project.currency.symbol}}{{milestone.price}}
                       </h6>
                       </div>
                       <div class="col-md-3 hidden-xs">
-                       <p class="text-muted">{{milestone.description}}</p> 
+                       <p class="text-muted">{{milestone.description}}</p>
                       </div>
                       <div class="col-xs-4 col-md-3">
                          <p class="text-muted">
 							<!-- {{milestone.status}} -->
-						    <span ng-if="milestone.status === 'Requested'" translate="Requested"></span>	
+						    <span ng-if="milestone.status === 'Requested'" translate="Requested"></span>
 							<span ng-if="milestone.status === 'Released'" translate="RequestRelease"></span>
-						</p> 
+						</p>
 
                       </div>
                       <div class="col-xs-4 col-md-3">
@@ -277,7 +277,7 @@
                           <button class="btn btn-info" ng-show="milestone.status == 'Requested' || milestone.status == 'Cancelled' " type="button" data-toggle="dropdown" ng-click="changeMilestonStatus($index, 'Created')"><span translate="Paying"></span> </button>
                           <button class="btn btn-warning" ng-show="milestone.status == 'Created' " type="button" data-toggle="dropdown" ng-click="changeMilestonStatus($index, 'Released')"><span translate="PaymentApproval"></span> </button>
                           <button class="btn btn-danger" ng-show="milestone.status == 'Created' " type="button" data-toggle="dropdown" ui-sref="projects.dispute({projectId: project._id, id: $index})"><span translate="Dispute"></span> </button>
-                          
+
 
                           <ul class="dropdown-menu">
                             <li><a href="#">HTML</a></li>
@@ -287,15 +287,15 @@
                         </div>
                       </div>
                     </div>
-              
+
                   <div class="total">
-                    <strong><span translate="Total"></span>: {{project.currency.code }} {{project.currency.symbol }} 
+                    <strong><span translate="Total"></span>: {{project.currency.code }} {{project.currency.symbol }}
                     {{(totalAmountOfMilestones | number: 0) || '00'}}</strong>
                   </div>
                   <br>
                     </uib-tab>
                   </uib-tabset>
-                  
+
               </div>
               </div>
               <br class ="hidden-md hidden-lg">
@@ -308,7 +308,7 @@
                     <br>
                       <div class="skillsTop row">
                         <div class="col-xs-12">
-                          <h4><strong translate="ManageandSecure"></strong></h4> 
+                          <h4><strong translate="ManageandSecure"></strong></h4>
                           <!-- <br><br>
                            <br><br>
                             <div class="row">
@@ -325,7 +325,7 @@
                                <br> --><br>
                                <h4><strong><span translate="MilestoneAre"></span> :</strong></h4>
                                <div class="">
-                                  
+
                                   <div class="row verificationcolum">
                                     <div class="col-xs-12">
                                       <span class="glyphicon glyphicon-ok verificationcheck imgcricle"></span>
@@ -355,17 +355,17 @@
                                     </div>
                                     <hr>
                                   </div>
-                                 
+
                                   <br>
                                   <br>
 
                                 </div>
                             </div>
                         </div>
-                      </div>  
+                      </div>
                        <br>
                   </div>
-                </div>     
+                </div>
               </div>
               <div ng-hide="project.bids.length > 0" class="text-center">
                 <h3 translate="notawardedproject"></h3>
@@ -373,7 +373,7 @@
           </div>
   </uib-tab>
 
-  <uib-tab heading="프로젝트 수정ㆍ삭제/Modify / Delete project" class="project-detail-tab" id="tab2" index="2">
+  <uib-tab heading="{{'ModifyDelTab' | translate}}" class="project-detail-tab" id="tab2" index="2">
 
     <div class="col-xs-12 col-sm-12 col-md-10 col-lg-10 col-md-offset-1 container-fluid p-mr-none p-ml-none text-center" style="margin-top:30px;">
       <center>
@@ -388,17 +388,17 @@
         <div class="col-md-4 p-ml-none p-mr-none p-t-lg btn-group hidden-xs hidden-sm">
           <button class="btn btn-lg btn-success md-hidden" ng-click ="model.detail =!model.detail; model.upgrade = !model.upgrade;"> <span translate="Description"></span></button>
           <button class="btn btn-lg btn-info md-hidden" ng-click="model.upgrade = !model.upgrade; model.detail = !model.detail;"> <span translate="Upgrade"></span></button>
-          
+
           <!-- <button class="btn btn-lg btn-danger md-hidden" ng-click ="removeProject(); upgrade = !upgrade;"> 삭제</button> -->
         </div>
       </center>
     </div>
-    
+
     <div class="col-xs-12 col-sm-12 col-md-10 col-lg-10 col-md-offset-1 container-fluid p-mr-none p-ml-none" style="margin-bottom:70px;">
       <div>
         <div class="col-md-8 p-ml-none p-mr-none" ng-if="model.upgrade" style="margin-top:20px;">
           <br>
-          <div class=" profile_container bordortop_styling p-l-sm p-r-sm" style="background:#fff;">            
+          <div class=" profile_container bordortop_styling p-l-sm p-r-sm" style="background:#fff;">
             <h3 class="h3-mobile-font"> <strong><span translate="ProjectUpgrade"></span></strong></h3>
             <hr>
             <div class="upRow">
@@ -408,7 +408,7 @@
                   <!-- <input class="bigCheckBox" type="checkbox" ng-model="project.additionalPakages."> -->
                   <input ng-disabled="project.additionalPakages.featured" class="bigCheckBox" type="checkbox" value='false' ng-model = "project.additionalPakages.featured" ng-change="checktotalAmount(project.additionalPakages.featured,'pakage_1')">
                 </div>
-                <div class="col-xs-10 col-md-2 p-l-none"> 
+                <div class="col-xs-10 col-md-2 p-l-none">
                   <label class="featured label-featured" style="background:#1793b1;color:#fff;"><span translate="chat"></span></label>
                  <!-- Mobile View -->
                   <strong class="pull-right hidden-md hidden-lg">{{project.currency.symbol_native}}{{latestCurrencyRate[project.currency.code]*pakagePrices.pakage_1 | number: 0}}</strong>
@@ -422,10 +422,10 @@
                     <p class="prjct-list-font"><span translate="OutsourcingOkRealtimeandVideoChat"></span></p>
   			            <p class="prjct-list-font"><span translate="VideoconferencesHeadquartersConferenceroom"></span></p>
                     <p class="prjct-list-font"><span translate="Opportunitytogetmoreideas"></span></p>
-  			  
-  			  
+
+
   			            <p style="color:#898989" class="prjct-list-font"><i class="fa fa-exclamation-triangle" aria-hidden="true" style="color:#820923;"></i> <span translate="OutsourcingOkWillNotHelpOnOtherResourcesInDispute"></span></p>
-  			  
+
   			            <p style="color:#898989" class="prjct-list-font"><i class="fa fa-exclamation-triangle" aria-hidden="true" style="color:#820923;"></i> <span translate="SaveChatHistory"></span> </p>
 			            </span>
 			             <!--
@@ -445,10 +445,10 @@
                   <!-- <input class="bigCheckBox" type="checkbox" ng-model="upgradeProject.sealed"> -->
                   <input ng-disabled="project.additionalPakages.sealed" class="bigCheckBox" type="checkbox" value='false' ng-model = "project.additionalPakages.sealed" ng-change="checktotalAmount(project.additionalPakages.sealed,'sealed')">
                 </div>
-                <div class="col-xs-10 col-md-2 p-l-none"> 
+                <div class="col-xs-10 col-md-2 p-l-none">
                   <label class="sealed label-featured" style="background:#113886;border-color: #113886;"> <span translate="sealed"></span> </label>
                   <!-- Mobile View -->
-                    <strong class="pull-right hidden-md hidden-lg">{{project.currency.symbol_native}}{{latestCurrencyRate[project.currency.code]*pakagePrices.sealed | number: 0}}<span translate="Won"></span></strong> 
+                    <strong class="pull-right hidden-md hidden-lg">{{project.currency.symbol_native}}{{latestCurrencyRate[project.currency.code]*pakagePrices.sealed | number: 0}}<span translate="Won"></span></strong>
                   <!-- End -->
                 </div>
                 <div class="col-xs-12 col-md-8 p-l-none p-ml-md">
@@ -468,7 +468,7 @@
                   <!-- <input class="bigCheckBox" type="checkbox" ng-model="upgradeProject.private"> -->
                   <input ng-disabled="project.additionalPakages.private" class="bigCheckBox" type="checkbox" value='false' ng-model = "project.additionalPakages.private" ng-change="checktotalAmount(project.additionalPakages.private,'private')" >
                 </div>
-                <div class="col-xs-10 col-md-2 p-l-none"> 
+                <div class="col-xs-10 col-md-2 p-l-none">
                   <label class="private label-featured" style="background:#008000;color:#fff;"> <span translate="Private"></span> </label>
                   <!-- Mobile View -->
                     <strong class="pull-right hidden-md hidden-lg">{{project.currency.symbol_native}}{{latestCurrencyRate[project.currency.code]*pakagePrices.private | number: 0}}<span translate="Won"></span></strong>
@@ -492,9 +492,9 @@
                   <!-- <input class="bigCheckBox" type="checkbox" ng-model="upgradeProject.fulltime"> -->
                   <input  ng-disabled="project.additionalPakages.urgent" class="bigCheckBox" type="checkbox" value='false' ng-model = "project.additionalPakages.urgent" ng-change="checktotalAmount(project.additionalPakages.urgent,'urgent')">
                 </div>
-                <div class="col-xs-10 col-md-2 p-l-none"> 
+                <div class="col-xs-10 col-md-2 p-l-none">
                   <label class="fulltime label-featured" style="background:#6b081d;color:#fff;"> <span translate="urgent"></span> </label>
-                  <strong class="pull-right hidden-md hidden-lg">{{project.currency.symbol_native}}{{latestCurrencyRate[project.currency.code]*pakagePrices.urgent | number: 0}}<span translate="Won"></span></strong> 
+                  <strong class="pull-right hidden-md hidden-lg">{{project.currency.symbol_native}}{{latestCurrencyRate[project.currency.code]*pakagePrices.urgent | number: 0}}<span translate="Won"></span></strong>
                 </div>
                 <div class="col-xs-12 col-md-8 p-l-none p-ml-md">
                   <p class="prjct-list-font"><span translate="FasterResposeFromFreeLancers"></span></p>
@@ -506,17 +506,17 @@
               <hr>
             </div>
 
-<!-- 
+<!--
 			<div class="upRow">
               <br>
               <div class="row">
                 <div class="col-xs-2 col-md-1">
                   <!-- <input class="bigCheckBox" type="checkbox" ng-model="upgradeProject.private"> -->
-<!-- 
+<!--
                   <input ng-disabled="project.additionalPakages.private" class="bigCheckBox" type="checkbox" value='false' ng-model = "project.additionalPakages.private" ng-change="checktotalAmount(private,'private')" >
                 </div>
-                <div class="col-xs-10 col-md-2 p-l-none"> 
-                  <label class="private label-featured"> 하이라이트 <label> 
+                <div class="col-xs-10 col-md-2 p-l-none">
+                  <label class="private label-featured"> 하이라이트 <label>
                 </div>
                 <div class="col-xs-12 col-md-8 p-l-none p-ml-md">
                   우승자가 선정되어 상금을 수여 할 것임을 프리랜서에게 공지되며 본 서비스 기능은 많은 프리랜서로부터 더 좋은 완성품을 받을 수 있습니다. 본 서비스는 환불 보장이 적용되지 않습니다.
@@ -533,17 +533,17 @@
               <div class="row">
                 <div class="col-xs-2 col-md-1">
                   <!-- <input class="bigCheckBox" type="checkbox" ng-model="upgradeProject.nda"> -->
-                  <input ng-disabled="project.additionalPakages.NDA" class="bigCheckBox" type="checkbox" value='false' ng-model = "project.additionalPakages.NDA" ng-change="checktotalAmount(project.additionalPakages.NDA,'NDA')"> 
+                  <input ng-disabled="project.additionalPakages.NDA" class="bigCheckBox" type="checkbox" value='false' ng-model = "project.additionalPakages.NDA" ng-change="checktotalAmount(project.additionalPakages.NDA,'NDA')">
                 </div>
-                <div class="col-xs-10 col-md-2 p-l-none"> 
+                <div class="col-xs-10 col-md-2 p-l-none">
                   <label class="bg-primary label-featured" style="background:#efbf50;color:#fff;border-color: #efbf50;"> <span translate="NDA"></span> </label>
-                  <strong class="pull-right hidden-md hidden-lg">{{project.currency.symbol_native}}{{latestCurrencyRate[project.currency.code]*pakagePrices.NDA | number: 0}}<span translate="Won"></span></strong> 
+                  <strong class="pull-right hidden-md hidden-lg">{{project.currency.symbol_native}}{{latestCurrencyRate[project.currency.code]*pakagePrices.NDA | number: 0}}<span translate="Won"></span></strong>
                 </div>
                 <div class="col-xs-12 col-md-8 p-l-none p-ml-md">
                   <p class="prjct-list-font"><span translate="MustAgreement"></span><span ng-click="nda = !nda" style="font-size:10px;margin-left:13px;padding-left:20px;background:#6b0816;border-radius: 3px;padding:5px;color:#fff;cursor: pointer; cursor: hand;" translate="caution"></span></p>
 			            <span ng-show="nda" class="prjct-list-font">
 			              <p><span translate="NonPublicContract"></span></p>
-			              <p style="color:#898989"><i class="fa fa-exclamation-triangle" aria-hidden="true" style="color:#820923;"></i> <span translate="ContractMethod"></span> </p> 
+			              <p style="color:#898989"><i class="fa fa-exclamation-triangle" aria-hidden="true" style="color:#820923;"></i> <span translate="ContractMethod"></span> </p>
 			            </span>
                 </div>
                 <div class="col-md-1 text-right p-l-none hidden-md hidden-xs">
@@ -555,7 +555,7 @@
                 <h4>
                   <strong> <span translate="Total"></span>: {{totalAmount | number: 0}}<span translate="Won"></span></strong>
                 </h4>
-              </div>  
+              </div>
             </div>
 
             <button class="btn btn-md btn-success" ng-click="updateProject();"> <span translate="payment"></span></button> <h3>
@@ -567,16 +567,16 @@
         <div class="col-md-8 p-ml-none p-mr-none" ng-if="model.detail">
           <br><br>
           <div class=" profile_container bordortop_styling p-l-sm p-r-sm bg-info">
-            <h3 class="col-md-offset-1 h3-mobile-font"> <strong translate="Description"></strong></h3> 
+            <h3 class="col-md-offset-1 h3-mobile-font"> <strong translate="Description"></strong></h3>
             <button class="btn btn-danger btn-sm col-md-offset-1" ng-click="edit = !edit"> <i class="glyphicon glyphicon-pencil" ></i><span translate="Modified"></span></button>
             <br><br>
 			<div class="col-md-offset-1">
-              <span style="margin-top:30px"><b translate="titlePro"></b></span> 
+              <span style="margin-top:30px"><b translate="titlePro"></b></span>
               <span style="margin-top:30px"> <input type="text" name="name" ng-model="project.name" ng-disabled="edit"> </span>
               <!-- <span> &nbsp {{project.name}} </span> -->
               <br><br>
               <span style="margin-top:30px"><b><span translate="ProjectCategory"></span> :</b></span>
-              <span style="margin-top:30px">{{project.workRequire.name}}</span> 
+              <span style="margin-top:30px">{{project.workRequire.name}}</span>
               <br><br>
               <span><b><span translate="ProjectSubCategory"></span> :</b></span>
               <span>{{project.subcat.cat}} > {{project.subcat.name}}</span>
@@ -597,7 +597,7 @@
               <br><br>
               <div class="pull-right" ng-show="edit">
                 <button class="btn btn-default" ng-click="edit = !edit"><span translate="Cancel"></span></button>
-                <button class="btn btn-primary" ng-click="updateProject(); edit = !edit"><span translate="Save"></span></button> 
+                <button class="btn btn-primary" ng-click="updateProject(); edit = !edit"><span translate="Save"></span></button>
               </div><br><br><br>
             </div>
           </div>
@@ -614,7 +614,7 @@
             <div class="account-setup p-l-sm p-r-sm">
                 <div class="skillsTop row">
                   <div class="col-xs-12">
-                    <h3 class="text-center"> <a href="" ng-click ="model.detail =!model.detail; model.upgrade = !model.upgrade;"><strong style="color:#000"><span translate="ProjectUpgrade"></span></strong></a></h3> 
+                    <h3 class="text-center"> <a href="" ng-click ="model.detail =!model.detail; model.upgrade = !model.upgrade;"><strong style="color:#000"><span translate="ProjectUpgrade"></span></strong></a></h3>
                     <hr>
                     <br><br>
                     <p class="text-justify">
@@ -626,10 +626,10 @@
                       </p> -->
                   </div>
                   </div>
-            </div>  
+            </div>
             <br>
           </div>
-        </div>     
+        </div>
      </div>
     </div>
 

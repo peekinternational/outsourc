@@ -3,39 +3,39 @@
     background:#f2f2f2;
   }
   </style>
-  
+
   <div class="row project-backgroundimage5 hidden-xs">
     <div class="container about-investor-title-setting">
         <br>
         <h3 class="investor-heading p-t-sm" style="font-size:20px;" translate="PostContest"></h3>
         <h3 class="investor-para">
-            
+
         </h3>
         <br><br>
       </div>
   </div>
-  
-  
-  
+
+
+
   <section  class="container-fluid" ng-controller="ContestsController" ng-init = "universalData()">
    <!--  <div ng-include="vm.search"></div> -->
    <br><br>
     <div class="row">
       <form name="contestForm" novalidate>
-  
+
     <div class="col-xs-12 col-sm-12 col-md-11 col-lg-11 p-ml-none p-mr-none col-md-offset-1">
       <strong style="font-size:23px;color:#5f5b56;" class="h3-mobile-font"><img src="modules/contests/client/img/contest_icon2.png" > <span translate="StartRegistrationOfContest"></span></strong><br><br>
       </div>
-  
+
     <div class="col-xs-12 col-sm-12 col-md-11 col-lg-11 p-ml-none p-mr-none col-md-offset-1">
       <strong class="p-ml-none prjct-list-font" style="padding-left: 42px;"><i class="fa fa-exclamation-triangle" aria-hidden="true" style="color:#820923;"></i> <span translate="Below"></span> <span class="contest_question" style="padding-bottom:12px;">
                 <span>1</span></span> <span translate="From"></span> <span class="contest_question" style="padding-bottom:12px;">
                 <span>5</span></span> <span translate="RequiredItemsMustFilloutInTheOrder"></span></strong><br><br>
                 <!-- <i class="fa fa-exclamation-triangle" aria-hidden="true" style="color:#820923;"> <span translate="BelowRequiredItemsFrom1to5FillInTheOrder"></span> -->
     </div>
-      
+
         <div class="col-xs-12 col-sm-7 col-md-7 col-lg-7 p-ml-none p-mr-none col-md-offset-1">
-       
+
           <div ng-show="error" class="text-danger">
             <div class="alert alert-danger" ng-bind="error"></div>
           </div>
@@ -43,38 +43,38 @@
             <div class="form-group p-t-sm col-md-offset-1" style="margin-top:30px">
               <p class="contest_question prjct-list-font" style="padding-bottom:12px;">
                 <span>1</span>
-                <b translate="SelectContestType"></b> 
+                <b translate="SelectContestType"></b>
               </p>
-              
+
               <select selector class="prjct-name" change="selectCat()"
                     model="contest.workRequire"
                     options="categories"
                     label-attr="name"
-                    placeholder="1차 카테고리 선택 후 2차 세부 카테고리를 선택 [필수사항임]/Select a category of work (optional)">
+                    placeholder="1차 카테고리 선택 후 2차 세부 카테고리를 선택 [필수사항임]\Select primary category and select secondary category [Required]" >
               </select>
               <br><br>
             </div>
-  
-  
+
+
             <!-- sub menu of work -->
             <div ng-show="contest.workRequire" class="form-group p-t-sm col-md-offset-1">
               <select selector class="prjct-name"
-                    change="selectSubCat()" 
+                    change="selectSubCat()"
                     model="contest.subcat"
                     options="subCat"
                     label-attr="name"
                     placeholder="2차 세부 카테고리 선택/Select sub category">
               </select>
               <br><br>
-            </div> 
-  
+            </div>
+
             <!-- sub menu of work -->
             <!-- if design is chosen in sub category, show this -->
             <!-- <div ng-show="contest.workRequire.name =='Design' && contest.subcat.name && contest.subcat.name!='Design Flash' " class="form-group p-t-sm upcell-contests">
               <div class="row">
                 <div class="col-xs-8">
                   <strong>We recommend you post a Stationary Design Contest instead.</strong><br><br>
-  
+
                   With a contest, hundreds of freelancers submit work for you to review before you award a winner. <strong>Money back guarantee!</strong>
                 </div>
                 <div class="col-xs-4">
@@ -82,32 +82,32 @@
                 </div>
               </div>
             </div> -->
-  
+
             <br>
             <div class="form-group col-md-offset-1">
               <p class="contest_question prjct-list-font" style="padding-bottom:12px">
                 <span>2</span>
-                <b translate="EnterTitleContest"></b> 
+                <b translate="EnterTitleContest"></b>
               </p>
-  
-              <p class="sub-heading"><b translate="ContestTitle"></b> <span  popover-title="콘테스트 제목/Contest Title" uib-popover="콘테스트 개최에 프리랜서들을 많이 지원하기위해서는 콘테스트 제목이 중요합니다. 가능한 정확한 단어로 간단 명료하게 작성해 주시길 바랍니다./Your contest name is important as it is what attracts freelancers to bid on your contest. You should clearly describe what you need in as few words as possible." popover-trigger="'mouseenter'"><i class="fa fa-question-circle-o" aria-hidden="true" style="font-size:20px;"></i></span></p>
-              <input type="text" class="form-control prjct-name" ng-model="contest.name" name="contest_name" placeholder="Contest Name" required></input>
+
+              <p class="sub-heading"><b translate="ContestTitle"></b> <span  popover-title="콘테스트 제목" uib-popover="콘테스트 개최에 프리랜서들을 많이 지원하기위해서는 콘테스트 제목이 중요합니다. 가능한 정확한 단어로 간단 명료하게 작성해 주시길 바랍니다." popover-trigger="'mouseenter'"><i class="fa fa-question-circle-o" aria-hidden="true" style="font-size:20px;"></i></span></p>
+              <input type="text" class="form-control prjct-name" ng-model="contest.name" name="contest_name" required></input>
   <br><br>
-            </div> 
-  
+            </div>
+
         <br>
-  
-            <div class="form-group col-md-offset-1"> 
+
+            <div class="form-group col-md-offset-1">
               <p class="contest_question prjct-list-font">
                 <span>3</span>
-                <b translate="FillContest"></b> 
-          
+                <b translate="FillContest"></b>
+
         </p>
               <p class="sub-heading prjct-list-font" style="margin-top:30px">
                 <b translate="ExpertiesRequired"></b>
                 <span  popover-title="콘테스트 개최에 요구되는 전문기술/Contest Skills" uib-popover="콘테스트 개최에 요구되는 전문기술을 선택할 경우 콘테스트 목록에서 요구사항을 표시해 줍니다/We will notify all freelancers relevant to your project skills. As you enter more skills, your contest will reach out to more freelancers." popover-trigger="'mouseenter'"><i class="fa fa-question-circle-o" aria-hidden="true" style="font-size:20px;"></i></span>
               </p>
-  
+
               <select selector class="prjct-name"
                     model="contest.skills"
                     options="allProjectSkills"
@@ -116,7 +116,7 @@
                     remote-param="text"
                     label-attr="name"
                     create="createFunction(input)"
-                    placeholder="콘테스트에 요구되는 전문기술 선택 바랍니다./What skills are required?">
+                    placeholder="콘테스트에 요구되는 전문기술 선택 바랍니다.\Please select the professional skill required for the contest.">
               </select>
         <br><br>
               <p class="sub-heading top-space" style="margin-top:40px">
@@ -124,17 +124,17 @@
                 <span  popover-title="콘테스트 내용/Contest Description" uib-popover="콘테스트 개최에 관한 내용을 자세히 작성해야 합니다. 프리랜서들은 콘테스트 내용을 확인하고 지원 할 수 있습니다. 콘테스트 내용은 최소 300자 이상 작성 바랍니다. 콘테스트 작성이 어려울 경우 아웃소싱오케이 고객문의(support@outsourcingok.com)에 등록하면 담당자가 도와 드립니다./The more detail you provide, the better chance you have in getting exactly what you are after in the shortest possible time period." popover-trigger="'mouseenter'"><i class="fa fa-question-circle-o" aria-hidden="true" style="font-size:20px;"></i></span>
               </p>
              <!-- <textarea  class="form-control porjct-desp" rows="6" name="description" ng-model="contest.description" placeholder="콘테스트 내용 작성요령을 참조바라며 정확히 작성해야만 프리랜서들로부터 많은 관심과 지원을 받을 수 있습니다...[최소300자 이상 작성하기 바랍니다!]" required></textarea> -->
-  
+
              <div text-angular="text-angular" name="description" ng-model="contest.description" ta-disabled='disabled' ta-text-editor-class="form-control myform1-height" ta-html-editor-class="form-control myform1-height"></div>
-              
+
             </div>
-  
+
             <div class="form-group col-md-offset-1">
-              
+
               <div class="row">
                 <div class="col-sm-6">
-                  <input  type="file" nv-file-select=""  uploader="uploader"> 
-                  
+                  <input  type="file" nv-file-select=""  uploader="uploader">
+
                   <div ng-show="uploader.queue.length>0">
                     <div><spa translate="FileName"></spa>: {{ item.file.name }}</div>
                     <div><span translate="fileSize"></span>: {{ item.file.size/1024/1024|number:2 }} Mb</div>
@@ -143,8 +143,8 @@
                         <div>
                             <div  ng-style="{ 'width': item.progress + '%' }"></div>
                         </div>
-                    </div>  
-  
+                    </div>
+
                     <button ng-click="item.upload()" ng-disabled="item.isReady || item.isUploading || item.isSuccess" translate="uploadingFiles"></button>
                     <!-- <button ng-click="item.cancel()" ng-disabled="!item.isUploading">Cancel</button> -->
                     <!-- <button ng-click="item.remove()">Remove</button> -->
@@ -153,7 +153,7 @@
                     </span>
                     <span ng-show="sucMsg" class="text-success">
                       {{sucMsg}}
-                    </span>  
+                    </span>
             <br>
             <p style="padding-top:10px" class="prjct-list-font"><i class="fa fa-exclamation-triangle" aria-hidden="true" style="color:#820923;"></i><span translate="fileWarning"></span></p>
                   </div>
@@ -161,75 +161,75 @@
                 <div class="col-sm-6">
                   <!-- <p>Drag and drop any images or documents that might be helpful in explaining your project brief here</p> -->
                 <p class="prjct-list-font"><i class="fa fa-exclamation-triangle" aria-hidden="true" style="color:#820923;"></i><span translate="AttachmentSize"></span> </p>
-                  
+
                 </div>
               </div>
-  
+
             <!-- Angular spinner -->
             <span us-spinner="{radius:30, width:8, length: 16}" spinner-key="fileUpload"></span>
-  
+
             </div>
-  
-  
+
+
             <div class="form-group col-md-offset-1" style="margin-top:50px">
-  
+
               <p class="contest_question prjct-list-font" style="padding-bottom:12px">
                 <span>4</span>
                <b translate="ContentExpenditure"></b><p style="font-size:13px;padding-left:20px;"><i class="fa fa-exclamation-triangle" aria-hidden="true" style="color:#820923;"></i> <!-- 맨앞숫자가 0부터시작해도 상관없습니다. --> <span translate="RecomendedStartingPrizeValue"></span> <span style="color:#820923;" translate="PrizeMoneyOver100Million"></span></p>
               </p>
-  
+
               <div class="row row m-l-xs m-r-xs thumbnail p-t-md p-b-lg porjct-desp">
-                
+
                 <div class="col-xs-12 col-sm-6 col-md-6 p-ml-none p-mr-none">
                   <rzslider rz-slider-model="contest.sliderContestBudg"
                             rz-slider-options="sliderContestBudg.options">
-                  </rzslider> 
+                  </rzslider>
                 </div>
-  
+
                 <div class="col-xs-12 col-sm-3 col-sm-3 p-t-md p-ml-none p-mr-none">
                    <div class="input-group p-t-xs p-b-sm">
                        <span class="input-group-addon text-muted">원
                        </span>
-                       <input ng-model="contest.sliderContestBudg" type="number" min="0" max="100000000" class="form-control" ng-change="totalSum()"> 
+                       <input ng-model="contest.sliderContestBudg" type="number" min="0" max="100000000" class="form-control" ng-change="totalSum()">
                    </div>
                 </div>
-                <div class="col-xs-12 col-sm-3 col-md-3 p-t-md p-b-sm p-ml-none p-mr-none">                
-                   <select selector model="contest.currency" options="currency" label-attr="code"  placeholder="Select Category" disable="true">   
+                <div class="col-xs-12 col-sm-3 col-md-3 p-t-md p-b-sm p-ml-none p-mr-none">
+                   <select selector model="contest.currency" options="currency" label-attr="code"  placeholder="Select Category" disable="true">
                     </select>
-  
-                </div>      
+
+                </div>
               </div>
-              <br>            
+              <br>
             </div>
-  
-  
+
+
             <div class="form-group col-md-offset-1">
               <p class="contest_question" style="padding-bottom:12px">
                 <span>5</span>
                <b translate="ConatestPeriod"></b>
               </p>
-  
+
         <p style="font-size:13px;padding-left:20px;padding-top:5px;" class="prjct-list-font"><i class="fa fa-exclamation-triangle" aria-hidden="true" style="color:#820923;"></i> <span translate="IfWinnerNotSelected"></span></p>
-  
+
               <div class="input-group prjct-name">
-                      <span class="input-group-addon text-muted">일(Days)  
+                      <span class="input-group-addon text-muted" translate="WorkDay">
                       </span>
-                      <input type="number" ng-model="contest.dayContest" class="form-control prjct-name" min="1" max="180" placeholder="콘테스트는 기간은 최대 30일이며 등록 마감 이후부터 7일 이내에 수상자 한명을 선정해야 됩니다" required>
+                      <input type="number" ng-model="contest.dayContest" class="form-control prjct-name" min="1" max="180" placeholder="콘테스트는 기간은 최대 30일이며 등록 마감 이후부터 7일 이내에 수상자 한명을 선정해야 됩니다" translate translate-attr-placeholder="ContestDuration" required>
                   </div>
       <br>
             </div>
-  
+
             <br>
             <div class="form-group col-md-offset-1" style="margin-top:25px">
-  
+
             <p class="contest_question prjct-list-font">
               <span>6</span>
              <b translate="OutsourcingOkService"></b>
             </p>
        <p style="padding-top:5px;padding-left:10px;" class="prjct-list-font"><i class="fa fa-exclamation-triangle" aria-hidden="true" style="color:#820923;"></i><span translate="NoteOutsourcingOk"></span> </p>
-  
+
             <hr/>
-  
+
             <div class="row">
               <div class="col-sm-3 col-xs-6 p-mb-sm">
                 <input class="top" type="checkbox" value='false' ng-model = "pakage_1" ng-change="checktotalAmount(pakage_1,'pakage_1')">
@@ -251,35 +251,35 @@
                 <p class="prjct-list-font" translate="OutsourcingOkayLivChatService"></p>
                 <p translate="FreeVideoChatsAreAvailable"></p>
                 <p translate="ItGivesYouTheOpportunity"></p>
-          
-  
+
+
           <ul class="ul-sidebar2">
-              
+
           <li style="color:#898989" class="prjct-list-font">
              <span translate="OtherExternalVideoChat"></span>
           </li>
           </ul>
-  
+
           <ul class="ul-sidebar2">
-              
+
           <li style="color:#898989" class="prjct-list-font">
              <span translate="SaveChatHistory"></span>
           </li>
           </ul>
           </span>
-  
+
           <p><b translate="FreeEventJune"></b></p>
-          
+
               </div>
               <div class="col-sm-2 col-xs-5 hidden-xs">
-                 <span><strike>₩ 5,000원</strike><br>{{contest.currency.symbol_native}} {{ latestCurrencyRate[contest.currency.code]*pakagePrices.pakage_1 | number:0}}원 <br><span translate="chatFree"></span><br></span>				
-           
+                 <span><strike>₩ 5,000원</strike><br>{{contest.currency.symbol_native}} {{ latestCurrencyRate[contest.currency.code]*pakagePrices.pakage_1 | number:0}}원 <br>[무료]<br>이벤트 행사<br>6월30일까지 무료</span>
+
               </div>
-  
+
             </div>
-  
+
             <hr/>
-  
+
             <div class="row">
               <div class="col-sm-3 col-xs-6 p-mb-sm">
                 <input class="top" type="checkbox" value='false' ng-model = "pakage_2" ng-change="checktotalAmount(pakage_2,'pakage_2')" ng-disabled="pakage_1">
@@ -297,46 +297,46 @@
                 <p class="prjct-list-font" style="color:#898989"><span translate="VideoService"></span>&nbsp;&nbsp;<span ng-click="videochat = !videochat" style="font-size:10px;margin-left:13px;padding-left:20px;background:#2f70a9;border-radius: 3px;padding:5px;color:#fff;cursor: pointer; cursor: hand;" translate="btnIntro"></span></p>
           <span ng-show="videochat">
           <p class="prjct-list-font" translate="VideoCannnotbeSaved"></p>
-  
+
           <ul class="ul-sidebar2">
-              
+
           <li class="prjct-list-font">
              <span translate="InconvenientForMobileVideo"></span>
           </li>
           </ul>
           </span>
-  
-         
+
+
               </div>
               <div class="col-sm-2 hidden-xs">
                  <span style="color:#000000">{{contest.currency.symbol_native}}  {{ latestCurrencyRate[contest.currency.code]*pakagePrices.pakage_2 | number:0}}원 <br><span translate="freePurchase"></span></span>
               </div>
-  
+
             </div>
-  
+
             <hr/>
-  <!-- 
+  <!--
             <div class="row">
               <div class="col-sm-3">
-                
+
                 <input class="top" type="checkbox" value='false' ng-model = "pakage_3" ng-change="checktotalAmount(pakage_3,'pakage_3')" ng-disabled="pakage_1">
-  
+
                 <div class="btn-container">
                   <label class="btn btn-warning btn-block">채팅</label>
                 </div>
-  
-  
+
+
               </div>
               <div class="col-sm-7">
                 <p>Opportunity for you to chat with a recruiter to discuss about the project using chat rooms.</p>
               </div>
               <div class="col-sm-2">
                 <span>{{contest.currency.symbol_native}} {{ latestCurrencyRate[contest.currency.code]*pakagePrices.pakage_3 | number:1}}</span>
-  
+
               </div>
-  
+
             </div>
-  
+
             <hr/>
    -->
             <div class="row">
@@ -359,12 +359,12 @@
                 <span>{{contest.currency.symbol_native}} {{ latestCurrencyRate[contest.currency.code]*pakagePrices.pakage_4 | number:0}}원</span>
               </div>
             </div>
-  
+
             <hr/>
-  
+
             <div class="row">
               <div class="col-sm-3 col-xs-6 p-mb-sm">
-                
+
                 <input class="top" type="checkbox" value='false' ng-model = "pakage_5" ng-change="checktotalAmount(pakage_5,'pakage_5')">
                 <div class="btn-container">
                   <label class="btn btn-success btn-block" style="background:#8fb7b9;border-color: #8fb7b9;" translate="sealed"></label>
@@ -377,9 +377,9 @@
               <!-- End -->
               <div class="col-sm-7 col-xs-12">
                  <p class="prjct-list-font" translate="IfYouHoldTheContestPrivately"></p>
-          
+
           <ul class="ul-sidebar2">
-              
+
           <!-- <li style="color:#898989">
              계약방법은 등기우편 또는 아웃소싱오케이본사 중 선택해서 계약할 수 있습니다.
           </li> -->
@@ -388,16 +388,16 @@
               <div class="col-sm-2 hidden-xs">
                 <span>{{contest.currency.symbol_native}} {{ latestCurrencyRate[contest.currency.code]*pakagePrices.pakage_5 | number:0}}원</span>
               </div>
-  
+
             </div>
-  
+
             <hr/>
-  
+
             <div class="row">
               <div class="col-sm-3 col-xs-7 p-mb-sm">
                 <input class="top" type="checkbox" value='false' ng-model = "pakage_6" ng-change="checktotalAmount(pakage_6,'pakage_6')">
                 <div class="btn-container">
-                  <label class="btn btn-success btn-block" style="background:#c7b6ac;color:#fff;border-color: #c7b6ac;">비밀유지 계약(NDA)</label>
+                  <label class="btn btn-success btn-block" style="background:#c7b6ac;color:#fff;border-color: #c7b6ac;" translate="ConfidentialityAgreement"></label>
                 </div>
               </div>
               <!-- Mobile View -->
@@ -409,8 +409,8 @@
                 <p class="prjct-list-font"><span translate="NDAdescription"></span>.<span ng-click="nda = !nda" style="font-size:10px;margin-left:13px;padding-left:20px;background:#6b0816;border-radius: 3px;padding:5px;color:#fff;cursor: pointer; cursor: hand;" translate="caution"></span></p>
                 <span ng-show="nda">
                   <p class="prjct-list-font" translate="NdaDetails"></p>
-  
-                  <!-- <ul class="ul-sidebar2">       
+
+                  <!-- <ul class="ul-sidebar2">
                     <li style="color:#898989" class="prjct-list-font">
                        계약방법은 등기우편 또는 아웃소싱오케이본사 중 선택해서 계약할 수 있습니다.
                     </li>
@@ -422,7 +422,7 @@
               </div>
             </div>
             <hr/>
-  
+
             <div class="row">
               <div class="col-sm-3 col-xs-6 p-mb-sm">
                 <input class="top" type="checkbox" value='false' ng-model = "pakage_7" ng-change="checktotalAmount(pakage_7,'pakage_7')">
@@ -441,11 +441,11 @@
               <div class="col-sm-2 hidden-xs">
                 <span>{{contest.currency.symbol_native}} {{ latestCurrencyRate[contest.currency.code]*pakagePrices.pakage_7 | number:0}}원</span>
               </div>
-  
+
             </div>
-  
+
           <hr/>
-  
+
             <!-- Gaurantee -->
             <div class="row">
               <div class="col-sm-3 col-xs-6 p-mb-sm">
@@ -461,7 +461,7 @@
               <!-- End -->
               <div class="col-sm-7 col-xs-12">
                 <p class="prjct-list-font" translate="IfYouChooseToWinPrize"></p>
-                <ul class="ul-sidebar2">          
+                <ul class="ul-sidebar2">
                   <li style="color:#898989" class="prjct-list-font">
                     <span translate="IfYouChooseToWinaPrize"></span>
                   </li>
@@ -470,123 +470,123 @@
               <div class="col-sm-2 hidden-xs">
                 <span style="color:#000000">{{contest.currency.symbol_native}} {{ latestCurrencyRate[contest.currency.code]*pakagePrices.gaurantee | number:0}}원 [무료]<!-- {{ latestCurrencyRate[contest.currency.code]*pakagePrices.gaurantee | number:0}} --></span>
               </div>
-  
+
             </div>
             <div class="m-l-md"><h4><strong> <span translate="TotalVATExcluded"></span>: {{contest.currency.symbol_native}} {{totalAmount | number:0}}</strong></h4></div>
-  
+
             <div class="m-l-md" style="padding-top:20px"><h6><strong style="color:#820923"><i class="fa fa-exclamation-triangle" aria-hidden="true" style="color:#820923;"></i> <span translate="FreelancersWhoApply"></span></strong></h6></div>
-  
+
           </div>
-  
+
           </div>
            <!--  <input class="btn btn-info btn-lg" ui-sref="contests.contest-manage" ng-click = "create_contest()" ng-disabled="contestForm.$invalid" value="Post Contest Now"> -->
-  
+
            <!-- <button class="btn btn-info btn-lg" ng-click="create()" ng-disabled="contestForm.$invalid">무료 콘테스트등록</button> -->
-  
+
            <div style="display: -webkit-box;">
              <button class="btn btn-info btn-lg" ng-click = "create()" ng-disabled="contestForm.$invalid || isLoading" style="background:#688686;border: 1px solid #688686;" translate="contestPost">
-               
+
              </button>
-  
+
              <div ng-if="isLoading">
                <i class="fa fa-spinner fa-spin fa-3x fa-fw"></i>
              </div>
            </div>
-  
+
         </form>
-  
+
         <br><br>
       </div>
-  
-  
+
+
       <!-- SIDEBAR -->
       <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3 p-mr-none p-ml-none hidden-xs">
-            
-          
+
+
       <div class="text-center" style="margin-left:30px;padding-left:40px;padding-bottom:20px;"><img class="img-responsive img-circle" src="modules/core/client/img/customimages/about.outsource.image01-1.png"></div>
-  
-  
-      
+
+
+
       <div class="box" style="margin-left:30px;padding-top:40px;padding-bottom:20px;border-top: 5px solid #bab3a9;background:#fff;">
-            
+
             <h1 class="sidebar-title" style="color:#5f5b56" translate="YouCanRegisterForTheContest"></h1>
-  
+
             <h2 class="sidebar-title-sub text-center"><img src="modules/projects/client/img/project_icon3.png"><span translate="contestFreeRegister"></span></h2>
-  
+
             <hr/>
-  
+
             <ul class="ul-sidebar3">
-              
+
               <li translate="conciseNameofYourContest"></li>
-  
+
               <li translate="DetailDescriptionofYourContest"></li>
-  
+
               <li translate="ProvideImagesorPDFWithSpecificationOfContest"></li>
-  
+
               <li translate="ContestContentShouldBeMoreThan"></li>
-  
+
               <li translate="UseTheFreePublicForumForAccurateConceptSetting"></li>
-  
+
         <li><span translate="TheContestRegistrationOrderIs"></span> <b style="color:#9f7d11" translate="HowTheContestProgresses"></b> > <b style="color:#9f7d11" translate="CurrentStatusOfTheContest"></b> > <b style="color:#9f7d11" translate="DetailedBusinessContents"></b> > <b style="color:#9f7d11" translate="ReferencesAndNotes"></b> <span translate="ReferToTheExampleInOrder"></span></li>
-  
+
             </ul>
-  
+
           </div>
-  
-  
+
+
           <div class="box" style="margin-left:30px;border-top: 5px solid #bab3a9;background:#fff;">
-            
+
             <h1 class="sidebar-title" style="color:#5f5b56" translate="PrivateFace-to-faceMeetings"></h1>
         <h1 class="sidebar-title" style="color:#000"><img src="modules/contests/client/img/contest_icon1.png"><span translate="SimultaneousInterviewsWithApplicants"></span></h1>
-  
+
             <hr/>
-  
+
             <ul class="ul-sidebar3">
-              
+
         <li><span translate="RealTimeVideoChattingBefore"></span></li>
               <li><span translate="YouCanFindFreelancers"></span></li>
-  
+
               <li><span translate="GetTheBestResults"></span></li>
-  
-              <li><span translate="SelectedFreelancersAndClients"></span></li>      
-        
+
+              <li><span translate="SelectedFreelancersAndClients"></span></li>
+
               <li><span translate="WhenUsingChat"></span></li>
-  
+
               <li><span translate="securityAndSecurityReasonsVideoChatMustUseGoogleChrome"></span></li>
-  
+
             </ul>
-  
+
             <div class="text-center" style="padding-top:20px">
             <button class="btn btn-info" ui-sref="projects.project-post" style="background: #5f5b56;border: 1px solid #5f5b56" translate="postAProject"></button>
             </div>
-            
-  
+
+
           </div>
-  
-  
+
+
       <div class="box" style="margin-left:30px;border-top:5px solid #bab3a9;background:#fff;">
-            
+
                <h1 class="sidebar-title" style="color:#4c0a18" translate="HowToWriteContest"></h1>
-        
-  
+
+
             <h2 class="sidebar-title-sub text-center"><!-- <img src="modules/projects/client/img/project_icon5.png"> --><span translate="ExamplesContestContent"></span>&nbsp;&nbsp;<span ng-click="showSkills = !showSkills" style="font-size:10px;padding-left:20px;background:#bab3a9;border-radius: 3px;padding:5px;color:#fff;cursor: pointer; cursor: hand;" translate="seeExample"></span></h2>
-  
+
             <hr/>
-      
+
         <div ng-show="showSkills">
-  
-  
-  
-  <b style="color:#087c99" translate="HowContest"></b><br> 
+
+
+
+  <b style="color:#087c99" translate="HowContest"></b><br>
   <span translate="ExamplesVideoChat"></span><br><br>
   <span translate="OutsourcingFromTheBeginning"></span><br>&nbsp;&nbsp;<span translate="ProceedWithVideoChat"></span><br>
-  
+
   <br><br>
-  
-  
-  
-  
-  
+
+
+
+
+
   <b style="color:#087c99" translate="serviceOverview"></b><br>
   <span translate="ExamplesSloganProduct"></span><br><br>
   <span translate="Slogan"></span><br>
@@ -594,36 +594,36 @@
   <span translate="Features"></span><br>
   <span translate="CoreTarget"></span>
   <br><br>
-  
-  
-  
+
+
+
   <b style="color:#087c99" translate="DesignRequirements"></b><br>
   <span translate="ExampleDesignPurpose"></span><br><br>
   <span translate="ContainerLabelDesign"></span><br>
   <span translate="PackageDesign"></span><br>
   <br><br>
-  
-  
+
+
   <b style="color:#087c99" translate="DetailedDescription"></b><br>
   <span translate="ExampleProductFunction"></span><br><br>
-  
+
   <span translate="MineralStick"></span><br>
   &nbsp;&nbsp;<span translate="MineralStickToMoisturize"></span><br>
-  
+
   <span translate="MoistureStick"></span><br>
   &nbsp;&nbsp;<span translate="MoistureStickForSmooth"></span><br>
-  
+
   <span translate="OilStick"></span><br>
   &nbsp;&nbsp;<span translate="OilStickWith"></span><br>
-  
+
   <span translate="CleansingStick"></span><br>
   &nbsp;&nbsp;<span translate="ScrubGrainsCleansingStick"></span><br>
-  
+
   <span translate="PoreConvergence"></span><br>
   &nbsp;&nbsp;<span translate="cleansingStickThatCleanses"></span><br>
-  
+
   <br><br>
-  
+
   <span translate="ContainerLabelDesign"></span><br>
   &nbsp;&nbsp;<span translate="productNameIsClearlyVisible"></span><br>
   &nbsp;&nbsp;<span translate="ContainerColor"></span><br>
@@ -633,7 +633,7 @@
   &nbsp;&nbsp;<span translate="FrontEnglishName"></span><br>&nbsp;&nbsp;<span translate="ColorEtc"></span><br>
   &nbsp;&nbsp;<span translate="BackLogo"></span><br>
   <br><br>
-  
+
   <span translate="PackageDesign"></span><br>
   &nbsp;&nbsp;<span translate="CreativePackage"></span><br>&nbsp;&nbsp;<span translate="FreePackageDesign"></span><br>
   &nbsp;&nbsp;<span translate="IllustrationPackage"></span><br>
@@ -641,27 +641,26 @@
   &nbsp;&nbsp;<span translate="BackBack"></span><br>
   &nbsp;&nbsp;<span translate="site"></span> - https://www.amazon.com/Nykaa-MATTE<br>
   <br><br>
-  
+
   <span translate="AttachedPANTONECOLOR"></span><br>
   <span translate="canChangeTheColor"></span><br>
-  
-  
-  
+
+
+
   <b style="color:#087c99"><span translate="ReferencesNotes"></span></b><br>
   <span translate="ExampleReferenceSite"></span><br><br>
   <span translate="CosmeticDesigner"></span><br>
   <span translate="ReferenceSite"></span> https://www.amazon.com/Nykaa-MATTE
   <br><br>
-  
-  
-  
-  
+
+
+
+
         </div>
-  
-  
-  
+
+
+
       </div>
     </div>
-  
+
   </section>
-  

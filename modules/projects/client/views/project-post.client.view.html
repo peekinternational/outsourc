@@ -3,7 +3,7 @@
 <br>
             <h3 class="investor-heading p-t-sm" style="font-size:20px;" translate="postProject"></h3>
             <h3 class="investor-para">
-               
+
             </h3>
             <br><br>
           </div>
@@ -24,7 +24,7 @@
     </div>
 
       <div class="col-xs-12 col-sm-7 col-md-7 col-lg-7 p-ml-none p-mr-none col-md-offset-1">
-     
+
         <div ng-show="error" class="text-danger">
           <div class="alert alert-danger" ng-bind="error"></div>
         </div>
@@ -34,16 +34,16 @@
               <span>1</span>
               <b translate="projectType">.</b>
             </p>
-            <select model="project.workRequire" change="selectCat()" selector class="prjct-name"           
+            <select model="project.workRequire" change="selectCat()" selector class="prjct-name"
                   options="categories"
                   label-attr="name"
-                  placeholder="1차 카테고리 선택 후 2차 세부 카테고리를 선택 필수/Select a category of work">
+                  placeholder="1차 카테고리 선택 후 2차 세부 카테고리를 선택 필수/Select a category of work" >
             </select>
-          </div> 
+          </div>
           <!-- sub menu of work -->
           <br>
           <div ng-show="project.workRequire" class="form-group p-t-sm col-md-offset-1" style="margin-top:10px">
-            <select selector class="prjct-name" 
+            <select selector class="prjct-name"
                   change="selectSubCat()"
                   model="project.subcat"
                   options="subCat"
@@ -51,7 +51,7 @@
                   placeholder="2차 세부 카테고리 선택/Select sub category">
             </select>
             <br><br>
-          </div> 
+          </div>
           <!-- sub menu of work -->
           <!-- if design is chosen in sub category, show this -->
           <div ng-show="project.workRequire.name =='Design' && project.subcat.name && project.subcat.name!='Design Flash' " class="form-group p-t-sm upcell-contest">
@@ -88,8 +88,8 @@
               <b translate="projectTitle">.</b>
             </p>
 
-            <p class="sub-heading"><b translate="titlePro">&nbsp;&nbsp;&nbsp;</b> <span popover-title="프로젝트 제목/Project Name" uib-popover="프로젝트에 프리랜서들이 많이 지원하기 위해서는 가능한 정확한 단어로 필요한 것들을 간단 명료하게 제목을 입력하시기 바랍니다./Your project name is important as it is what attracts freelancers to bid on your contest. You should clearly describe what you need in as few words as possible." popover-trigger="'mouseenter'" ><i class="fa fa-question-circle-o" aria-hidden="true" style="font-size:20px;"></i></span></p>
-            <input type="text" class="form-control prjct-name"  ng-model="project.name" placeholder="프로젝트 제목을 작성하십시오/Enter project name" name="project_name" required></input>
+            <p class="sub-heading"><b translate="titlePro">&nbsp;&nbsp;&nbsp;</b> <span popover-title="프로젝트 제목" uib-popover="프로젝트에 프리랜서들이 많이 지원하기 위해서는 가능한 정확한 단어로 필요한 것들을 간단 명료하게 제목을 입력하시기 바랍니다." popover-trigger="'mouseenter'" ><i class="fa fa-question-circle-o" aria-hidden="true" style="font-size:20px;"></i></span></p>
+            <input type="text" class="form-control prjct-name"  ng-model="project.name" placeholder="프로젝트 제목을 작성하십시오" translate translate-attr-placeholder="ProjecName" name="project_name" required></input>
 
             <br><br><br>
             <p class="sub-heading top-space prjct-list-font">
@@ -105,7 +105,7 @@
               </div>
           </div> <br><br>
 
-          <div class="form-group col-md-offset-1"> 
+          <div class="form-group col-md-offset-1">
 
             <p class="question prjct-list-font">
               <span>3</span>
@@ -126,9 +126,10 @@
                 options="allProjectSkills"
                 create="createFunction(input)"
                 placeholder="프로젝트에 요구되는 전문기술을 선택 바랍니다./What skills are required?"
+
               >
               </select>
-              
+
               <!-- <input type="text" ng-model="project.skills" ng-click="box = true"> -->
              <!--  <div class="scroll" ng-show="box" style="height: 218px;overflow-y: scroll;z-index: 1000;position: absolute;background: #fff;border: 1px solid #ccc;padding: 10px;width: 586px;top: 42px;">
                 <div infinite-scroll-container='".scroll"' infinite-scroll="loadMore()" infinite-scroll-parent="true" infinite-scroll-distance="2">
@@ -136,7 +137,7 @@
                 </div>
               </div> -->
             </div>
-            
+
 
             <br><br><br>
             <p class="sub-heading top-space prjct-list-font">
@@ -149,18 +150,18 @@
           </div>
 
           <div class="form-group col-md-offset-1">
-            
+
             <div class="row">
               <div class="col-sm-6">
-                <!-- <span>   
+                <!-- <span>
               <label class="btn btn-default" for="upload-file-selector" ng-hide="">
                 <input id="upload-file-selector" type="file" nv-file-select uploader="uploader">
                 <i class="glyphicon glyphicon-plus"></i>
                 <b> Upload Files</b>
               </label>
             </span> -->
-                <input  type="file" nv-file-select=""  uploader="uploader"> 
-                
+                <input  type="file" nv-file-select=""  uploader="uploader">
+
                 <div ng-show="uploader.queue.length>0">
                   <div><span translate="fileName"></span>: {{ item.file.name }}</div>
                   <div><span translate="fileSize"></span>: {{ item.file.size/1024/1024|number:2 }} Mb</div>
@@ -182,11 +183,11 @@
                   </span>
                   <span ng-show="sucMsg" class="text-success">
                     {{sucMsg}}
-                  </span>  
+                  </span>
           <br>
           <p class="prjct-list-font" style="padding-top:10px"><i class="fa fa-exclamation-triangle" aria-hidden="true" style="color:#820923;"></i><span translate="fileWarning">.</span></p>
                 </div>
-                
+
               </div>
               <div class="col-sm-6">
                 <!-- <p>Drag and drop any images or documents that might be helpful in explaining your project brief here</p> -->
@@ -206,46 +207,46 @@
             </p>
             <div style="font-size: 12px;">
               <b translate="projectAmount">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</b>
-              <span popover-title="프로젝트 금액 선택/Choose project amount" uib-popover="긴급을 요하지 않는 경우를 제외하고 프로젝트 금액을 고정금액으로 선택하는 것을 추천 합니다. 고정금액 시작단위는 500,000원[오십만원] 시작을 권장합니다./It is recommended that you choose a fixed amount for the project amount, unless you do not need an emergency. We recommend starting a fixed amount starting at 500,000 won [500,000 won]." popover-trigger="'mouseenter'" ><i class="fa fa-question-circle-o" aria-hidden="true" style="font-size:20px;margin-bottom:20px;"></i></span>        
+              <span popover-title="프로젝트 금액 선택" uib-popover="긴급을 요하지 않는 경우를 제외하고 프로젝트 금액을 고정금액으로 선택하는 것을 추천 합니다. 고정금액 시작단위는 500,000원[오십만원] 시작을 권장합니다." popover-trigger="'mouseenter'" ><i class="fa fa-question-circle-o" aria-hidden="true" style="font-size:20px;margin-bottom:20px;"></i></span>
             </div>
 
             <!-- <p class="sub-heading"><b>Project name?</b></p> -->
-      
+
             <div class="prjct-list-font">
               <label>
                 <input class="rdio-pstn-selctr" type="radio" value="fixed" name="rate" ng-model="project.projectRate" ng-click = "rateToFixed();currencyChange();" > <span translate="fixedAmount"></span>
               </label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
               <label>
                 <input class="rdio-pstn-selctr" type="radio" value = "hourly" name="rate" ng-model="project.projectRate" ng-click = "rateToHourly();currencyChange();"> <span translate="hourlyAmount"></span>
-              </label>        
-             <!--  <span class="bubble">?</span>  -->             
+              </label>
+             <!--  <span class="bubble">?</span>  -->
             </div>
 
             <div class="row price-selector" style="margin-top:5px">
               <div class="col-xs-12 col-md-5 p-r-none">
-                <select selector 
-                  model="project.currency" 
-                  options="currency" 
-                  label-attr="cur"  
+                <select selector
+                  model="project.currency"
+                  options="currency"
+                  label-attr="cur"
                   placeholder="Select currency"
-                  change="currencyChange()">   
+                  change="currencyChange()">
                 </select>
 
               </div>
 
               <div class="col-xs-12 col-md-7 p-mr-none">
-          
+
                 <!-- <select  class="form-control" name="price" ng-model="project.price" ng-options="i as item.price for item in rateList track by item.id" ng-change="toggleCustomPrice()">
                 </select> -->
                 <select selector
                   model="project.price"
                   options="rateListt"
                   label-attr="name"
-                  placeholder="프로젝트 금액을 선택 바랍니다/Select Category" 
+                  placeholder="프로젝트 금액을 선택 바랍니다/Select Category"
                   change="getMinMaxValue();">
                 </select>
 <!-- <span class="text-right" style="color:#820923;"><i class="fa fa-exclamation-triangle" aria-hidden="true" style="color:#820923;"></i> 프로젝트 예산이 1억원 이상인 경우 아웃소싱 오케이에 별도 문의</span> -->
-              </div> 
+              </div>
 
             </div>
             <div class="row" ng-if = "customizeProjectBudget">
@@ -289,11 +290,11 @@
           <hr/>
 
           <div class="row" style="padding-top:30px">
-            <div class="col-xs-6 col-md-3">  
+            <div class="col-xs-6 col-md-3">
               <input class="top" type="checkbox" value='false' ng-model = "pakage_1" ng-change="checktotalAmount(pakage_1,'pakage_1')">
 
               <div class="btn-container">
-                <label class="btn btn-info btn-block btn-sm btn-prject-sectn" style="background:#2d6ca7;color:#fff;" translate="chat"></label>     
+                <label class="btn btn-info btn-block btn-sm btn-prject-sectn" style="background:#2d6ca7;color:#fff;" translate="chat"></label>
               </div>
             </div>
             <!-- Mobile View -->
@@ -309,10 +310,10 @@
               <p><span translate="OutsourcingOkRealtimeandVideoChat"></span></p>
               <p><span translate="VideoconferencesHeadquartersConferenceroom"></span></p>
               <p><span translate="Opportunitytogetmoreideas"></span></p>
-        
-        
+
+
               <p style="color:#898989"><i class="fa fa-exclamation-triangle" aria-hidden="true" style="color:#820923;"></i> <span translate="OutsourcingOkWillNotHelpOnOtherResourcesInDispute"></span></p>
-        
+
               <p style="color:#898989"><i class="fa fa-exclamation-triangle" aria-hidden="true" style="color:#820923;"></i> <span translate="SaveChatHistory"></span> </p>
         </span>
         <!--
@@ -358,7 +359,7 @@
 
           <hr/>
 
-          
+
 
           <div class="row">
             <div class="col-xs-6 col-md-3">
@@ -454,9 +455,9 @@
 
           </div>
           <div class="m-l-md" style="padding-top:10px"><h4><strong> <span translate="total"></span>: {{project.currency.symbol_native}}{{totalAmount | number: 0}}</strong></h4></div>
-      
+
           <div class="m-l-md p-t-lg"><h6><strong style="color:#820923"><i class="fa fa-exclamation-triangle" aria-hidden="true" style="color:#820923;"></i>  <span translate="endDetail"></span>.</strong></h6></div>
-      
+
         </div>
 
       </div>
@@ -472,8 +473,8 @@
 
         <br>
         <br>
-        
-        
+
+
 
 
       <!--  <button  class="btn btn-info btn-lg" ng-click = "create()" ng-disabled="projectForm.$invalid" value="Post Project Now" >Post Project Now</button>
@@ -484,21 +485,21 @@
 
     <!-- SIDEBAR -->
     <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3 p-ml-none p-mr-none hidden-xs">
-          
+
         <div class="text-center" style="padding-left:40px;padding-bottom:20px;"><img class="img-responsive img-circle" src="modules/core/client/img/customimages/about.outsource.image01-2.png"></div>
 
 
     <div class="box" style="margin-left:30px;background:#fff;padding-bottom:20px;">
-          
+
              <h1 class="sidebar-title" translate="postProjectFree">.</h1>
-      
+
 
           <h2 class="sidebar-title-sub text-center"><img src="modules/projects/client/img/project_icon3.png"><span translate="projectFreeRegister"></span></h2>
 
           <hr/>
 
           <ul class="ul-sidebar">
-            
+
             <li translate="conciseNameofYourProject">.</li>
 
             <li translate="DetailDescriptionofYourProject">.</li>
@@ -515,25 +516,25 @@
 
 
         <div class="box" style="margin-left:30px;background:#fff;">
-          
+
           <h1 class="sidebar-title" translate="ContestWithoutRealTimePublicForumisPast">.</h1>
-     <h1 class="sidebar-title" style="color:#000"><i class="fa fa-forumbee" aria-hidden="true"></i> <span translate="SimultaneousInterviewsWithApplicants"></span> </h1>          
-      
+     <h1 class="sidebar-title" style="color:#000"><i class="fa fa-forumbee" aria-hidden="true"></i> <span translate="SimultaneousInterviewsWithApplicants"></span> </h1>
+
 
           <hr/>
 
           <ul class="ul-sidebar">
-            
+
             <li> <span translate="SetAcontestPrizeAndOpenArealTimePublicForum"></span>.</li>
 
             <li translate="applicantsSelectedByTheClient">.</li>
 
-            <li translate="selectedFreelancerAndClientCanSaveTime">.</li>      
-      
+            <li translate="selectedFreelancerAndClientCanSaveTime">.</li>
+
             <li><span translate="UnlimitedUseAnyTimebyRegistration"></span></li>
 
              <li translate="securityAndSecurityReasonsVideoChatMustUseGoogleChrome">.</li>
-            
+
 
           </ul>
 
@@ -547,19 +548,19 @@
 
 
     <div class="box" style="margin-left:30px;border-top:5px solid #bab3a9;background:#fff;">
-          
+
              <h1 class="sidebar-title" style="color:#4c0a18" translate="HowToWriteProjectContents"></h1>
-      
+
 
           <h2 class="sidebar-title-sub text-center"><!-- <img src="modules/projects/client/img/project_icon5.png"> --><span translate="ExampleProjectContent"></span>&nbsp;&nbsp;<span ng-click="showSkills = !showSkills" style="font-size:10px;padding-left:20px;background:#bab3a9;border-radius: 3px;padding:5px;color:#fff;cursor: pointer; cursor: hand;"><span translate="seeExample"></span></span></h2>
 
           <hr/>
-    
+
       <div ng-show="showSkills">
 
 
 
-<b style="color:#087c99" translate="ProjectProgressMethod"></b><br> 
+<b style="color:#087c99" translate="ProjectProgressMethod"></b><br>
 <span translate="Examples"></span><br>
 <span translate="ThreeTimesaWeek"></span><br>
 <br><br>
@@ -615,7 +616,7 @@
         <div class="form-group">
           <button type="submit" class="btn btn-default">{{vm.project._id ? 'Update' : 'Create'}}</button>
         </div>
-        
+
       </fieldset>
     </form>
   </div> -->

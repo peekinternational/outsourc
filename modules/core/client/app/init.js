@@ -21,7 +21,9 @@ angular.module(ApplicationConfiguration.applicationModuleName).config([ 'LoopBac
     // Change the URL where to access the LoopBack REST API server
     // LoopBackResourceProvider.setUrlBase('https://localhost:3030/api');
     // LoopBackResourceProvider.setUrlBase('https://203.99.61.173:3030/api');
+
     LoopBackResourceProvider.setUrlBase('https://admin.bluefreelancer.com/api');
+
     // LoopBackResourceProvider.setUrlBase('https://adm.outsourcingok.com/api');
 
   }

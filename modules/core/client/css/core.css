@@ -168,7 +168,7 @@ body{
 /*end chatwindow bubbles*/
 
 /*for loader/spinner*/
-.spinner:before { 
+.spinner:before {
   background-color: rgba(49, 37, 37, 0.2);
   border-radius: 6px;
   top: 0;
@@ -371,7 +371,7 @@ a:hover .header-profile-image {
 .portlet .portlet-body {
     padding: 2px 15px 2px 15px;
     background: #f9f7f7;
-    overflow-y: scroll; 
+    overflow-y: scroll;
     width: auto;
     height: 218px;
     padding-bottom: 0px;
@@ -479,7 +479,7 @@ a:hover .header-profile-image {
 
 .text-red {
     color: #e74c3c;
-}        
+}
 
 /*chat window css*/
 
@@ -497,7 +497,7 @@ a:hover .header-profile-image {
     padding-left: 4%;
     padding-right: 4%;
 }
-.part7landing{   
+.part7landing{
     padding-left: 10%;
     padding-right: 10%;
      text-align: center;
@@ -509,15 +509,15 @@ a:hover .header-profile-image {
      width: 100%;
      height: 280px;
 }
-.mobileimagesetting{ 
-    text-align: center; 
-    padding: 13% 16% 16% 16%; 
+.mobileimagesetting{
+    text-align: center;
+    padding: 13% 16% 16% 16%;
     color: white;
-    
+
     background: #bab3a9;
     position: absolute;
     width: 92.5%;
-    
+
     height: 100%;
     opacity: 0;
     transition: all ease .5s;
@@ -530,9 +530,9 @@ a:hover .header-profile-image {
   opacity: 0.7;
 }
 .mobileimagesetting2link{
-    border-style: solid; 
-    border-width: 1px; 
-    border-color: white; 
+    border-style: solid;
+    border-width: 1px;
+    border-color: white;
      border-radius: 8px;
     color: white;
     padding: 6px;
@@ -558,11 +558,11 @@ a:hover .header-profile-image {
   text-align: center;
 }
 .landingsetting04{
-  background: #ebebeb; 
+  background: #ebebeb;
   padding: 20px;
 }
 .landingsetting05{
-  text-align: center; 
+  text-align: center;
   margin: 32px;
 }
 
@@ -658,7 +658,7 @@ a:hover .header-profile-image {
     text-shadow: none !important;
 }
 .navbar-home{
-  background:#3A3A3A; 
+  background:#3A3A3A;
 }
 .navbar-home >ul{
     padding-top: 0.3rem;
@@ -1111,7 +1111,7 @@ a:hover .header-profile-image {
 }
 .news-caption h6 {
     /*margin-bottom: -13px;*/
-    
+
     font-size: 13px;
     color: yellow;
     text-shadow: none;
@@ -1406,7 +1406,7 @@ a:hover .header-profile-image {
    left: 1000px !important;
    top:20px !important;
    bottom: 1px;
-   right: 0 !important; 
+   right: 0 !important;
    display: block ;
 
 }
@@ -1975,7 +1975,7 @@ padding: 20px;
     background-image: url(/../modules/projects/client/img/listimg.png);
     background-repeat: no-repeat;
     margin: 0 auto 25px;
- 
+
 }
 
 .companyValues {
@@ -2431,8 +2431,8 @@ padding: 20px;
         width: 35% !important;
     }
     .mbl-singup{
-         background:transparent; 
-         color: black; 
+         background:transparent;
+         color: black;
          border: 2px solid yellow;"
     }
     .mbl-login{
@@ -2463,7 +2463,7 @@ padding: 20px;
         background: rgb(41, 41, 41);
         height: 47rem;
         overflow-y: hidden !important;
-    } 
+    }
     .mobile-view-menu > ul >li >a{
         text-decoration: none;
         color: white;
@@ -2492,7 +2492,7 @@ padding: 20px;
         overflow-y: hidden !important;
     }
     .mobile-view{
-        background-color: white; 
+        background-color: white;
         height: 49px;
     }
     .mobile-view .mobile-ul-div >ul{
@@ -2500,10 +2500,10 @@ padding: 20px;
         margin-top: 14px;
     }
     .mobile-view .mobile-ul-div >ul >li:first-child >a{
-        margin-left: -26px;   
+        margin-left: -26px;
     }
     .mobile-view .mobile-ul-div >ul >li:first-child >a >img{
-        width: 54%;   
+        width: 54%;
     }
     .mobile-view .mobile-ul-div >ul >li:last-child >a{
         color: #000;
@@ -2512,8 +2512,8 @@ padding: 20px;
     .mobile-header{
         background: #292929;
     }
-    .mobile-view-form{       
-        padding-bottom: 30px !important;   
+    .mobile-view-form{
+        padding-bottom: 30px !important;
     }
     .lp-item {
         height: 450px !important;
@@ -2559,7 +2559,7 @@ padding: 20px;
    float: left;
 }
 .dropdown .dropbtn {
-   font-size: 12px;    
+   font-size: 12px;
    border: none;
    outline: none;
    color: white;
@@ -2614,7 +2614,7 @@ padding: 20px;
    float: left;
 }
 .dropdown-hire .dropbtn-hire {
-   font-size: 12px;    
+   font-size: 12px;
    border: none;
    outline: none;
    color: white;
@@ -2632,7 +2632,7 @@ padding: 20px;
    float: left;
 }
 .dropdown-wrk .dropbtn-wrk {
-   font-size: 12px;    
+   font-size: 12px;
    border: none;
    outline: none;
    color: white;
@@ -2850,7 +2850,7 @@ text-align: center;
 .sitemapsetting{
     background-color: lightgrey;
      border-radius: 20px;
-    padding: 0px 20px 72px 20px; 
+    padding: 0px 20px 72px 20px;
     margin: 20px -11px 30px -11px;
 }
 /*services*/
@@ -3841,8 +3841,8 @@ html:not(.lt-ie10) .not-animated {
   }
 }
 
-/* 
-Fly Keyframe Animation 
+/*
+Fly Keyframe Animation
 */
 @-webkit-keyframes fly {
   0%, 100% {
@@ -7442,7 +7442,7 @@ html body .k-nav-links a:hover {
   }
 }
 
-/* 
+/*
  *  Owl Carousel - Auto Height Plugin
  */
 .owl-height {
@@ -8130,7 +8130,7 @@ html body .k-nav-links a:hover {
 }
 
 .section-content{
-  text-align: center; 
+  text-align: center;
 
 }
 .contact-section .col-md-6{
@@ -8381,8 +8381,8 @@ a.socialIcon:hover, .socialHoverClass {
     padding-top: 70px;
     padding-bottom: 44px;
     padding-left: 14.8rem;
-}   
-.searchContainer{    
+}
+.searchContainer{
     float: right;
     position: relative;
     width: 100%;
@@ -8417,16 +8417,16 @@ a.socialIcon:hover, .socialHoverClass {
 }
 .detail-qustn-div{
     margin-left: 5rem;
-    background: white; 
+    background: white;
     margin-top: 8rem;
-    margin-bottom: 3rem; 
+    margin-bottom: 3rem;
     padding: 21px;
 }
 .link-questn-div{
-    background: white; 
-    margin-left: 2rem; 
+    background: white;
+    margin-left: 2rem;
     margin-top: 8rem;
-    margin-bottom: 3rem; 
+    margin-bottom: 3rem;
     padding: 24px;
 }
 .articles-inner{
@@ -8458,7 +8458,7 @@ a.socialIcon:hover, .socialHoverClass {
     left: -75px;
     transform: rotate(50deg);
 }
-.serchBar-header{   
+.serchBar-header{
     background: rgba(99, 99, 99, 0.29);
     color: white;
     border: 1px solid rgba(204, 204, 204, 0.51);
@@ -8519,28 +8519,28 @@ a.socialIcon:hover, .socialHoverClass {
 .logo-mobile > img{
     width: 60% !important;
 }
-@media only screen and (min-width: 1400px){   
- .large-screen{       
-     margin-left: 0.5rem !important;  
+@media only screen and (min-width: 1400px){
+ .large-screen{
+     margin-left: 0.5rem !important;
      text-align: left !important;
     }
     .serch-bar-width{
         width: 115%;
     }
 }
-@media only screen and (min-width: 1500px){   
- .large-screen{       
+@media only screen and (min-width: 1500px){
+ .large-screen{
      margin-left: 13.5rem !important;
-     text-align: left !important;  
+     text-align: left !important;
     }
     .serch-bar-width{
         width: 165%;
     }
 }
-@media only screen and (min-width: 1650px){   
- .large-screen{       
+@media only screen and (min-width: 1650px){
+ .large-screen{
      margin-left: 5.5rem !important;
-     text-align: left !important;  
+     text-align: left !important;
     }
     .serch-bar-width{
         width: 220%;
@@ -8551,15 +8551,15 @@ a.socialIcon:hover, .socialHoverClass {
     background: #fff;
     width: 34rem;
     height: 50rem;
-    overflow-y: auto; 
-    overflow-x: hidden; 
-    top: 4.5rem; 
-    right: -15rem; 
+    overflow-y: auto;
+    overflow-x: hidden;
+    top: 4.5rem;
+    right: -15rem;
     border: 0.01rem solid rgba(0, 0, 0, 0.09);
     border-radius: 4px;
 }
 .showSearch > .row{
-    padding-top: 2px; 
+    padding-top: 2px;
     border-bottom: 0.01rem solid rgba(0, 0, 0, 0.09);
 }
 .showSearch > .row > .col-md-2 >img{
@@ -8686,7 +8686,26 @@ a.socialIcon:hover, .socialHoverClass {
 /* 추가 */
 .term_box {
     background: #fafafa;
-    border: 1px solid #d5d5d5;  
+    border: 1px solid #d5d5d5;
     box-shadow: none;
 	border-radius: 5px;
 }
+.pic-overLay{
+    position: absolute;
+    top: 14px;
+    left: 30px;
+    color: white;
+}
+.categories-list{
+    font-size: 10px;
+    list-style: none;
+    padding-left: 0px;
+    position: absolute;
+    bottom: 11px;
+    color: white;
+    margin-left: -6px;
+}
+.categories-list li{
+    margin-left: 0px;
+}
+
