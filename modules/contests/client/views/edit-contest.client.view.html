@@ -69,9 +69,9 @@
 			<br>
 			<div>
 				<div ng-if="editName || editDesc">
-					<button class="btn btn-md btn-danger" ng-click="cancelEdit()">취소</button>
+					<button class="btn btn-md btn-danger" ng-click="cancelEdit()" translate="Cancel"></button>
 					<button class="btn btn-md btn-success" ng-disbaled="isLoading" ng-click="updateContest();" >
-						완료  <span ng-if="isLoading"> <i class="fa fa-spinner fa-spin fa-1x fa-fw" ></i>  </span>
+						<span translate="Complete"></span>  <span ng-if="isLoading"> <i class="fa fa-spinner fa-spin fa-1x fa-fw" ></i>  </span>
 					</button>
 				</div>
 			</div>
@@ -91,7 +91,7 @@
 			      <div class="col-xs-7 col-md-3">
 			        <input ng-disabled="thisContest.additionalPakages.pakage_1" class="bigCheckBox" type="checkbox" value='true' ng-model = "thisContest.additionalPakages.pakage_1" ng-change="calculateUpgradeAmount(thisContest.additionalPakages.pakage_1,'pakage_1')">
 			      	<div class="btn-container">
-			      		<label class="featured label-featured btn btn-block" style="background:#2d6ca7;color:#fff;"> 채팅 </label> 
+			      		<label class="featured label-featured btn btn-block" style="background:#2d6ca7;color:#fff;" translate="Chatting"> </label> 
 			      	</div>
 			        
 			      </div>
@@ -137,7 +137,7 @@
 				    <div class="col-xs-7 col-md-3">
 				        <input ng-disabled="thisContest.additionalPakages.sealed" class="bigCheckBox" type="checkbox" value='true' ng-model = "thisContest.additionalPakages.sealed" ng-change="calculateUpgradeAmount(thisContest.additionalPakages.sealed,'pakage_5')">
 					    <div class="btn-container"> 
-					    	<label class="sealed label-featured btn btn-block" style="background:#8fb7b9;border-color:#8fb7b9;"> 비공개 </label> 
+					    	<label class="sealed label-featured btn btn-block" style="background:#8fb7b9;border-color:#8fb7b9;" translate="sealed"> </label> 
 					    </div>
 				    </div>
 			      <!-- Mobile View -->
@@ -161,7 +161,7 @@
 			        <div class="col-xs-7 col-md-3">
 			        	<input  ng-disabled="thisContest.additionalPakages.private" class="bigCheckBox" type="checkbox" value='true' ng-model = "thisContest.additionalPakages.private" ng-change="calculateUpgradeAmount(thisContest.additionalPakages.private,'pakage_4')" >
 				    	<div class="btn-container"> 
-				        	<label class="private label-featured btn btn-block" style="background:#85a1b9;color:#fff;"> 개인 서비스 </label> 
+				        	<label class="private label-featured btn btn-block" style="background:#85a1b9;color:#fff;" translate="private"></label> 
 				    	</div>
 			        </div>
 			        <!-- Mobile View -->

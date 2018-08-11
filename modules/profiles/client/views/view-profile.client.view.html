@@ -731,11 +731,11 @@
 				          <form name="editExpForm">
 				            <div class="form-group">
 				              <label for="title"><span translate="CareerName"></span></label>
-				              <input type="text" class="form-control" id="title" ng-model="editExperience.title" placeholder="경력명" required>
+				              <input type="text" class="form-control" id="title" ng-model="editExperience.title" placeholder="경력명/Profession" required>
 				            </div>
 				            <div class="form-group">
 				              <label for="cmp"><span translate="CompanyName"></span></label>
-				              <input type="text" class="form-control" id="cmp" ng-model="editExperience.company" placeholder="회사명" required>
+				              <input type="text" class="form-control" id="cmp" ng-model="editExperience.company" placeholder="회사명/Company Name" required>
 				            </div>
 				            <div class="input-group">
 				              <label for="Time period"><span translate="WorkorJobStartDate"></span></label>
@@ -758,7 +758,7 @@
 				            <br>
 				            <div class="form-group">
 				              <label for="pwd"><span translate="BusinessorDevelopmentContent"></span></label>
-				              <textarea class="form-control" ng-model="editExperience.summary" placeholder="업무 또는 개발 내용" rows="10" style="white-space: pre-line; word-wrap: break-word;"></textarea>
+				              <textarea class="form-control" ng-model="editExperience.summary" placeholder="업무 또는 개발 내용/Professional Summary" rows="10" style="white-space: pre-line; word-wrap: break-word;"></textarea>
 				            </div>
 				            <div class="pull-right">
 				              <button  class="btn btn-success m-r-sm" ng-disabled="editExpForm.$invalid || editExpForm.$pending" ng-click="editExperince('','save')"><span translate="Save"></span></button>
@@ -777,11 +777,11 @@
 				          <form name="experienceForm">
 				            <div class="form-group">
 				              <label for="title"><span translate="CareerName"></span></label>
-				              <input type="text" class="form-control" id="title" ng-model="experience.title" placeholder="경력명" required>
+				              <input type="text" class="form-control" id="title" ng-model="experience.title" placeholder="경력명/Profession" required>
 				            </div>
 				            <div class="form-group">
 				              <label for="cmp"><span translate="CompanyName"></span></label>
-				              <input type="text" class="form-control" id="cmp" ng-model="experience.company" placeholder="회사명" required>
+				              <input type="text" class="form-control" id="cmp" ng-model="experience.company" placeholder="회사명/company Name" required>
 				            </div>
 				            <div class="input-group">
 				              <label for="Time period"><span translate="WorkorJobStartDate"></span></label>
@@ -804,7 +804,7 @@
 				            <br>
 				            <div class="form-group">
 				              <label for="pwd"><span translate="BusinessorDevelopmentContent"></span></label>
-				              <textarea class="form-control" ng-model="experience.summary" placeholder="업무 또는 개발 내용" rows="10" style="white-space: pre-line; word-wrap: break-word;"></textarea>
+				              <textarea class="form-control" ng-model="experience.summary" placeholder="업무 또는 개발 내용/Professional Summary" rows="10" style="white-space: pre-line; word-wrap: break-word;"></textarea>
 				            </div>
 
 				            <div class="pull-right">
@@ -992,15 +992,15 @@
 		            <form name="editCertForm">
 		              <div class="form-group">
 		                <label for="Professional"><span translate="CertificationsDiplomasorAwards"></span></label>
-		                <input type="text" class="form-control"  ng-model="editCertificate.award" placeholder="자격증명,학위증명 또는 수상내역" required>
+		                <input type="text" class="form-control"  ng-model="editCertificate.award" placeholder="자격증명,학위증명 또는 수상내역/Certifications, diplomas or awards" required>
 		              </div>
 		              <div class="form-group">
 		                <label for="Organization"><span translate="IssuingAgency"></span></label>
-		                <input type="text" class="form-control" placeholder="발급기관" ng-model="editCertificate.organization" ng-maxlength="100" required>
+		                <input type="text" class="form-control" placeholder="발급기관/Issuing authority" ng-model="editCertificate.organization" ng-maxlength="100" required>
 		              </div>
 		              <div class="form-group">
 		                <label for="pwd"><span translate="DetailedDescriptionOfCertification"></span></label>
-		                <textarea class="form-control" ng-model="editCertificate.Describe" placeholder="자격증 상세설명" rows="10" style="white-space: pre-line; word-wrap: break-word;"></textarea>
+		                <textarea class="form-control" ng-model="editCertificate.Describe" placeholder="자격증 상세설명/Detailed description of certification" rows="10" style="white-space: pre-line; word-wrap: break-word;"></textarea>
 		              </div>
 		              <div class="input-group">
 		                <label for="Publisher"><span translate="DateofIssue"></span></label>
@@ -1027,15 +1027,15 @@
 			            <form name= "certificationForm">
 			              <div class="form-group">
 			                <label for="Professional"><span translate="CertificationsDiplomasorAwards"></span></label>
-			                <input type="text" class="form-control"  ng-model="certificate.award" placeholder="자격증명,학위증명 또는 수상내역" ng-maxlength="100" required>
+			                <input type="text" class="form-control"  ng-model="certificate.award" placeholder="자격증명,학위증명 또는 수상내역/Certifications, diplomas or awards" ng-maxlength="100" required>
 			              </div>
 			              <div class="form-group">
 			                <label for="Organization"><span translate="IssuingAgency"></span></label>
-			                <input type="text" class="form-control" placeholder="발급기관" ng-model="certificate.organization" ng-maxlength="100" required>
+			                <input type="text" class="form-control" placeholder="발급기관/Issuing authority" ng-model="certificate.organization" ng-maxlength="100" required>
 			              </div>
 			              <div class="form-group">
 			                <label for="pwd"><span translate="DetailedDescriptionOfCertification"></span></label>
-			                <textarea class="form-control" ng-model="certificate.Describe" placeholder="자격증 상세설명" rows="10" style="white-space: pre-line; word-wrap: break-word;"></textarea>
+			                <textarea class="form-control" ng-model="certificate.Describe" placeholder="자격증 상세설명/Detailed description of certification" rows="10" style="white-space: pre-line; word-wrap: break-word;"></textarea>
 			              </div>
 			              <div class="input-group">
 			                <label for="Publisher"><span translate="DateofIssue"></span></label>
@@ -1103,15 +1103,15 @@
 		              <form name= "editPublForm">
 		                <div class="form-group">
 		                  <label for="pwd"><span translate="ArticlePromotionTitle"></span></label>
-		                  <input type="text" class="form-control"  ng-model="editPublication.title" placeholder="기사 홍보 제목" ng-maxlength="100" required>
+		                  <input type="text" class="form-control"  ng-model="editPublication.title" placeholder="기사 홍보 제목/Publication title" ng-maxlength="100" required>
 		                </div>
 		                <div class="form-group">
 		                  <label for="pwd"><span translate="ArticlePublicityIssue"></span></label>
-		                  <input type="text" class="form-control" placeholder="기사 홍보 발행처" ng-model="editPublication.publisher" required>
+		                  <input type="text" class="form-control" placeholder="기사 홍보 발행처/Publisher" ng-model="editPublication.publisher" required>
 		                </div>
 		                <div class="form-group">
 		                  <label for="pwd"><span translate="ArticleContents"></span></label>
-		                  <textarea class="form-control" ng-model="editPublication.summary" placeholder="기사 홍보 상세 내용" rows="8" style="white-space: pre-line; word-wrap: break-word;"></textarea>
+		                  <textarea class="form-control" ng-model="editPublication.summary" placeholder="기사 홍보 상세 내용/Summary Details" rows="8" style="white-space: pre-line; word-wrap: break-word;"></textarea>
 		                </div>
 		                <div class="pull-right">
 		                  <button ng-disabled="editPublForm.$invalid || editPublForm.$pending" class="btn btn-success m-r-sm" ng-click="editPublications('','save')"><span translate="Save"></span></button>
@@ -1131,15 +1131,15 @@
 		              <form name= "publicationForm">
 		                <div class="form-group">
 		                  <label for="pwd"><span translate="ArticlePromotionTitle"></span></label>
-		                  <input type="text" class="form-control"  ng-model="publication.title" placeholder="기사 홍보 제목" ng-maxlength="100" required>
+		                  <input type="text" class="form-control"  ng-model="publication.title" placeholder="기사 홍보 제목/Publication title" ng-maxlength="100" required>
 		                </div>
 		                <div class="form-group">
 		                  <label for="pwd"><span translate="ArticlePublicityIssue"></span></label>
-		                  <input type="text" class="form-control" placeholder="기사 홍보 발행처" ng-model="publication.publisher" ng-maxlength="100" required>
+		                  <input type="text" class="form-control" placeholder="기사 홍보 발행처/Publisher" ng-model="publication.publisher" ng-maxlength="100" required>
 		                </div>
 		                <div class="form-group">
 		                  <label for="pwd"><span translate="ArticleContents"></span></label>
-		                  <textarea class="form-control" ng-model="publication.summary" placeholder="기사 홍보 상세 내용" rows="8" style="white-space: pre-line; word-wrap: break-word;"></textarea>
+		                  <textarea class="form-control" ng-model="publication.summary" placeholder="기사 홍보 상세 내용/Summary" rows="8" style="white-space: pre-line; word-wrap: break-word;"></textarea>
 		                </div>
 		                <div class="pull-right">
 		                  <button ng-disabled="publicationForm.$invalid || publicationForm.$pending" class="btn btn-success m-r-sm" ng-click="publictionSave('save')"><span translate="Save"></span></button>

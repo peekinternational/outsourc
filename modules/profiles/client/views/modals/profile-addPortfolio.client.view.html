@@ -11,7 +11,7 @@
                     <div class="row">
                         
                             <div class="col-sm-12">
-                             <h4>포트폴리오 작성</h4>
+                             <h4 translate="CreatePortfolio"></h4>
                              <!-- <div>
                                 <h6>Content Type:</h6>
                                 <div class="btn-group">
@@ -21,17 +21,17 @@
                                 </div>
                              </div> -->
                                 <div class="form-group">
-                                    <label>제목:</label>
+                                    <label translate="title">:</label>
                                     <input type="text" class="form-control" ng-model="portfolio.title" maxlength="60" required>
-                                    <p class="pull-right text-muted"><i>60 자</i></p>
+                                    <p class="pull-right text-muted"><i>60 <span translate="Character"></span></i></p>
                                 </div>
                                 <div class="form-group">
-                                    <label>설명:</label>
+                                    <label translate="Description">:</label>
                                     <textarea class="form-control" ng-model="portfolio.description" rows="8" cols="82" maxlength="1000" required></textarea>
-                                    <span class="pull-right text-muted"><i>1000 자</i></span>
+                                    <span class="pull-right text-muted"><i>1000 <span translate="Character"></span></i></span>
                                 </div>
                                 <br>
-                                <h6>업로드 파일 <span class="text-muted"><i>(업로드 가능파일: JPG, PNG, GIF. 최대파일크기: 2MB)</i></span></h6>
+                                <h6><span translate="UploadFile"></span> <span class="text-muted"><i><span translate="UploadableFiles"></span></i></span></h6>
                                 
                                  <div class="form-group text-center" ng-show = "portfolio.image" uploader.queue> 
                                     <a href=""><i class="fa fa-trash-o del-icon" ng-click="cancelUpload()"></i></a>
@@ -43,7 +43,7 @@
                                     <label class="btn btn-block btn-default" for="upload-file-selector">
                                         <input id="upload-file-selector" type="file" nv-file-select uploader="uploader">
                                         <i class="fa fa-plus"></i>
-                                        <b> 파일 업로드</b>
+                                        <b translate="UploadFile"> </b>
                                     </label>
                                 </div>
                                 <hr>
@@ -52,7 +52,7 @@
                               <div class="col-md-12">
                                 <div class="skillsTop row">
                                   <div class="col-xs-12">
-                                    <h6>전문기술 <i class="text-muted">(목록에서 선택 또는 직접 입력하십시오)</i></h6>
+                                    <h6><span translate="ExpertiesSkills"></span> <i class="text-muted"><span translate="SelectEnter"></span></i></h6>
                                     
                                   </div>
                                 </div>
@@ -65,7 +65,7 @@
                                 </div>
                                 <br>
                                 <div > 
-                                  <select selector model="portfolio.skills" multi="true" options="skills" label-attr="name" value-attr="name" placeholder="전문기술 추가" create="createFunction(input)"></select>
+                                  <select selector model="portfolio.skills" multi="true" options="skills" label-attr="name" value-attr="name" placeholder="전문기술 추가/Add skills" create="createFunction(input)"></select>
                                  <!--  <div class="btn-group">
                                     <button class="btn btn-success skillbutn" ng-click="certificationSave()">
                                       <i class="glyphicon glyphicon-close white"></i> Done
@@ -89,9 +89,9 @@
 
     </div>
     <div class="modal-footer">
-        <button class="btn btn-primary" ng-disabled="profileForm.$invalid || portfolio.skills.length==0" type="button" ng-click="ok()">저장</button>
+        <button class="btn btn-primary" ng-disabled="profileForm.$invalid || portfolio.skills.length==0" type="button" ng-click="ok()" translate="Save"></button>
 
-        <button class="btn btn-primary" type="button" ng-click="cancel()">취소</button>
+        <button class="btn btn-primary" type="button" ng-click="cancel()" translate="Cancel"></button>
     </div>
 
 </form>

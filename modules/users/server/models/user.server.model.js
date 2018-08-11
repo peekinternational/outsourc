@@ -79,6 +79,10 @@ var UserSchema = new Schema({
     type: Boolean,
     default: false
   },
+  verjobcallmeEmail: {
+    type: Boolean,
+    default: false
+  },
   verLocation: {
     type: Boolean,
     default: true

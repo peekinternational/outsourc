@@ -29,14 +29,14 @@ body {
           <div class="row" style="display: -webkit-box;">
             <div class="form-group col-xs-6" show-errors>
               <label for="firstName" translate="FName"></label>
-              <input type="text" id="firstName" name="firstName" class="form-control inputwidthsetting" ng-model="user.firstName" placeholder="성을 입력 바랍니다." required>
+              <input type="text" id="firstName" name="firstName" class="form-control inputwidthsetting" ng-model="user.firstName" placeholder="성을 입력 바랍니다/Please enter your first name" required>
               <div ng-messages="userForm.firstName.$error" role="alert">
                 <p class="help-block error-text" ng-message="required"><span translate="firstName"></span></p>
               </div>
             </div>
             <div class="form-group col-xs-6" show-errors>
               <label for="lastName" translate="LName"></label>
-              <input type="text" id="lastName" name="lastName" class="form-control inputwidthsetting" ng-model="user.lastName" placeholder="이름을 입력 바랍니다." required>
+              <input type="text" id="lastName" name="lastName" class="form-control inputwidthsetting" ng-model="user.lastName" placeholder="이름을 입력 바랍니다/Please enter your last name." required>
               <div ng-messages="userForm.lastName.$error" role="alert">
                 <p class="help-block error-text" ng-message="required"><span translate="lastName"></span></p>
               </div>
@@ -74,7 +74,7 @@ body {
               <label for="stateprovince" translate="State/Province"></label>
               <input type="text" id="stateprovince" name="stateprovince" class="form-control inputwidthsetting" ng-model="user.stateprovince" placeholder="현재 거주 국가를 입력바랍니다."  translate translate-attr-placeholder="Residence" required>
               <div ng-messages="userForm.stateprovince.$error" role="alert">
-                <p class="help-block error-text" ng-message="required">현재 거주 국가를 입력바랍니다.</p>
+                <p class="help-block error-text" ng-message="required" translate="countryOfResidence"></p>
               </div>
             </div>
           </div>
@@ -111,8 +111,7 @@ body {
                       model="user.timezone"
                       options="timez"
                       label-attr="value"
-                      placeholder="시간 존을 선택바랍니다.\Please select a time zone"
-                      >
+                      placeholder="시간 존을 선택바랍니다.\Please select a time zone">
                 </select>
               </div>
             </div>

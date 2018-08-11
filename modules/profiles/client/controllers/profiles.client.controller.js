@@ -2432,8 +2432,8 @@ angular.module('profiles').controller('ProfilesController', ['$window','$scope',
     //Verify User's email
     $scope.verifyEmail = function(){
 
-      // console.log('called');
-
+       console.log($scope.authentication.user);
+       return false;
       var userId = location.search;
       if (userId.includes('?') && $scope.authentication.user._id===userId.substr(1)) {
         var object = {

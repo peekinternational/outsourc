@@ -7,8 +7,8 @@ angular.module('core').controller('HeaderController', ['$translate','$scope', '$
     $rootScope.$state = $state;
     $scope.authentication = Authentication;
     $scope.notification = [];
-
-    if(Authentication.user && !Authentication.user.verEmail){
+   
+    if(Authentication.user && !Authentication.user.verEmail || Authentication.user && !Authentication.user.verjobcallmeEmail){
       $location.path('/verify');
     }
     
