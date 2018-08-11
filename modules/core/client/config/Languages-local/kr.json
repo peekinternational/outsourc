@@ -1901,7 +1901,17 @@
                                                                     "TimZone":"시간 존을 선택바랍니다.",
                                                                       "MapButton":"지도버튼를 클릭하시면 위치가 나옵니다.",
                                                                         "E-Mail":"회원님의 문의 제목을 입력 하시길 바랍니다",
-                                                                          "MessageCon":"회원님의 문의 내용을 작성 하시길 바랍니다"
+                                                                          "MessageCon":"회원님의 문의 내용을 작성 하시길 바랍니다",
+                                                                          "Profess":"경력명",
+                                                                              "Comp":"회사명",
+                                                                                "ProSummary":"업무 또는 개발 내용",
+                                                                                  "SelCountry":"국가선택",
+                                                                                  "Diplomas":"자격증명,학위증명 또는 수상내역",
+                                                                                      "IssuingAuthority":"발급기관",
+                                                                                        "DetailCert":"자격증 상세설명",
+                                                                                          "PublicTit":"기사 홍보 제목",
+                                                                                            "Publish":"기사 홍보 발행처",
+                                                                                              "Summ":"기사 홍보 상세 내용"
 
 
 

@@ -1880,8 +1880,17 @@
                 "TimZone":"Please select a time zone",
                 "MapButton":"Click the map button to see the location.",
                 "E-Mail":"Please enter a email",
-                "MessageCon":"Please enter a message"
-
+                "MessageCon":"Please enter a message",
+                "Profess":"Profession",
+                "Comp":"Company name",
+                "ProSummary":"Professional Summary",
+                "SelCountry":"Select country",
+                "Diplomas":"Certifications, diplomas or awards",
+                "IssuingAuthority":"Issuing authority",
+                "DetailCert":"Detailed description of certification",
+                "PublicTit":"Publication title",
+                "Publish":"Publisher",
+                "Summ":"Summary"
 
 
 
