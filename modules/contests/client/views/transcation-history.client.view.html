@@ -108,7 +108,7 @@
 
 							<tr ng-repeat="trans in transactions | orderBy:'-transactionDate'">
 								<td class="field3 text-left">
-									<strong>{{trans.transactionDate | date:"yyyy'<span translate:"Year"></span>' MM'<span translate:"Month"></span>' dd'<span translate:"Date"></span>' h:mma"}}</strong>
+									<strong>{{trans.transactionDate | date:"yyyy MM dd h:mma"}}</strong>
 								</td>
 								<td class="description text-left">
 									<strong ng-if="trans.transectionType =='Credit'"><span translate="ImportDeposit"></span></strong>

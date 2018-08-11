@@ -106,8 +106,8 @@ angular.module('core').controller('HeaderController', ['$translate','$scope', '$
       $rootScope.messengerServerAddress = 'https://203.99.61.173:3210';
     } 
     else{
-      $rootScope.adminServerAddress = 'https://admin.outsourcingok.com';
-      $rootScope.messengerServerAddress = 'https://messenger.outsourcingok.com';
+      $rootScope.adminServerAddress = 'https://admin.bluefreelancer.com';
+      $rootScope.messengerServerAddress = 'https://messenger.bluefreelancer.com';
     }
 
     //outOUt and change the status of user to offline
