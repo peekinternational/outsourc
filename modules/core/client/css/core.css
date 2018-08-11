@@ -8690,3 +8690,21 @@ a.socialIcon:hover, .socialHoverClass {
     box-shadow: none;
 	border-radius: 5px;
 }
+.pic-overLay{
+    position: absolute;
+    top: 14px;
+    left: 30px;
+    color: white;
+}
+.categories-list{
+    font-size: 10px;
+    list-style: none;
+    padding-left: 0px;
+    position: absolute;
+    bottom: 11px;
+    color: white;
+    margin-left: -6px;
+}
+.categories-list li{
+    margin-left: 0px;
+}
