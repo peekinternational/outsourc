@@ -3,7 +3,7 @@
 		<div class="margn20">
 		  <div class="row" ng-controller="CoverPictureController">
 		    <div class="col-xs-12 p-l-none p-r-none">
-		        
+
 		        <div ng-show="profile.userInfo._id == authentication.user._id">
 		          <span class="fileselector"  >
 		            <label class="btn upload-btn" for="upload-file-selector" ng-hide="uploader.queue.length" style="background:#548eb2;border: 1px solid #548eb2;">
@@ -16,17 +16,17 @@
 		        </div>
 
 		        <!-- {{profile.roles.individual}} -->
-		        
+
 		        <div class="coverImageBox">
-		          <img class="img-responsive" ng-src="{{coverImageURL}}" alt="profile cover Image URL"> 
+		          <img class="img-responsive" ng-src="{{coverImageURL}}" alt="profile cover Image URL">
 		        </div>
-		        <!-- <div class="col-xs-4"></div> -->  
+		        <!-- <div class="col-xs-4"></div> -->
 		          <div class="col-xs-4 text-center m-b-md" ng-show="uploader.queue.length">
 		            <button class="btn btn-primary m-r-sm" ng-click="uploadProfilePicture();"><span translate="Upload"></span></button>
 		            <button class="btn btn-default" ng-click="cancelUpload();"> <span translate="Cancel"></span></button>
 		          </div>
 		         <!-- <div class="col-xs-4"></div> -->
-		    </div>  
+		    </div>
 		  </div>
 		  <!-- For Mobile view Only -->
 		  <div class="col-xs-12 comptetionCont p-ml-none hidden-sm hidden-md hidden-lg" style="background:#000">
@@ -49,12 +49,12 @@
 		      </div>
 		      <div class="col-xs-2 col-md-2 text-center last-div p-ml-none p-mr-sm">
 		        <!-- <span editable-text="profile.perHourRate" e-form="HourRate" onbeforesave="updateProfile($data,'perHourRate')"> -->
-	           <div class="h3 bold-font m-b-none"> 
+	           <div class="h3 bold-font m-b-none">
 	             <strong >{{ profile.perHourRate || '00' }}</strong>
 	           </div>
 		        <!-- </span> -->
 
-		        <h3 class="bold-font m-t-none"> 
+		        <h3 class="bold-font m-t-none">
 		          <sub translate="CostperHour"></sub>
 		          <span ng-click="HourRate.$show()" ng-hide="HourRate.$visible || !editProfile " class="glyphicon glyphicon-pencil img-circle-btn image-circle-text m-l-sm pull-right editablepincle" ng-hide="!editProfile" style="margin-top: -30px; margin-right: -23px;"></span>
 		        </h3>
@@ -83,24 +83,24 @@
 		      <div class="col-md-2 text-center last-div">
 
 		        <span editable-text="profile.perHourRate" e-form="HourRate" onbeforesave="updateProfile($data,'perHourRate')">
-		           <div class="h3 bold-font m-b-none" style="color:#9f9184;"> 
+		           <div class="h3 bold-font m-b-none" style="color:#9f9184;">
 		             <strong >{{ profile.perHourRate || '00' }}</strong>
 		           </div>
 		        </span>
 
-		        <h3 class="bold-font m-t-none"> 
+		        <h3 class="bold-font m-t-none">
 		          <sub style="color:#fff"><span translate="CostperHour"></span></sub>
 		          <span ng-click="HourRate.$show()" ng-hide="HourRate.$visible || !editProfile " class="glyphicon glyphicon-pencil img-circle-btn2 image-circle-text m-l-sm pull-right editablepincle" ng-hide="!editProfile" style="margin-top: -20px; margin-right: -23px;"></span>
 		        </h3>
 		     </div>
 		    </div>
-		  </div>  
+		  </div>
 		</div>
 	<!-- End Cover Pic Section -->
 	<!-- Content Section -->
 		<div class="col-xs-12 col-sm-12 col-md-10 col-lg-10 col-md-offset-1">
 			<!-- Spinner -->
-			<span us-spinner="{radius:30, width:8, length: 16}" spinner-key="profLoader"></span> 
+			<span us-spinner="{radius:30, width:8, length: 16}" spinner-key="profLoader"></span>
 			<!-- End -->
 			<div class="col-xs-12 col-md-8 p-mr-none p-ml-none">
 				<!-- User Intro Section -->
@@ -113,11 +113,11 @@
 					    <div class="img-overlay">
 					      <button class="btn btn-sm btn-default" ng-hide="!editProfile " ng-click="profileImage()"> <i class="glyphicon glyphicon-camera"></i></button>
 					    </div>
-					  </div><br> 
+					  </div><br>
 
 					  <div class="text-center">
 					    <p>@{{profile.userInfo.username}}</p>
-					    
+
 					    <!-- Freelancer Rating -->
 					    <div ng-if="viewAsEmployer">
 					      <div class="col-xs-8 starRating p-l-none star-rankingcolor">
@@ -168,7 +168,7 @@
 					<div class="col-xs-12 col-md-8" style="background:#fff">
 						<div>
 						  <!-- {{profile.userInfo.roles}} -->
-						  <br ng-show="FirstName.$visible "> 
+						  <br ng-show="FirstName.$visible ">
 						  <div>
 						    <span editable-text="profile.userInfo.company" e-form="FirstName" onbeforesave="updateUserInfo($data,'companyName')">
 						    </span>
@@ -183,11 +183,11 @@
 						   <h5 class="m-all-none">
 						    <span editable-text="profile.shortProfessionalHeadline" e-form="DesignationBtn" onbeforesave="updateProfile($data,'shortProfessionalHeadline')">
 						      <strong>{{ profile.shortProfessionalHeadline || '헤드라인' }}</strong>
-						    </span> 
-						    <span class="glyphicon glyphicon-pencil img-circle-btn image-circle-text m-l-sm" ng-click="DesignationBtn.$show()"  ng-hide="DesignationBtn.$visible || !editProfile "></span> 
+						    </span>
+						    <span class="glyphicon glyphicon-pencil img-circle-btn image-circle-text m-l-sm" ng-click="DesignationBtn.$show()"  ng-hide="DesignationBtn.$visible || !editProfile "></span>
 						  </h5>
 						</div>
-						<br> 
+						<br>
 						<!-- //////////////  when Company is logged in/////////////// -->
 						<div ng-show="profile.userInfo.roles == 'company' " class=" m-l-xs row profile_detail">
 						  <div class="col-xs-12">
@@ -199,7 +199,7 @@
 						        <span translate="CompanyRegistrationNumber"></span>
 						      </div>
 						      <div class="col-xs-7">
-						        <span><strong>{{profile.companyInformation.companyReg}}</strong></span> 
+						        <span><strong>{{profile.companyInformation.companyReg}}</strong></span>
 						      </div>
 						    </div>
 
@@ -209,7 +209,7 @@
 						        <span translate="NameofCEO"></span>
 						      </div>
 						      <div class="col-xs-7">
-						        <span><strong>{{profile.companyInformation.representativeName}}</strong></span> 
+						        <span><strong>{{profile.companyInformation.representativeName}}</strong></span>
 						      </div>
 						    </div>
 
@@ -407,7 +407,7 @@
 						  </div>
 						</div>
 						<!-- //////////////// end when Company is logged in  //////////////////// -->
-						
+
 					  <!-- //////////////  when Individual is logged in/////////////// -->
 					  <div ng-show="profile.userInfo.roles == 'individual'">
 					    <div class="p-t-lg">
@@ -427,8 +427,8 @@
 						          <button type="button" class="btn btn-default" ng-click="textareaInd = !textareaInd">취소</button>
 						        </div>
 						     	</div>
-					     		<br><br>   
-					    	</div> 
+					     		<br><br>
+					    	</div>
 					     	<br>
 					  	</div>
 						</div>
@@ -450,8 +450,8 @@
 							      <button type="button" class="btn btn-default" ng-click="textareaCompany = !textareaCompany"><span translate="Cancel"></span></button>
 							    </div>
 							  </div>
-							  <br>   
-						  </div> 
+							  <br>
+						  </div>
 						  <br>
 						</div>
 						<!-- End -->
@@ -546,8 +546,8 @@
 				<div class="col-md-12 profile_container bordortop_styling border-mradus p-b-sm hidden-xs" ng-show="profile.userInfo._id == authentication.user._id" style="background:#fff;">
 				  <br>
 				  <button class="btn btn-primary btn-block m-b-sm" ng-click="profileEditButton(editProfile)" style="background:#534d42;border: 1px solid #534d42;">
-				    <span ng-show="!editProfile" translate="Edit"> </span> 
-				    <span ng-show="editProfile" translate="View"> </span> 
+				    <span ng-show="!editProfile" translate="Edit"> </span>
+				    <span ng-show="editProfile" translate="View"> </span>
 				     <span translate="profile"></span>
 				  </button>
 
@@ -569,7 +569,7 @@
 				  <div class="row verificationcolum">
 				    <div class="col-xs-8">
 				      <span class="glyphicon glyphicon-map-marker" ng-class="{verified: profile.userInfo.verLocation, nonverified: !profile.userInfo.verLocation}"></span>
-				      <span ng-class="{verificationcheck: profile.userInfo.verLocation}" translate="CurrentLocationCertification"> </span>   
+				      <span ng-class="{verificationcheck: profile.userInfo.verLocation}" translate="CurrentLocationCertification"> </span>
 				    </div>
 				    <div class="col-xs-4 text-center">
 				      <span class="glyphicon glyphicon-ok" ng-show="profile.userInfo.verLocation || profile.userInfo._id != authentication.user._id" ng-class="{verificationcheck: profile.userInfo.verLocation, nonverified: !profile.userInfo.verLocation}"></span>
@@ -583,7 +583,7 @@
 				    </div>
 				    <div class="col-xs-4 text-center">
 				      <span class="glyphicon glyphicon-ok" ng-show="profile.userInfo.verPayment || profile.userInfo._id != authentication.user._id" ng-class="{verificationcheck: profile.userInfo.verPayment, nonverified: !profile.userInfo.verPayment}"></span>
-				      <button ng-show="!profile.userInfo.verPayment && profile.userInfo._id == authentication.user._id" class="btn btn-primary m-t-xs pull-right" 
+				      <button ng-show="!profile.userInfo.verPayment && profile.userInfo._id == authentication.user._id" class="btn btn-primary m-t-xs pull-right"
 				      ui-sref="contests.verify-payment" style="background:#548eb2;border: 1px solid #548eb2;"><span translate="RequireCertification"></span></button>
 				    </div>
 				  </div>
@@ -619,7 +619,7 @@
 				      <div class="pull-right">
 				        <div class="btn-group">
 				          <button  ng-show="profile.userInfo._id == authentication.user._id" class="btn btn-success skillbutn" ng-show="!newSkillSet" ng-click="newSkillSet=true" style="background:#5c554b;border: 1px solid #5c554b;">
-				            <i class="glyphicon glyphicon-plus white"></i> <span translate="Add"></span> 
+				            <i class="glyphicon glyphicon-plus white"></i> <span translate="Add"></span>
 				          </button>
 				        </div>
 				      </div>
@@ -631,7 +631,7 @@
 				    </div>
 				  </div>
 				  <br>
-				  <div ng-show="newSkillSet"> 
+				  <div ng-show="newSkillSet">
 				    <select selector model="skillsToAdd" multi="true" options="records.skills" label-attr="name"  placeholder="Add Skills" create="createFunction(input)"></select>
 				    <div class="btn-group">
 				      <button class="btn btn-success skillbutn" ng-click="skillsSave()" ng-disbaled="!skillsToAdd">
@@ -650,11 +650,11 @@
 				<div class="col-md-12 profile_container bordortop_styling border-mradus hidden-xs" style="background:#fff;">
 				  <div class="skillsTop row">
 				    <div class="col-xs-12">
-				      <h3 class="m-b-none pull-left" translate="Certificate"> </h3> 
+				      <h3 class="m-b-none pull-left" translate="Certificate"> </h3>
 				      <div class="pull-right">
 				        <div class="btn-group">
 				          <button  ng-show="profile.userInfo._id == authentication.user._id" class="btn btn-success skillbutn" ng-show="!certification" ng-click="certification=true" style="background:#5c554b;border: 1px solid #5c554b;">
-				            <i class="glyphicon glyphicon-plus white"></i> <span translate="Add"></span> 
+				            <i class="glyphicon glyphicon-plus white"></i> <span translate="Add"></span>
 				          </button>
 				        </div>
 				      </div>
@@ -695,7 +695,7 @@
 					  </h2>
 					  <br>
 					  <div class="col-sm-3 col-xs-6 col-md-3 col-lg-3 porfoli-div" ng-repeat="portfolio in profile.portfolio">
-					    <!-- show portfolio | view or editable (editPortfolio  viewPortfolio ) -->  
+					    <!-- show portfolio | view or editable (editPortfolio  viewPortfolio ) -->
 					    <div ng-show="profile.userInfo._id == authentication.user._id" class="portfolio-item">
 					    <a href="#" ng-click="editPortfolio('Edit','lg',profile,$index)" class="portfolio-link" data-toggle="modal">
 					      <div class="caption">
@@ -723,7 +723,7 @@
 				        </a>
 				      </span>
 				    </h3>
-					   <hr ng-hide="!profile.experience"> 
+					   <hr ng-hide="!profile.experience">
 					  <!-- start: Editing table for Experinece -->
 					  <div ng-hide="!editExperinceForm">
 					    <small>Editing table </small>
@@ -731,11 +731,11 @@
 				          <form name="editExpForm">
 				            <div class="form-group">
 				              <label for="title"><span translate="CareerName"></span></label>
-				              <input type="text" class="form-control" id="title" ng-model="editExperience.title" placeholder="경력명/Profession" required>
+				              <input type="text" class="form-control" id="title" ng-model="editExperience.title" placeholder="경력명/Profession" translate translate-attr-placeholder="Profess" required>
 				            </div>
 				            <div class="form-group">
 				              <label for="cmp"><span translate="CompanyName"></span></label>
-				              <input type="text" class="form-control" id="cmp" ng-model="editExperience.company" placeholder="회사명/Company Name" required>
+				              <input type="text" class="form-control" id="cmp" ng-model="editExperience.company" placeholder="회사명/Company Name" translate translate-attr-placeholder="Comp"  required>
 				            </div>
 				            <div class="input-group">
 				              <label for="Time period"><span translate="WorkorJobStartDate"></span></label>
@@ -758,7 +758,7 @@
 				            <br>
 				            <div class="form-group">
 				              <label for="pwd"><span translate="BusinessorDevelopmentContent"></span></label>
-				              <textarea class="form-control" ng-model="editExperience.summary" placeholder="업무 또는 개발 내용/Professional Summary" rows="10" style="white-space: pre-line; word-wrap: break-word;"></textarea>
+				              <textarea class="form-control" ng-model="editExperience.summary" placeholder="업무 또는 개발 내용/Professional Summary" translate translate-attr-placeholder="ProSummary" rows="10" style="white-space: pre-line; word-wrap: break-word;"></textarea>
 				            </div>
 				            <div class="pull-right">
 				              <button  class="btn btn-success m-r-sm" ng-disabled="editExpForm.$invalid || editExpForm.$pending" ng-click="editExperince('','save')"><span translate="Save"></span></button>
@@ -767,7 +767,7 @@
 				          </form>
 					          <!-- {{editExperience }} -->
 					          <br><br>
-					      </div> 
+					      </div>
 					    </div>
 					    <!-- End: Editing table for Experinece -->
 					    <!-- start: insertion table  -->
@@ -777,11 +777,11 @@
 				          <form name="experienceForm">
 				            <div class="form-group">
 				              <label for="title"><span translate="CareerName"></span></label>
-				              <input type="text" class="form-control" id="title" ng-model="experience.title" placeholder="경력명/Profession" required>
+				              <input type="text" class="form-control" id="title" ng-model="experience.title" placeholder="경력명/Profession" translate translate-attr-placeholder="Profess" required>
 				            </div>
 				            <div class="form-group">
 				              <label for="cmp"><span translate="CompanyName"></span></label>
-				              <input type="text" class="form-control" id="cmp" ng-model="experience.company" placeholder="회사명/company Name" required>
+				              <input type="text" class="form-control" id="cmp" ng-model="experience.company" placeholder="회사명/company Name" translate translate-attr-placeholder="Comp"  required>
 				            </div>
 				            <div class="input-group">
 				              <label for="Time period"><span translate="WorkorJobStartDate"></span></label>
@@ -804,7 +804,7 @@
 				            <br>
 				            <div class="form-group">
 				              <label for="pwd"><span translate="BusinessorDevelopmentContent"></span></label>
-				              <textarea class="form-control" ng-model="experience.summary" placeholder="업무 또는 개발 내용/Professional Summary" rows="10" style="white-space: pre-line; word-wrap: break-word;"></textarea>
+				              <textarea class="form-control" ng-model="experience.summary" placeholder="업무 또는 개발 내용/Professional Summary" translate translate-attr-placeholder="ProSummary" rows="10" style="white-space: pre-line; word-wrap: break-word;"></textarea>
 				            </div>
 
 				            <div class="pull-right">
@@ -814,8 +814,8 @@
 				          </form>
 				          <!-- {{experience }} -->
 				          <br><br>
-				        </div> 
-					      <br> 
+				        </div>
+					      <br>
 					    </div>
 					    <div class="col-xs-12 p-ml-none p-mr-none">
 					      <div  ng-repeat = "experience in profile.experience">
@@ -859,7 +859,7 @@
 		              <i class="glyphicon glyphicon-plus white"></i>
 		            </a>
 		          </h3>
-		        <hr ng-hide="!profile.education"> 
+		        <hr ng-hide="!profile.education">
 
 		        <!-- start: Editing table for Education -->
 		        <div class="col-xs-12" ng-hide="!editEducationForm">
@@ -889,7 +889,7 @@
 		                    <button type="button" class="btn btn-default" ng-click="EndYearDate()"><i class="glyphicon glyphicon-calendar"></i></button>
 		                  </span>
 		                </div>
-		                <br>  
+		                <br>
 		                <div class="pull-right">
 		                  <button  class="btn btn-success m-r-sm" ng-disabled="editEduForm.$invalid || editEduForm.$pending" ng-click="editEducations('','save')">저장</button>
 		                  <button class="btn btn-default" ng-click="editEducations('','cancel')">취소</button>
@@ -897,20 +897,20 @@
 		              </form>
 		              <!-- {{editExperience }} -->
 		              <br><br>
-		            </div> 
+		            </div>
 		        </div>
 
 		        <!-- End: Editing table for Experinece -->
 
 		        <!-- Start Add Table of Education -->
-		       
+
 		        <div>
 		        <div ng-hide="!educationStatus">
 		            <div class="col-xs-12 p-ml-none p-mr-none">
 		              <form name="educationForm" >
 		                <div class="form-group">
 		                  <label for="eDUCATION"><span translate="Country"></span></label>
-		                  <select selector model="education.country" label-attr="name" options="countryData" ng-model="education.country" value-attr="name" placeholder="국가선택" required></select>
+		                  <select selector model="education.country" label-attr="name" options="countryData" ng-model="education.country" value-attr="name" placeholder="국가선택\Select Country"  required></select>
 		                </div>
 		                <div class="form-group">
 		                  <label for="eDUCATION"><span translate="UniversityCollege"></span></label>
@@ -943,7 +943,7 @@
 		              </form>
 		              <!-- {{education }} -->
 		              <br><br>
-		            </div> 
+		            </div>
 		            <br>
 		          </div>
 		          <div ng-repeat = "education in profile.education">
@@ -984,7 +984,7 @@
 			          </a>
 			        </span>
 			      </h3>
-			       <hr> 
+			       <hr>
 			      <!-- Start edit Certification table -->
 			      <div ng-hide="!editCertificateForm">
 			      	<small>Editing table </small>
@@ -992,15 +992,15 @@
 		            <form name="editCertForm">
 		              <div class="form-group">
 		                <label for="Professional"><span translate="CertificationsDiplomasorAwards"></span></label>
-		                <input type="text" class="form-control"  ng-model="editCertificate.award" placeholder="자격증명,학위증명 또는 수상내역/Certifications, diplomas or awards" required>
+		                <input type="text" class="form-control"  ng-model="editCertificate.award" placeholder="자격증명,학위증명 또는 수상내역/Certifications, diplomas or awards" translate translate-attr-placeholder="Diplomas" required>
 		              </div>
 		              <div class="form-group">
 		                <label for="Organization"><span translate="IssuingAgency"></span></label>
-		                <input type="text" class="form-control" placeholder="발급기관/Issuing authority" ng-model="editCertificate.organization" ng-maxlength="100" required>
+		                <input type="text" class="form-control" placeholder="발급기관/Issuing authority" translate translate-attr-placeholder="IssuingAuthority" ng-model="editCertificate.organization" ng-maxlength="100" required>
 		              </div>
 		              <div class="form-group">
 		                <label for="pwd"><span translate="DetailedDescriptionOfCertification"></span></label>
-		                <textarea class="form-control" ng-model="editCertificate.Describe" placeholder="자격증 상세설명/Detailed description of certification" rows="10" style="white-space: pre-line; word-wrap: break-word;"></textarea>
+		                <textarea class="form-control" ng-model="editCertificate.Describe" placeholder="자격증 상세설명/Detailed description of certification" translate translate-attr-placeholder="DetailCert"  rows="10" style="white-space: pre-line; word-wrap: break-word;"></textarea>
 		              </div>
 		              <div class="input-group">
 		                <label for="Publisher"><span translate="DateofIssue"></span></label>
@@ -1009,7 +1009,7 @@
 		                  <button type="button" class="btn btn-default" ng-click="open2()"><i class="glyphicon glyphicon-calendar"></i></button>
 		                </span>
 		              </div>
-		              <br>   
+		              <br>
 		              <div class="pull-right">
 		                <button  class="btn btn-success m-r-sm" ng-disabled="editCertForm.$invalid || editCertForm.$pending" ng-click="editCertificates('','save')"><span translate="Save"></span></button>
 		                <button class="btn btn-default" ng-click="editCertificates('','cancel')"><span translate="Cancel"></span></button>
@@ -1017,7 +1017,7 @@
 		            </form>
 			          <!-- {{editCertificate }} -->
 			          <br><br>
-			        </div> 
+			        </div>
 			      </div>
 			      <!-- End Edit Certification table -->
 
@@ -1027,17 +1027,18 @@
 			            <form name= "certificationForm">
 			              <div class="form-group">
 			                <label for="Professional"><span translate="CertificationsDiplomasorAwards"></span></label>
-			                <input type="text" class="form-control"  ng-model="certificate.award" placeholder="자격증명,학위증명 또는 수상내역/Certifications, diplomas or awards" ng-maxlength="100" required>
+			                <input type="text" class="form-control"  ng-model="certificate.award" placeholder="자격증명,학위증명 또는 수상내역/Certifications, diplomas or awards" translate translate-attr-placeholder="Diplomas"  ng-maxlength="100" required>
 			              </div>
 			              <div class="form-group">
 			                <label for="Organization"><span translate="IssuingAgency"></span></label>
-			                <input type="text" class="form-control" placeholder="발급기관/Issuing authority" ng-model="certificate.organization" ng-maxlength="100" required>
+			                <input type="text" class="form-control" placeholder="발급기관/Issuing authority" translate translate-attr-placeholder="IssuingAuthority" ng-model="certificate.organization" ng-maxlength="100" required>
 			              </div>
 			              <div class="form-group">
 			                <label for="pwd"><span translate="DetailedDescriptionOfCertification"></span></label>
-			                <textarea class="form-control" ng-model="certificate.Describe" placeholder="자격증 상세설명/Detailed description of certification" rows="10" style="white-space: pre-line; word-wrap: break-word;"></textarea>
+			                <textarea class="form-control" ng-model="certificate.Describe" placeholder="자격증 상세설명/Detailed description of certification" translate translate-attr-placeholder="DetailCert" rows="10" style="white-space: pre-line; word-wrap: break-word;"></textarea>
 			              </div>
 			              <div class="input-group">
+
 			                <label for="Publisher"><span translate="DateofIssue"></span></label>
 			                <input type="text" class="form-control" uib-datepicker-popup = "yyyy" ng-model="certificate.date" is-open="popup2.opened" datepicker-options="calendarControl.certificateYear" ng-click="open2()" required close-text="Close" />
 			                <span class="input-group-btn year-btn">
@@ -1051,9 +1052,9 @@
 			              </div>
 			            </form>
 			            <br><br>
-			          </div> 
+			          </div>
 			          <br>
-			      	</div>  
+			      	</div>
 			        <div ng-repeat = "certificate in profile.certificates">
 			          <div class="col-xs-10">
 			            <h4><strong>{{certificate.award}}</strong></h4>
@@ -1076,7 +1077,7 @@
 			            <br>
 			            <p class="text-justify" style="word-wrap: break-word;">
 			              {{certificate.Describe}}
-			            </p> 
+			            </p>
 			            <hr>
 			          </div>
 			        </div>
@@ -1094,7 +1095,7 @@
 		            </a>
 		          </span>
 		        </h3>
-		        <hr ng-hide="!profile.publications"> 
+		        <hr ng-hide="!profile.publications">
 
 		        <!-- Edit Publication Form -->
 		        <div ng-hide="!editPublicationForm">
@@ -1103,15 +1104,15 @@
 		              <form name= "editPublForm">
 		                <div class="form-group">
 		                  <label for="pwd"><span translate="ArticlePromotionTitle"></span></label>
-		                  <input type="text" class="form-control"  ng-model="editPublication.title" placeholder="기사 홍보 제목/Publication title" ng-maxlength="100" required>
+		                  <input type="text" class="form-control"  ng-model="editPublication.title" placeholder="기사 홍보 제목/Publication title" translate translate-attr-placeholder="PublicTit" ng-maxlength="100" required>
 		                </div>
 		                <div class="form-group">
 		                  <label for="pwd"><span translate="ArticlePublicityIssue"></span></label>
-		                  <input type="text" class="form-control" placeholder="기사 홍보 발행처/Publisher" ng-model="editPublication.publisher" required>
+		                  <input type="text" class="form-control" placeholder="기사 홍보 발행처/Publisher" translate translate-attr-placeholder="Publish" ng-model="editPublication.publisher" required>
 		                </div>
 		                <div class="form-group">
 		                  <label for="pwd"><span translate="ArticleContents"></span></label>
-		                  <textarea class="form-control" ng-model="editPublication.summary" placeholder="기사 홍보 상세 내용/Summary Details" rows="8" style="white-space: pre-line; word-wrap: break-word;"></textarea>
+		                  <textarea class="form-control" ng-model="editPublication.summary" placeholder="기사 홍보 상세 내용/Summary Details" translate translate-attr-placeholder="Summ" rows="8" style="white-space: pre-line; word-wrap: break-word;"></textarea>
 		                </div>
 		                <div class="pull-right">
 		                  <button ng-disabled="editPublForm.$invalid || editPublForm.$pending" class="btn btn-success m-r-sm" ng-click="editPublications('','save')"><span translate="Save"></span></button>
@@ -1120,10 +1121,10 @@
 		              </form>
 		              <!-- {{publication}} -->
 		              <br><br>
-		            </div> 
+		            </div>
 		            <br>
 		          </div>
-		         
+
 		        <!-- End Publication Form -->
 		        <!-- Add Publication Form -->
 		        <div ng-hide="!publicationStatus">
@@ -1131,15 +1132,15 @@
 		              <form name= "publicationForm">
 		                <div class="form-group">
 		                  <label for="pwd"><span translate="ArticlePromotionTitle"></span></label>
-		                  <input type="text" class="form-control"  ng-model="publication.title" placeholder="기사 홍보 제목/Publication title" ng-maxlength="100" required>
+		                  <input type="text" class="form-control"  ng-model="publication.title" placeholder="기사 홍보 제목/Publication title" translate translate-attr-placeholder="PublicTit" ng-maxlength="100" required>
 		                </div>
 		                <div class="form-group">
 		                  <label for="pwd"><span translate="ArticlePublicityIssue"></span></label>
-		                  <input type="text" class="form-control" placeholder="기사 홍보 발행처/Publisher" ng-model="publication.publisher" ng-maxlength="100" required>
+		                  <input type="text" class="form-control" placeholder="기사 홍보 발행처/Publisher" translate translate-attr-placeholder="Publish" ng-model="publication.publisher" ng-maxlength="100" required>
 		                </div>
 		                <div class="form-group">
 		                  <label for="pwd"><span translate="ArticleContents"></span></label>
-		                  <textarea class="form-control" ng-model="publication.summary" placeholder="기사 홍보 상세 내용/Summary" rows="8" style="white-space: pre-line; word-wrap: break-word;"></textarea>
+		                  <textarea class="form-control" ng-model="publication.summary" placeholder="기사 홍보 상세 내용/Summary" translate translate-attr-placeholder="Summ" rows="8" style="white-space: pre-line; word-wrap: break-word;"></textarea>
 		                </div>
 		                <div class="pull-right">
 		                  <button ng-disabled="publicationForm.$invalid || publicationForm.$pending" class="btn btn-success m-r-sm" ng-click="publictionSave('save')"><span translate="Save"></span></button>
@@ -1148,7 +1149,7 @@
 		              </form>
 		              <!-- {{publication}} -->
 		              <br><br>
-		            </div> 
+		            </div>
 		            <br>
 		          </div>
 		        <!-- End Publication  -->
@@ -1181,10 +1182,10 @@
 		        </div>
 		      </div>
 				</section>
-				<!-- End Publication Section --> 
+				<!-- End Publication Section -->
 			</div>
-					
-				
+
+
 		</div>
 	<!-- End Content -->
 </section>

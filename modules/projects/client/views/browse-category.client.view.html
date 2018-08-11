@@ -18,7 +18,7 @@
                         <span class="glyphicon glyphicon-search"></span>
                     </button>
                 </div>
-                <input type="text" class="form-control" placeholder="분야별 카테고리 검색">    
+                <input type="text" class="form-control" placeholder="분야별 카테고리 검색" translate translate-attr-placeholder="SearchCategory">    
             </div>
             <hr>
 
@@ -26,10 +26,10 @@
                 <!-- show loader -->
                 <div ng-if="    ">
                     <img class="img-responsive" src="/modules/core/client/img/landing/outsoucing.png"> <br>
-                <i class="fa fa-spinner fa-spin fa-4x fa-fw"></i> 
+                <i class="fa fa-spinner fa-spin fa-4x fa-fw"></i>
                 </div>
             </center>
-        
+
             <div class="row m-t-lg">
                 <div class="col-xs-12 col-sm-12 col-md-10 col-lg-10 col-md-offset-1 m-ml-none m-mr-none" style="margin-top:20px">
                     <a  ui-sref="projects.browse-category-detail({categoryId: cat.id})" style="color: #333;" ng-repeat="cat in categories">
@@ -73,12 +73,12 @@
                                     <img src="/modules/projects/client/img/category_icon12.png"><br><br>
                                 </span>
                                 <!--Select cat name-->
-                                <span>&nbsp;{{cat.name}}&nbsp;</span> 
-                            </div>  
+                                <span>&nbsp;{{cat.name}}&nbsp;</span>
+                            </div>
                         </div>
-                    </a> 
+                    </a>
                 </div>
             </div>
-        </div> 
+        </div>
     </div>
 </section>
