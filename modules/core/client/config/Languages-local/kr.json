@@ -1911,7 +1911,12 @@
                                                                                         "DetailCert":"자격증 상세설명",
                                                                                           "PublicTit":"기사 홍보 제목",
                                                                                             "Publish":"기사 홍보 발행처",
-                                                                                              "Summ":"기사 홍보 상세 내용"
+                                                                                              "Summ":"기사 홍보 상세 내용",
+                                                                                              "Username":"아이디를 입력 하십시오",
+                                                                                              "EnterPass":"비밀번호를 입력 하십시오",
+                                                                                              "BusinessRegister":"사업자등록번호 (잘못된 번호는 강제탈퇴 조치됩니다)",
+                                                                                                "PasswordCharacter":"비밀번호(8자이상 영문대문자 및 특수기호)",
+                                                                                                  "ConfPass":"비밀번호 재입력 확인"
 
 
 

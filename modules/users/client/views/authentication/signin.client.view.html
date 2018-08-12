@@ -8,9 +8,9 @@
             <span translate="AnyoneCanSupport"></span>
                </h2>
          </div>
-            <h2 class="main_heading"><span style="color: #fff; font-weight: 700; font-size: 20px;" translate="AutomaticallyDeleted"></span></h2>  
+            <h2 class="main_heading"><span style="color: #fff; font-weight: 700; font-size: 20px;" translate="AutomaticallyDeleted"></span></h2>
 
-            <h2 class="main_heading"><span style="color: #37526a; font-weight: 700; font-size: 20px;" translate="optmizeGoogle"></span></h2>        
+            <h2 class="main_heading"><span style="color: #37526a; font-weight: 700; font-size: 20px;" translate="optmizeGoogle"></span></h2>
          </div>
          <!-- End: First Column -->
          <div class="col-xs-12 col-md-6 form-section">
@@ -19,10 +19,10 @@
                   <p translate="alreadyAccount">? <a ui-sref="authentication.signin" class="logn" translate="login"></a> </p>
                </div>
             </div>
-           
+
             <!-- custom code second colum-->
             <div class="col-xs-12 col-md-offset-2 col-md-8 login_form">
-         <!-- 
+         <!--
          <div class="logn-cal">
                            <h4>아웃소싱오케이에 오신것을 환영 합니다.</h4>
                         </div>
@@ -32,22 +32,22 @@
                      <div >
                    <div class="logn-cal">
                            <h4>&nbsp;</h4>
-                        </div>                        
+                        </div>
                         <div class="col-xs-12 col-md-offset-0 col-md-12 col-lg-offset-0 col-lg-10 signup-form">
                      <div class="logn-cal text-center" style="background-color: #37526a;height:45px;color:#fff;padding-top:2px;border-radius: 3px;margin-bottom:30px;">
                         <h4 class="mobile-view-prjct" translate="loginOutSourcing"></h4>
                      </div>
-                       
+
                            <form name="userForm" ng-submit="signin(userForm.$valid)" class="signin" novalidate autocomplete="off">
                               <fieldset>
                                  <div class="form-group" show-errors>
-                                    <input type="text" id="username" name="username" class="form-control" ng-model="credentials.username" placeholder="아이디를 입력 하십시오/Please enter your username" required>
+                                    <input type="text" id="username" name="username" class="form-control" ng-model="credentials.username" placeholder="아이디를 입력 하십시오/Please enter your username" translate translate-attr-placeholder="Username" required>
                                     <div ng-messages="userForm.username.$error" role="alert">
                                        <p class="help-block error-text" ng-message="required" translate="userNameRequired">.</p>
                                     </div>
                                  </div>
                                  <div class="form-group" show-errors>
-                                    <input type="password" id="password" name="password" class="form-control" ng-model="credentials.password" placeholder="비밀번호를 입력 하십시오/Please enter your password" required>
+                                    <input type="password" id="password" name="password" class="form-control" ng-model="credentials.password" placeholder="비밀번호를 입력 하십시오/Please enter your password" translate translate-attr-placeholder="EnterPass" required>
                                     <div ng-messages="userForm.password.$error" role="alert">
                                        <p class="help-block error-text" ng-message="required" translate="passwordRequired">.</p>
                                     </div>
@@ -55,14 +55,14 @@
                                  <div class="forgot-password">
                                     <a ui-sref="password.forgot" ng-click="forgotPass()"><img src="modules/users/client/img/basic/passwd.png" alt=""><span translate="forgetPassword"></span>?</a>
                                  </div>
-                                 <!-- <div vc-recaptcha class="captcha" key="'6Lc-GC4UAAAAABe1SMECofBM4Ud4ny--PxNDDkzZ'" 
+                                 <!-- <div vc-recaptcha class="captcha" key="'6Lc-GC4UAAAAABe1SMECofBM4Ud4ny--PxNDDkzZ'"
 ng-model="captchaResponse" size="normal" ></div> -->
                                  <p ng-show="captchaResponse==undefined && yourForm.$submitted" class="form-error">Please confirm that you are not a robot</p>
 
                                  <alert type="danger" ng-show="error" class="text-center text-danger">
                                     <span ng-bind="error"></span>
                                  </alert>
-                                 
+
                                  <div class="text-center form-group">
                                     <button type="submit" class="btn btn-success btn-lg jcm_login" style="background:#83817c;border: 1px solid #83817c;"><span translate="signin"></span></button>
                                  </div>
@@ -75,9 +75,9 @@ ng-model="captchaResponse" size="normal" ></div> -->
 
                            <div class="auth_signup hidden-xs hidden-sm">
                               <p class=""><img src="modules/core/client/img/customimages/main_icon10.png" alt="">&nbsp;<span translate="OptimizedForGoogleChrome"></span><br><a href="https://www.google.co.kr/chrome/browser/desktop/index.html" target="_blank"><img src="modules/users/client/img/chrome.png" style="padding-top:5px">&nbsp;&nbsp;<span translate="download"></span></a></p>
-                              <p><img src="modules/core/client/img/customimages/main_icon9.png" alt=""><span translate="choromeExtensionParagraph"></span></p>                      
+                              <p><img src="modules/core/client/img/customimages/main_icon9.png" alt=""><span translate="choromeExtensionParagraph"></span></p>
                            </div>
-                     
+
                         </div>
                      </div>
                      <!--Individual Login-->
@@ -86,9 +86,9 @@ ng-model="captchaResponse" size="normal" ></div> -->
                            <h3>Login to OutSourcingOk</h3>
                         </div>
                         <div class="sign-tdy">
-                           <a ng-click="callOauthProvider('/api/auth/facebook')"><button  class="btns fbw-login"><i class="fa 
+                           <a ng-click="callOauthProvider('/api/auth/facebook')"><button  class="btns fbw-login"><i class="fa
 fa-facebook fb-icon"></i>Sign up with Facebook</button></a>
-                           <a ng-click="callOauthProvider('/api/auth/google')"><button class="btns glw-login"><i class="fa fa-google 
+                           <a ng-click="callOauthProvider('/api/auth/google')"><button class="btns glw-login"><i class="fa fa-google
 fb-icon"></i>Sign up with Google</button></a>
                            <br>
                            <h5 class="text-right ors"><span class="top-or">or</span></h5>
@@ -98,14 +98,14 @@ fb-icon"></i>Sign up with Google</button></a>
                            <form name="userForm" ng-submit="signin(userForm.$valid)" class="signin" novalidate autocomplete="off">
                               <fieldset>
                                  <div class="form-group" show-errors>
-                                    <input type="text" id="username" name="username" class="form-control" 
+                                    <input type="text" id="username" name="username" class="form-control"
 ng-model="credentials.username" placeholder="Username" lowercase required>
                                     <div ng-messages="userForm.username.$error" role="alert">
                                        <p class="help-block error-text" ng-message="required">Username is required.</p>
                                     </div>
                                  </div>
                                  <div class="form-group" show-errors>
-                                    <input type="password" id="password" name="password" class="form-control" 
+                                    <input type="password" id="password" name="password" class="form-control"
 ng-model="credentials.password" placeholder="Password" required>
                                     <div ng-messages="userForm.password.$error" role="alert">
                                        <p class="help-block error-text" ng-message="required">Password is required.</p>
@@ -114,9 +114,9 @@ ng-model="credentials.password" placeholder="Password" required>
                                  <div class="forgot-password">
                                     <a ui-sref="password.forgot" ng-click="forgotPass()">Forgot your password?</a>
                                  </div>
-                                 <div vc-recaptcha class="captcha" key="'6Lc-GC4UAAAAABe1SMECofBM4Ud4ny--PxNDDkzZ'" 
+                                 <div vc-recaptcha class="captcha" key="'6Lc-GC4UAAAAABe1SMECofBM4Ud4ny--PxNDDkzZ'"
 ng-model="captchaResponse" size="normal" ></div>
-                                 <p ng-show="captchaResponse==undefined && yourForm.$submitted" class="form-error">Please confirm that 
+                                 <p ng-show="captchaResponse==undefined && yourForm.$submitted" class="form-error">Please confirm that
 you are not a robot</p>
 
 
@@ -136,7 +136,7 @@ you are not a robot</p>
                         </div>
                      </div> -->
                      <!--End Login Individual-->
-                  
+
             </div>
          </div>
       </div>

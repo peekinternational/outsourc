@@ -1890,7 +1890,12 @@
                 "DetailCert":"Detailed description of certification",
                 "PublicTit":"Publication title",
                 "Publish":"Publisher",
-                "Summ":"Summary"
+                "Summ":"Summary",
+                "Username":"Please enter your username",
+                "EnterPass":"Please enter your password",
+                "BusinessRegister":"Business registration number (the wrong number is forcibly withdrawn)",
+                "PasswordCharacter":"Password (8 or more characters in capital letters and special symbols)",
+                "ConfPass":"Confirm password"
 
 
 

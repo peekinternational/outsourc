@@ -1,16 +1,16 @@
 <div ui-view autoscroll="true" ng-hide="$state.includes('login')" ng-controller="AuthenticationController" ng-init="universalData();getCountry();">
    <div class="container-fluid reg-container">
-   
+
       <!-- Start: First Column -->
       <div class="col-xs-12 col-sm-6 col-md-6 left-side information hidden-xs">
          <div class="logo">
- 
+
          <!-- <a href="#"><img itemprop="image" class="img-responsive logo-imgs" src="modules/core/client/img/landing/outsoucing.png" alt=""></a> -->
             <h2 class="main_heading" style="padding-top:150px"><span style="color: #fff; font-weight: 700; font-size: 20px;border: 2px solid #fff;padding:5px 15px;" translate="signupForFreeAccount"></span>
-      
+
             <div class="signup-font" style="padding-top:10px">
-               <p class="p-b-none p-t-none m-t-none m-b-none"><span translate="ProvenFreelance"></span></p>               
-               <p class="p-b-none p-t-none m-t-none m-b-none"><span translate="RealtimeVideoChatSupport"></span></p> 
+               <p class="p-b-none p-t-none m-t-none m-b-none"><span translate="ProvenFreelance"></span></p>
+               <p class="p-b-none p-t-none m-t-none m-b-none"><span translate="RealtimeVideoChatSupport"></span></p>
                <p class="p-b-none p-t-none m-t-none m-b-none"><span translate="ProjectContestFreeReg"></span></p>
             </div>
          <h2 class="main_heading"><span style="color: #fff; font-weight: 700; font-size: 20px;"><span translate="AutomaticallyDeleted"></span></h2>
@@ -37,21 +37,21 @@
                               <fieldset>
                                  <div class="form-group" show-errors>
                                     <img itemprop="image" class="starimg" src="modules/users/client/img/basic/star.png" alt="">
-                                    <input type="text" id="companyName" name="companyName" class="form-control" ng-model="credentials.company.companyName" placeholder="회사명/Company Name" required>
+                                    <input type="text" id="companyName" name="companyName" class="form-control" ng-model="credentials.company.companyName" placeholder="회사명/Company Name" translate translate-attr-placeholder="Comp" required>
                                     <div ng-messages="userForm.companyName.$error" role="alert">
                                        <p class="help-block error-text" ng-message="required" translate="companyName">.</p>
                                     </div>
                                  </div>
                                  <div class="form-group" show-errors>
                                     <img itemprop="image" class="starimg" src="modules/users/client/img/basic/star.png" alt="">
-                                    <input type="text" id="registrationNo" name="registrationNo" class="form-control" ng-model="credentials.company.companyRegNum" placeholder="사업자등록번호 (잘못된 번호는 강제탈퇴 조치됩니다)/Business registration number (the wrong number is forcibly withdrawn)" required>
+                                    <input type="text" id="registrationNo" name="registrationNo" class="form-control" ng-model="credentials.company.companyRegNum" placeholder="사업자등록번호 (잘못된 번호는 강제탈퇴 조치됩니다)/Business registration number (the wrong number is forcibly withdrawn)" translate translate-attr-placeholder="BusinessRegister"  required>
                                     <div ng-messages="userForm.registrationNo.$error" role="alert">
                                        <p class="help-block error-text" ng-message="required" translate="registerNo">.</p>
                                     </div>
                                  </div>
                                  <div class="form-group" show-errors>
                                     <img itemprop="image" class="starimg" src="modules/users/client/img/basic/star.png" alt="">
-                                    <input type="email" id="email" name="email" class="form-control" ng-model="credentials.company.email" placeholder="이메일주소/Email Address" lowercase required>
+                                    <input type="email" id="email" name="email" class="form-control" ng-model="credentials.company.email" placeholder="이메일주소/Email Address" translate translate-attr-placeholder="E-Mail" lowercase required>
                                     <div ng-messages="userForm.email.$error" role="alert">
                                        <p class="help-block error-text" ng-message="required" translate="emailRequired">.</p>
                                        <p class="help-block error-text" ng-message="email" translate="emailInvalid">.</p>
@@ -59,7 +59,7 @@
                                  </div>
                                  <div class="form-group" show-errors>
                                     <img itemprop="image" class="starimg" src="modules/users/client/img/basic/star.png" alt="">
-                                    <input type="text" id="username" name="username" class="form-control" ng-model="credentials.company.username" placeholder="아이디/User name" lowercase required>
+                                    <input type="text" id="username" name="username" class="form-control" ng-model="credentials.company.username" placeholder="아이디/User name" translate translate-attr-placeholder="Username" lowercase required>
                                     <div ng-messages="userForm.username.$error" role="alert">
                                        <p class="help-block error-text" ng-message="required" translate="userNameRequired">.</p>
                                     </div>
@@ -100,7 +100,7 @@
                                              <span class="input-group-addon">{{dialCodeCompany}}</span>
                                              <input type="text" id="telephone" name="telephone" placeholder="Company Telephone No" class="form-control"  ng-model="credentials.company.companyTel" required="" onkeypress="return (event.charCode == 8 || event.charCode == 0) ? null : event.charCode >= 48 && event.charCode <= 57">
 
-                                             
+
                                              <div ng-messages="userForm.telephone.$error" role="alert">
                                                 <p class="help-block error-text" ng-message="required">Telephone Number is required.</p>
                                              </div>
@@ -129,7 +129,7 @@
                                  </div> -->
                                  <div class="form-group" show-errors>
                                     <img itemprop="image" class="starimg" src="modules/users/client/img/basic/star.png" alt="">
-                                    <input type="password" id="password" name="password" class="form-control" ng-model="credentials.company.password" placeholder="비밀번호(8자이상 영문대문자 및 특수기호)/Password (8 or more characters in capital letters and special symbols)" popover="{{popoverMsg}}" popover-trigger="focus" password-validator required>
+                                    <input type="password" id="password" name="password" class="form-control" ng-model="credentials.company.password" placeholder="비밀번호(8자이상 영문대문자 및 특수기호)/Password (8 or more characters in capital letters and special symbols)" translate translate-attr-placeholder="PasswordCharacter" popover="{{popoverMsg}}" popover-trigger="focus" password-validator required>
                                     <div ng-messages="userForm.password.$error" role="alert">
                                        <p class="help-block error-text" ng-message="required" translate="passwordRequired">.</p>
                                        <div ng-repeat="passwordError in passwordErrors">
@@ -143,7 +143,7 @@
                                  </div>
                                  <div class="form-group" show-errors>
                                     <img itemprop="image" class="starimg" src="modules/users/client/img/basic/star.png" alt="">
-                                    <input type="password" id="confirmPassword" name="confirmPassword" class="form-control" ng-model="credentials.company.confirmPassword" placeholder="비밀번호 재입력 확인/Confirm password" popover="{{popoverMsg}}" popover-trigger="focus" match-password="password" required="">
+                                    <input type="password" id="confirmPassword" name="confirmPassword" class="form-control" ng-model="credentials.company.confirmPassword" placeholder="비밀번호 재입력 확인/Confirm password" translate translate-attr-placeholder="ConfPass" popover="{{popoverMsg}}" popover-trigger="focus" match-password="password" required="">
                                     <div ng-messages="userForm.confirmPassword.$error" role="alert">
                                        <p class="help-block error-text" ng-message="required" translate="confirmPass">.</p>
                                        <p class="help-block error-text" ng-message="passwordMatch" translate="passwordNotMatch">.</p>
@@ -159,12 +159,12 @@
                                           <!-- ng-change="companyInterestRemove()" -->
                                           <span class="hires" translate="hire"></span>
                                        </div>
-                                       <div class="col-xs-12 prjct-list-font p-t-xs p-l-xs"> 
+                                       <div class="col-xs-12 prjct-list-font p-t-xs p-l-xs">
                                           <span translate="RegisteredOnly"></span>
                                        </div>
                                      </div>
 
-                                     <div class="col-xs-3 p-t-sm text-center">  
+                                     <div class="col-xs-3 p-t-sm text-center">
                                        <span translate="or"></span>
                                      </div>
                                      <div class="col-xs-4 text-center">
@@ -173,11 +173,11 @@
                                          <!--  ng-change="companyInterestRemove()" -->
                                           <span class="hires" translate="work"></span>
                                        </div>
-                                       <div class="prjct-list-font p-t-xs"> 
+                                       <div class="prjct-list-font p-t-xs">
                                           <span translate="ApplicantOnly"></span>
                                        </div>
-                                      </div> 
-                             
+                                      </div>
+
                                     </div>
                                  </div>
                             <!--      <div class="show_work work-show" id="showworkss" ng-if=" credentials.company.userRole =='work'">
@@ -214,7 +214,7 @@
                                        <input type="checkbox" ng-model = "credentials.company.subscribe"> <span translate="example"></span> <a ui-sref="codeofconduct" class="logn agree" target="_blank"><span translate="UserRules"></span></a> <span translate="AgreeforEmails"></span>
                                     </div>
                                      <div class="form-group chkbx">
-                                       <input type="checkbox" ng-model = 'agreement.isSelected'><span translate="example"></span><a ui-sref="term-condition" class="logn" ><span translate="TermsofUse"></span></a> <span translate="and"></span>  
+                                       <input type="checkbox" ng-model = 'agreement.isSelected'><span translate="example"></span><a ui-sref="term-condition" class="logn" ><span translate="TermsofUse"></span></a> <span translate="and"></span>
                                        <a ui-sref="privacy-policy" class="logn agree"><span translate="PrivacyStatement"></span></a> <span translate="Agree"></span>
                                     </div>
                                     <div class="text-center form-group">
@@ -236,7 +236,7 @@
                      <div ng-if=" user.value == 'individual'">
                        <hr>
                         <!-- <div class="sign-tdy">
-                           
+
                            <a ng-click="callOauthProvider('/api/auth/facebook')"><button class="btns fbw" value=""><i class="fa fa-facebook fb-icon"></i>페이스북계정 회원가입</button></a>
                            <a ng-click="callOauthProvider('/api/auth/google')"><button class="btns glw"><i class="fa fa-google fb-icon"></i>구글계정 회원가입</button></a>
                            <br>
@@ -250,7 +250,7 @@
                                     <div class="row">
                                        <div class="col-xs-6">
                                           <img itemprop="image" class="starimg" src="modules/users/client/img/basic/star.png" alt="">
-                                          <input type="text" id="firstName" name="firstName" class="form-control" ng-model="credentials.individual.firstName" placeholder="성/First name" required>
+                                          <input type="text" id="firstName" name="firstName" class="form-control" ng-model="credentials.individual.firstName" placeholder="성/First name" translate translate-attr-placeholder="FName" required>
                                           <div ng-messages="userForm.firstName.$error" role="alert">
                                              <p class="help-block error-text" ng-message="required" translate="firstName">.</p>
                                           </div>
@@ -258,17 +258,17 @@
 
                               <div class="col-xs-6">
                                           <img itemprop="image" class="starimg" src="modules/users/client/img/basic/star.png" alt="">
-                                          <input type="text" id="lastName" name="lastName" class="form-control" ng-model="credentials.individual.lastName" placeholder="이름/Last name" required>
+                                          <input type="text" id="lastName" name="lastName" class="form-control" ng-model="credentials.individual.lastName" placeholder="이름/Last name" translate translate-attr-placeholder="LName"  required>
                                           <div ng-messages="userForm.lastName.$error" role="alert">
                                              <p class="help-block error-text" ng-message="required" translate="lastName">.</p>
                                           </div>
                                        </div>
-                                       
+
                                     </div>
                                  </div>
                                  <div class="form-group" show-errors>
                                     <img itemprop="image" class="starimg" src="modules/users/client/img/basic/star.png" alt="">
-                                    <input type="email" id="email" name="email" class="form-control" ng-model="credentials.individual.email" placeholder="이메일 주소/Email Address" lowercase required>
+                                    <input type="email" id="email" name="email" class="form-control" ng-model="credentials.individual.email" placeholder="이메일 주소/Email Address" translate translate-attr-placeholder="E-Mail" lowercase required>
                                     <div ng-messages="userForm.email.$error" role="alert">
                                        <p class="help-block error-text" ng-message="required" translate="emailRequired">.</p>
                                        <p class="help-block error-text" ng-message="email" translate="emailInvalid">.</p>
@@ -276,12 +276,12 @@
                                  </div>
                                  <div class="form-group" show-errors>
                                     <img itemprop="image" class="starimg" src="modules/users/client/img/basic/star.png" alt="">
-                                    <input type="text" id="username" name="username" class="form-control" ng-model="credentials.individual.username" placeholder="아이디/User name" lowercase required>
+                                    <input type="text" id="username" name="username" class="form-control" ng-model="credentials.individual.username" placeholder="아이디/User name" translate translate-attr-placeholder="Username" lowercase required>
                                     <div ng-messages="userForm.username.$error" role="alert">
                                        <p class="help-block error-text" ng-message="required" translate="userNameRequired">.</p>
                                     </div>
                                  </div>
-                                 
+
                                  <script type="text/ng-template" id="selector/demo/country">
                                     <i class="flag" ng-class="option.code.toLowerCase()"></i>&nbsp;
                                     {{option.name}}
@@ -323,7 +323,7 @@
                                  </div> -->
                                  <div class="form-group" show-errors>
                                     <img itemprop="image" class="starimg" src="modules/users/client/img/basic/star.png" alt="">
-                                    <input type="password" id="password" name="password" class="form-control" ng-model="credentials.individual.password" placeholder="비밀번호(8자이상 영문대문자 및 특수기호)/Password (8 or more characters in capital letters and special symbols)" popover="{{popoverMsg}}" popover-trigger="focus" password-validator required>
+                                    <input type="password" id="password" name="password" class="form-control" ng-model="credentials.individual.password" placeholder="비밀번호(8자이상 영문대문자 및 특수기호)/Password (8 or more characters in capital letters and special symbols)" translate translate-attr-placeholder="PasswordCharacter" popover="{{popoverMsg}}" popover-trigger="focus" password-validator required>
                                     <div ng-messages="userForm.password.$error" role="alert">
                                        <p class="help-block error-text" ng-message="required" translate="passwordRequired">.</p>
                                        <div ng-repeat="passwordError in passwordErrors">
@@ -337,7 +337,7 @@
                                  </div>
                                  <div class="form-group" show-errors>
                                     <img itemprop="image" class="starimg" src="modules/users/client/img/basic/star.png" alt="">
-                                    <input type="password" id="confirmPassword" name="confirmPassword" class="form-control" ng-model="credentials.individual.confirmPassword" placeholder="비밀번호 재입력 확인/Confirm password " popover="{{popoverMsg}}" popover-trigger="focus" match-password="password" required="">
+                                    <input type="password" id="confirmPassword" name="confirmPassword" class="form-control" ng-model="credentials.individual.confirmPassword" placeholder="비밀번호 재입력 확인/Confirm password " translate translate-attr-placeholder="ConfPass" popover="{{popoverMsg}}" popover-trigger="focus" match-password="password" required="">
                                     <div ng-messages="userForm.confirmPassword.$error" role="alert">
                                        <p class="help-block error-text" ng-message="required" translate="confirmPassword">.</p>
                                        <p class="help-block error-text" ng-message="passwordMatch" translate="passwordNotMatch">.</p>
@@ -353,11 +353,11 @@
                                           <!-- ng-change="companyInterestRemove()" -->
                                           <span class="hires" translate="hire"></span>
                                        </div>
-                                       <div class="col-xs-12 prjct-list-font p-t-xs p-l-xs"> 
+                                       <div class="col-xs-12 prjct-list-font p-t-xs p-l-xs">
                                           <span translate="RegisteredOnly"></span>
                                        </div>
                                      </div>
-                                     <div class="col-xs-3 p-t-sm text-center">  
+                                     <div class="col-xs-3 p-t-sm text-center">
                                        <span translate="or"></span>
                                      </div>
                                      <div class="col-xs-4 text-center">
@@ -366,10 +366,10 @@
                                          <!--  ng-change="companyInterestRemove()" -->
                                           <span class="hires" translate="work"></span>
                                        </div>
-                                       <div class="prjct-list-font p-t-xs"> 
+                                       <div class="prjct-list-font p-t-xs">
                                           <span translate="ApplicantOnly"></span>
                                        </div>
-                                      </div>  
+                                      </div>
                                     </div>
                                  </div>
                                 <!--  <div class="show_work work-show" id="showworkss" ng-if=" credentials.individual.userRole =='work'">
@@ -403,10 +403,10 @@
                                  </div>
                                  <div class="bots login-bot prjct-list-font">
                                     <div class="form-group chkbx">
-                                       <input type="checkbox" ng-model = "credentials.company.subscribe"> <span translate="example"></span> <a ui-sref="codeofconduct" class="logn agree" target="_blank" translate="UserRules"></a> <span translate="AgreeforEmails"></span> 
+                                       <input type="checkbox" ng-model = "credentials.company.subscribe"> <span translate="example"></span> <a ui-sref="codeofconduct" class="logn agree" target="_blank" translate="UserRules"></a> <span translate="AgreeforEmails"></span>
                                     </div>
                                      <div class="form-group chkbx">
-                                       <input type="checkbox" ng-model = 'agreement.isSelected'><span class="chk-text"> <span translate="example"></span><a ui-sref="term-condition" class="logn"  translate="TermsofUse"></a> <span translate="and"></span>  
+                                       <input type="checkbox" ng-model = 'agreement.isSelected'><span class="chk-text"> <span translate="example"></span><a ui-sref="term-condition" class="logn"  translate="TermsofUse"></a> <span translate="and"></span>
                                        <a ui-sref="privacy-policy" class="logn agree" translate="PrivacyStatement"></a> <span translate="Agree"></span>
                                        </span>
                                     </div>
