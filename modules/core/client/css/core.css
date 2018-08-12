@@ -8689,7 +8689,6 @@ a.socialIcon:hover, .socialHoverClass {
     border: 1px solid #d5d5d5;
     box-shadow: none;
 	border-radius: 5px;
-
 }
 .pic-overLay{
     position: absolute;
@@ -8709,3 +8708,4 @@ a.socialIcon:hover, .socialHoverClass {
 .categories-list li{
     margin-left: 0px;
 }
+
